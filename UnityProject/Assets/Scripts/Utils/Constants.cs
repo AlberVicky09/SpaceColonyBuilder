@@ -23,6 +23,28 @@ public static class Constants
             { ResourceEnum.Platinum, 1f }
     };
 
+    //Calendar Map
+    public static Dictionary<int, string> CALENDAR_MAP = new Dictionary<int, string> {
+        { 1, "Jan" },
+        { 2, "Feb" },
+        { 3, "Mar" },
+        { 4, "Apr" },
+        { 5, "May" },
+        { 6, "Jun" },
+        { 7, "Jul" },
+        { 8, "Aug" },
+        { 9, "Sep" },
+        { 10, "Oct" },
+        { 11, "Nov" },
+        { 12, "Dec" },
+    };
+
+    public static readonly Dictionary<ResourceEnum, int> MAIN_BUILDING_MANTAINING_COST = new Dictionary<ResourceEnum, int>
+        { {ResourceEnum.Food, 3 },  {ResourceEnum.Water, 5} };
+    public static readonly Dictionary<ResourceEnum, int> ORE_GATHERER_COST = new Dictionary<ResourceEnum, int>
+        { {ResourceEnum.Platinum, 5}, {ResourceEnum.Iron, 5} };
+
+
     public const float VIEW_DISTANCE_RANGE = 24f;
     public const int INITIAL_ORE_NUMBER = 10;
     public const float ORE_FLOOR_OFFSET = 0.4f;
@@ -43,10 +65,6 @@ public static class Constants
 
     public const float GATHERER_ACTION_OFFSET = 1.5f;
 
-    public const float TIME_SCALE_NORMAL = 1f;
-    public const float TIME_SCALE_SLOW = 0.5f;
-    public const float TIME_SCALE_FAST = 1.5f;
-
     public static List<int> INITIAL_GATHERER_PRICE = new List<int>() { 25, 50, 25};
 
     public static Vector3 RESET_CAMERA_POSITION = new Vector3(-9.3f, 7.25f, 0f);
@@ -55,8 +73,12 @@ public static class Constants
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
 
-    public static float NORMAL_VELOCITY = 1f;
-    public static float SLOWED_VELOCITY = 0.5f;
-    public static float FAST_VELOCITY = 1.5f;
-    public static float STOPPED_VELOCITY = 0f;
+    public const float TIME_SCALE_NORMAL = 1f;
+    public const float TIME_SCALE_SLOW = 0.5f;
+    public const float TIME_SCALE_FAST = 1.5f;
+    public static float TIME_SCALE_STOPPED = 0f;
+
+    public static float RESOURCE_LOSS_MOVEMENT_TIME = 2f;
+    public static float RESOURCE_LOSS_MOVEMENT_LERP_TIME = 0.05f;
+    public static Vector3 RESOURCE_LOSS_DISPLACE = new Vector3(0, 30f, 0);
 }

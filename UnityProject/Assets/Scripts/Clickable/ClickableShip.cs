@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickableShip : Clickable {
@@ -26,9 +25,9 @@ public class ClickableShip : Clickable {
 
     private void SelectResource(ResourceEnum resource) {
         gathererBehaviour.resourceGatheringType = resource;
-        gameControllerScript.CalculateOreForGatherer(this.gameObject);
+        gameControllerScript.CalculateOreForGatherer(gameObject);
         gameControllerScript.uiInteractablePanel.gameObject.SetActive(false);
-        gameControllerScript.PlayVelocity(Constants.NORMAL_VELOCITY);
+        gameControllerScript.PlayVelocity(Constants.TIME_SCALE_NORMAL);
         gathererBehaviour.UpdateDestination();
     }
 

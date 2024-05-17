@@ -3,9 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.AI;
-using System.IO;
-using System.Collections;
 
 public class GameControllerScript : MonoBehaviour {
 
@@ -24,7 +21,8 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject uiButtonCanvas;
     public GameObject[] uiButtons;
     public Image uiRepresentation;
-    private Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
+    public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
+    public Dictionary<ResourceEnum, TMP_Text> uiResourcesLossTextMap;
 
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
@@ -36,18 +34,17 @@ public class GameControllerScript : MonoBehaviour {
     private float previousMaxViewDistance = 0f;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
-
-    public int day, month, year;
     #endregion
 
     void Start() {
-
+        //Initialize resources dictionaries
         oreListDictionary = new Dictionary<ResourceEnum, List<GameObject>>();
         resourcesDictionary = new Dictionary<ResourceEnum, int>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<GameObject>());
             resourcesDictionary.Add(resource, 0);
         }
+        //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },
             { ResourceEnum.Food, GameObject.Find("FoodCounter").GetComponent<TMP_Text>() },
@@ -55,6 +52,14 @@ public class GameControllerScript : MonoBehaviour {
             { ResourceEnum.Gold, GameObject.Find("GoldCounter").GetComponent<TMP_Text>() },
             { ResourceEnum.Platinum, GameObject.Find("PlatinumCounter").GetComponent<TMP_Text>() }
         };
+        uiResourcesLossTextMap = new Dictionary<ResourceEnum, TMP_Text> {
+            { ResourceEnum.Water, GameObject.Find("WaterLossCounter").GetComponent<TMP_Text>() },
+            { ResourceEnum.Food, GameObject.Find("FoodLossCounter").GetComponent<TMP_Text>() },
+            { ResourceEnum.Iron, GameObject.Find("IronLossCounter").GetComponent<TMP_Text>() },
+            { ResourceEnum.Gold, GameObject.Find("GoldLossCounter").GetComponent<TMP_Text>() },
+            { ResourceEnum.Platinum, GameObject.Find("PlatinumLossCounter").GetComponent<TMP_Text>() }
+        };
+        //Initialize ore images 
         oreListImage = new Dictionary<ResourceEnum, Sprite> {
             { ResourceEnum.Water, oreImages[0] },
             { ResourceEnum.Iron, oreImages[1] },
@@ -63,8 +68,6 @@ public class GameControllerScript : MonoBehaviour {
         };
 
         GenerateRandomOres();
-
-        StartCoroutine("StartDayCicle");
     }
 
     public void GenerateRandomOres() {
@@ -117,12 +120,6 @@ public class GameControllerScript : MonoBehaviour {
         }
     }
 
-    public void UpdateResource(ResourceEnum resourceType, int quantity) {
-        //Add resources and update screen text
-        resourcesDictionary[resourceType] += quantity;
-        uiResourcesTextMap[resourceType].text = resourcesDictionary[resourceType].ToString();
-    }
-
     public void ActivateAlertCanvas(string alertDisplayText) {
         //Display alert canvas with specified text and stop time
         alertCanvas.SetActive(true);
@@ -144,35 +141,6 @@ public class GameControllerScript : MonoBehaviour {
 
     public void PauseGame() {
         isGamePaused = true;
-        Time.timeScale = Constants.STOPPED_VELOCITY;
-    }
-
-    private IEnumerator StartDayCicle() {
-        //Every 30 seconds, a day passes
-        yield return new WaitForSeconds(30);
-        IncreaseDay();
-    }
-
-    private void IncreaseDay() {
-        //Increase day and month/year if needed
-        day++;
-        if(day > 30) {
-            day = 1;
-            month++;
-            if(month > 12) {
-                month = 1;
-                year++;
-            }
-        }
-
-        //Consume resources every 15 days
-        if (day % 15 == 0) {
-            ConsumeResources();
-        }
-    }
-
-    private void ConsumeResources() {
-        // TODO Calculate how are resources lost depending on buildings and ships
-        
+        Time.timeScale = Constants.TIME_SCALE_STOPPED;
     }
 }
