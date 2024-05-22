@@ -18,7 +18,9 @@ public class DatePanelController : MonoBehaviour
         gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
         uiUpdateController = GameObject.Find("GameController").GetComponent<UIUpdateController>();
         StartCoroutine("StartDayCicle");
-        UpdateDateTexts();
+        UpdateDayText();
+        UpdateMonthText();
+        UpdateYearText();
     }
 
     public void PauseVelocity() {
@@ -67,7 +69,7 @@ public class DatePanelController : MonoBehaviour
     private IEnumerator StartDayCicle() {
         while (true) {
             //Every 30 seconds, a day passes
-            yield return new WaitForSeconds(30);
+            yield return new WaitForSeconds(0.5f);
             IncreaseDay();
         }
     }
@@ -82,11 +84,11 @@ public class DatePanelController : MonoBehaviour
             if (month > 12) {
                 month = 1;
                 year++;
+                UpdateYearText();
             }
+            UpdateMonthText();
         }
-
-        //Update UI texts
-        UpdateDateTexts();
+        UpdateDayText();
 
         //Consume resources every 15 days
         if (day % 15 == 0) {
@@ -94,9 +96,13 @@ public class DatePanelController : MonoBehaviour
         }
     }
 
-    private void UpdateDateTexts() {
+    private void UpdateDayText() {
         dayText.text = day.ToString();
-        monthText.text = Constants.CALENDAR_MAP[day];
+    }
+    private void UpdateMonthText() {
+        monthText.text = Constants.CALENDAR_MAP[month]; 
+    }
+    private void UpdateYearText() {
         yearText.text = year.ToString();
     }
 }

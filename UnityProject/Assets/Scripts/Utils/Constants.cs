@@ -78,7 +78,7 @@ public static class Constants
     public const float TIME_SCALE_FAST = 1.5f;
     public static float TIME_SCALE_STOPPED = 0f;
 
-    public static float RESOURCE_LOSS_MOVEMENT_TIME = 2f;
+    public static float RESOURCE_LOSS_MOVEMENT_TIME = 1.5f;
     public static float RESOURCE_LOSS_MOVEMENT_LERP_TIME = 0.05f;
     public static Vector3 RESOURCE_LOSS_DISPLACE = new Vector3(0, 30f, 0);
 }
