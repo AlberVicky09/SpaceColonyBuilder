@@ -7,6 +7,8 @@ using System;
 public class GameControllerScript : MonoBehaviour {
 
     #region Variables
+    public UIUpdateController UIUpdateController;
+
     [SerializeField] GameObject defaultOrePrefab;
     public GameObject defaultGathererPrefab;
 
@@ -22,7 +24,7 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject[] uiButtons;
     public Image uiRepresentation;
     public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
-    public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesLossTextMap;
+    public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesChangeTextMap;
 
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
@@ -36,7 +38,7 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, int> resourcesDictionary;
     #endregion
 
-    void Start() {
+    void Awake() {
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },
@@ -46,17 +48,17 @@ public class GameControllerScript : MonoBehaviour {
             { ResourceEnum.Platinum, GameObject.Find("PlatinumCounter").GetComponent<TMP_Text>() }
         };
 
-        var waterLossGO = GameObject.Find("WaterLossCounter");
-        var foodLossGO = GameObject.Find("FoodLossCounter");
-        var ironLossGO = GameObject.Find("IronLossCounter");
-        var goldLossGO = GameObject.Find("GoldLossCounter");
-        var platinumLossGO = GameObject.Find("PlatinumLossCounter");
-        uiResourcesLossTextMap = new Dictionary<ResourceEnum, ValueTuple<TMP_Text, CanvasRenderer>> {
-            { ResourceEnum.Water, new ValueTuple<TMP_Text, CanvasRenderer>(waterLossGO.GetComponent<TMP_Text>(), waterLossGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Food, new ValueTuple<TMP_Text, CanvasRenderer>(foodLossGO.GetComponent<TMP_Text>(), foodLossGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Iron, new ValueTuple<TMP_Text, CanvasRenderer>(ironLossGO.GetComponent<TMP_Text>(), ironLossGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Gold, new ValueTuple<TMP_Text, CanvasRenderer>(goldLossGO.GetComponent<TMP_Text>(), goldLossGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Platinum, new ValueTuple<TMP_Text, CanvasRenderer>(platinumLossGO.GetComponent<TMP_Text>(), platinumLossGO.GetComponent<CanvasRenderer>()) }
+        var waterChangeGO = GameObject.Find("WaterChangeCounter");
+        var foodChangeGO = GameObject.Find("FoodChangeCounter");
+        var ironChangeGO = GameObject.Find("IronChangeCounter");
+        var goldChangeGO = GameObject.Find("GoldChangeCounter");
+        var platinumChangeGO = GameObject.Find("PlatinumChangeCounter");
+        uiResourcesChangeTextMap = new Dictionary<ResourceEnum, ValueTuple<TMP_Text, CanvasRenderer>> {
+            { ResourceEnum.Water, new ValueTuple<TMP_Text, CanvasRenderer>(waterChangeGO.GetComponent<TMP_Text>(), waterChangeGO.GetComponent<CanvasRenderer>()) },
+            { ResourceEnum.Food, new ValueTuple<TMP_Text, CanvasRenderer>(foodChangeGO.GetComponent<TMP_Text>(), foodChangeGO.GetComponent<CanvasRenderer>()) },
+            { ResourceEnum.Iron, new ValueTuple<TMP_Text, CanvasRenderer>(ironChangeGO.GetComponent<TMP_Text>(), ironChangeGO.GetComponent<CanvasRenderer>()) },
+            { ResourceEnum.Gold, new ValueTuple<TMP_Text, CanvasRenderer>(goldChangeGO.GetComponent<TMP_Text>(), goldChangeGO.GetComponent<CanvasRenderer>()) },
+            { ResourceEnum.Platinum, new ValueTuple<TMP_Text, CanvasRenderer>(platinumChangeGO.GetComponent<TMP_Text>(), platinumChangeGO.GetComponent<CanvasRenderer>()) }
         };
 
         //Initialize resources dictionaries
@@ -64,10 +66,11 @@ public class GameControllerScript : MonoBehaviour {
         resourcesDictionary = new Dictionary<ResourceEnum, int>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<GameObject>());
-            resourcesDictionary.Add(resource, 0);
+            resourcesDictionary.Add(resource, 500);
             //Hide resources loss text
-            uiResourcesLossTextMap[resource].canvas.SetAlpha(0f);
+            uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
         }
+        UIUpdateController.SetResourcesText();
 
         //Initialize ore images 
         oreListImage = new Dictionary<ResourceEnum, Sprite> {
