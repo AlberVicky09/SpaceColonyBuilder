@@ -15,7 +15,7 @@ public class GameControllerScript : MonoBehaviour {
     public List<GameObject> mainBuildingList;
     public List<GameObject> oreGatherersList;
 
-    public Dictionary<ResourceEnum, List<GameObject>> oreListDictionary;
+    public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Sprite> oreListImage;
     public Sprite[] oreImages;
     public Sprite missingAction;
@@ -62,10 +62,10 @@ public class GameControllerScript : MonoBehaviour {
         };
 
         //Initialize resources dictionaries
-        oreListDictionary = new Dictionary<ResourceEnum, List<GameObject>>();
+        oreListDictionary = new Dictionary<ResourceEnum, List<ResourceTuple>>();
         resourcesDictionary = new Dictionary<ResourceEnum, int>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
-            oreListDictionary.Add(resource, new List<GameObject>());
+            oreListDictionary.Add(resource, new List<ResourceTuple>());
             resourcesDictionary.Add(resource, 500);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
@@ -97,7 +97,7 @@ public class GameControllerScript : MonoBehaviour {
             instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Glossiness", Constants.ORE_SMOOTHNESS_MAP[randomResource]);
             instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Metallic", Constants.ORE_METALLIC_MAP[randomResource]);
             
-            oreListDictionary[randomResource].Add(instantiatedOre);
+            oreListDictionary[randomResource].Add(new ResourceTuple(instantiatedOre, false));
         }
     }
 
@@ -111,7 +111,7 @@ public class GameControllerScript : MonoBehaviour {
             Vector2 currentOrePos;
             foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
                 for (int i = 0; i < oreListDictionary[resource].Count; i++) {
-                    currentOrePos = new Vector2(oreListDictionary[resource][i].transform.position.x, oreListDictionary[resource][i].transform.position.y);
+                    currentOrePos = new Vector2(oreListDictionary[resource][i].gameObject.transform.position.x, oreListDictionary[resource][i].gameObject.transform.position.y);
                     if (Vector2.Distance(pos, currentOrePos) < 15) { valid = false; break; }
                 }
                 if(!valid) { break; }
@@ -123,10 +123,10 @@ public class GameControllerScript : MonoBehaviour {
     public void CalculateOreForGatherer(GameObject oreGatherer) {
         //Finds nearest ore of specified type
         var gathererBehaviour = oreGatherer.GetComponent<GathererBehaviour>();
-        var nearestOre = Utils.FindNearestInList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
+        var nearestOre = Utils.FindNearestGameObjectInTupleList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
 
         if (nearestOre is not null) {
-            gathererBehaviour.objectiveItem = nearestOre.transform;
+            gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
         } else {
             gathererBehaviour.DisplayAction(missingAction);

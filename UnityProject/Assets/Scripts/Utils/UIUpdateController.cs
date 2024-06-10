@@ -26,6 +26,9 @@ public class UIUpdateController : MonoBehaviour
 
         //Update screen text
         gameControllerScript.uiResourcesTextMap[resourceType].text = gameControllerScript.resourcesDictionary[resourceType].ToString();
+        
+        //Display update
+        StartCoroutine(gameControllerScript.UIUpdateController.DisplayResourceChange(resourceType, quantity, operation));
     }
 
     public IEnumerator DisplayResourceChange(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
@@ -70,7 +73,6 @@ public class UIUpdateController : MonoBehaviour
                 gameControllerScript.mainBuildingList.Count * CollectionExtensions.GetValueOrDefault(Constants.MAIN_BUILDING_MANTAINING_COST, resource) +
                 gameControllerScript.oreGatherersList.Count * CollectionExtensions.GetValueOrDefault(Constants.ORE_GATHERER_COST, resource);
             UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);
-            StartCoroutine(DisplayResourceChange(resource, resourceLoss, ResourceOperationEnum.Decrease));
         }
     }
 }

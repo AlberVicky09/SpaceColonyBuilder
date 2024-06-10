@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +6,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     protected GameControllerScript gameControllerScript;
     [SerializeField] Sprite objectImage;
+    [SerializeField] Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
 
     private CameraMove cameraMove;
@@ -41,6 +39,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
         var i = 0;
         while(i < buttonNumber && gameControllerScript.uiButtons.Length >= i) {
             gameControllerScript.uiButtons[i].SetActive(true);
+            gameControllerScript.uiButtons[i].GetComponent<Image>().sprite = buttonImages[i];
             i++;
         }
     }

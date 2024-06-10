@@ -81,6 +81,6 @@ public static class Constants
     public static float RESOURCE_CHANGE_MOVEMENT_TIME = 1.5f;
     public static float RESOURCE_CHANGE_MOVEMENT_LERP_TIME = 0.05f;
     public static Vector3 RESOURCE_CHANGE_DISPLACE = new Vector3(0, 30f, 0);
-    public static Color RESOURCE_CHANGE_INCREASE_COLOR = new Color(1, 0.3539989f, 0.31761f);
-    public static Color RESOURCE_CHANGE_DECREASE_COLOR = new Color(0.4947595f, 1, 0.3176471f);
+    public static Color RESOURCE_CHANGE_INCREASE_COLOR = new Color(0.4947595f, 1, 0.3176471f);
+    public static Color RESOURCE_CHANGE_DECREASE_COLOR = new Color(1, 0.3539989f, 0.31761f);
 }
