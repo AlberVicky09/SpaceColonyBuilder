@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class Utils {
@@ -57,5 +58,19 @@ public static class Utils {
 
         // Set
         marker.transform.localPosition = canvasPos;
+    }
+    
+    public static string[] ReadFile(string fileName)
+    {
+        // Path to the file
+        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
+
+        // Check if the file exists
+        if (File.Exists(filePath))
+        {
+            // Read all text from the file
+            return File.ReadAllLines(filePath);
+        }
+        return new []{"File not found", "File not found"};
     }
 }

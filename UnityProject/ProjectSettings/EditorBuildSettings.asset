@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 9190db9a0b438a04ca22562285569b70
   - enabled: 1
+    path: Assets/Scenes/MissionSelection.unity
+    guid: c952b85d5913234428c200b6abfedcdb
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

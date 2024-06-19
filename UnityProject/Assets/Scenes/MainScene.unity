@@ -2890,7 +2890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63ed3eb20a65241a27883ee12bb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoveringDisplayText: Water
+  hoveringDisplayText: Food
   hoveringCanvas: {fileID: 2139895518}
   hoveringCanvasText: {fileID: 413479618}
 --- !u!114 &816622801
@@ -4388,7 +4388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63ed3eb20a65241a27883ee12bb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoveringDisplayText: Water
+  hoveringDisplayText: Platinum
   hoveringCanvas: {fileID: 2139895518}
   hoveringCanvasText: {fileID: 413479618}
 --- !u!114 &1149100302
@@ -4984,7 +4984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63ed3eb20a65241a27883ee12bb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoveringDisplayText: Water
+  hoveringDisplayText: Iron
   hoveringCanvas: {fileID: 2139895518}
   hoveringCanvasText: {fileID: 413479618}
 --- !u!114 &1273234654
@@ -5402,7 +5402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63ed3eb20a65241a27883ee12bb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoveringDisplayText: Water
+  hoveringDisplayText: Gold
   hoveringCanvas: {fileID: 2139895518}
   hoveringCanvasText: {fileID: 413479618}
 --- !u!114 &1297153504
@@ -6796,7 +6796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63ed3eb20a65241a27883ee12bb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoveringDisplayText: Paladium
+  hoveringDisplayText: Platinum
   hoveringCanvas: {fileID: 2139895518}
   hoveringCanvasText: {fileID: 413479618}
 --- !u!1 &1835220430

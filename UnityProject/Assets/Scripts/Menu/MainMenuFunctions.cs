@@ -67,11 +67,11 @@ public class MainMenuFunctions : MonoBehaviour
         Screen.fullScreen = !Screen.fullScreen;
         fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
     }
-
-    public void PlayGame(int activateTutorial) {
+    
+    public void EnterMissionSelection(int activateTutorial) {
         PlayerPrefs.SetInt("tutorialActivated", activateTutorial);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MissionSelection");
     }
-
+    
     public void QuitGame() { Application.Quit(); }
 }

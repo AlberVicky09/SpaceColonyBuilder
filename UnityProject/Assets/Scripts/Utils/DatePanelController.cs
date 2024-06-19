@@ -69,7 +69,7 @@ public class DatePanelController : MonoBehaviour
     private IEnumerator StartDayCicle() {
         while (true) {
             //Every 15 seconds, a day passes
-            yield return new WaitForSeconds(15);
+            yield return new WaitForSeconds(5);
             IncreaseDay();
         }
     }
