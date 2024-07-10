@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     protected GameControllerScript gameControllerScript;
+    protected MissionController missionController;
     [SerializeField] Sprite objectImage;
     [SerializeField] Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
@@ -19,6 +20,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private void Start() {
         cameraMove = FindObjectOfType<CameraMove>();
         gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
+        missionController = GameObject.Find("MissionPanel").GetComponent<MissionController>();
     }
     public void OnClick() {
         if (!(EventSystem.current.IsPointerOverGameObject() || gameControllerScript.isGamePaused)) {

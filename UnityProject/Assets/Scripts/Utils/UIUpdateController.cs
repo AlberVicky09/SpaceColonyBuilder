@@ -6,6 +6,7 @@ using UnityEngine;
 public class UIUpdateController : MonoBehaviour
 {
     public GameControllerScript gameControllerScript;
+    public MissionController missionController;
 
     public void SetResourcesText() {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
@@ -29,6 +30,8 @@ public class UIUpdateController : MonoBehaviour
         
         //Display update
         StartCoroutine(gameControllerScript.UIUpdateController.DisplayResourceChange(resourceType, quantity, operation));
+        
+        missionController.CheckResourceMission(resourceType, gameControllerScript.resourcesDictionary[resourceType]);
     }
 
     public IEnumerator DisplayResourceChange(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {

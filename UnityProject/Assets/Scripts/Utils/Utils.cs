@@ -66,11 +66,8 @@ public static class Utils {
         string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
 
         // Check if the file exists
-        if (File.Exists(filePath))
-        {
+        return File.Exists(filePath) ?
             // Read all text from the file
-            return File.ReadAllLines(filePath);
-        }
-        return new []{"File not found", "File not found"};
+            File.ReadAllLines(filePath) : new []{"File not found", "File not found"};
     }
 }

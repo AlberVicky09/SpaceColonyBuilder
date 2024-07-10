@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class DatePanelController : MonoBehaviour
 {
-    private GameControllerScript gameControllerScript;
-    private UIUpdateController uiUpdateController;
+    public GameControllerScript gameControllerScript;
+    public UIUpdateController uiUpdateController;
+    public MissionController missionController;
     public int day, month, year;
     public TMP_Text dayText, monthText, yearText;
     public Button pauseButton, playButton, fastButton;
@@ -15,8 +16,6 @@ public class DatePanelController : MonoBehaviour
 
     void Start()
     {
-        gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
-        uiUpdateController = GameObject.Find("GameController").GetComponent<UIUpdateController>();
         StartCoroutine("StartDayCicle");
         UpdateDayText();
         UpdateMonthText();
@@ -95,6 +94,9 @@ public class DatePanelController : MonoBehaviour
         if (day % 15 == 0) {
             uiUpdateController.ConsumeResources();
         }
+        
+        //Check date mission if needed
+        missionController.CheckDateMission(month + (year - 3500) * 12);
     }
 
     private void UpdateDayText() {

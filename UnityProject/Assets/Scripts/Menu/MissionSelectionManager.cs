@@ -19,7 +19,7 @@ public class MissionSelectionManager : MonoBehaviour
         titleTexts = new string[missionPositions.Length];
         descriptionTexts = new string[missionPositions.Length];
         for (int i = 0; i < missionPositions.Length; i++) {
-            var missionText = Utils.ReadFile("mission" + i);
+            var missionText = Utils.ReadFile("missionDescription" + i);
             titleTexts[i] = missionText[0];
             descriptionTexts[i] = missionText[1];
         }
