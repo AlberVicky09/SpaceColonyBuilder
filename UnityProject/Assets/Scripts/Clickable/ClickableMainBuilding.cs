@@ -3,9 +3,13 @@ using UnityEngine.UI;
 
 public class ClickableMainBuilding : Clickable {
 
-    public override void StartButtons() {
+    public override void UpdateTexts() {
+        gameControllerScript.actionText.text = "Main building";
+    }
+    
+    protected override void StartButtons() {
         base.StartButtons();
-        gameControllerScript.uiButtons[0].GetComponent<Button>().onClick.AddListener(GenerateGatherer);
+        gameControllerScript.actionButtons[0].GetComponent<Button>().onClick.AddListener(GenerateGatherer);
     }
 
     private void GenerateGatherer() {

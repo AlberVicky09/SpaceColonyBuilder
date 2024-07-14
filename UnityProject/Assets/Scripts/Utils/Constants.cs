@@ -68,7 +68,7 @@ public static class Constants
     public static List<int> INITIAL_GATHERER_PRICE = new List<int>() { 25, 50, 25};
 
     public static Vector3 RESET_CAMERA_POSITION = new Vector3(-9.3f, 7.25f, 0f);
-    public static Vector3 BASE_RETREAT_OFFSET = new Vector3(10f, 0f, 10f);
+    public static Vector3 BASE_RETREAT_OFFSET = new Vector3(6.5f, 0f, 6.5f);
 
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
@@ -77,6 +77,10 @@ public static class Constants
     public const float TIME_SCALE_SLOW = 0.5f;
     public const float TIME_SCALE_FAST = 1.5f;
     public static float TIME_SCALE_STOPPED = 0f;
+
+    public static int GATHERER_GATHERING_QUANTITY = 3;
+    public static int DEFAULT_GATHERER_MAX_LOAD = 15;
+    public static int UPGRADED_GATHERER_LOAD = 45;
 
     public static float RESOURCE_CHANGE_MOVEMENT_TIME = 1.5f;
     public static float RESOURCE_CHANGE_MOVEMENT_LERP_TIME = 0.05f;

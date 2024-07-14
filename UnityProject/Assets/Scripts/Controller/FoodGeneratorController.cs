@@ -41,7 +41,6 @@ public class FoodGeneratorController : MonoBehaviour
                 //Remove water
                 gameControllerScript.UIUpdateController.UpdateResource(ResourceEnum.Water, 15, ResourceOperationEnum.Decrease);
                 
-
                 //Add food
                 gameControllerScript.UIUpdateController.UpdateResource(ResourceEnum.Food, 30, ResourceOperationEnum.Increase);
             } else {

@@ -76,7 +76,6 @@ public class DatePanelController : MonoBehaviour
     private void IncreaseDay() {
         
         //Increase day and month/year if needed
-        Debug.Log("Day passed");
         day++;
         if (day > 30) {
             day = 1;

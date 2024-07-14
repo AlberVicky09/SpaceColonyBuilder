@@ -3,12 +3,18 @@ using UnityEngine.UI;
 public class ClickableShip : Clickable {
 
     private GathererBehaviour gathererBehaviour;
+
+    public override void UpdateTexts() {
+        gameControllerScript.actionText.text = "Gatherer \n" + gathererBehaviour.gathererLoad + "/" + gathererBehaviour.maxGathererLoad;
+    }
     
-    public override void StartButtons() {
+    protected override void StartButtons() {
         base.StartButtons();
-        gathererBehaviour = GetComponent<GathererBehaviour>();
-        gameControllerScript.uiButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
-        gameControllerScript.uiButtons[1].GetComponent<Button>().onClick.AddListener(Retreat);
+        if (gathererBehaviour == null) {
+            gathererBehaviour = GetComponent<GathererBehaviour>();
+        }
+        gameControllerScript.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
+        gameControllerScript.actionButtons[1].GetComponent<Button>().onClick.AddListener(Retreat);
     }
 
     private void DisplayScreen() {
@@ -18,7 +24,7 @@ public class ClickableShip : Clickable {
             var currentResource = Constants.ORE_RESOURCES[i];
             gameControllerScript.uiInteractablePanelButtons[i].GetComponent<Button>().onClick.AddListener(() => { SelectResource(currentResource); });
         }
-        gameControllerScript.uiButtonCanvas.SetActive(false);
+        gameControllerScript.actionCanvas.SetActive(false);
         gameControllerScript.PauseGame();
     }
 
@@ -31,6 +37,6 @@ public class ClickableShip : Clickable {
     }
 
     private void Retreat() {
-        gathererBehaviour.ReturnToBase();
+        gathererBehaviour.ReturnToBase(false);
     }
 }

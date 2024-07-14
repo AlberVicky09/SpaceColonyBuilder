@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Serialization;
 
 public class GameControllerScript : MonoBehaviour {
 
@@ -20,8 +21,9 @@ public class GameControllerScript : MonoBehaviour {
     public Sprite[] oreImages;
     public Sprite missingAction;
 
-    public GameObject uiButtonCanvas;
-    public GameObject[] uiButtons;
+    public GameObject actionCanvas;
+    public GameObject[] actionButtons;
+    public TMP_Text actionText;
     public Image uiRepresentation;
     public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
     public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesChangeTextMap;

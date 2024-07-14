@@ -15,38 +15,43 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private float doubleClickDelay;
     private bool secondClick = false;
 
-    public static GameObject activeButtonsObject = null;
+    private static GameObject activeButtonsObject;
 
-    private void Start() {
+    public void Start() {
         cameraMove = FindObjectOfType<CameraMove>();
         gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
         missionController = GameObject.Find("MissionPanel").GetComponent<MissionController>();
     }
+    
     public void OnClick() {
         if (!(EventSystem.current.IsPointerOverGameObject() || gameControllerScript.isGamePaused)) {
-            gameControllerScript.uiButtonCanvas.SetActive(true);
+            gameControllerScript.actionCanvas.SetActive(true);
             gameControllerScript.uiRepresentation.sprite = objectImage;
             if (!ReferenceEquals(this.gameObject, activeButtonsObject)) {
                 StartButtons();
             }
+            UpdateTexts();
             DisplayButtons();
             CheckDoubleClick();
         }
     }
-    public void DisplayButtons() {
+    
+    public abstract void UpdateTexts();
+    
+    private void DisplayButtons() {
         //Disable all buttons
-        foreach (var button in gameControllerScript.uiButtons) {
+        foreach (var button in gameControllerScript.actionButtons) {
             button.SetActive(false);
         }
         var i = 0;
-        while(i < buttonNumber && gameControllerScript.uiButtons.Length >= i) {
-            gameControllerScript.uiButtons[i].SetActive(true);
-            gameControllerScript.uiButtons[i].GetComponent<Image>().sprite = buttonImages[i];
+        while(i < buttonNumber && gameControllerScript.actionButtons.Length >= i) {
+            gameControllerScript.actionButtons[i].SetActive(true);
+            gameControllerScript.actionButtons[i].GetComponent<Image>().sprite = buttonImages[i];
             i++;
         }
     }
 
-    public void CheckDoubleClick() {
+    private void CheckDoubleClick() {
         if (secondClick) {
             if (Time.time - doubleClickDelay < Constants.MAX_DOUBLE_CLICK_DELAY) {
                 cameraMove.FocusCameraInGO(this.gameObject);
@@ -61,8 +66,8 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
         }
     }
 
-    public virtual void StartButtons() {
-        foreach (var button in gameControllerScript.uiButtons) {
+    protected virtual void StartButtons() {
+        foreach (var button in gameControllerScript.actionButtons) {
             button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
         activeButtonsObject = this.gameObject;
