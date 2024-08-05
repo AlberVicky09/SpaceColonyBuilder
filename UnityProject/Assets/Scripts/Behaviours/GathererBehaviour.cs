@@ -11,6 +11,7 @@ public class GathererBehaviour : MonoBehaviour
     private GameControllerScript gameControllerScript;
     private UIUpdateController uiUpdateController;
     private ClickableShip clickableShip;
+    private ClickableOre currentClickableOre;
     [SerializeField] NavMeshAgent agent;
     
     public GameObject objectiveItem;
@@ -47,6 +48,7 @@ public class GathererBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
             currentGatheredOre = other.GetComponent<OreBehaviour>();
+            currentClickableOre = other.GetComponent<ClickableOre>();
             actionProgress.gameObject.SetActive(true);
             currentAction.gameObject.SetActive(false);
             StartCoroutine(GatheringCoroutine());
@@ -56,7 +58,7 @@ public class GathererBehaviour : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
             StopCoroutine(GatheringCoroutine());
-            StopCoroutine(DisplayActionProgress(currentGatheredOre.gatheringTimeRequired));
+            DisplayAction(gameControllerScript.goingToAction);
             currentGatheredOre = null;
         }
     }
@@ -73,18 +75,6 @@ public class GathererBehaviour : MonoBehaviour
         actionProgress.gameObject.SetActive(false);
         currentAction.gameObject.SetActive(true);
         currentActionImage.sprite = displayImage;
-    }
-
-    public IEnumerator DisplayActionProgress(float totalActionTime) {
-        var progressTime = 0f;
-        currentAction.SetActive(false);
-        actionProgress.SetActive(true);
-        while (progressTime < totalActionTime) {
-            currentActionImage.fillAmount = progressTime / totalActionTime;
-            progressTime += Time.deltaTime;
-            Utils.LocateMarkerOverGameObject(gameObject, currentAction, canvas);
-            yield return new WaitForEndOfFrame();
-        }
     }
 
     private IEnumerator CheckReturnToBaseCompleted(bool isFull) {
@@ -111,16 +101,18 @@ public class GathererBehaviour : MonoBehaviour
     }
 
     private IEnumerator GatheringCoroutine() {
-        StartCoroutine(DisplayActionProgress(currentGatheredOre.gatheringTimeRequired));
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
             gathererLoad += Constants.GATHERER_GATHERING_QUANTITY;
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;
             clickableShip.UpdateTexts();
+            currentClickableOre.UpdateTexts();
 
             if (gathererLoad >= maxGathererLoad) {
                 ReturnToBase(true);
+                Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
+                    gameControllerScript.oreListDictionary[resourceGatheringType]);
                 yield break;
             }
         }

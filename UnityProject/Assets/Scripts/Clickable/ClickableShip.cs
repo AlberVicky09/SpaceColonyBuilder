@@ -5,7 +5,10 @@ public class ClickableShip : Clickable {
     private GathererBehaviour gathererBehaviour;
 
     public override void UpdateTexts() {
-        gameControllerScript.actionText.text = "Gatherer \n" + gathererBehaviour.gathererLoad + "/" + gathererBehaviour.maxGathererLoad;
+        if (selectedClickable == this) {
+            gameControllerScript.actionText.text = "Gatherer \n" + gathererBehaviour.gathererLoad + "/" +
+                                                   gathererBehaviour.maxGathererLoad;
+        }
     }
     
     protected override void StartButtons() {

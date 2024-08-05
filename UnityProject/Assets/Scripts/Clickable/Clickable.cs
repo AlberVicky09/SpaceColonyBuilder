@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
-    protected GameControllerScript gameControllerScript;
-    protected MissionController missionController;
+    protected static GameControllerScript gameControllerScript;
+    protected static MissionController missionController;
+    protected static CameraMove cameraMove;
+    protected static Clickable selectedClickable;
+    
     [SerializeField] Sprite objectImage;
     [SerializeField] Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
-
-    private CameraMove cameraMove;
 
     private float doubleClickDelay;
     private bool secondClick = false;
@@ -18,16 +19,17 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private static GameObject activeButtonsObject;
 
     public void Start() {
-        cameraMove = FindObjectOfType<CameraMove>();
-        gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
-        missionController = GameObject.Find("MissionPanel").GetComponent<MissionController>();
+        if(cameraMove == null) {cameraMove = FindObjectOfType<CameraMove>();}
+        if(gameControllerScript == null) {gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();}
+        if(missionController == null) {missionController = GameObject.Find("MissionPanel").GetComponent<MissionController>();}
     }
     
     public void OnClick() {
-        if (!(EventSystem.current.IsPointerOverGameObject() || gameControllerScript.isGamePaused)) {
+        if (!(EventSystem.current.IsPointerOverGameObject() || gameControllerScript.isGamePaused || gameControllerScript.placing)) {
+            selectedClickable = this;
             gameControllerScript.actionCanvas.SetActive(true);
             gameControllerScript.uiRepresentation.sprite = objectImage;
-            if (!ReferenceEquals(this.gameObject, activeButtonsObject)) {
+            if (!ReferenceEquals(gameObject, activeButtonsObject)) {
                 StartButtons();
             }
             UpdateTexts();
@@ -56,7 +58,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
             if (Time.time - doubleClickDelay < Constants.MAX_DOUBLE_CLICK_DELAY) {
                 cameraMove.FocusCameraInGO(this.gameObject);
                 secondClick = false;
-                EventSystem.current.SetSelectedGameObject(this.gameObject);
+                EventSystem.current.SetSelectedGameObject(gameObject);
             } else {
                 doubleClickDelay = Time.time;
             }

@@ -9,6 +9,7 @@ public class GameControllerScript : MonoBehaviour {
 
     #region Variables
     public UIUpdateController UIUpdateController;
+    public CanvasGroup canvasGroup;
 
     [SerializeField] GameObject defaultOrePrefab;
     public GameObject defaultGathererPrefab;
@@ -19,7 +20,7 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Sprite> oreListImage;
     public Sprite[] oreImages;
-    public Sprite missingAction;
+    public Sprite missingAction, goingToAction;
 
     public GameObject actionCanvas;
     public GameObject[] actionButtons;
@@ -38,6 +39,8 @@ public class GameControllerScript : MonoBehaviour {
     private float previousMaxViewDistance = 0f;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
+
+    public bool placing;
     #endregion
 
     void Awake() {
@@ -157,5 +160,10 @@ public class GameControllerScript : MonoBehaviour {
     public void PauseGame() {
         isGamePaused = true;
         Time.timeScale = Constants.TIME_SCALE_STOPPED;
+    }
+
+    public void SwapUIInteraction() {
+        canvasGroup.interactable = !canvasGroup.interactable;
+        canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
     }
 }

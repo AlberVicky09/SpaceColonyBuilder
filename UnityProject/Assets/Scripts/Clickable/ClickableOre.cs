@@ -6,8 +6,11 @@ public class ClickableOre : Clickable {
         if (oreBehaviour == null) {
             oreBehaviour = GetComponent<OreBehaviour>();
         }
-        gameControllerScript.actionText.text = oreBehaviour.resourceType + " ore\nRemaining "
-                            + oreBehaviour.gatheredTimes + "/" + oreBehaviour.MAXGATHEREDTIMES;
+
+        if (selectedClickable == this) {
+            gameControllerScript.actionText.text = oreBehaviour.resourceType + " ore\nRemaining "
+                + (oreBehaviour.MAXGATHEREDTIMES - oreBehaviour.gatheredTimes) + "/" + oreBehaviour.MAXGATHEREDTIMES;
+        }
     }
     
     protected override void StartButtons() {}

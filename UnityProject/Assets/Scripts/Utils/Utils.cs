@@ -25,6 +25,7 @@ public static class Utils {
         var nearestDistance = float.MaxValue;
         float currentDistance;
         for(int i = 0; i < objectivesList.Count; i++) {
+            Debug.Log(i + ":" + objectivesList[i].isBeingGathered);
             if (!objectivesList[i].isBeingGathered) {
                 currentDistance = Vector3.Distance(agent.transform.position, objectivesList[i].gameObject.transform.position);
                 if (currentDistance < nearestDistance) {
@@ -40,6 +41,15 @@ public static class Utils {
             return null;
         }
         
+    }
+
+    public static void MarkObjectiveAsUnGathered(GameObject gameObject, List<ResourceTuple> objectivesList) {
+        foreach (var objective in objectivesList) {
+            if(ReferenceEquals(gameObject, objective.gameObject)) {
+                objective.isBeingGathered = false;
+                return;
+            }
+        }
     }
 
     public static void LocateMarkerOverGameObject(GameObject go, GameObject marker, RectTransform canvas) {

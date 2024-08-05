@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour {
 
-    [SerializeField] Camera cameraGO;
+    public Camera cameraGO;
     [SerializeField] GameObject cameraPivot;
     [SerializeField] GameControllerScript gameControllerScript;
 
