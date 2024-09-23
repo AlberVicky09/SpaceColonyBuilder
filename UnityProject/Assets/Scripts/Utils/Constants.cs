@@ -4,6 +4,9 @@ using UnityEngine;
 public static class Constants
 {
     public static List<ResourceEnum> ORE_RESOURCES = new List<ResourceEnum>() {ResourceEnum.Water, ResourceEnum.Iron, ResourceEnum.Gold, ResourceEnum.Platinum };
+
+    public static List<PropsEnum> BUILDABLE_LIST = new List<PropsEnum>() {PropsEnum.Gatherer, PropsEnum.FoodGenerator, PropsEnum.BasicFighter, PropsEnum.House, PropsEnum.Storage};
+    
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
             { ResourceEnum.Water, new Color(0,0.42f,1) },
             { ResourceEnum.Iron, new Color(0.63f, 0.70f, 0.67f) },
@@ -39,20 +42,52 @@ public static class Constants
         { 12, "Dec" },
     };
 
-    public static readonly Dictionary<ResourceEnum, int> MAIN_BUILDING_MANTAINING_COST = new Dictionary<ResourceEnum, int>
-        { {ResourceEnum.Food, 3 },  {ResourceEnum.Water, 5} };
-    public static readonly Dictionary<ResourceEnum, int> ORE_GATHERER_COST = new Dictionary<ResourceEnum, int>
-        { {ResourceEnum.Platinum, 5}, {ResourceEnum.Iron, 5} };
+    public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROPS_MANTAINING_COST =
+        new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
+            {
+                PropsEnum.Gatherer,
+                new Dictionary<ResourceEnum, int>() { { ResourceEnum.Platinum, 5 }, { ResourceEnum.Iron, 5 } }
+            }, {
+                PropsEnum.MainBuilding,
+                new Dictionary<ResourceEnum, int>() { { ResourceEnum.Food, 3 }, { ResourceEnum.Water, 5 } }
+            }
+        };
 
+    public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> BUILDABLE_PRICES =
+        new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
+            {
+                PropsEnum.Gatherer,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.FoodGenerator,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.House,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.Storage,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.BasicFighter,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            }
+        };
 
     public const float VIEW_DISTANCE_RANGE = 24f;
     public const int INITIAL_ORE_NUMBER = 10;
     public const float ORE_FLOOR_OFFSET = 0.4f;
 
     public const float MAX_DOUBLE_CLICK_DELAY = 1f;
-
-    public const int MAX_GATHERING_TIMES = 3;//25;
-
+    
     public const float GAMEOBJECT_CENTERED_MAX_REFRESH_TIME = 1f;
 
     public const float CAMERA_OFFSET_X = -9.3f;
@@ -64,9 +99,7 @@ public static class Constants
     public const float MAX_ZOOM_SIZE = 13f;
 
     public const float GATHERER_ACTION_OFFSET = 1.5f;
-
-    public static List<int> INITIAL_GATHERER_PRICE = new List<int>() { 25, 50, 25};
-
+    
     public static Vector3 RESET_CAMERA_POSITION = new Vector3(-9.3f, 7.25f, 0f);
     public static Vector3 BASE_RETREAT_OFFSET = new Vector3(6.5f, 0f, 6.5f);
 
@@ -88,5 +121,7 @@ public static class Constants
     public static Color RESOURCE_CHANGE_INCREASE_COLOR = new Color(0.4947595f, 1, 0.3176471f);
     public static Color RESOURCE_CHANGE_DECREASE_COLOR = new Color(1, 0.3539989f, 0.31761f);
 
-    public static float PLACING_REQUIRED_DELAY = 2f;
+    public static float PLACING_REQUIRED_DELAY = 0.3f;
+
+    public static float MAX_BULLET_TRAVEL_DISTANCE = 12f;
 }

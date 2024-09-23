@@ -25,7 +25,6 @@ public static class Utils {
         var nearestDistance = float.MaxValue;
         float currentDistance;
         for(int i = 0; i < objectivesList.Count; i++) {
-            Debug.Log(i + ":" + objectivesList[i].isBeingGathered);
             if (!objectivesList[i].isBeingGathered) {
                 currentDistance = Vector3.Distance(agent.transform.position, objectivesList[i].gameObject.transform.position);
                 if (currentDistance < nearestDistance) {
@@ -68,6 +67,21 @@ public static class Utils {
 
         // Set
         marker.transform.localPosition = canvasPos;
+    }
+    
+    public static bool DetectObjective(List<GameObject> objectiveList, Transform agentPosition,
+        float detectionDistance, ref FighterStatesEnum agentState, ref GameObject objectiveObject) {
+        //If there is an enemy in range, go against him
+        foreach (var objective in objectiveList) {
+            if (Vector3.Distance(objective.transform.position, agentPosition.position) <= detectionDistance) {
+                //Set state as Chasing and store the objective
+                agentState = FighterStatesEnum.Chasing;
+                objectiveObject = objective;
+                return true;
+            }
+        }
+
+        return false;
     }
     
     public static string[] ReadFile(string fileName)

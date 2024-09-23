@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class DatePanelController : MonoBehaviour
 {
-    public GameControllerScript gameControllerScript;
-    public UIUpdateController uiUpdateController;
-    public MissionController missionController;
     public int day, month, year;
     public TMP_Text dayText, monthText, yearText;
     public Button pauseButton, playButton, fastButton;
@@ -23,17 +20,17 @@ public class DatePanelController : MonoBehaviour
     }
 
     public void PauseVelocity() {
-        gameControllerScript.PauseGame();
+        GameControllerScript.Instance.PauseGame();
         SwapButtons(-1);
     }
 
     public void NormalVelocity() {
-        gameControllerScript.PlayVelocity(Constants.TIME_SCALE_NORMAL);
+        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
         SwapButtons(0);
     }
 
     public void FastVelocity() {
-        gameControllerScript.PlayVelocity(Constants.TIME_SCALE_FAST);
+        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_FAST);
         SwapButtons(1);
     }
 
@@ -91,11 +88,11 @@ public class DatePanelController : MonoBehaviour
 
         //Consume resources every 15 days
         if (day % 15 == 0) {
-            uiUpdateController.ConsumeResources();
+            GameControllerScript.Instance.UIUpdateController.ConsumeResources();
         }
         
         //Check date mission if needed
-        missionController.CheckDateMission(month + (year - 3500) * 12);
+        GameControllerScript.Instance.missionController.CheckDateMission(month + (year - 3500) * 12);
     }
 
     private void UpdateDayText() {

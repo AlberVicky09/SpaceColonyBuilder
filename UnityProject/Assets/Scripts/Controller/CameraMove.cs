@@ -6,8 +6,7 @@ public class CameraMove : MonoBehaviour {
 
     public Camera cameraGO;
     [SerializeField] GameObject cameraPivot;
-    [SerializeField] GameControllerScript gameControllerScript;
-
+    
     private bool isGameObjectCentered = false;
     private GameObject gameObjectCentered;
     private float gameObjectCenteredRefreshTime = 0f;
@@ -18,7 +17,7 @@ public class CameraMove : MonoBehaviour {
             gameObjectCenteredRefreshTime += Time.deltaTime;
         }
 
-        if (!gameControllerScript.isGamePaused) {
+        if (!GameControllerScript.Instance.isGamePaused) {
             if (Input.GetMouseButton(0) && (!isGameObjectCentered || gameObjectCenteredRefreshTime > Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME)) {
                 cameraPivot.transform.position += Vector3.left * Input.GetAxis("Mouse X") * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
                 cameraPivot.transform.position += Vector3.forward * Input.GetAxis("Mouse X") * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;

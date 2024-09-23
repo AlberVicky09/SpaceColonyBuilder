@@ -3,10 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public abstract class Clickable : MonoBehaviour, IDeselectHandler {
-
-    protected static GameControllerScript gameControllerScript;
-    protected static MissionController missionController;
-    protected static CameraMove cameraMove;
+    
     protected static Clickable selectedClickable;
     
     [SerializeField] Sprite objectImage;
@@ -17,18 +14,12 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private bool secondClick = false;
 
     private static GameObject activeButtonsObject;
-
-    public void Start() {
-        if(cameraMove == null) {cameraMove = FindObjectOfType<CameraMove>();}
-        if(gameControllerScript == null) {gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();}
-        if(missionController == null) {missionController = GameObject.Find("MissionPanel").GetComponent<MissionController>();}
-    }
     
     public void OnClick() {
-        if (!(EventSystem.current.IsPointerOverGameObject() || gameControllerScript.isGamePaused || gameControllerScript.placing)) {
+        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
             selectedClickable = this;
-            gameControllerScript.actionCanvas.SetActive(true);
-            gameControllerScript.uiRepresentation.sprite = objectImage;
+            GameControllerScript.Instance.actionCanvas.SetActive(true);
+            GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
             if (!ReferenceEquals(gameObject, activeButtonsObject)) {
                 StartButtons();
             }
@@ -42,13 +33,13 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     
     private void DisplayButtons() {
         //Disable all buttons
-        foreach (var button in gameControllerScript.actionButtons) {
+        foreach (var button in GameControllerScript.Instance.actionButtons) {
             button.SetActive(false);
         }
         var i = 0;
-        while(i < buttonNumber && gameControllerScript.actionButtons.Length >= i) {
-            gameControllerScript.actionButtons[i].SetActive(true);
-            gameControllerScript.actionButtons[i].GetComponent<Image>().sprite = buttonImages[i];
+        while(i < buttonNumber && GameControllerScript.Instance.actionButtons.Length >= i) {
+            GameControllerScript.Instance.actionButtons[i].SetActive(true);
+            GameControllerScript.Instance.actionButtons[i].GetComponent<Image>().sprite = buttonImages[i];
             i++;
         }
     }
@@ -56,7 +47,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private void CheckDoubleClick() {
         if (secondClick) {
             if (Time.time - doubleClickDelay < Constants.MAX_DOUBLE_CLICK_DELAY) {
-                cameraMove.FocusCameraInGO(this.gameObject);
+                GameControllerScript.Instance.cameraMove.FocusCameraInGO(this.gameObject);
                 secondClick = false;
                 EventSystem.current.SetSelectedGameObject(gameObject);
             } else {
@@ -69,13 +60,13 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     }
 
     protected virtual void StartButtons() {
-        foreach (var button in gameControllerScript.actionButtons) {
+        foreach (var button in GameControllerScript.Instance.actionButtons) {
             button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
-        activeButtonsObject = this.gameObject;
+        activeButtonsObject = gameObject;
     }
 
     public void OnDeselect(BaseEventData eventData) {
-        cameraMove.UnFocusCameraInGO();
+        GameControllerScript.Instance.cameraMove.UnFocusCameraInGO();
     }
 }

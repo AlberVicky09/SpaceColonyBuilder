@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class GathererBehaviour : MonoBehaviour
 {
-    private GameControllerScript gameControllerScript;
-    private UIUpdateController uiUpdateController;
     private ClickableShip clickableShip;
     private ClickableOre currentClickableOre;
     [SerializeField] NavMeshAgent agent;
@@ -28,8 +26,6 @@ public class GathererBehaviour : MonoBehaviour
     public Image currentActionImage;
 
     private void Start() {
-        gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
-        uiUpdateController = GameObject.Find("GameController").GetComponent<UIUpdateController>();
         clickableShip = GetComponent<ClickableShip>();
         actionProgressImage = actionProgress.GetComponent<Image>();
         currentActionImage = currentAction.GetComponent<Image>();
@@ -58,7 +54,7 @@ public class GathererBehaviour : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
             StopCoroutine(GatheringCoroutine());
-            DisplayAction(gameControllerScript.goingToAction);
+            DisplayAction(GameControllerScript.Instance.goingToAction);
             currentGatheredOre = null;
         }
     }
@@ -78,14 +74,14 @@ public class GathererBehaviour : MonoBehaviour
     }
 
     private IEnumerator CheckReturnToBaseCompleted(bool isFull) {
-        var nearestBase = Utils.FindNearestGameObjectInTupleList(gameObject, gameControllerScript.mainBuildingList);
+        var nearestBase = Utils.FindNearestGameObjectInTupleList(gameObject, GameControllerScript.Instance.propDictionary[PropsEnum.MainBuilding]);
         agent.SetDestination(nearestBase.transform.position + Constants.BASE_RETREAT_OFFSET);
         while (true) {
             // Check if the agent has reached its destination
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
                 foreach (var resource in loadDictionary.Keys.ToList()) {
                     if (loadDictionary[resource] != 0) {
-                        uiUpdateController.UpdateResource(resource, loadDictionary[resource],
+                        GameControllerScript.Instance.UIUpdateController.UpdateResource(resource, loadDictionary[resource],
                             ResourceOperationEnum.Increase);
                         loadDictionary[resource] = 0;
                     }
@@ -93,7 +89,7 @@ public class GathererBehaviour : MonoBehaviour
                 gathererLoad = 0;
                 clickableShip.UpdateTexts();
                 Debug.Log("Im in base");
-                if(isFull) gameControllerScript.CalculateOreForGatherer(gameObject);
+                if(isFull) GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);
@@ -112,14 +108,14 @@ public class GathererBehaviour : MonoBehaviour
             if (gathererLoad >= maxGathererLoad) {
                 ReturnToBase(true);
                 Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
-                    gameControllerScript.oreListDictionary[resourceGatheringType]);
+                    GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
                 yield break;
             }
         }
 
-        DisplayAction(gameControllerScript.missingAction);
-        gameControllerScript.oreListDictionary[currentGatheredOre.resourceType].RemoveAll(item => item.gameObject.Equals(gameObject));
-        gameControllerScript.CalculateOreForGatherer(gameObject);
+        DisplayAction(GameControllerScript.Instance.missingAction);
+        GameControllerScript.Instance.oreListDictionary[currentGatheredOre.resourceType].RemoveAll(item => item.gameObject.Equals(gameObject));
+        GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         Destroy(currentGatheredOre.gameObject);
     }
 }

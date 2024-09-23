@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class FoodGeneratorController : MonoBehaviour
 {
-    private GameControllerScript gameControllerScript;
     public RectTransform canvas;
     public GameObject actionPercentage;
     public GameObject actionIcon;
@@ -12,7 +11,6 @@ public class FoodGeneratorController : MonoBehaviour
     private Image actionPercentageImage;
 
     private void Start() {
-        gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
         actionPercentageImage = actionPercentage.GetComponent<Image>();
         StartCoroutine(GenerateFood());
     }
@@ -32,17 +30,17 @@ public class FoodGeneratorController : MonoBehaviour
     private IEnumerator GenerateFood() {
         while (true) {
             yield return new WaitForSeconds(5);
-            if (gameControllerScript.resourcesDictionary[ResourceEnum.Water] >= 15) {
+            if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
                 actionPercentage.SetActive(true);
                 actionPercentageValue = 0f;
                 actionPercentageImage.fillAmount = 0f;
                 actionIcon.SetActive(false);
 
                 //Remove water
-                gameControllerScript.UIUpdateController.UpdateResource(ResourceEnum.Water, 15, ResourceOperationEnum.Decrease);
+                GameControllerScript.Instance.UIUpdateController.UpdateResource(ResourceEnum.Water, 15, ResourceOperationEnum.Decrease);
                 
                 //Add food
-                gameControllerScript.UIUpdateController.UpdateResource(ResourceEnum.Food, 30, ResourceOperationEnum.Increase);
+                GameControllerScript.Instance.UIUpdateController.UpdateResource(ResourceEnum.Food, 30, ResourceOperationEnum.Increase);
             } else {
                 Debug.Log("Missing water");
                 actionPercentage.SetActive(false);

@@ -3,19 +3,30 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Serialization;
 
 public class GameControllerScript : MonoBehaviour {
 
     #region Variables
-    public UIUpdateController UIUpdateController;
+
+    public static GameControllerScript Instance;
+    public UIUpdateController UIUpdateController; 
+    public InteractableButtonManager interactableButtonManager;
+    public MissionController missionController;
+    public CameraMove cameraMove;
+    public BulletPoolController bulletPoolController;
+    public EnemyGenerationController enemyGenerationController;
+    
     public CanvasGroup canvasGroup;
 
-    [SerializeField] GameObject defaultOrePrefab;
-    public GameObject defaultGathererPrefab;
-
-    public List<GameObject> mainBuildingList;
-    public List<GameObject> oreGatherersList;
+    public GameObject orePrefab;
+    public GameObject gathererPrefab;
+    public GameObject foodGeneratorPrefab;
+    public GameObject housePrefab;
+    public GameObject storagePrefab;
+    public GameObject fighterPrefab;
+    
+    public GameObject mainBuilding;
+    public Dictionary<PropsEnum, List<GameObject>> propDictionary;
 
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Sprite> oreListImage;
@@ -33,9 +44,6 @@ public class GameControllerScript : MonoBehaviour {
     public TMP_Text alertCanvasText;
     public bool isGamePaused = false;
 
-    public GameObject uiInteractablePanel;
-    public GameObject[] uiInteractablePanelButtons;
-
     private float previousMaxViewDistance = 0f;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
@@ -44,6 +52,8 @@ public class GameControllerScript : MonoBehaviour {
     #endregion
 
     void Awake() {
+        Instance = this;
+        
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },
@@ -84,16 +94,23 @@ public class GameControllerScript : MonoBehaviour {
             { ResourceEnum.Gold, oreImages[2] },
             { ResourceEnum.Platinum, oreImages[3] }
         };
-
+        
+        //Initialize prop dictionary
+        propDictionary = new Dictionary<PropsEnum, List<GameObject>>();
+        foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))){
+            propDictionary.Add(propType, new List<GameObject>());
+        }
+        
         GenerateRandomOres();
+        enemyGenerationController.GenerateNewEnemy();
     }
 
     public void GenerateRandomOres() {
         //Generate ores in random position inside initial circle
         for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
-            var circlePos = generateNewOrePosition();
+            var circlePos = GenerateNewOrePosition();
             var randomResource = Constants.ORE_RESOURCES[UnityEngine.Random.Range(0, Constants.ORE_RESOURCES.Count)];
-            var instantiatedOre = Instantiate(defaultOrePrefab, new Vector3(circlePos.x, Constants.ORE_FLOOR_OFFSET, circlePos.y), Quaternion.identity);
+            var instantiatedOre = Instantiate(orePrefab, new Vector3(circlePos.x, Constants.ORE_FLOOR_OFFSET, circlePos.y), Quaternion.identity);
 
             instantiatedOre.name = randomResource.ToString() + circlePos.ToString();
 
@@ -106,7 +123,7 @@ public class GameControllerScript : MonoBehaviour {
         }
     }
 
-    private Vector2 generateNewOrePosition() {
+    private Vector2 GenerateNewOrePosition() {
         //Generates a new valid ore position within range
         var valid = false;
         Vector2 pos = new Vector2();

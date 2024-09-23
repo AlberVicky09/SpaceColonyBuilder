@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class SavingScript : MonoBehaviour
 {
-    GameControllerScript gameControllerScript;
     string path;
     private SavingData saveData;
 
     void Start()
     {
-        gameControllerScript = GameObject.Find("GameController").GetComponent<GameControllerScript>();
         path = Application.dataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
         //persistentPath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
 

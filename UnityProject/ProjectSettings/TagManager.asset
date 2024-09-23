@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ore
+  - Obstacle
   layers:
   - Default
   - TransparentFX
