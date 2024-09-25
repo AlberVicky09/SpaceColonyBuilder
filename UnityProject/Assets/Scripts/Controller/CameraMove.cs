@@ -17,7 +17,7 @@ public class CameraMove : MonoBehaviour {
             gameObjectCenteredRefreshTime += Time.deltaTime;
         }
 
-        if (!GameControllerScript.Instance.isGamePaused) {
+        if (!GameControllerScript.Instance.isGamePaused && !GameControllerScript.Instance.isPauseMenuActive) {
             if (Input.GetMouseButton(0) && (!isGameObjectCentered || gameObjectCenteredRefreshTime > Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME)) {
                 cameraPivot.transform.position += Vector3.left * Input.GetAxis("Mouse X") * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
                 cameraPivot.transform.position += Vector3.forward * Input.GetAxis("Mouse X") * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;

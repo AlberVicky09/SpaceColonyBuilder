@@ -19,10 +19,9 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if(isHovering) {
             transform.Rotate(Vector3.up * Constants.MENU_ITEM_WIGGLE_SPEED * wiggleDirection * Time.deltaTime);
 
-            if (transform.localRotation.eulerAngles.y < minYRotation) {
-                wiggleDirection = 1;
-            }else if(transform.localRotation.eulerAngles.y > maxYRotation) {
-                wiggleDirection = -1;
+            if (transform.localRotation.eulerAngles.y < minYRotation
+                || transform.localRotation.eulerAngles.y > maxYRotation) {
+                wiggleDirection *= -1;
             }
         }
     }

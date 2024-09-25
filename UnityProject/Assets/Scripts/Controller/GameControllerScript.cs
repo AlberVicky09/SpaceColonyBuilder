@@ -42,7 +42,7 @@ public class GameControllerScript : MonoBehaviour {
 
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
-    public bool isGamePaused = false;
+    public bool isGamePaused, isPauseMenuActive;
 
     private float previousMaxViewDistance = 0f;
 
@@ -178,6 +178,8 @@ public class GameControllerScript : MonoBehaviour {
         isGamePaused = true;
         Time.timeScale = Constants.TIME_SCALE_STOPPED;
     }
+    
+    public void TogglePauseMenu() { isPauseMenuActive = !isPauseMenuActive;}
 
     public void SwapUIInteraction() {
         canvasGroup.interactable = !canvasGroup.interactable;

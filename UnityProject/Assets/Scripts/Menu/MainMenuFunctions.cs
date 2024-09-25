@@ -72,6 +72,10 @@ public class MainMenuFunctions : MonoBehaviour
         PlayerPrefs.SetInt("tutorialActivated", activateTutorial);
         SceneManager.LoadScene("MissionSelection");
     }
+
+    public void ReturnToMainMenu() {
+        SceneManager.LoadScene("MainMenu");
+    }
     
     public void QuitGame() { Application.Quit(); }
 }
