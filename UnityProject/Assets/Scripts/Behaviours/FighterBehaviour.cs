@@ -87,8 +87,8 @@ public class FighterBehaviour : MonoBehaviour {
         agent.isStopped = true;
         currentState = FighterStatesEnum.Attacking;
         
-        //Start shooting to objective (when to finish?)
-        while (true) {
+        //Start shooting to objective, finish when objective is death
+        while (GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Contains(objectiveGO)) {
             //Spawn bullet in front
             var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
             bullet.transform.position = transform.position + Vector3.forward * 0.5f;
@@ -97,6 +97,9 @@ public class FighterBehaviour : MonoBehaviour {
             bullet.SetActive(true);
             bullet.GetComponent<Rigidbody>().velocity =
                 (objectiveGO.transform.position - transform.position) * 0.5f;
+            //Set bullet shooter
+            var bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            bulletBehaviour.SetShooter(PropsEnum.BasicEnemy, gameObject);
             
             //Reload
             yield return new WaitForSeconds(2.5f);

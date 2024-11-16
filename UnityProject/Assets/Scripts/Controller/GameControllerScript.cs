@@ -1,8 +1,9 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class GameControllerScript : MonoBehaviour {
 
@@ -32,6 +33,7 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, Sprite> oreListImage;
     public Sprite[] oreImages;
     public Sprite missingAction, goingToAction;
+    public int numberOfOres;
 
     public GameObject actionCanvas;
     public GameObject[] actionButtons;
@@ -40,11 +42,12 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
     public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesChangeTextMap;
 
+    public TMP_Text enemyCountDownText;
+    public Image enemyCountDownBg;
+
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
     public bool isGamePaused, isPauseMenuActive;
-
-    private float previousMaxViewDistance = 0f;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
 
@@ -100,9 +103,10 @@ public class GameControllerScript : MonoBehaviour {
         foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))){
             propDictionary.Add(propType, new List<GameObject>());
         }
+        propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
         
         GenerateRandomOres();
-        enemyGenerationController.GenerateNewEnemy();
+        StartCoroutine(GenerateShipsCoroutine());
     }
 
     public void GenerateRandomOres() {
@@ -120,6 +124,7 @@ public class GameControllerScript : MonoBehaviour {
             instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Metallic", Constants.ORE_METALLIC_MAP[randomResource]);
             
             oreListDictionary[randomResource].Add(new ResourceTuple(instantiatedOre, false));
+            numberOfOres++;
         }
     }
 
@@ -128,7 +133,7 @@ public class GameControllerScript : MonoBehaviour {
         var valid = false;
         Vector2 pos = new Vector2();
         while (!valid) {
-            pos = UnityEngine.Random.insideUnitCircle * Constants.VIEW_DISTANCE_RANGE + new Vector2(previousMaxViewDistance, previousMaxViewDistance);
+            pos = UnityEngine.Random.insideUnitCircle * Constants.VIEW_DISTANCE_RANGE;
             valid = true;
             Vector2 currentOrePos;
             foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
@@ -140,6 +145,13 @@ public class GameControllerScript : MonoBehaviour {
             }
         }
         return pos;
+    }
+
+    public void RemoveOre() {
+        numberOfOres--;
+        if (numberOfOres <= 3) {
+            GenerateRandomOres();
+        }
     }
 
     public void CalculateOreForGatherer(GameObject oreGatherer) {
@@ -184,5 +196,20 @@ public class GameControllerScript : MonoBehaviour {
     public void SwapUIInteraction() {
         canvasGroup.interactable = !canvasGroup.interactable;
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
+    }
+
+    private IEnumerator GenerateShipsCoroutine() {
+        var remainingTime = 45f;
+        while (true) {
+            //Spawn enemies in remainingTime seconds
+            while (remainingTime > 0) {
+                yield return new WaitForSeconds(1f);
+                enemyCountDownText.text = $"Enemy in 0: {--remainingTime}";
+            }
+            
+            //Generate between 2-4 enemy ships
+            enemyGenerationController.GenerateNewEnemy(UnityEngine.Random.Range(2, 5));
+            remainingTime = 60f;
+        }
     }
 }

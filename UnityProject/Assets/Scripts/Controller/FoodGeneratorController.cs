@@ -17,12 +17,12 @@ public class FoodGeneratorController : MonoBehaviour
 
     private void Update() {
         if (actionPercentage.activeSelf) {
-            Utils.LocateMarkerOverGameObject(gameObject, actionPercentage, canvas);
+            Utils.LocateMarkerOverGameObject(gameObject, actionPercentage, 3.5f, canvas);
             actionPercentageValue += Time.deltaTime;
             actionPercentageImage.fillAmount = actionPercentageValue / 5.0f;
 
         } else {
-            Utils.LocateMarkerOverGameObject(gameObject, actionIcon, canvas);
+            Utils.LocateMarkerOverGameObject(gameObject, actionIcon, 3.5f, canvas);
         }
         
     }

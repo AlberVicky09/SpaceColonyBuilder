@@ -5,21 +5,34 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MissionSelectionManager : MonoBehaviour
-{
+public class MissionSelectionManager : MonoBehaviour {
+    public static MissionSelectionManager Instance;
+    
     public NavMeshAgent agent;
     private int currentPosition = -1;
     private int objectiveMission;
-    public Transform[] missionPositions;
+    public GameObject[] missionPositions;
     public TMP_Text titleText, descriptionText;
     public Button startMissionBtn;
     private String[] titleTexts, descriptionTexts;
+    public Boolean[] missionsAvailable;
+    public Color missionAvailableColor, missionNotAvailableColor;
 
     void Start() {
+
+        Instance = this;
+        
         titleTexts = new string[missionPositions.Length];
         descriptionTexts = new string[missionPositions.Length];
+        missionsAvailable = new bool[missionPositions.Length];
+        
+        //Retrieve completed missions from file
+        var missionAvailability = Utils.ReadFile("missionsAvailable");
+        //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
             var missionText = Utils.ReadFile("missionDescription" + i);
+            missionsAvailable[i] = "true".Equals(missionAvailability[i]);
+            missionPositions[i].GetComponent<Renderer>().material.color = missionsAvailable[i] ? missionAvailableColor : missionNotAvailableColor;
             titleTexts[i] = missionText[0];
             descriptionTexts[i] = missionText[1];
         }
@@ -39,9 +52,9 @@ public class MissionSelectionManager : MonoBehaviour
     public void MoveToMission(int mission) {
         objectiveMission = mission;
         if (objectiveMission > currentPosition) {
-            agent.SetDestination(missionPositions[++currentPosition].position);
+            agent.SetDestination(missionPositions[++currentPosition].transform.position);
         }else if (objectiveMission < currentPosition) {
-            agent.SetDestination(missionPositions[--currentPosition].position);
+            agent.SetDestination(missionPositions[--currentPosition].transform.position);
         }
     }
 
@@ -55,5 +68,9 @@ public class MissionSelectionManager : MonoBehaviour
     public void PlayMission(int mission) {
         PlayerPrefs.SetInt("mission", mission);
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void ReturnToMenu() {
+        SceneManager.LoadScene("MainMenu");
     }
 }

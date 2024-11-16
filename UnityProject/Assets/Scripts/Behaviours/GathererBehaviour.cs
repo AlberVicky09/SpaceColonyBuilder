@@ -38,7 +38,7 @@ public class GathererBehaviour : MonoBehaviour
     }
 
     private void Update() {
-        Utils.LocateMarkerOverGameObject(gameObject, currentAction.activeSelf ? currentAction : actionProgress, canvas);
+        Utils.LocateMarkerOverGameObject(gameObject, currentAction.activeSelf ? currentAction : actionProgress, 5f, canvas);
     }
     
     private void OnTriggerEnter(Collider other) {
@@ -111,6 +111,12 @@ public class GathererBehaviour : MonoBehaviour
                     GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
                 yield break;
             }
+        }
+
+        if (currentGatheredOre.gatheredTimes == currentGatheredOre.MAXGATHEREDTIMES) {
+            GameControllerScript.Instance.RemoveOre();
+            Destroy(currentGatheredOre.gameObject);
+            currentGatheredOre = null;
         }
 
         DisplayAction(GameControllerScript.Instance.missingAction);

@@ -1,5 +1,6 @@
 public enum FighterStatesEnum {
     Scouting,
     Chasing,
-    Attacking
+    Attacking,
+    AttackingLowPriority
 }

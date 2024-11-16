@@ -47,7 +47,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private void CheckDoubleClick() {
         if (secondClick) {
             if (Time.time - doubleClickDelay < Constants.MAX_DOUBLE_CLICK_DELAY) {
-                GameControllerScript.Instance.cameraMove.FocusCameraInGO(this.gameObject);
+                GameControllerScript.Instance.cameraMove.FocusCameraInGO(gameObject);
                 secondClick = false;
                 EventSystem.current.SetSelectedGameObject(gameObject);
             } else {

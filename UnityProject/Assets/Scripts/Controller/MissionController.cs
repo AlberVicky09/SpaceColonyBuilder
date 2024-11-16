@@ -1,13 +1,14 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MissionController : MonoBehaviour
 {
     private int currentMission;
     private int missionQuantity;
-    private int completedMissions = 0;
+    private int completedMissions;
     private MissionClass[] missions;
     private String[] missionTexts;
     
@@ -16,7 +17,7 @@ public class MissionController : MonoBehaviour
     public Sprite missionCompletedSprite;
 
     public GameObject endGameCanvas;
-    public TMP_Text endGameText;
+    public TMP_Text endGameText, missionsCompletedText, timeSpentText;
 
     private void Awake() {
         currentMission = PlayerPrefs.GetInt("mission", 0);
@@ -121,13 +122,31 @@ public class MissionController : MonoBehaviour
     
     private void CheckVictoryConditions() {
         if (completedMissions == missionQuantity) {
-           DisplayEndGameCanvas("You won!");
+           DisplayEndGameCanvas("Mission Completed!");
         }
     }
 
-    private void DisplayEndGameCanvas(string endText) {
+    public void DisplayEndGameCanvas(string endText) {
         Time.timeScale = 0f;
         endGameCanvas.SetActive(true);
         endGameText.text = endText;
+        missionsCompletedText.text = $"Missions completed = {completedMissions}/{missionQuantity}";
+        var minutesSpent = Math.Truncate(Time.timeSinceLevelLoad / 60);
+        var secondsSpent = Math.Round(Time.timeSinceLevelLoad % 60);
+        timeSpentText.text = $"Time = {minutesSpent}:{secondsSpent}";
+    }
+
+    public void EndGame() {
+        //If all missions have been completed
+        if (completedMissions == missionQuantity) {
+            //Retrieve mission availability and update current mission to completed
+            var missionAvailability = Utils.ReadFile("missionsAvailable");
+            var currentMission = PlayerPrefs.GetInt("mission", 1);
+            missionAvailability[currentMission] = "true";
+            //Store mission availability
+            Utils.WriteFile("missionsAvailable", missionAvailability);
+        }
+
+        SceneManager.LoadScene("MissionSelection");
     }
 }

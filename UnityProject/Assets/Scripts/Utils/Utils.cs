@@ -51,9 +51,9 @@ public static class Utils {
         }
     }
 
-    public static void LocateMarkerOverGameObject(GameObject go, GameObject marker, RectTransform canvas) {
+    public static void LocateMarkerOverGameObject(GameObject go, GameObject marker, float offSet, RectTransform canvas) {
         // Offset position above object bbox (in world space)
-        float offsetPosY = go.transform.position.y + 3f;
+        float offsetPosY = go.transform.position.y + offSet;
 
         // Final position of marker above GO in world space
         Vector3 offsetPos = new Vector3(go.transform.position.x, offsetPosY, go.transform.position.z);
@@ -84,8 +84,7 @@ public static class Utils {
         return false;
     }
     
-    public static string[] ReadFile(string fileName)
-    {
+    public static string[] ReadFile(string fileName) {
         // Path to the file
         string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
 
@@ -93,5 +92,13 @@ public static class Utils {
         return File.Exists(filePath) ?
             // Read all text from the file
             File.ReadAllLines(filePath) : new []{"File not found", "File not found"};
+    }
+    
+    public static void WriteFile(string fileName, string[] fileContent) {
+        // Path to the file
+        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
+
+        // Store file
+        File.WriteAllLines(filePath, fileContent);
     }
 }

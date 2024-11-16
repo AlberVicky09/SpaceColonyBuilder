@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class OreBehaviour : MonoBehaviour
 {
