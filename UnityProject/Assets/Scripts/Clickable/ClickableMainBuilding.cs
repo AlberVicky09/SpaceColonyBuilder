@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -26,6 +25,9 @@ public class ClickableMainBuilding : Clickable {
     protected override void StartButtons() {
         base.StartButtons();
         GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
+        GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(RepairBase);
+        GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Build";
+        GameControllerScript.Instance.actionButtons[1].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Repair base";
     }
     
     private void DisplayScreen() {
@@ -42,6 +44,10 @@ public class ClickableMainBuilding : Clickable {
         
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
+    }
+
+    private void RepairBase() {
+        //TODO Repair base method (cost depending on current damage)
     }
 
     private void GenerateProp(PropsEnum prop) {

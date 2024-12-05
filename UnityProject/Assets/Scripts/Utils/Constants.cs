@@ -124,4 +124,9 @@ public static class Constants
     public static float PLACING_REQUIRED_DELAY = 0.3f;
 
     public static float MAX_BULLET_TRAVEL_DISTANCE = 12f;
+
+    public static float MIN_ENEMY_SPAWNING_TIME = 120f;
+    public static float MAX_ENEMY_SPAWNING_TIME = 240f;
+
+    public static int DEFAULT_MISSING_RESOURCE_VALUE = 0;
 }

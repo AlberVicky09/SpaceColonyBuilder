@@ -19,6 +19,8 @@ public class ClickableShip : Clickable {
         }
         GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
         GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(Retreat);
+        GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Select objective";
+        GameControllerScript.Instance.actionButtons[1].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Retreat";
     }
 
     private void DisplayScreen() {

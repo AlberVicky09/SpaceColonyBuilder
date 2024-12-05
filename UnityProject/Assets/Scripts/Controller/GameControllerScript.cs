@@ -16,6 +16,7 @@ public class GameControllerScript : MonoBehaviour {
     public CameraMove cameraMove;
     public BulletPoolController bulletPoolController;
     public EnemyGenerationController enemyGenerationController;
+    public TutorialController tutorialController;
     
     public CanvasGroup canvasGroup;
 
@@ -48,6 +49,8 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
     public bool isGamePaused, isPauseMenuActive;
+    
+    public bool isTutorialActivated;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
 
@@ -106,7 +109,14 @@ public class GameControllerScript : MonoBehaviour {
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
         
         GenerateRandomOres();
-        StartCoroutine(GenerateShipsCoroutine());
+        
+        //If tutorial has been activated,< start it, else start enemy generation
+        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0) == 1;
+        if (isTutorialActivated) {
+            StartCoroutine(GenerateEnemyShipsCoroutine());
+        } else {
+            tutorialController.DisplayNextTutorial();
+        }
     }
 
     public void GenerateRandomOres() {
@@ -198,18 +208,23 @@ public class GameControllerScript : MonoBehaviour {
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
     }
 
-    private IEnumerator GenerateShipsCoroutine() {
-        var remainingTime = 45f;
+    private IEnumerator GenerateEnemyShipsCoroutine() {
+        var remainingTime = UnityEngine.Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+        //TODO Check why time is too high?
         while (true) {
             //Spawn enemies in remainingTime seconds
             while (remainingTime > 0) {
+                remainingTime--;
                 yield return new WaitForSeconds(1f);
-                enemyCountDownText.text = $"Enemy in 0: {--remainingTime}";
+                
+                var remainingMinutes = Mathf.Floor(remainingTime / 60f);
+                var remainingSeconds = Mathf.Floor(remainingTime - remainingMinutes * 60);
+                enemyCountDownText.text = $"Enemy in {remainingMinutes}:{remainingSeconds}";
             }
             
             //Generate between 2-4 enemy ships
             enemyGenerationController.GenerateNewEnemy(UnityEngine.Random.Range(2, 5));
-            remainingTime = 60f;
+            remainingTime = UnityEngine.Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
         }
     }
 }
