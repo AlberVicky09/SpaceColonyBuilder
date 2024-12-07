@@ -1,0 +1,20 @@
+{
+    "missionQuantity": 3,
+    "missions": [{
+            "missionType": "Resource",
+            "objectiveName": "Gold",
+            "objectiveQuantity": 50,
+            "missionDescription": "Gather 50 gold"
+        }, {
+            "missionType": "Prop",
+            "objectiveName": "Gatherer",
+            "objectiveQuantity": 5,
+            "missionDescription": "Have at least 5 active gatherers"
+        }, {
+            "missionType": "Date",
+            "objectiveName": "Before",
+            "objectiveQuantity": 24,
+            "missionDescription": "Complete all objectives prior to 2 years"
+        }
+    ]
+}

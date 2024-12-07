@@ -1,0 +1,10 @@
+{
+    "missionQuantity": 1,
+    "missions": [{
+            "missionType": "Resource",
+            "objectiveName": "Iron",
+            "objectiveQuantity": 200,
+            "missionDescription": "Gather 200 iron"
+        }
+    ]
+}

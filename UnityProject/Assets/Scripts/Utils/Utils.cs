@@ -84,21 +84,21 @@ public static class Utils {
         return false;
     }
     
-    public static string[] ReadFile(string fileName) {
+    public static string ReadFile(string fileName) {
         // Path to the file
-        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
+        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".json");
 
         // Check if the file exists
         return File.Exists(filePath) ?
             // Read all text from the file
-            File.ReadAllLines(filePath) : new []{"File not found", "File not found"};
+            File.ReadAllText(filePath) : "File not found";
     }
     
-    public static void WriteFile(string fileName, string[] fileContent) {
+    public static void WriteFile(string fileName, string fileContent) {
         // Path to the file
-        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".txt");
+        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".json");
 
         // Store file
-        File.WriteAllLines(filePath, fileContent);
+        File.WriteAllText(filePath, fileContent);
     }
 }

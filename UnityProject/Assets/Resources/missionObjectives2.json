@@ -1,0 +1,15 @@
+{
+    "missionQuantity": 2,
+    "missions": [{
+            "missionType": "Date",
+            "objectiveName": "After",
+            "objectiveQuantity": 36,
+            "missionDescription": "Survive for 3 years"
+        }, {
+            "missionType": "Enemy",
+            "objectiveName": "BasicEnemy",
+            "objectiveQuantity": 5,
+            "missionDescription": "Slay 5 enemies"
+        },
+    ]
+}

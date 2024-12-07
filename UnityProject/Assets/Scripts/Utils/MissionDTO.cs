@@ -1,6 +1,8 @@
+using System;
 using UnityEngine.UI;
 
-public class MissionClass {
+[Serializable]
+public class MissionDTO {
     public MissionTypeEnum missionType;
     public string objectiveName;
     public int objectiveQuantity;

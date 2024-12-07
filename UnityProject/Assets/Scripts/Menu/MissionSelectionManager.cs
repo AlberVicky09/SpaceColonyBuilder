@@ -27,14 +27,15 @@ public class MissionSelectionManager : MonoBehaviour {
         missionsAvailable = new bool[missionPositions.Length];
         
         //Retrieve completed missions from file
-        var missionAvailability = Utils.ReadFile("missionsAvailable");
+        var missionAvailability = JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable"));
+        var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
-            var missionText = Utils.ReadFile("missionDescription" + i);
-            missionsAvailable[i] = "true".Equals(missionAvailability[i]);
+            var missionText = 
+            missionsAvailable[i] = missionAvailability.boolArray[i];
             missionPositions[i].GetComponent<Renderer>().material.color = missionsAvailable[i] ? missionAvailableColor : missionNotAvailableColor;
-            titleTexts[i] = missionText[0];
-            descriptionTexts[i] = missionText[1];
+            titleTexts[i] = missionTexts.missionDescriptions[i].missionTitle;
+            descriptionTexts[i] = missionTexts.missionDescriptions[i].missionDescription;
         }
     }
     void Update()
