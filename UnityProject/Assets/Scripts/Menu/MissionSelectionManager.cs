@@ -27,7 +27,9 @@ public class MissionSelectionManager : MonoBehaviour {
         missionsAvailable = new bool[missionPositions.Length];
         
         //Retrieve completed missions from file
-        var missionAvailability = JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable"));
+        var missionAvailability = Utils.CheckFile("missionsAvailable") ?
+                                    JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable")) :
+                                    new MissionAvailabilityDTO(new []{true, false, false});
         var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {

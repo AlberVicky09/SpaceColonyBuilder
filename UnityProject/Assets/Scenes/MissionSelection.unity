@@ -686,6 +686,7 @@ GameObject:
   - component: {fileID: 445682982}
   - component: {fileID: 445682981}
   - component: {fileID: 445682980}
+  - component: {fileID: 445682983}
   m_Layer: 5
   m_Name: Start Mission Button
   m_TagString: Untagged
@@ -795,6 +796,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445682977}
   m_CullTransparentMesh: 1
+--- !u!114 &445682983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445682977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 0
 --- !u!1 &500425842
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +942,7 @@ GameObject:
   - component: {fileID: 873363776}
   - component: {fileID: 873363775}
   - component: {fileID: 873363774}
+  - component: {fileID: 873363777}
   m_Layer: 5
   m_Name: ReturnToMenu
   m_TagString: Untagged
@@ -1048,6 +1063,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873363772}
   m_CullTransparentMesh: 1
+--- !u!114 &873363777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873363772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 0
 --- !u!1 &932305367
 GameObject:
   m_ObjectHideFlags: 0

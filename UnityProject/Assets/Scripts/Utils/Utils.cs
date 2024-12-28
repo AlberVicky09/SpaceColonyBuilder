@@ -83,6 +83,10 @@ public static class Utils {
 
         return false;
     }
+
+    public static bool CheckFile(string fileName) {
+        return File.Exists(fileName);
+    }
     
     public static string ReadFile(string fileName) {
         // Path to the file

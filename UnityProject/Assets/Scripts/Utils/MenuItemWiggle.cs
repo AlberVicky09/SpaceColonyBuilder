@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {
     
     private bool isHovering;
     public int wiggleDirection;
@@ -28,10 +28,15 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData) {
         isHovering = true;
+        AudioManager.Instance.PlaySfx("OnHoverMenu");
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         ForceStopHovering();
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        AudioManager.Instance.PlaySfx("OnClickMenu");
     }
 
     public void ForceStopHovering() {

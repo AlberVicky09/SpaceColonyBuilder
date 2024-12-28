@@ -129,4 +129,7 @@ public static class Constants
     public static float MAX_ENEMY_SPAWNING_TIME = 240f;
 
     public static int DEFAULT_MISSING_RESOURCE_VALUE = 0;
+
+    public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {600, 720, 900, 1080};
+    public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {800, 1280, 1400, 1920};
 }

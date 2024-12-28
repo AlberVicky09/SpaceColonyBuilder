@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager Instance { get; private set; }
     public Sound[] musicClips, sfxClips;
-    public AudioSource musicSource, sfxSource;
+    public AudioSource musicSource, sfxSource, auxSource;
 
     public void Awake() {
         if(Instance == null) {
@@ -15,10 +15,10 @@ public class AudioManager : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
-    }
 
-    public void Start() {
-        PlayMusic("MainTheme");
+        musicSource.Stop();
+        sfxSource.Stop();
+        auxSource.Stop();
     }
 
     public void PlayMusic(string audioClip, bool loop = true) {
@@ -39,10 +39,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void TestSound(float volume) {
+        auxSource.volume = volume;
+        auxSource.PlayDelayed(0.2f);
+    }
+
     public bool ToggleMusic() {
         musicSource.mute = !musicSource.mute;
         if(!musicSource.mute) {
-            PlayMusic("SingleLaser", false);
+            TestSound(musicSource.volume);
         }
         return musicSource.mute;
     }
@@ -50,18 +55,18 @@ public class AudioManager : MonoBehaviour
     public bool ToggleSfx() {
         sfxSource.mute = !sfxSource.mute;
         if(!sfxSource.mute) {
-            PlaySfx("SingleLaser");
+            TestSound(sfxSource.volume);
         }
         return sfxSource.mute;
     }
 
     public void SetMusicVolume(float volume) {
         musicSource.volume = volume;
-        PlayMusic("SingleLaser", false);
+        TestSound(volume);
     }
 
     public void SetSfxVolume(float volume) {
         sfxSource.volume = volume;
-        PlaySfx("SingleLaser");
+        TestSound(volume);
     }
 }

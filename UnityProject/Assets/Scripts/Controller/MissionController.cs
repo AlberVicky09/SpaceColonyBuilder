@@ -123,9 +123,10 @@ public class MissionController : MonoBehaviour
         //If all missions have been completed
         if (completedMissions == missionListDto.missionQuantity) {
             //Retrieve mission availability and update current mission to completed
-            var missionAvailability = JsonUtility.FromJson<bool[]>(Utils.ReadFile("missionsAvailable"));
-            var currentMission = PlayerPrefs.GetInt("mission", 1);
-            missionAvailability[currentMission] = true;
+            var missionAvailability = new MissionAvailabilityDTO();
+            for (int i = 0; i <= currentMission; i++) {
+                missionAvailability.boolArray[i] = true;
+            }
             //Store mission availability
             Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(missionAvailability));
         }
