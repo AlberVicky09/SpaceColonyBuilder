@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraMove : MonoBehaviour {
 
@@ -28,7 +29,9 @@ public class CameraMove : MonoBehaviour {
             gameObjectCenteredRefreshTime += Time.deltaTime;
         }
 
-        if (!GameControllerScript.Instance.isGamePaused && !GameControllerScript.Instance.isPauseMenuActive) {
+        if (!(GameControllerScript.Instance.isGamePaused
+              || GameControllerScript.Instance.isPauseMenuActive
+              || EventSystem.current.IsPointerOverGameObject())) {
             //Place camera in gameObject
             if (isGameObjectCentered) {
                 cameraPivot.transform.position = new Vector3(gameObjectCentered.transform.position.x + Constants.CAMERA_OFFSET_X, Constants.CAMERA_OFFSET_Y, gameObjectCentered.transform.position.z);
@@ -82,7 +85,7 @@ public class CameraMove : MonoBehaviour {
 
                 //Zoom camera with mouseScroll
                 if (Input.mouseScrollDelta.y != 0) {
-                    ZoomCamera(Input.mouseScrollDelta.y > 0);
+                    ZoomCamera(Input.mouseScrollDelta.y < 0);
                 }
             }
         }        

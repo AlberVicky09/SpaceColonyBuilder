@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,6 +49,7 @@ public class GameControllerScript : MonoBehaviour {
 
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
+    public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
     public bool isGamePaused, isPauseMenuActive;
     
     public bool isTutorialActivated;
@@ -103,22 +105,26 @@ public class GameControllerScript : MonoBehaviour {
         
         //Initialize prop dictionary
         propDictionary = new Dictionary<PropsEnum, List<GameObject>>();
-        foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))){
+        foreach (PropsEnum propType in BuildableProps.RetrieveBuildableProps()){
             propDictionary.Add(propType, new List<GameObject>());
         }
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
         
         GenerateRandomOres();
-        
-        //If tutorial has been activated,< start it, else start enemy generation
-        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0) == 1;
-        if (isTutorialActivated) {
-            StartCoroutine(GenerateEnemyShipsCoroutine());
-        } else {
-            tutorialController.DisplayNextTutorial();
-        }
     }
 
+    void Start() {
+        //If tutorial has been activated,< start it, else start enemy generation
+        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 1) == 0;
+        if (!isTutorialActivated) {
+            StartCoroutine(GenerateEnemyShipsCoroutine());
+        } else {
+            enemyCountDownText.text = "No enemies in sight";
+            enemyCountDownBg.sprite = greenLabelSprite;
+            //tutorialController.DisplayNextTutorial();
+        }
+    }
+    
     public void GenerateRandomOres() {
         //Generate ores in random position inside initial circle
         for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
@@ -218,8 +224,10 @@ public class GameControllerScript : MonoBehaviour {
                 yield return new WaitForSeconds(1f);
                 
                 var remainingMinutes = Mathf.Floor(remainingTime / 60f);
+                var remainingMinutesString = remainingMinutes < 10f ? "0" + remainingMinutes : remainingMinutes.ToString(CultureInfo.CurrentCulture);
                 var remainingSeconds = Mathf.Floor(remainingTime - remainingMinutes * 60);
-                enemyCountDownText.text = $"Enemy in {remainingMinutes}:{remainingSeconds}";
+                String remainingSecondsString = remainingSeconds < 10f ? "0" + remainingSeconds : remainingSeconds.ToString(CultureInfo.CurrentCulture);
+                enemyCountDownText.text = $"Enemy in {remainingMinutesString}:{remainingSecondsString}";
             }
             
             //Generate between 2-4 enemy ships

@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class ClickableMainBuilding : Clickable {
 
+    public Canvas healingCanvas;
+    public Slider healingSlider;
+    public TMP_Text healingText;
+    public Transform healingSliderBeginning;
+    public PropStats mainBuildingStats;
+    
     private bool placeable;
     private float placingDelay;
     private Ray placingRay;
@@ -24,13 +30,17 @@ public class ClickableMainBuilding : Clickable {
     
     protected override void StartButtons() {
         base.StartButtons();
-        GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
-        GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(RepairBase);
+        GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayBuildableScreen);
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Build";
-        GameControllerScript.Instance.actionButtons[1].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Repair base";
+        if (mainBuildingStats.healthPoints < mainBuildingStats.MAX_HEALTHPOINTS) {
+            GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(DisplayRepairingScreen);
+            GameControllerScript.Instance.actionButtons[1].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Repair base";
+        } else {
+            GameControllerScript.Instance.actionButtons[1].SetActive(true);
+        }
     }
     
-    private void DisplayScreen() {
+    private void DisplayBuildableScreen() {
         //Activate canvas and place buttons
         GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(Constants.BUILDABLE_LIST.Count);
         
@@ -46,8 +56,13 @@ public class ClickableMainBuilding : Clickable {
         GameControllerScript.Instance.PauseGame();
     }
 
-    private void RepairBase() {
-        //TODO Repair base method (cost depending on current damage)
+    private void DisplayRepairingScreen() {
+        healingCanvas.gameObject.SetActive(true);
+        healingSlider.onValueChanged.AddListener(-> healingText.transform.position = new Vector3(healingSlider.handleRect.transform.position.x,
+            healingText.transform.position.y, healingText.transform.position.z));
+        
+        GameControllerScript.Instance.actionCanvas.SetActive(false);
+        GameControllerScript.Instance.PauseGame();
     }
 
     private void GenerateProp(PropsEnum prop) {

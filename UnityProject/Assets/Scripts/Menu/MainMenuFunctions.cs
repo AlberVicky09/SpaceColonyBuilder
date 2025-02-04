@@ -15,6 +15,7 @@ public class MainMenuFunctions : MonoBehaviour
     Resolution[] resolutions;
 
     public void Start() {
+        StartCoroutine(AudioManager.Instance.StartFade(0.5f, true, true));
         SetUpResolutions();
 
         if (!AudioManager.Instance.musicSource.isPlaying) {
@@ -90,7 +91,7 @@ public class MainMenuFunctions : MonoBehaviour
     
     public void EnterMissionSelection(int activateTutorial) {
         PlayerPrefs.SetInt("tutorialActivated", activateTutorial);
-        SceneManager.LoadScene("MissionSelection");
+        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MissionSelection"));
     }
 
     public void ReturnToMainMenu() {

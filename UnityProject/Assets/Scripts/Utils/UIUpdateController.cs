@@ -72,9 +72,9 @@ public class UIUpdateController : MonoBehaviour
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             int resourceLoss = 0;
             //Get mantaining cost of each prop * number of them
-            foreach (var prop in GameControllerScript.Instance.propDictionary) {
-                resourceLoss += GameControllerScript.Instance.propDictionary[prop.Key].Count
-                                * Constants.PROPS_MANTAINING_COST[prop.Key]
+            foreach (var prop in BuildableProps.RetrieveBuildableProps()) {
+                resourceLoss += GameControllerScript.Instance.propDictionary[prop].Count
+                                * Constants.PROPS_MANTAINING_COST[prop]
                                     .GetValueOrDefault(resource, Constants.DEFAULT_MISSING_RESOURCE_VALUE);
             }
             UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);

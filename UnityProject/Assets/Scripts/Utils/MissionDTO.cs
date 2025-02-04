@@ -7,6 +7,5 @@ public class MissionDTO {
     public string objectiveName;
     public int objectiveQuantity;
     public string missionDescription;
-    public Image missionUIGameObject;
     public bool completed;
 }

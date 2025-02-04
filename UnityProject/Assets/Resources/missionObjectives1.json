@@ -1,7 +1,7 @@
 {
     "missionQuantity": 1,
     "missions": [{
-            "missionType": "Resource",
+            "missionType": 0,
             "objectiveName": "Iron",
             "objectiveQuantity": 200,
             "missionDescription": "Gather 200 iron"

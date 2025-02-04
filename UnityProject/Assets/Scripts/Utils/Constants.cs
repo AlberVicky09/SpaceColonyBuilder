@@ -45,11 +45,22 @@ public static class Constants
     public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROPS_MANTAINING_COST =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
             {
-                PropsEnum.Gatherer,
-                new Dictionary<ResourceEnum, int>() { { ResourceEnum.Platinum, 5 }, { ResourceEnum.Iron, 5 } }
-            }, {
                 PropsEnum.MainBuilding,
-                new Dictionary<ResourceEnum, int>() { { ResourceEnum.Food, 3 }, { ResourceEnum.Water, 5 } }
+                new Dictionary<ResourceEnum, int>()
+            },{
+                PropsEnum.Gatherer,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.FoodGenerator,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.BasicFighter,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
             }
         };
 
@@ -62,16 +73,6 @@ public static class Constants
             },
             {
                 PropsEnum.FoodGenerator,
-                new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            {
-                PropsEnum.House,
-                new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            {
-                PropsEnum.Storage,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
             },

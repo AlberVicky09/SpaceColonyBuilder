@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MissionController : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class MissionController : MonoBehaviour
     private MissionListDTO missionListDto;
     
     public GameObject[] missionUIList;
+    public Image[] missionUIBg;
     public TMP_Text[] missionListText;
-    public Sprite missionCompletedSprite;
 
     public GameObject endGameCanvas;
     public TMP_Text endGameText, missionsCompletedText, timeSpentText;
@@ -35,13 +36,13 @@ public class MissionController : MonoBehaviour
     }
 
     public void CheckResourceMission(ResourceEnum resourceType, int quantity) {
-        foreach (var mission in missionListDto.missions) {
+        for (int i = 0; i < missionListDto.missions.Length; i++) {
             //If mission is not completed and of resource type
-            if (!mission.completed && mission.missionType == MissionTypeEnum.Resource) {
+            if (!missionListDto.missions[i].completed && missionListDto.missions[i].missionType == MissionTypeEnum.Resource) {
                 //Check if is expected resource and its current quantity
-                if (resourceType.Equals((ResourceEnum)Enum.Parse(typeof(ResourceEnum), mission.objectiveName))
-                    && quantity >= mission.objectiveQuantity) {
-                    CompleteMission(mission);
+                if (resourceType.Equals((ResourceEnum)Enum.Parse(typeof(ResourceEnum), missionListDto.missions[i].objectiveName))
+                    && quantity >= missionListDto.missions[i].objectiveQuantity) {
+                    CompleteMission(missionListDto.missions[i], i);
                 }
             }
         }
@@ -49,13 +50,13 @@ public class MissionController : MonoBehaviour
     }
 
     public void CheckPropMission(PropsEnum propType, int quantity) {
-        foreach (var mission in missionListDto.missions) {
+        for (int i = 0; i < missionListDto.missions.Length; i++) {
             //If mission is not completed and of prop type
-            if (!mission.completed && mission.missionType == MissionTypeEnum.Prop) {
+            if (!missionListDto.missions[i].completed && missionListDto.missions[i].missionType == MissionTypeEnum.Prop) {
                 //Check if is expected prop and its current quantity
-                if (propType.Equals((PropsEnum)Enum.Parse(typeof(PropsEnum), mission.objectiveName))
-                    && quantity >= mission.objectiveQuantity) {
-                    CompleteMission(mission);
+                if (propType.Equals((PropsEnum)Enum.Parse(typeof(PropsEnum), missionListDto.missions[i].objectiveName))
+                    && quantity >= missionListDto.missions[i].objectiveQuantity) {
+                    CompleteMission(missionListDto.missions[i], i);
                 }
             }
         }
@@ -63,19 +64,19 @@ public class MissionController : MonoBehaviour
     }
     
     public void CheckDateMission(int months) {
-        foreach (var mission in missionListDto.missions) {
+        for (int i = 0; i < missionListDto.missions.Length; i++) {
             //If mission is not completed and of resource type
-            if (!mission.completed && mission.missionType == MissionTypeEnum.Date) {
-                if(DateMissionEnum.After.Equals((DateMissionEnum)Enum.Parse(typeof(DateMissionEnum), mission.objectiveName))
-                && mission.objectiveQuantity <= months) {
-                    CompleteMission(mission);
+            if (!missionListDto.missions[i].completed && missionListDto.missions[i].missionType == MissionTypeEnum.Date) {
+                if(DateMissionEnum.After.Equals((DateMissionEnum)Enum.Parse(typeof(DateMissionEnum), missionListDto.missions[i].objectiveName))
+                && missionListDto.missions[i].objectiveQuantity <= months) {
+                    CompleteMission(missionListDto.missions[i], i);
                 } else {
                     //If date is after limit, loose
-                    if (mission.objectiveQuantity <= months) {
+                    if (missionListDto.missions[i].objectiveQuantity <= months) {
                         DisplayEndGameCanvas("You loose!");
                         //Else, if all other missions have been completed, win
                     } else if (completedMissions == missionListDto.missionQuantity - 1) {
-                        CompleteMission(mission);
+                        CompleteMission(missionListDto.missions[i], i);
                     }
                 }
             }
@@ -84,21 +85,21 @@ public class MissionController : MonoBehaviour
     }
 
     public void CheckEnemiesDefeatedMission(PropsEnum enemyType, int defeatedQuantity) {
-        foreach (var mission in missionListDto.missions) {
+        for (int i = 0; i < missionListDto.missions.Length; i++) {
             //If mission is not completed and of resource type
-            if (!mission.completed && mission.missionType == MissionTypeEnum.Enemy) {
+            if (!missionListDto.missions[i].completed && missionListDto.missions[i].missionType == MissionTypeEnum.Enemy) {
                 //Check if is expected resource and its current quantity
-                if (enemyType.Equals((PropsEnum)Enum.Parse(typeof(PropsEnum), mission.objectiveName))
-                    && defeatedQuantity >= mission.objectiveQuantity) {
-                    CompleteMission(mission);
+                if (enemyType.Equals((PropsEnum)Enum.Parse(typeof(PropsEnum), missionListDto.missions[i].objectiveName))
+                    && defeatedQuantity >= missionListDto.missions[i].objectiveQuantity) {
+                    CompleteMission(missionListDto.missions[i], i);
                 }
             }
         }
         CheckVictoryConditions();
     }
 
-    private void CompleteMission(MissionDTO mission) {
-        mission.missionUIGameObject.sprite = missionCompletedSprite;
+    private void CompleteMission(MissionDTO mission, int missionPosition) {
+        missionUIBg[missionPosition].sprite = GameControllerScript.Instance.greenLabelSprite;
         mission.completed = true;
         completedMissions++;
     }

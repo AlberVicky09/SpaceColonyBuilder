@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public enum PropsEnum
 {
    Gatherer,
@@ -14,4 +16,10 @@ public enum PropsEnum
    ImprovedStorage,
    MainBuilding,
    ImprovedMainBuilding
+}
+
+public static class BuildableProps {
+   public static List<PropsEnum> RetrieveBuildableProps() {
+      return new List<PropsEnum>{PropsEnum.Gatherer, PropsEnum.MainBuilding, PropsEnum.FoodGenerator, PropsEnum.BasicFighter};
+   }
 }

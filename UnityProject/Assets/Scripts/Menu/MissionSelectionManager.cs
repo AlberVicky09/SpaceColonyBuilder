@@ -26,6 +26,8 @@ public class MissionSelectionManager : MonoBehaviour {
         descriptionTexts = new string[missionPositions.Length];
         missionsAvailable = new bool[missionPositions.Length];
         
+        StartCoroutine(AudioManager.Instance.StartFade(0.5f, true, true));
+        
         //Retrieve completed missions from file
         var missionAvailability = Utils.CheckFile("missionsAvailable") ?
                                     JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable")) :
@@ -33,7 +35,6 @@ public class MissionSelectionManager : MonoBehaviour {
         var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
-            var missionText = 
             missionsAvailable[i] = missionAvailability.boolArray[i];
             missionPositions[i].GetComponent<Renderer>().material.color = missionsAvailable[i] ? missionAvailableColor : missionNotAvailableColor;
             titleTexts[i] = missionTexts.missionDescriptions[i].missionTitle;
@@ -74,6 +75,6 @@ public class MissionSelectionManager : MonoBehaviour {
     }
 
     public void ReturnToMenu() {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MainMenu"));
     }
 }

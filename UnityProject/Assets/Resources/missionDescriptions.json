@@ -1,12 +1,12 @@
 {
     "missionDescriptions": [{
-            "missionTitle": "Mission 0: Missing title",
-            "missionDescription": "Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0 Mission0"
+            "missionTitle": "MISSION 1: SETTLING IN",
+            "missionDescription": "Humanity has just exited Earth searching for a new home. Help them settle in a small space base, and learn how to gather resources.\n But beware! Pirates may be lurking around trying to steal your resources."
         }, {
-            "missionTitle": "Mission 1: Missing title",
+            "missionTitle": "MISSION 2: Missing title",
             "missionDescription": "Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1 Mission1"
         }, {
-            "missionTitle": "Mission 2: Missing title",
+            "missionTitle": "MISSION 3: Missing title",
             "missionDescription": "Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2 Mission2"
         }
     ]
