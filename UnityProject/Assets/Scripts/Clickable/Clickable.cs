@@ -15,7 +15,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     private static GameObject activeButtonsObject;
     
-    public void OnClick() {
+    public void OnMouseDown() {
         if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
             selectedClickable = this;
             GameControllerScript.Instance.actionCanvas.SetActive(true);

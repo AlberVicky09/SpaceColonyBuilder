@@ -20,7 +20,7 @@ public class ClickGameObject : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickableLayer))
             {
-                hit.collider.gameObject.GetComponent<Clickable>().OnClick();
+                hit.collider.gameObject.GetComponent<Clickable>().OnMouseDown();
             }
         }
     }

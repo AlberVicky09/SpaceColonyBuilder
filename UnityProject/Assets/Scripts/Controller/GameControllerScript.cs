@@ -89,7 +89,7 @@ public class GameControllerScript : MonoBehaviour {
         resourcesDictionary = new Dictionary<ResourceEnum, int>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, 500);
+            resourcesDictionary.Add(resource, 50);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
         }
@@ -105,7 +105,7 @@ public class GameControllerScript : MonoBehaviour {
         
         //Initialize prop dictionary
         propDictionary = new Dictionary<PropsEnum, List<GameObject>>();
-        foreach (PropsEnum propType in BuildableProps.RetrieveBuildableProps()){
+        foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))) {
             propDictionary.Add(propType, new List<GameObject>());
         }
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);

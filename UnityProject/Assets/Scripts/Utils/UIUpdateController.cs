@@ -37,10 +37,10 @@ public class UIUpdateController : MonoBehaviour
         GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].canvas.SetAlpha(1.0f);
 
         if(ResourceOperationEnum.Increase.Equals(operation)) {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.RESOURCE_CHANGE_INCREASE_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.GREEN_COLOR;
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.text = "+" + quantity;
         } else {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.RESOURCE_CHANGE_DECREASE_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.RED_COLOR;
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.text = "-" + quantity;
         }
 

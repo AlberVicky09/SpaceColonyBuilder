@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,9 +8,14 @@ public class ClickableMainBuilding : Clickable {
 
     public Canvas healingCanvas;
     public Slider healingSlider;
+    public RectTransform healingSliderRectTransform;
+    public RectTransform healingTextRectTransform;
+    public Image healingSliderFill;
     public TMP_Text healingText;
-    public Transform healingSliderBeginning;
+    public RectTransform healingSliderBeginning;
+    public Button healingAcceptButton;
     public PropStats mainBuildingStats;
+    private int healingAmount;
     
     private bool placeable;
     private float placingDelay;
@@ -23,7 +29,11 @@ public class ClickableMainBuilding : Clickable {
     private Renderer[] propRenderers;
     
     public LayerMask placementMask, obstructionMask;
-    
+
+    private void Start() {
+        healingSlider.onValueChanged.AddListener(s => SetUpSlider(s));
+    }
+
     public override void UpdateTexts() {
         GameControllerScript.Instance.actionText.text = "Main building";
     }
@@ -58,8 +68,10 @@ public class ClickableMainBuilding : Clickable {
 
     private void DisplayRepairingScreen() {
         healingCanvas.gameObject.SetActive(true);
-        healingSlider.onValueChanged.AddListener(-> healingText.transform.position = new Vector3(healingSlider.handleRect.transform.position.x,
-            healingText.transform.position.y, healingText.transform.position.z));
+
+        //Show slider at full fill
+        healingSlider.value = 1;
+        SetUpSlider(healingSlider.value);
         
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
@@ -140,6 +152,34 @@ public class ClickableMainBuilding : Clickable {
         }
     }
 
+    private void SetUpSlider(float sliderValue) {
+        //Update position of healingQuantity to follow slider
+        healingTextRectTransform.anchoredPosition = new Vector2(
+            healingSliderBeginning.anchoredPosition.x + sliderValue * healingSliderRectTransform.rect.width,
+            healingTextRectTransform.anchoredPosition.y);
+            
+        //Update value of the healingQuantity
+        healingAmount = (int)Math.Ceiling(sliderValue * (mainBuildingStats.MAX_HEALTHPOINTS - mainBuildingStats.healthPoints));
+        healingText.text = healingAmount + " iron";
+        
+        //If healing is more than can pay, put it in red and dissable accept button
+        var isValidHealing = healingAmount < GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Iron];
+        healingAcceptButton.interactable = isValidHealing;
+        healingSliderFill.color = isValidHealing
+            ? Constants.GREEN_COLOR
+            : Constants.RED_COLOR;
+    }
+
+    public void DoHeal() {
+        //Remove cost of current resources
+        GameControllerScript.Instance.UIUpdateController.UpdateResource(ResourceEnum.Iron, healingAmount, ResourceOperationEnum.Decrease);
+        
+        //Heal mainBuilding
+        mainBuildingStats.IncreaseHealthPoints(healingAmount);
+        
+        GameControllerScript.Instance.PlayVelocity(1f);
+    }
+    
     private void SetObjectTransparency(bool isTransparent) {
         for (int i = 0; i < propRenderers.Length; i++) {
             var material = propRenderers[i].material;
@@ -185,7 +225,7 @@ public class ClickableMainBuilding : Clickable {
 
     private void ReducePriceResources(Dictionary<ResourceEnum, int> propCosts) {
         foreach (var propCost in propCosts) {
-            GameControllerScript.Instance.resourcesDictionary[propCost.Key] -= propCost.Value;
+            GameControllerScript.Instance.UIUpdateController.UpdateResource(propCost.Key, propCost.Value, ResourceOperationEnum.Decrease);
         }
     }
 
