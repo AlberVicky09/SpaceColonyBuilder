@@ -1,10 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class UIUpdateController : MonoBehaviour
-{
+public class UIUpdateController : MonoBehaviour {
+
+    public Dictionary<ResourceEnum, Vector3> resourcesInitialPositions;
+    private Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>> resourcesChangeCoroutines;
+
+    private void Start() {
+        resourcesChangeCoroutines = new Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>>();
+        Dictionary<ResourceOperationEnum, Coroutine> auxDictionary;
+        foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
+            auxDictionary = new Dictionary<ResourceOperationEnum, Coroutine>();
+            foreach (ResourceOperationEnum op in Enum.GetValues(typeof(ResourceOperationEnum))) {
+                auxDictionary.Add(op, null);
+            }
+            resourcesChangeCoroutines.Add(resource, auxDictionary);
+        }
+    }
 
     public void SetResourcesText() {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
@@ -14,12 +29,40 @@ public class UIUpdateController : MonoBehaviour
 
     public void UpdateResource(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
         //Update resources by operation
+        int limitedQuantity = quantity;
         switch (operation) {
             case ResourceOperationEnum.Increase:
-                GameControllerScript.Instance.resourcesDictionary[resourceType] += quantity;
+                //If is more than limit, increase until limit
+                var maxPossibleIncrease = GameControllerScript.Instance.resourcesLimit -
+                                          GameControllerScript.Instance.resourcesDictionary[resourceType];
+                
+                if (maxPossibleIncrease > quantity) {
+                    GameControllerScript.Instance.resourcesDictionary[resourceType] = GameControllerScript.Instance.resourcesLimit;
+                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.yellow;
+                    limitedQuantity = maxPossibleIncrease;
+                } else {
+                    GameControllerScript.Instance.resourcesDictionary[resourceType] += quantity;
+                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.white;
+                }
+                
+                GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = 
+                    GameControllerScript.Instance.resourcesLimit == GameControllerScript.Instance.resourcesDictionary[resourceType] ?
+                        Color.yellow : Color.white;
                 break;
             case ResourceOperationEnum.Decrease:
-                GameControllerScript.Instance.resourcesDictionary[resourceType] -= quantity;
+                //If its more than current quantity, remove until 0
+                if (quantity > GameControllerScript.Instance.resourcesDictionary[resourceType]) {
+                    limitedQuantity = GameControllerScript.Instance.resourcesDictionary[resourceType];
+                    GameControllerScript.Instance.resourcesDictionary[resourceType] = 0;
+                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.grey;
+
+                } else {
+                    GameControllerScript.Instance.resourcesDictionary[resourceType] -= quantity;
+                }
+
+                GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = 
+                    GameControllerScript.Instance.resourcesDictionary[resourceType] == 0 ?
+                        Color.grey : Color.white;
                 break;
         }
 
@@ -27,13 +70,16 @@ public class UIUpdateController : MonoBehaviour
         GameControllerScript.Instance.uiResourcesTextMap[resourceType].text = GameControllerScript.Instance.resourcesDictionary[resourceType].ToString();
         
         //Display update
-        StartCoroutine(GameControllerScript.Instance.UIUpdateController.DisplayResourceChange(resourceType, quantity, operation));
+        try { StopCoroutine(resourcesChangeCoroutines[resourceType][operation]); } catch { }
+
+        resourcesChangeCoroutines[resourceType][operation] = StartCoroutine(DisplayResourceChange(resourceType, limitedQuantity, operation));
         
         GameControllerScript.Instance.missionController.CheckResourceMission(resourceType, GameControllerScript.Instance.resourcesDictionary[resourceType]);
     }
 
     public IEnumerator DisplayResourceChange(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
         //Display resource text and set value
+        GameControllerScript.Instance.uiResourcesTextMap[resourceType].transform.position = resourcesInitialPositions[resourceType];
         GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].canvas.SetAlpha(1.0f);
 
         if(ResourceOperationEnum.Increase.Equals(operation)) {
@@ -77,6 +123,7 @@ public class UIUpdateController : MonoBehaviour
                                 * Constants.PROPS_MANTAINING_COST[prop]
                                     .GetValueOrDefault(resource, Constants.DEFAULT_MISSING_RESOURCE_VALUE);
             }
+            Debug.Log("Resource loss = " + resource + " [" + resourceLoss + "]");
             UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);
         }
     }

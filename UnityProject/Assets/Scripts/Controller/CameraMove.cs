@@ -1,18 +1,21 @@
+using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CameraMove : MonoBehaviour {
 
+    public static CameraMove Instance;
     public Camera cameraGO;
-    [SerializeField] GameObject cameraPivot;
+    public GameObject cameraPivot;
 
-    private bool isGameObjectCentered;
-    private GameObject gameObjectCentered;
-    private float gameObjectCenteredRefreshTime;
+    public bool isGameObjectCentered;
+    public GameObject gameObjectCentered;
+    public float gameObjectCenteredRefreshTime;
 
-    private float leftCameraMovementThreshold, rightCameraMovementThreshold, rightCameraMovementRange;
-    private float upCameraMovementThreshold, upCameraMovementRange, downCameraMovementThreshold;
+    public float leftCameraMovementThreshold, rightCameraMovementThreshold, rightCameraMovementRange;
+    public float upCameraMovementThreshold, upCameraMovementRange, downCameraMovementThreshold;
+
+    void Awake() { Instance = this; }
 
     void Start() {
         leftCameraMovementThreshold = Screen.width * 0.15f;
@@ -28,67 +31,29 @@ public class CameraMove : MonoBehaviour {
         if (isGameObjectCentered && gameObjectCenteredRefreshTime <= Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME) {
             gameObjectCenteredRefreshTime += Time.deltaTime;
         }
-
-        if (!(GameControllerScript.Instance.isGamePaused
-              || GameControllerScript.Instance.isPauseMenuActive
-              || EventSystem.current.IsPointerOverGameObject())) {
-            //Place camera in gameObject
-            if (isGameObjectCentered) {
-                cameraPivot.transform.position = new Vector3(gameObjectCentered.transform.position.x + Constants.CAMERA_OFFSET_X, Constants.CAMERA_OFFSET_Y, gameObjectCentered.transform.position.z);
-            } else {
-                //Move with wasd
-                if (Input.GetKey(KeyCode.W)) {
-                    MoveCameraHorizontal(-0.3f);
-                } else if (Input.GetKey(KeyCode.S)) {
-                    MoveCameraHorizontal(0.3f);
-                }
-
-                if (Input.GetKey(KeyCode.A)) {
-                    MoveCameraVertical(0.3f);
-                } else if (Input.GetKey(KeyCode.D)) {
-                    MoveCameraVertical(-0.3f);
-                }
+        
+        //MOVE CAMERA MOVEMENT TO WASD FOR USEFULNESS
                 
-                //Move by clicking and dragging
-                //if (Input.GetMouseButton(0) && (!isGameObjectCentered ||
-                //                                gameObjectCenteredRefreshTime >
-                //                                Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME)) {
-                //    MoveCameraVertical(Input.GetAxis("Mouse X"));
-                //    MoveCameraHorizontal(Input.GetAxis("Mouse Y"));
-                //}
+        //Move by clicking and dragging
+        //if (Input.GetMouseButton(0) && (!isGameObjectCentered ||
+        //                                gameObjectCenteredRefreshTime >
+        //                                Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME)) {
+        //    MoveCameraVertical(Input.GetAxis("Mouse X"));
+        //    MoveCameraHorizontal(Input.GetAxis("Mouse Y"));
+        //}
                 
-                //Move by mousePosition
-                if(Input.mousePosition.x >= rightCameraMovementThreshold && Input.mousePosition.x <= Screen.width) {
-                    MoveCameraVertical(-(Input.mousePosition.x - rightCameraMovementThreshold) / rightCameraMovementRange * 0.4f);
-                }else if (Input.mousePosition.x <= leftCameraMovementThreshold && Input.mousePosition.x >= 0) {
-                    MoveCameraVertical(1 - Input.mousePosition.x * 0.5f / leftCameraMovementThreshold);
-                }
+        //Move by mousePosition
+        //if(Input.mousePosition.x >= rightCameraMovementThreshold && Input.mousePosition.x <= Screen.width) {
+        //    MoveCameraVertical(-(Input.mousePosition.x - rightCameraMovementThreshold) / rightCameraMovementRange * 0.4f);
+        //}else if (Input.mousePosition.x <= leftCameraMovementThreshold && Input.mousePosition.x >= 0) {
+        //    MoveCameraVertical(1 - Input.mousePosition.x * 0.5f / leftCameraMovementThreshold);
+        //}
                 
-                if(Input.mousePosition.y >= upCameraMovementThreshold && Input.mousePosition.y <= Screen.height) {
-                    MoveCameraHorizontal(-(Input.mousePosition.y - upCameraMovementThreshold) / upCameraMovementRange * 0.4f);
-                }else if (Input.mousePosition.y <= downCameraMovementThreshold && Input.mousePosition.y >= 0) {
-                    MoveCameraHorizontal(1 - Input.mousePosition.y * 0.7f / downCameraMovementThreshold);
-                }
-
-                //Reset camera by right clicking or by clicking F
-                if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.F)) {
-                    ResetCamera();
-                    UnFocusCameraInGO();
-                }
-
-                //Zoom camera with Q and E
-                if (Input.GetKey(KeyCode.Q)) {
-                    ZoomCamera(false);
-                } else if (Input.GetKey(KeyCode.E)) {
-                    ZoomCamera(true);
-                }
-
-                //Zoom camera with mouseScroll
-                if (Input.mouseScrollDelta.y != 0) {
-                    ZoomCamera(Input.mouseScrollDelta.y < 0);
-                }
-            }
-        }        
+        //if(Input.mousePosition.y >= upCameraMovementThreshold && Input.mousePosition.y <= Screen.height) {
+        //    MoveCameraHorizontal(-(Input.mousePosition.y - upCameraMovementThreshold) / upCameraMovementRange * 0.4f);
+        //}else if (Input.mousePosition.y <= downCameraMovementThreshold && Input.mousePosition.y >= 0) {
+        //    MoveCameraHorizontal(1 - Input.mousePosition.y * 0.7f / downCameraMovementThreshold);
+        //}
     }
 
     public void ResetCamera() {
@@ -105,19 +70,19 @@ public class CameraMove : MonoBehaviour {
         isGameObjectCentered = false;
     }
 
-    private void MoveCameraVertical(float verticalMovement) {
+    public void MoveCameraVertical(float verticalMovement) {
         cameraPivot.transform.position += Vector3.left * verticalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
         cameraPivot.transform.position += Vector3.forward * verticalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
         UnFocusCameraInGO();
     }
 
-    private void MoveCameraHorizontal(float horizontalMovement) {
+    public void MoveCameraHorizontal(float horizontalMovement) {
         cameraPivot.transform.position -= Vector3.right * horizontalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
         cameraPivot.transform.position -= Vector3.forward * horizontalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
         UnFocusCameraInGO();
     }
 
-    private void ZoomCamera(bool zoomIn) {
+    public void ZoomCamera(bool zoomIn) {
         cameraGO.orthographicSize += (zoomIn ? 1 : -1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
         cameraGO.orthographicSize = Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
     }

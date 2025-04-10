@@ -94,6 +94,7 @@ public class ClickableMainBuilding : Clickable {
             //Stop placing if right click is pressed or scape button is pressed
             if (Input.GetMouseButton(1)) {
                 ResetPlacingVariables(false);
+                GameControllerScript.Instance.PlayVelocity(1f);
             } else {
                 placingDelay += Time.unscaledDeltaTime;
                 //Locate object with mouse
@@ -172,7 +173,7 @@ public class ClickableMainBuilding : Clickable {
 
     public void DoHeal() {
         //Remove cost of current resources
-        GameControllerScript.Instance.UIUpdateController.UpdateResource(ResourceEnum.Iron, healingAmount, ResourceOperationEnum.Decrease);
+        GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Iron, healingAmount, ResourceOperationEnum.Decrease);
         
         //Heal mainBuilding
         mainBuildingStats.IncreaseHealthPoints(healingAmount);
@@ -199,6 +200,13 @@ public class ClickableMainBuilding : Clickable {
 
             //Check if mission is completed
             GameControllerScript.Instance.missionController.CheckPropMission(currentProp, GameControllerScript.Instance.propDictionary[currentProp].Count);
+
+            if (PropsEnum.Storage.Equals(currentProp)) {
+                GameControllerScript.Instance.resourcesLimit += Constants.RESOURCES_LIMIT_INCREASE;
+                foreach (var maxResourceText in GameControllerScript.Instance.uiMaxResourcesList) {
+                    maxResourceText.text = GameControllerScript.Instance.resourcesLimit.ToString();
+                }
+            }
             
             //Reset gatherer
             SetObjectTransparency(false);
@@ -206,10 +214,9 @@ public class ClickableMainBuilding : Clickable {
             if(propCollider != null) { propCollider.isTrigger = false; }
             
             ResetPlacingVariables(true);
-            
+            GameControllerScript.Instance.PlayVelocity(1f);
         } else {
-            //TODO Quitar el prop porque no puedes pagarlo (checkear)
-            Debug.Log("Not enough resources");
+            GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources");
             ResetPlacingVariables(false);
         }
     }
@@ -225,7 +232,7 @@ public class ClickableMainBuilding : Clickable {
 
     private void ReducePriceResources(Dictionary<ResourceEnum, int> propCosts) {
         foreach (var propCost in propCosts) {
-            GameControllerScript.Instance.UIUpdateController.UpdateResource(propCost.Key, propCost.Value, ResourceOperationEnum.Decrease);
+            GameControllerScript.Instance.uiUpdateController.UpdateResource(propCost.Key, propCost.Value, ResourceOperationEnum.Decrease);
         }
     }
 
@@ -237,7 +244,6 @@ public class ClickableMainBuilding : Clickable {
         propRenderers = null;
         propCollider = null;
         propRigibody = null;
-        GameControllerScript.Instance.PlayVelocity(1f);
         GameControllerScript.Instance.SwapUIInteraction();
     }
 }

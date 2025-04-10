@@ -5,7 +5,7 @@ public static class Constants
 {
     public static List<ResourceEnum> ORE_RESOURCES = new List<ResourceEnum>() {ResourceEnum.Water, ResourceEnum.Iron, ResourceEnum.Gold, ResourceEnum.Platinum };
 
-    public static List<PropsEnum> BUILDABLE_LIST = new List<PropsEnum>() {PropsEnum.Gatherer, PropsEnum.FoodGenerator, PropsEnum.BasicFighter, PropsEnum.House, PropsEnum.Storage};
+    public static List<PropsEnum> BUILDABLE_LIST = new List<PropsEnum>() {PropsEnum.Gatherer, PropsEnum.FoodGenerator, PropsEnum.BasicFighter, PropsEnum.Storage};
     
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
             { ResourceEnum.Water, new Color(0,0.42f,1) },
@@ -80,6 +80,11 @@ public static class Constants
                 PropsEnum.BasicFighter,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            {
+                PropsEnum.Storage,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
             }
         };
 
@@ -112,6 +117,10 @@ public static class Constants
     public const float TIME_SCALE_FAST = 1.5f;
     public static float TIME_SCALE_STOPPED = 0f;
 
+    public static int INITIAL_RESOURCES_QUANTITY = 300;
+    public static int INITIAL_RESOURCES_LIMIT = 100;
+    public static int RESOURCES_LIMIT_INCREASE = 50;
+    
     public static int GATHERER_GATHERING_QUANTITY = 3;
     public static int DEFAULT_GATHERER_MAX_LOAD = 15;
     public static int UPGRADED_GATHERER_LOAD = 45;
@@ -133,4 +142,14 @@ public static class Constants
 
     public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {600, 720, 900, 1080};
     public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {800, 1280, 1400, 1920};
+
+    public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
+    public static List<string> TUTORIAL_TEXTS = new List<string>() {
+        "Tutorial Text 0",
+        "Tutorial Text 1",
+        "Tutorial Text 2",
+        "Tutorial Text 3",
+        "Tutorial Text 4",
+        "Tutorial Text 5",
+    };
 }

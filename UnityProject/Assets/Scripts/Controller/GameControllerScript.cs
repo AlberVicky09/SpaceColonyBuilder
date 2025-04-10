@@ -11,13 +11,13 @@ public class GameControllerScript : MonoBehaviour {
     #region Variables
 
     public static GameControllerScript Instance;
-    public UIUpdateController UIUpdateController; 
+    public UIUpdateController uiUpdateController; 
     public InteractableButtonManager interactableButtonManager;
     public MissionController missionController;
     public CameraMove cameraMove;
     public BulletPoolController bulletPoolController;
     public EnemyGenerationController enemyGenerationController;
-    public TutorialController tutorialController;
+    public TutorialControllerLegacy tutorialControllerLegacy;
     
     public CanvasGroup canvasGroup;
 
@@ -27,8 +27,8 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject housePrefab;
     public GameObject storagePrefab;
     public GameObject fighterPrefab;
-    
-    public GameObject mainBuilding;
+
+    public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
 
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
@@ -42,6 +42,7 @@ public class GameControllerScript : MonoBehaviour {
     public TMP_Text actionText;
     public Image uiRepresentation;
     public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
+    public List<TMP_Text> uiMaxResourcesList;
     public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesChangeTextMap;
 
     public TMP_Text enemyCountDownText;
@@ -49,12 +50,14 @@ public class GameControllerScript : MonoBehaviour {
 
     public GameObject alertCanvas;
     public TMP_Text alertCanvasText;
+    private float prevAlertTimeSpeed;
     public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
     public bool isGamePaused, isPauseMenuActive;
     
     public bool isTutorialActivated;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
+    public int resourcesLimit = Constants.INITIAL_RESOURCES_LIMIT;
 
     public bool placing;
     #endregion
@@ -69,6 +72,14 @@ public class GameControllerScript : MonoBehaviour {
             { ResourceEnum.Iron, GameObject.Find("IronCounter").GetComponent<TMP_Text>() },
             { ResourceEnum.Gold, GameObject.Find("GoldCounter").GetComponent<TMP_Text>() },
             { ResourceEnum.Platinum, GameObject.Find("PlatinumCounter").GetComponent<TMP_Text>() }
+        };
+
+        uiMaxResourcesList = new List<TMP_Text> {
+            GameObject.Find("MaxWaterCounter").GetComponent<TMP_Text>(),
+            GameObject.Find("MaxFoodCounter").GetComponent<TMP_Text>(),
+            GameObject.Find("MaxIronCounter").GetComponent<TMP_Text>(),
+            GameObject.Find("MaxGoldCounter").GetComponent<TMP_Text>(),
+            GameObject.Find("MaxPlatinumCounter").GetComponent<TMP_Text>()
         };
 
         var waterChangeGO = GameObject.Find("WaterChangeCounter");
@@ -87,13 +98,15 @@ public class GameControllerScript : MonoBehaviour {
         //Initialize resources dictionaries
         oreListDictionary = new Dictionary<ResourceEnum, List<ResourceTuple>>();
         resourcesDictionary = new Dictionary<ResourceEnum, int>();
+        uiUpdateController.resourcesInitialPositions = new Dictionary<ResourceEnum, Vector3>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, 50);
+            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY);
+            uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.transform.position);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
         }
-        UIUpdateController.SetResourcesText();
+        uiUpdateController.SetResourcesText();
 
         //Initialize ore images 
         oreListImage = new Dictionary<ResourceEnum, Sprite> {
@@ -109,6 +122,7 @@ public class GameControllerScript : MonoBehaviour {
             propDictionary.Add(propType, new List<GameObject>());
         }
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
+        propDictionary[PropsEnum.Gatherer].Add(startingGatherer);
         
         GenerateRandomOres();
     }
@@ -187,13 +201,16 @@ public class GameControllerScript : MonoBehaviour {
         //Display alert canvas with specified text and stop time
         alertCanvas.SetActive(true);
         alertCanvasText.text = alertDisplayText;
+        prevAlertTimeSpeed = Time.timeScale;
         PauseGame();
     }
 
     public void CloseAlertCanvas() {
         //Close alert panel and restart time
         alertCanvas.SetActive(false);
-        PlayVelocity(Constants.TIME_SCALE_NORMAL);
+        if (prevAlertTimeSpeed != 0) { 
+            PlayVelocity(Constants.TIME_SCALE_STOPPED);
+        }
     }
 
     public void PlayVelocity(float velocity) {
@@ -216,7 +233,6 @@ public class GameControllerScript : MonoBehaviour {
 
     private IEnumerator GenerateEnemyShipsCoroutine() {
         var remainingTime = UnityEngine.Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
-        //TODO Check why time is too high?
         while (true) {
             //Spawn enemies in remainingTime seconds
             while (remainingTime > 0) {

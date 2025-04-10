@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ClickGameObject : MonoBehaviour
@@ -20,7 +21,9 @@ public class ClickGameObject : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickableLayer))
             {
-                hit.collider.gameObject.GetComponent<Clickable>().OnMouseDown();
+                try {
+                    hit.collider.gameObject.GetComponent<Clickable>().OnMouseDown();
+                }catch(Exception) {}
             }
         }
     }

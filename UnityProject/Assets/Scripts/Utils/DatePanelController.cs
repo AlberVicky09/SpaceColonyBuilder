@@ -88,7 +88,7 @@ public class DatePanelController : MonoBehaviour
 
         //Consume resources every 15 days
         if (day % day == 0) { // FIXME: Revert /15
-            GameControllerScript.Instance.UIUpdateController.ConsumeResources();
+            GameControllerScript.Instance.uiUpdateController.ConsumeResources();
         }
         
         //Check date mission if needed

@@ -81,7 +81,7 @@ public class GathererBehaviour : MonoBehaviour
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
                 foreach (var resource in loadDictionary.Keys.ToList()) {
                     if (loadDictionary[resource] != 0) {
-                        GameControllerScript.Instance.UIUpdateController.UpdateResource(resource, loadDictionary[resource],
+                        GameControllerScript.Instance.uiUpdateController.UpdateResource(resource, loadDictionary[resource],
                             ResourceOperationEnum.Increase);
                         loadDictionary[resource] = 0;
                     }

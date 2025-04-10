@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +17,10 @@ public class OnHoverBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
 
     public void OnPointerExit(PointerEventData eventData) {
+        hoveringCanvas.SetActive(false);
+    }
+
+    public void OnDisable() {
         hoveringCanvas.SetActive(false);
     }
 }

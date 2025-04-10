@@ -224,12 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -494,7 +494,17 @@ MonoBehaviour:
   objectImage: {fileID: 21300000, guid: e9e7e346d1d94f34ea8dd4757c5a9b43, type: 3}
   buttonImages:
   - {fileID: 21300000, guid: aed4a75f907cfc64997d2e0a11eb2316, type: 3}
-  buttonNumber: 1
+  - {fileID: 21300000, guid: aed4a75f907cfc64997d2e0a11eb2316, type: 3}
+  buttonNumber: 2
+  healingCanvas: {fileID: 0}
+  healingSlider: {fileID: 0}
+  healingSliderRectTransform: {fileID: 0}
+  healingTextRectTransform: {fileID: 0}
+  healingSliderFill: {fileID: 0}
+  healingText: {fileID: 0}
+  healingSliderBeginning: {fileID: 0}
+  healingAcceptButton: {fileID: 0}
+  mainBuildingStats: {fileID: 8372312498913627255}
   placementMask:
     serializedVersion: 2
     m_Bits: 128
@@ -550,9 +560,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a437dc6860e64b828431b6e236e008ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
+  healthPoints: 30
   MAX_HEALTHPOINTS: 100
   propType: 12
   canvas: {fileID: 7995483060941295856}
   healthBar: {fileID: 4206634517156146978}
   healthBarOffSet: 5.3
+  renderer: {fileID: 8212347161978244585}
+--- !u!23 &8212347161978244585 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}
+  m_PrefabInstance: {fileID: 7366072161016222061}
+  m_PrefabAsset: {fileID: 0}
