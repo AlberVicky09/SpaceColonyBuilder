@@ -9,10 +9,10 @@ public class MissionController : MonoBehaviour
     private int currentMission;
     private int completedMissions;
     private MissionListDTO missionListDto;
-    
-    public GameObject[] missionUIList;
+
+    public GameObject[] missionUIList, missionUIListDuplicated;
     public Image[] missionUIBg;
-    public TMP_Text[] missionListText;
+    public TMP_Text[] missionListText, missionListTextDuplicated;
 
     public GameObject endGameCanvas;
     public TMP_Text endGameText, missionsCompletedText, timeSpentText;
@@ -23,15 +23,17 @@ public class MissionController : MonoBehaviour
     }
 
     private void Start() {
-        foreach (var missionObject in missionUIList) {
-            missionObject.SetActive(false);
+        for(int i = 0; i < missionUIList.Length; i++) {
+            missionUIList[i].SetActive(false);
+            missionUIListDuplicated[i].SetActive(false);
         }
         
         //Initialize all missions from file
         for (int i = 0; i < missionListDto.missions.Length; i++) {
             missionUIList[i].SetActive(true);
+            missionUIListDuplicated[i].SetActive(true);
             //Display mission objective on screen
-            missionListText[i].text = missionListDto.missions[i].missionDescription;
+            missionListText[i].text = missionListTextDuplicated[i].text = missionListDto.missions[i].missionDescription;
         }
     }
 

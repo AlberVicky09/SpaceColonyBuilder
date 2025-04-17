@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,7 +82,7 @@ public class CameraMove : MonoBehaviour {
     }
 
     public void ZoomCamera(bool zoomIn) {
-        cameraGO.orthographicSize += (zoomIn ? 1 : -1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
+        cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
         cameraGO.orthographicSize = Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
     }
 }

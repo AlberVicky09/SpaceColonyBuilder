@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,8 +12,10 @@ public class OnHoverBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerEnter(PointerEventData eventData) {
         hoveringCanvas.SetActive(true);
         hoveringCanvas.transform.position = eventData.position + HOVERING_DISPLACEMENT;
-        hoveringCanvasText.text = hoveringDisplayText;
+        RefreshText();
     }
+    
+    public void RefreshText() { hoveringCanvasText.text = hoveringDisplayText; }
 
     public void OnPointerExit(PointerEventData eventData) {
         hoveringCanvas.SetActive(false);

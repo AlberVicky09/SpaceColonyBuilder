@@ -5,6 +5,7 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameControllerScript : MonoBehaviour {
 
@@ -137,13 +138,15 @@ public class GameControllerScript : MonoBehaviour {
             enemyCountDownBg.sprite = greenLabelSprite;
             //tutorialController.DisplayNextTutorial();
         }
+        
+        PauseGame();
     }
     
     public void GenerateRandomOres() {
         //Generate ores in random position inside initial circle
         for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
             var circlePos = GenerateNewOrePosition();
-            var randomResource = Constants.ORE_RESOURCES[UnityEngine.Random.Range(0, Constants.ORE_RESOURCES.Count)];
+            var randomResource = Constants.ORE_RESOURCES[Random.Range(0, Constants.ORE_RESOURCES.Count)];
             var instantiatedOre = Instantiate(orePrefab, new Vector3(circlePos.x, Constants.ORE_FLOOR_OFFSET, circlePos.y), Quaternion.identity);
 
             instantiatedOre.name = randomResource.ToString() + circlePos.ToString();
@@ -163,7 +166,7 @@ public class GameControllerScript : MonoBehaviour {
         var valid = false;
         Vector2 pos = new Vector2();
         while (!valid) {
-            pos = UnityEngine.Random.insideUnitCircle * Constants.VIEW_DISTANCE_RANGE;
+            pos = Random.insideUnitCircle * Constants.VIEW_DISTANCE_RANGE;
             valid = true;
             Vector2 currentOrePos;
             foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
@@ -232,7 +235,7 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     private IEnumerator GenerateEnemyShipsCoroutine() {
-        var remainingTime = UnityEngine.Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+        var remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
         while (true) {
             //Spawn enemies in remainingTime seconds
             while (remainingTime > 0) {
@@ -247,8 +250,8 @@ public class GameControllerScript : MonoBehaviour {
             }
             
             //Generate between 2-4 enemy ships
-            enemyGenerationController.GenerateNewEnemy(UnityEngine.Random.Range(2, 5));
-            remainingTime = UnityEngine.Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+            enemyGenerationController.GenerateNewEnemy(Random.Range(2, 5));
+            remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
         }
     }
 }

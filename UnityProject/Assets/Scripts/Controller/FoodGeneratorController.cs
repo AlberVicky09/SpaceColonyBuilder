@@ -35,23 +35,33 @@ public class FoodGeneratorController : MonoBehaviour
             while (isGeneratorPaused) { yield return null; }
             
             yield return new WaitForSeconds(5);
-            if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
-                actionPercentage.SetActive(true);
-                actionPercentageValue = 0f;
-                actionPercentageImage.fillAmount = 0f;
-                idleAction.SetActive(false);
+            if (!isGeneratorPaused) {
+                if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
+                    ToggleActionCanvas(true);
+                    actionPercentageValue = 0f;
+                    actionPercentageImage.fillAmount = 0f;
 
-                //Remove water
-                GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Water, 15, ResourceOperationEnum.Decrease);
-                
-                //Add food
-                GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Food, 30, ResourceOperationEnum.Increase);
-            } else {
-                Debug.Log("Missing water");
-                actionPercentage.SetActive(false);
-                idleAction.SetActive(true);
+                    //Remove water
+                    GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Water, 15,
+                        ResourceOperationEnum.Decrease);
+
+                    //Add food
+                    GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Food, 30,
+                        ResourceOperationEnum.Increase);
+                } else {
+                    Debug.Log("Missing water");
+                    ToggleActionCanvas(false);
+                }
             }
         }
     }
 
+    public void ToggleActionCanvas(bool isActive) {
+        actionPercentage.SetActive(isActive);
+        idleAction.SetActive(!isActive);
+        if (!isActive) {
+            actionPercentageValue = 0f;
+            actionPercentageImage.fillAmount = 0f;
+        }
+    }
 }
