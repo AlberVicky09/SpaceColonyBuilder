@@ -151,7 +151,7 @@ public class GameControllerScript : MonoBehaviour {
 
             instantiatedOre.name = randomResource.ToString() + circlePos.ToString();
 
-            instantiatedOre.GetComponent<OreBehaviour>().resourceType = randomResource;
+            instantiatedOre.GetComponent<OreBehaviour>().SetResourceType(randomResource);
             instantiatedOre.GetComponent<Renderer>().material.color = Constants.ORE_COLOR_MAP[randomResource];
             instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Glossiness", Constants.ORE_SMOOTHNESS_MAP[randomResource]);
             instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Metallic", Constants.ORE_METALLIC_MAP[randomResource]);

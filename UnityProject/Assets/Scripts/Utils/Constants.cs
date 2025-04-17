@@ -101,8 +101,10 @@ public static class Constants
 
     public const float ZOOM_CHANGE = 12;
     public const float CAMERA_SMOOTHER_VALUE = 1.3f;
-    public const float MIN_ZOOM_SIZE = 4f;
+    public const float MIN_ZOOM_SIZE = 7f;
     public const float MAX_ZOOM_SIZE = 13f;
+    public const float MIN_MINIMAP_ZOOM_SIZE = 13f;
+    public const float MAX_MINIMAP_ZOOM_SIZE = 19f;
 
     public const float GATHERER_ACTION_OFFSET = 1.5f;
     

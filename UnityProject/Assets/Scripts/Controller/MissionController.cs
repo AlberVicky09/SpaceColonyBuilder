@@ -19,7 +19,7 @@ public class MissionController : MonoBehaviour
 
     private void Awake() {
         currentMission = PlayerPrefs.GetInt("mission", 0);
-        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives"+currentMission));
+        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives "+currentMission));
     }
 
     private void Start() {

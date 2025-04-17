@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OreBehaviour : MonoBehaviour
 {
@@ -6,4 +7,10 @@ public class OreBehaviour : MonoBehaviour
     public float gatheringTimeRequired = 3.5f;
     public int gatheredTimes = 0;
     public int MAXGATHEREDTIMES = 15;
+    public Image minimapImage;
+
+    public void SetResourceType(ResourceEnum rType) {
+        resourceType = rType;
+        minimapImage.color = Constants.ORE_COLOR_MAP[resourceType];
+    }
 }

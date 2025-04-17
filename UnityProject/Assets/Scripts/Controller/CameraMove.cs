@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour {
 
     public static CameraMove Instance;
-    public Camera cameraGO;
+    public Camera cameraGO, miniMapCamera;
     public GameObject cameraPivot;
 
     public bool isGameObjectCentered;
@@ -84,6 +84,9 @@ public class CameraMove : MonoBehaviour {
     public void ZoomCamera(bool zoomIn) {
         cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
         cameraGO.orthographicSize = Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
+
+        miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
+        miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE, Constants.MAX_MINIMAP_ZOOM_SIZE);
     }
 }
 
