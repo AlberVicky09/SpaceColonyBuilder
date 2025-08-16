@@ -1,22 +1,10 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class ClickableShip : Clickable {
-
-    private GathererBehaviour gathererBehaviour;
-
-    public override void UpdateTexts() {
-        if (selectedClickable == this) {
-            GameControllerScript.Instance.actionText.text = "Gatherer \n" + gathererBehaviour.gathererLoad + "/" +
-                                                   gathererBehaviour.maxGathererLoad;
-        }
-    }
+public class ClickablePlayerGatherer : ClickableGatherer {
     
     protected override void StartButtons() {
         base.StartButtons();
-        if (gathererBehaviour == null) {
-            gathererBehaviour = GetComponent<GathererBehaviour>();
-        }
         GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayScreen);
         GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(Retreat);
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Select objective";
@@ -41,7 +29,7 @@ public class ClickableShip : Clickable {
 
     private void SelectResource(ResourceEnum resource) {
         gathererBehaviour.resourceGatheringType = resource;
-        gathererBehaviour.DisplayAction(GameControllerScript.Instance.oreListImage[resource]);
+        gathererBehaviour.DisplayAction(GameControllerScript.Instance.oreListImage[resource].sprite);
         GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
         GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);

@@ -7,7 +7,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     protected static Clickable selectedClickable;
     
     [SerializeField] Sprite objectImage;
-    [SerializeField] Sprite[] buttonImages;
+    [SerializeField] protected Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
 
     private float doubleClickDelay;
@@ -31,7 +31,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     
     public abstract void UpdateTexts();
     
-    private void DisplayButtons() {
+    protected virtual void DisplayButtons() {
         //Disable all buttons
         foreach (var button in GameControllerScript.Instance.actionButtons) {
             button.SetActive(false);
@@ -44,7 +44,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
         }
     }
 
-    private void CheckDoubleClick() {
+    protected void CheckDoubleClick() {
         if (secondClick) {
             if (Time.time - doubleClickDelay < Constants.MAX_DOUBLE_CLICK_DELAY) {
                 GameControllerScript.Instance.cameraMove.FocusCameraInGO(gameObject);

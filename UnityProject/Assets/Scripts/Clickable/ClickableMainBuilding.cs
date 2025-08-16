@@ -78,7 +78,7 @@ public class ClickableMainBuilding : Clickable {
     }
 
     private void GenerateProp(PropsEnum prop) {
-        if (CheckEnoughResources(Constants.BUILDABLE_PRICES[prop])) {
+        if (Utils.CheckEnoughResources(GameControllerScript.Instance.resourcesDictionary, Constants.PROP_CREATION_PRICES[prop])) {
             GameControllerScript.Instance.placing = true;
             GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
             currentProp = prop;
@@ -94,7 +94,7 @@ public class ClickableMainBuilding : Clickable {
             //Stop placing if right click is pressed or scape button is pressed
             if (Input.GetMouseButton(1)) {
                 ResetPlacingVariables(false);
-                GameControllerScript.Instance.PlayVelocity(1f);
+                GameControllerScript.Instance.PlayVelocity(-1f);
             } else {
                 placingDelay += Time.unscaledDeltaTime;
                 //Locate object with mouse
@@ -191,12 +191,12 @@ public class ClickableMainBuilding : Clickable {
     }
     
     private void PlaceProp() {
-        if (CheckEnoughResources(Constants.BUILDABLE_PRICES[currentProp])) {
+        if (Utils.CheckEnoughResources(GameControllerScript.Instance.resourcesDictionary , Constants.PROP_CREATION_PRICES[currentProp])) {
             //Add prop to list
             GameControllerScript.Instance.propDictionary[currentProp].Add(instantiatedProp);
             
             //Reduce prop resources
-            ReducePriceResources(Constants.BUILDABLE_PRICES[currentProp]);
+            ReducePriceResources(Constants.PROP_CREATION_PRICES[currentProp]);
 
             //Check if mission is completed
             GameControllerScript.Instance.missionController.CheckPropMission(currentProp, GameControllerScript.Instance.propDictionary[currentProp].Count);
@@ -217,17 +217,9 @@ public class ClickableMainBuilding : Clickable {
             GameControllerScript.Instance.PlayVelocity(1f);
         } else {
             GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources");
+            Debug.Log("Couldnt place it");
             ResetPlacingVariables(false);
         }
-    }
-    
-    private bool CheckEnoughResources(Dictionary<ResourceEnum, int> propCosts) {
-        foreach (var propCost in propCosts) {
-            if (GameControllerScript.Instance.resourcesDictionary[propCost.Key] < propCost.Value) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void ReducePriceResources(Dictionary<ResourceEnum, int> propCosts) {

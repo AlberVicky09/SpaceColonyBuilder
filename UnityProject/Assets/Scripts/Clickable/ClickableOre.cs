@@ -8,7 +8,7 @@ public class ClickableOre : Clickable {
         }
 
         if (selectedClickable == this) {
-            GameControllerScript.Instance.actionText.text = oreBehaviour.resourceType + " ore\nRemaining "
+            GameControllerScript.Instance.actionText.text = oreBehaviour.resourceType + " ore\nRemaining gatherings: "
                 + (oreBehaviour.MAXGATHEREDTIMES - oreBehaviour.gatheredTimes) + "/" + oreBehaviour.MAXGATHEREDTIMES;
         }
     }

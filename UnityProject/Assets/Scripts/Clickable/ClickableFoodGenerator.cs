@@ -31,4 +31,12 @@ public class ClickableFoodGenerator : Clickable {
             foodGeneratorController.isGeneratorPaused ? "Resume generator" : "Pause generator";
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().RefreshText();
     }
+
+    protected override void DisplayButtons() {
+        base.DisplayButtons();
+        
+        //Ensure image is correct with current state
+        GameControllerScript.Instance.actionButtons[0].GetComponent<Image>().sprite =
+            foodGeneratorController.isGeneratorPaused ? buttonImages[0] : buttonImages[1];
+    }
 }
