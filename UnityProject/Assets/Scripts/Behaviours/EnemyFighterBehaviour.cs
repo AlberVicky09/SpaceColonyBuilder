@@ -2,17 +2,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBehaviour : MonoBehaviour {
+public class EnemyFighterBehaviour : MonoBehaviour {
     
     public NavMeshAgent agent;
     public GameObject objectiveGO;
     private PropsEnum objectiveType;
-    private FighterStatesEnum currentState = FighterStatesEnum.Chasing;
+    public FighterStatesEnum currentState;
+    private FighterStatesEnum prevState;
+    private int currentWaypointIndex;
 
     private const float TIME_TO_CHECK_FOR_ENEMIES = 1f;
     private float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
     private const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 5f;
     private const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
+    
+    //TODO When scouting, go to enemy waypoints
     
     private void OnDrawGizmosSelected()
     {
@@ -32,8 +36,8 @@ public class EnemyBehaviour : MonoBehaviour {
             timeSinceLastCheckForEnemies = 0f;
 
             //If enemy is near enough to shoot (and not already shooting an enemy), stop and start shooting
-            if (!FighterStatesEnum.Attacking.Equals(currentState) && Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.BasicFighter], transform,
-                    MAXIMUM_FIGHTER_ATTACKING_DISTANCE, ref currentState, ref objectiveGO)) {
+            if (!FighterStatesEnum.Attacking.Equals(currentState) && Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.BasicFighter],
+                    transform, MAXIMUM_FIGHTER_ATTACKING_DISTANCE, ref objectiveGO)) {
                 currentState = FighterStatesEnum.Attacking;
                 objectiveType = PropsEnum.BasicFighter;
                 //Stop any prev shooting
@@ -41,11 +45,16 @@ public class EnemyBehaviour : MonoBehaviour {
                 StartCoroutine(StartFighting());
             //If we havent detected any enemy, check building
             }else if (FighterStatesEnum.Chasing.Equals(currentState) && Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.MainBuilding],
-                   transform, MAXIMUM_BUILDING_ATTACKING_DISTANCE, ref currentState, ref objectiveGO)) {
-                objectiveType = PropsEnum.MainBuilding;
+                   transform, MAXIMUM_BUILDING_ATTACKING_DISTANCE, ref objectiveGO)) {
                 currentState = FighterStatesEnum.AttackingLowPriority;
+                objectiveType = PropsEnum.MainBuilding;
                 StartCoroutine(StartFighting());
             }
+        }
+        
+        // Check if the agent has reached the current waypoint
+        if (FighterStatesEnum.Scouting.Equals(currentState) && !agent.pathPending && agent.remainingDistance < 0.5f) {
+            Utils.MoveToNextWayPoint(currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
         }
     }
 
@@ -75,9 +84,20 @@ public class EnemyBehaviour : MonoBehaviour {
         }
         
         //Restart the agent, and instantly find enemies
-        currentState = FighterStatesEnum.Chasing;
         timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
         agent.isStopped = false;
-        agent.SetDestination(GameControllerScript.Instance.mainBuilding.transform.position);
+        if (FighterStatesEnum.Chasing.Equals(prevState)) {
+            currentState = FighterStatesEnum.Chasing;
+            agent.SetDestination(GameControllerScript.Instance.mainBuilding.transform.position);
+        } else {
+            currentState = FighterStatesEnum.Scouting;
+            Utils.MoveToNextWayPoint(currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
+        }
+    }
+
+    public void AttackPlayerBase() {
+        if(FighterStatesEnum.Scouting.Equals(currentState)) {
+            currentState = FighterStatesEnum.Chasing;
+        }
     }
 }
