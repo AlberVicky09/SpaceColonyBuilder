@@ -7,11 +7,16 @@ public class OnHoverBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public string hoveringDisplayText;
     public GameObject hoveringCanvas;
     public TMP_Text hoveringCanvasText;
-    private Vector2 HOVERING_DISPLACEMENT = new Vector2(50f, -70f);
+    private const float HOVERING_DISPLACEMENT_X = 50f;
+    private const float HOVERING_DISPLACEMENT_Y = 150f;
 
     public void OnPointerEnter(PointerEventData eventData) {
         hoveringCanvas.SetActive(true);
-        hoveringCanvas.transform.position = eventData.position + HOVERING_DISPLACEMENT;
+        //Place over or under depending on current position
+        hoveringCanvas.transform.position = eventData.position +
+            new Vector2(HOVERING_DISPLACEMENT_X, (eventData.position.y - HOVERING_DISPLACEMENT_Y <= 0) ?
+                HOVERING_DISPLACEMENT_Y : -HOVERING_DISPLACEMENT_Y);
+
         RefreshText();
     }
     

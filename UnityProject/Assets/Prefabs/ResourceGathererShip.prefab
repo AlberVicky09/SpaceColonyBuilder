@@ -4898,7 +4898,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &8627098663958893629
 MonoBehaviour:
@@ -4954,8 +4954,8 @@ GameObject:
   - component: {fileID: 342102882058857096}
   - component: {fileID: 2502404077333040987}
   - component: {fileID: 1597363917280192473}
-  - component: {fileID: 6234225655572249175}
-  - component: {fileID: 948390745696445120}
+  - component: {fileID: 1823176391311649558}
+  - component: {fileID: 1975633258544385677}
   m_Layer: 3
   m_Name: ResourceGathererShip
   m_TagString: Untagged
@@ -5104,7 +5104,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6234225655572249175
+--- !u!114 &1823176391311649558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5113,9 +5113,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2935667877756296035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee21d54a1cb8325449414c703db10e51, type: 3}
+  m_Script: {fileID: 11500000, guid: 0203f59f82154558b6a0bedbe4901ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectImage: {fileID: 21300000, guid: aed4a75f907cfc64997d2e0a11eb2316, type: 3}
+  buttonImages:
+  - {fileID: 21300000, guid: a8aee44177db02843a36e7bd8be3bf17, type: 3}
+  - {fileID: 21300000, guid: 84f060ccdc852b441b1d388eb5c85c59, type: 3}
+  buttonNumber: 2
+--- !u!114 &1975633258544385677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935667877756296035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317f9f8ce3dd4a399b814882b884362b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickableGatherer: {fileID: 1823176391311649558}
   agent: {fileID: 342102882058857096}
   objectiveItem: {fileID: 0}
   resourceGatheringType: 0
@@ -5125,23 +5143,6 @@ MonoBehaviour:
   actionProgress: {fileID: 3345042851995547276}
   currentAction: {fileID: 6131193330086127712}
   currentActionImage: {fileID: 0}
---- !u!114 &948390745696445120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2935667877756296035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991fc9a40da2b4444ae5632bb6f594f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectImage: {fileID: 21300000, guid: aed4a75f907cfc64997d2e0a11eb2316, type: 3}
-  buttonImages:
-  - {fileID: 21300000, guid: be35b3e4ddbec9b4eb165a7c058bccfe, type: 3}
-  - {fileID: 21300000, guid: 84f060ccdc852b441b1d388eb5c85c59, type: 3}
-  buttonNumber: 2
 --- !u!1 &3345042851995547276
 GameObject:
   m_ObjectHideFlags: 0

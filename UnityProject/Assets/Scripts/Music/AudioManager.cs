@@ -37,9 +37,13 @@ public class AudioManager : MonoBehaviour
     public void PlaySfx(string audioClip, bool loop = false) {
         var s = Array.Find(sfxClips, x => x.clipName == audioClip);
         if (s != null) {
-            sfxSource.clip = s.clip;
-            sfxSource.loop = loop;
-            sfxSource.Play();
+            if (loop) {
+                sfxSource.clip = s.clip;
+                sfxSource.loop = loop;
+                sfxSource.Play();
+            } else {
+                sfxSource.PlayOneShot(s.clip);
+            }
         }
     }
 

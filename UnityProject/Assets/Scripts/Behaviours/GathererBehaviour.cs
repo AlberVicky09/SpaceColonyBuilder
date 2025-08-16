@@ -6,27 +6,27 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class GathererBehaviour : MonoBehaviour
+public abstract class GathererBehaviour : MonoBehaviour
 {
-    private ClickableShip clickableShip;
-    private ClickableOre currentClickableOre;
-    [SerializeField] NavMeshAgent agent;
+    protected ClickableOre currentClickableOre;
+    [SerializeField] protected ClickableGatherer clickableGatherer;
+    [SerializeField] protected NavMeshAgent agent;
     
     public GameObject objectiveItem;
     public ResourceEnum resourceGatheringType;
-    private OreBehaviour currentGatheredOre;
+    protected OreBehaviour currentGatheredOre;
     public int gathererLoad = 0;
-    private Dictionary<ResourceEnum, int> loadDictionary;
+    protected Dictionary<ResourceEnum, int> loadDictionary;
     public int maxGathererLoad;
     
     public RectTransform canvas;
     public GameObject actionProgress;
-    private Image actionProgressImage;
+    protected float gatheredProgressTime = 0f;
+    protected Image actionProgressImage;
     public GameObject currentAction;
     public Image currentActionImage;
 
-    private void Start() {
-        clickableShip = GetComponent<ClickableShip>();
+    protected void Start() {
         actionProgressImage = actionProgress.GetComponent<Image>();
         currentActionImage = currentAction.GetComponent<Image>();
         
@@ -38,7 +38,13 @@ public class GathererBehaviour : MonoBehaviour
     }
 
     private void Update() {
-        Utils.LocateMarkerOverGameObject(gameObject, currentAction.activeSelf ? currentAction : actionProgress, 5f, canvas);
+        if (currentAction.activeSelf) {
+            Utils.LocateMarkerOverGameObject(gameObject, currentAction, 5f, canvas);
+        } else {
+            actionProgressImage.fillAmount = gatheredProgressTime;
+            gatheredProgressTime += Time.deltaTime;
+            Utils.LocateMarkerOverGameObject(gameObject, actionProgress, 5f, canvas);
+        }
     }
     
     private void OnTriggerEnter(Collider other) {
@@ -54,7 +60,7 @@ public class GathererBehaviour : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
             StopCoroutine(GatheringCoroutine());
-            DisplayAction(GameControllerScript.Instance.goingToAction);
+            DisplayAction(GameControllerScript.Instance.oreListImage[resourceGatheringType].sprite);
             currentGatheredOre = null;
         }
     }
@@ -73,36 +79,35 @@ public class GathererBehaviour : MonoBehaviour
         currentActionImage.sprite = displayImage;
     }
 
-    private IEnumerator CheckReturnToBaseCompleted(bool isFull) {
-        var nearestBase = Utils.FindNearestGameObjectInTupleList(gameObject, GameControllerScript.Instance.propDictionary[PropsEnum.MainBuilding]);
+    protected IEnumerator CheckReturnToBaseCompleted(bool isFull) {
+        var nearestBase = GetNearestBase();
         agent.SetDestination(nearestBase.transform.position + Constants.BASE_RETREAT_OFFSET);
         while (true) {
             // Check if the agent has reached its destination
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
                 foreach (var resource in loadDictionary.Keys.ToList()) {
                     if (loadDictionary[resource] != 0) {
-                        GameControllerScript.Instance.uiUpdateController.UpdateResource(resource, loadDictionary[resource],
-                            ResourceOperationEnum.Increase);
+                        UpdateResource(resource, loadDictionary[resource]);
                         loadDictionary[resource] = 0;
                     }
                 }
                 gathererLoad = 0;
-                clickableShip.UpdateTexts();
-                Debug.Log("Im in base");
-                if(isFull) GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
+                clickableGatherer.UpdateTexts();
+                if (isFull) CalculateOreForGatherer();
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
-
+    
     private IEnumerator GatheringCoroutine() {
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
+            gatheredProgressTime = 0f;
             gathererLoad += Constants.GATHERER_GATHERING_QUANTITY;
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;
-            clickableShip.UpdateTexts();
+            clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();
 
             if (gathererLoad >= maxGathererLoad) {
@@ -114,14 +119,19 @@ public class GathererBehaviour : MonoBehaviour
         }
 
         if (currentGatheredOre.gatheredTimes == currentGatheredOre.MAXGATHEREDTIMES) {
-            GameControllerScript.Instance.RemoveOre();
+            RemoveCompletedOre();
             Destroy(currentGatheredOre.gameObject);
             currentGatheredOre = null;
         }
 
-        DisplayAction(GameControllerScript.Instance.missingAction);
+        DisplayAction(GameControllerScript.Instance.returningToBaseAction);
         GameControllerScript.Instance.oreListDictionary[currentGatheredOre.resourceType].RemoveAll(item => item.gameObject.Equals(gameObject));
-        GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
+        CalculateOreForGatherer();
         Destroy(currentGatheredOre.gameObject);
     }
+    
+    protected abstract void UpdateResource(ResourceEnum resource, int quantity);
+    protected abstract void CalculateOreForGatherer();
+    protected abstract GameObject GetNearestBase();
+    protected abstract void RemoveCompletedOre();
 }

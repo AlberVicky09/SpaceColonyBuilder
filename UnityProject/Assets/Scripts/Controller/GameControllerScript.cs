@@ -19,6 +19,7 @@ public class GameControllerScript : MonoBehaviour {
     public BulletPoolController bulletPoolController;
     public EnemyGenerationController enemyGenerationController;
     public TutorialControllerLegacy tutorialControllerLegacy;
+    public EnemyBaseController enemyBaseController;
     
     public CanvasGroup canvasGroup;
 
@@ -28,14 +29,18 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject housePrefab;
     public GameObject storagePrefab;
     public GameObject fighterPrefab;
+    public GameObject floorPrefab;
+    public GameObject enemyBasePrefab;
+    public GameObject enemyFighterPrefab;
+    public GameObject enemyGathererPrefab;
 
     public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
 
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
-    public Dictionary<ResourceEnum, Sprite> oreListImage;
-    public Sprite[] oreImages;
-    public Sprite missingAction, goingToAction;
+    public Dictionary<ResourceEnum, Image> oreListImage;
+    public Sprite oreImage;
+    public Sprite missingResourceAction, returningToBaseAction;
     public int numberOfOres;
 
     public GameObject actionCanvas;
@@ -55,7 +60,9 @@ public class GameControllerScript : MonoBehaviour {
     public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
     public bool isGamePaused, isPauseMenuActive;
     
-    public bool isTutorialActivated;
+    public List<Vector3> waypoints;
+    
+    public int currentMissionNumber;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
     public int resourcesLimit = Constants.INITIAL_RESOURCES_LIMIT;
@@ -110,12 +117,16 @@ public class GameControllerScript : MonoBehaviour {
         uiUpdateController.SetResourcesText();
 
         //Initialize ore images 
-        oreListImage = new Dictionary<ResourceEnum, Sprite> {
-            { ResourceEnum.Water, oreImages[0] },
-            { ResourceEnum.Iron, oreImages[1] },
-            { ResourceEnum.Gold, oreImages[2] },
-            { ResourceEnum.Platinum, oreImages[3] }
-        };
+        oreListImage = new Dictionary<ResourceEnum, Image>();
+        foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
+            if (resource != ResourceEnum.Food) {
+                var oreImageGO = new GameObject("GeneratedImage", typeof(Image));
+                var oreImageComponent = oreImageGO.GetComponent<Image>();
+                oreImageComponent.sprite = oreImage;
+                oreImageComponent.color = Constants.ORE_COLOR_MAP[resource];
+                oreListImage.Add(resource, oreImageComponent);
+            }
+        }
         
         //Initialize prop dictionary
         propDictionary = new Dictionary<PropsEnum, List<GameObject>>();
@@ -125,78 +136,45 @@ public class GameControllerScript : MonoBehaviour {
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
         propDictionary[PropsEnum.Gatherer].Add(startingGatherer);
         
-        GenerateRandomOres();
+        //Calculate waypoints for patrolling
+        waypoints = Utils.CalculateWaypointsForBuilding(transform.position, Constants.numberOfWaypoints, Constants.WAYPOINTS_RADIUS);
+        
+        Utils.GenerateRandomOres(mainBuilding.transform.position);
     }
 
     void Start() {
-        //If tutorial has been activated,< start it, else start enemy generation
-        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 1) == 0;
-        if (!isTutorialActivated) {
-            StartCoroutine(GenerateEnemyShipsCoroutine());
-        } else {
-            enemyCountDownText.text = "No enemies in sight";
-            enemyCountDownBg.sprite = greenLabelSprite;
-            //tutorialController.DisplayNextTutorial();
+        //Different behaviour depending on the level you are on
+        currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        currentMissionNumber = 2;  //TODO DELETE
+
+        switch (currentMissionNumber) {
+            case 0:
+                enemyCountDownText.text = "No enemies in sight";
+                enemyCountDownBg.sprite = greenLabelSprite;
+                //TODO Display tutorial screen
+                break;
+            case 1:
+                StartCoroutine(GenerateEnemyShipsCoroutine());
+                break;
+            case 2:
+                enemyBaseController.ActivateEnemyBase();
+                enemyCountDownBg.gameObject.SetActive(false);
+                break;
         }
         
         PauseGame();
-    }
-    
-    public void GenerateRandomOres() {
-        //Generate ores in random position inside initial circle
-        for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
-            var circlePos = GenerateNewOrePosition();
-            var randomResource = Constants.ORE_RESOURCES[Random.Range(0, Constants.ORE_RESOURCES.Count)];
-            var instantiatedOre = Instantiate(orePrefab, new Vector3(circlePos.x, Constants.ORE_FLOOR_OFFSET, circlePos.y), Quaternion.identity);
-
-            instantiatedOre.name = randomResource.ToString() + circlePos.ToString();
-
-            instantiatedOre.GetComponent<OreBehaviour>().SetResourceType(randomResource);
-            instantiatedOre.GetComponent<Renderer>().material.color = Constants.ORE_COLOR_MAP[randomResource];
-            instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Glossiness", Constants.ORE_SMOOTHNESS_MAP[randomResource]);
-            instantiatedOre.GetComponent<Renderer>().material.SetFloat("_Metallic", Constants.ORE_METALLIC_MAP[randomResource]);
-            
-            oreListDictionary[randomResource].Add(new ResourceTuple(instantiatedOre, false));
-            numberOfOres++;
-        }
-    }
-
-    private Vector2 GenerateNewOrePosition() {
-        //Generates a new valid ore position within range
-        var valid = false;
-        Vector2 pos = new Vector2();
-        while (!valid) {
-            pos = Random.insideUnitCircle * Constants.VIEW_DISTANCE_RANGE;
-            valid = true;
-            Vector2 currentOrePos;
-            foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
-                for (int i = 0; i < oreListDictionary[resource].Count; i++) {
-                    currentOrePos = new Vector2(oreListDictionary[resource][i].gameObject.transform.position.x, oreListDictionary[resource][i].gameObject.transform.position.y);
-                    if (Vector2.Distance(pos, currentOrePos) < 15) { valid = false; break; }
-                }
-                if(!valid) { break; }
-            }
-        }
-        return pos;
-    }
-
-    public void RemoveOre() {
-        numberOfOres--;
-        if (numberOfOres <= 3) {
-            GenerateRandomOres();
-        }
     }
 
     public void CalculateOreForGatherer(GameObject oreGatherer) {
         //Finds nearest ore of specified type
         var gathererBehaviour = oreGatherer.GetComponent<GathererBehaviour>();
-        var nearestOre = Utils.FindNearestGameObjectInTupleList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
+        var nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
 
         if (nearestOre is not null) {
             gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
         } else {
-            gathererBehaviour.DisplayAction(missingAction);
+            gathererBehaviour.DisplayAction(missingResourceAction);
         }
     }
 

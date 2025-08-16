@@ -561,6 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectImage: {fileID: 21300000, guid: c52466577fc94254182e2a9c85b854d6, type: 3}
   buttonImages:
+  - {fileID: 21300000, guid: be35b3e4ddbec9b4eb165a7c058bccfe, type: 3}
   - {fileID: 21300000, guid: c9586270cb4753c4ca55408a1cbec82f, type: 3}
   buttonNumber: 1
 --- !u!65 &3193823655389673401

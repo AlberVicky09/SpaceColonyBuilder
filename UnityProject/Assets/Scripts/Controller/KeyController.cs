@@ -3,6 +3,8 @@ using UnityEngine;
 public class KeyController : MonoBehaviour {
 
     public PauseMenuController pauseMenuController;
+    public MeshCollider worldLimitMeshCollider;
+    public GameObject cameraGO;
     
     void Update() {
         //Camera controlls
@@ -13,7 +15,7 @@ public class KeyController : MonoBehaviour {
                     new Vector3(CameraMove.Instance.gameObjectCentered.transform.position.x + Constants.CAMERA_OFFSET_X,
                                 Constants.CAMERA_OFFSET_Y,
                                 CameraMove.Instance.gameObjectCentered.transform.position.z);
-            } else { 
+            } else {
                 //Move with wasd
                 if (Input.GetKey(KeyCode.W)) {
                     CameraMove.Instance.MoveCameraHorizontal(-0.3f);
@@ -26,7 +28,7 @@ public class KeyController : MonoBehaviour {
                 } else if (Input.GetKey(KeyCode.D)) {
                     CameraMove.Instance.MoveCameraVertical(-0.3f);
                 }
-
+                
                 //Reset camera by right clicking or by clicking F
                 if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.F)) {
                     CameraMove.Instance.ResetCamera();

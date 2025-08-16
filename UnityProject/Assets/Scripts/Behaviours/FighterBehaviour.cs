@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,92 +6,103 @@ public class FighterBehaviour : MonoBehaviour {
     
     public NavMeshAgent agent;
     public GameObject objectiveGO;
-    private const float WAYPOINTS_RADIUS = 12f;
     private const float MAXIMUM_DETECTION_DISTANCE = 13f;
     private const float MAXIMUM_SHOOTING_DISTANCE = 5f;
+    private const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
     
-    public int numberOfWaypoints = 8;
     public FighterStatesEnum currentState = FighterStatesEnum.Scouting;
+    private FighterStatesEnum prevState;
 
     private const float TIME_TO_CHECK_FOR_ENEMIES = 3.5f;
     private float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
     private const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 1f;
     private float timeSinceLastCheckForEnemyPosition;
     
-    private List<Vector3> waypoints;
-    private int currentWaypointIndex;
+    public int currentWaypointIndex;
     
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position, MAXIMUM_DETECTION_DISTANCE);
     }
-    
-    void Start()
-    {
-        waypoints = new List<Vector3>();
-        var pivotPosition = GameControllerScript.Instance.mainBuilding.transform.position;
 
-        // Calculate waypoints in a circle around the center object
-        for (int i = 0; i < numberOfWaypoints; i++)
-        {
-            var angle = i * Mathf.PI * 2 / numberOfWaypoints;
-            var newPos = new Vector3(Mathf.Cos(angle) * WAYPOINTS_RADIUS, pivotPosition.y, Mathf.Sin(angle) * WAYPOINTS_RADIUS);
-            waypoints.Add(pivotPosition + newPos);
-        }
-        
+    private void Start() {
         // Start moving towards the first waypoint
-        agent.SetDestination(waypoints[currentWaypointIndex]);
+        UpdateFighterDestination(GameControllerScript.Instance.waypoints[currentWaypointIndex]);
     }
 
     void Update()
     {
-        if (FighterStatesEnum.Scouting.Equals(currentState)) {
-            //Check for enemies each TIME_TO_CHECK_FOR_ENEMIES
-            timeSinceLastCheckForEnemies += Time.deltaTime;
-            if (timeSinceLastCheckForEnemies >= TIME_TO_CHECK_FOR_ENEMIES) {
-                timeSinceLastCheckForEnemies = 0f;
-                //If enemy is detected, update state, set check for enemy position for next update, and scape from update
-                if (Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy], transform,
-                        MAXIMUM_DETECTION_DISTANCE, ref currentState, ref objectiveGO)) {
-                    timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
-                    agent.SetDestination(objectiveGO.transform.position);
-                    return;
-                }
+        //TODO Check if fighter is working correctly
+        if(!FighterStatesEnum.Attacking.Equals(currentState))
+            switch (currentState) {
+                //When the fighter is scouting, it can find enemies
+                case FighterStatesEnum.Scouting:
+                    //Check for enemies nearby
+                    if (!CheckForEnemiesNearby(MAXIMUM_DETECTION_DISTANCE, false)) {
+                        // Check if the agent has reached the current waypoint, and if so, move to the next one
+                        if (!agent.pathPending && agent.remainingDistance < 0.5f) {
+                            Utils.MoveToNextWayPoint(currentWaypointIndex, GameControllerScript.Instance.waypoints, agent);
+                        }
+                    }
+
+                    break;
+                
+                //When the fighter is chasing enemies, wont stop until being close enough
+                case FighterStatesEnum.Chasing:
+                    timeSinceLastCheckForEnemyPosition += Time.deltaTime;
+                
+                    //Update enemy position each X seconds (in case it has moved)
+                    if (timeSinceLastCheckForEnemyPosition >= TIME_TO_CHECK_FOR_ENEMY_POSITION) {
+                        UpdateFighterDestination(objectiveGO.transform.position);
+                    }
+                
+                    //If enemy is near enough, start attacking it
+                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_SHOOTING_DISTANCE) {
+                        Debug.Log("Enemy in range");
+                        prevState = currentState;
+                        currentState = FighterStatesEnum.Attacking;
+                        //Start fighting
+                        StartCoroutine(StartFighting());
+                    }
+
+                    break;
+                
+                //When the fighter is chasing the base, check if the base is near enough or if there are enemies nearby
+                case FighterStatesEnum.ChasingLowPriority:
+
+                    //If base is near enough, start attacking it
+                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_SHOOTING_DISTANCE) {
+                        Debug.Log("Base in range");
+                        prevState = currentState;
+                        currentState = FighterStatesEnum.AttackingLowPriority;
+                        //Start fighting
+                        StartCoroutine(StartFighting());
+                    }
+                    break;
+                
+                case FighterStatesEnum.AttackingLowPriority:
+                    //If its atacking the base, check if there is a enemy nearby
+                    if (CheckForEnemiesNearby(MAXIMUM_DETECTION_DISTANCE, true)) {
+                        Debug.Log("Stop attacking the base, start chasing enemy");
+                        StopCoroutine(StartFighting());
+                        prevState = currentState;
+                        currentState = FighterStatesEnum.Chasing;
+                    }
+                    break;
             }
-            
-            // Check if the agent has reached the current waypoint
-            if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-                MoveToNextWayPoint();
-            }
-        } else if (FighterStatesEnum.Chasing.Equals(currentState)) {
-            timeSinceLastCheckForEnemyPosition += Time.deltaTime;
-            
-            //Update enemy position each X seconds
-            if (timeSinceLastCheckForEnemyPosition >= TIME_TO_CHECK_FOR_ENEMY_POSITION) {
-                agent.destination = objectiveGO.transform.position;
-            }
-            
-            //If enemy is near enough, start attacking it
-            if (!agent.pathPending && agent.remainingDistance < MAXIMUM_SHOOTING_DISTANCE) {
-                Debug.Log("Enemy detected");
-                //Start fighting
-                StartCoroutine(StartFighting());
-            }
-        }
     }
 
     private IEnumerator StartFighting() {
         //Stop agent
         agent.isStopped = true;
-        currentState = FighterStatesEnum.Attacking;
-        
+
         //Start shooting to objective, finish when objective is death
         while (GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Contains(objectiveGO)) {
             //Spawn bullet in front
             var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
             bullet.transform.position = transform.position + Vector3.forward * 0.5f;
-            
+
             //Set bullet direction
             bullet.SetActive(true);
             bullet.GetComponent<Rigidbody>().velocity =
@@ -100,22 +110,76 @@ public class FighterBehaviour : MonoBehaviour {
             //Set bullet shooter
             var bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
             bulletBehaviour.SetShooter(PropsEnum.BasicEnemy, gameObject);
-            
+
             //Reload
             yield return new WaitForSeconds(2.5f);
         }
-        
+
         //Restart the agent, and instantly find enemies
-        currentState = FighterStatesEnum.Scouting;
-        timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
-        agent.isStopped = false;
-        MoveToNextWayPoint();
+        currentState = prevState;
+        switch (currentState) {
+            case FighterStatesEnum.Scouting:
+                timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
+                agent.isStopped = false;
+                Utils.MoveToNextWayPoint(currentWaypointIndex, GameControllerScript.Instance.waypoints, agent);
+                break;
+                
+            case FighterStatesEnum.Chasing:
+                break;
+            
+            case FighterStatesEnum.ChasingLowPriority:
+                break;
+                
+            case FighterStatesEnum.AttackingLowPriority:
+                break;
+                
+            
+        }
+        
     }
 
-    private void MoveToNextWayPoint() {
-        // Move to the next waypoint
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
-        agent.SetDestination(waypoints[currentWaypointIndex]);
+    private bool CheckForEnemiesNearby(float checkDistance, bool isCheckingForBase) {
+        //Check for enemies each TIME_TO_CHECK_FOR_ENEMIES
+        timeSinceLastCheckForEnemies += Time.deltaTime;
+        if (timeSinceLastCheckForEnemies >= TIME_TO_CHECK_FOR_ENEMIES) {
+            timeSinceLastCheckForEnemies = 0f;
+            //If enemy is detected, start chasing it
+            if (Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy],
+                    transform, checkDistance, ref objectiveGO)) {
+                prevState = currentState;
+                currentState = isCheckingForBase ? FighterStatesEnum.ChasingLowPriority : FighterStatesEnum.Chasing;
+                
+                timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
+                UpdateFighterDestination(objectiveGO.transform.position);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void StartScouting() {
+        //Find nearest waypoint
+        var nearestScoutingPointPosition =
+            Utils.FindNearestGameObjectPositionInList(gameObject, GameControllerScript.Instance.waypoints);
+        //Set nearest waypoint as objective
+        UpdateFighterDestination(
+            GameControllerScript.Instance.waypoints[nearestScoutingPointPosition]);
+        //Set nearest waypoint as current
+        currentWaypointIndex = nearestScoutingPointPosition;
+        //Update state
+        currentState = FighterStatesEnum.Scouting;
+    }
+
+    public void StartChasing() {
+        //Mark the enemy base as objectiveS
+        UpdateFighterDestination(EnemyBaseController.Instance.mainEnemyBase.transform.position);
+        //Update state
+        currentState = FighterStatesEnum.AttackingLowPriority;
+    }
+    
+    public void UpdateFighterDestination(Vector3 destination) {
+        agent.SetDestination(destination);
     }
 }
 

@@ -8,9 +8,11 @@ public class TutorialControllerNew : MonoBehaviour {
     public VideoPlayer leftVideoPlayer, rightVideoPlayer;
     public TMP_Text leftTutorialText, rightTutorialText;
     public GameObject prevTutorialButton, nextTutorialButton;
+    public GameObject pauseCanvas;
+    public bool wasInPause;
     private int tutorialIndex;
 
-    private void OnEnable() {
+    private void Start() {
         RestartTutorial();
         GameControllerScript.Instance.PauseGame();
     }
@@ -28,6 +30,15 @@ public class TutorialControllerNew : MonoBehaviour {
     private void RestartTutorial() {
         tutorialIndex = 0;
         UpdateTutorial();
+    }
+
+    public void CloseTutorial() {
+        if (wasInPause) {
+            pauseCanvas.SetActive(true);
+        } else {
+            GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
+        }
+        gameObject.SetActive(false);
     }
     
     private void UpdateTutorial() {
