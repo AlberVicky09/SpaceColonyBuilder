@@ -31,8 +31,31 @@ public class CameraMove : MonoBehaviour {
             gameObjectCenteredRefreshTime += Time.deltaTime;
         }
         
+        //Clamp camera position inside circle (avoid going to far)
+        var pos = cameraPivot.transform.position;
+        // Ignore Y axis (clamp only in XZ plane)
+        var flatPos = new Vector2(pos.x, pos.z);
+        var flatPosAroundEnemyBase = new Vector2(pos.x - Constants.ENEMY_CENTER.x, pos.z - Constants.ENEMY_CENTER.y);
+        
+        // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
+        if (flatPos.magnitude <= Constants.VIEW_DISTANCE_RANGE ||
+                (EnemyBaseController.Instance.mainEnemyBase != null 
+                && flatPosAroundEnemyBase.magnitude < Constants.VIEW_DISTANCE_RANGE)) {
+            return;
+        }
+        //Else, find if we need to clamp it to one or another of the circles
+        if (flatPos.magnitude < flatPosAroundEnemyBase.magnitude) {
+            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE;
+            pos.x = flatPos.x;
+            pos.z = flatPos.y;
+        } else {
+            var clamped = flatPosAroundEnemyBase.normalized * Constants.VIEW_DISTANCE_RANGE;
+            pos.x = clamped.x + Constants.ENEMY_CENTER.x;
+            pos.z = clamped.y + Constants.ENEMY_CENTER.y;
+        }
+        cameraPivot.transform.position = pos;
+        
         //MOVE CAMERA MOVEMENT TO WASD FOR USEFULNESS
-                
         //Move by clicking and dragging
         //if (Input.GetMouseButton(0) && (!isGameObjectCentered ||
         //                                gameObjectCenteredRefreshTime >

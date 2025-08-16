@@ -6,12 +6,17 @@ public static class Constants
     public static List<ResourceEnum> ORE_RESOURCES = new List<ResourceEnum>() {ResourceEnum.Water, ResourceEnum.Iron, ResourceEnum.Gold, ResourceEnum.Platinum };
 
     public static List<PropsEnum> BUILDABLE_LIST = new List<PropsEnum>() {PropsEnum.Gatherer, PropsEnum.FoodGenerator, PropsEnum.BasicFighter, PropsEnum.Storage};
+
+    public static Color WATER_COLOR = new (0, 0.42f, 1);
+    public static Color IRON_COLOR = new (0.63f, 0.70f, 0.67f);
+    public static Color GOLD_COLOR = new(1, 0.843f, 0);
+    public static Color PLATINUM_COLOR = new(0.5f, 0.41f, 0.34f);
     
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
-            { ResourceEnum.Water, new Color(0,0.42f,1) },
-            { ResourceEnum.Iron, new Color(0.63f, 0.70f, 0.67f) },
-            { ResourceEnum.Gold, new Color(1, 0.843f, 0) },
-            { ResourceEnum.Platinum, new Color(0.5f, 0.41f, 0.34f) }
+            { ResourceEnum.Water, WATER_COLOR },
+            { ResourceEnum.Iron, IRON_COLOR },
+            { ResourceEnum.Gold, GOLD_COLOR },
+            { ResourceEnum.Platinum, PLATINUM_COLOR }
     };
     public static Dictionary<ResourceEnum, float> ORE_METALLIC_MAP = new Dictionary<ResourceEnum, float> {
             { ResourceEnum.Water, 0.17f },
@@ -47,7 +52,7 @@ public static class Constants
             {
                 PropsEnum.MainBuilding,
                 new Dictionary<ResourceEnum, int>()
-            },{
+            },{ //TODO DECIDE RESOURCES
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
@@ -64,9 +69,9 @@ public static class Constants
             }
         };
 
-    public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> BUILDABLE_PRICES =
+    public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROP_CREATION_PRICES =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
-            {
+            { //TODO DECIDE RESOURCES
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
@@ -88,8 +93,37 @@ public static class Constants
             }
         };
 
-    public const float VIEW_DISTANCE_RANGE = 24f;
-    public const int INITIAL_ORE_NUMBER = 10;
+    public static readonly Dictionary<PropsEnum, List<ResourceEnum>> ENEMY_RESOURCE_PREFFERENCE =
+        new Dictionary<PropsEnum, List<ResourceEnum>> {
+            {
+                PropsEnum.Gatherer,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },{ 
+                PropsEnum.FoodGenerator,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },{ 
+                PropsEnum.BasicFighter,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },
+        };
+    
+    public static readonly Dictionary<PropsEnum, List<ResourceEnum>> UNUSUED_ENEMY_RESOURCE_PREFFERENCE =
+        new Dictionary<PropsEnum, List<ResourceEnum>> {
+            { //TODO Add unused resources
+                PropsEnum.Gatherer,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },{ 
+                PropsEnum.FoodGenerator,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },{ 
+                PropsEnum.BasicFighter,
+                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+            },
+        };
+
+    public const float ORE_GENERATION_DISTANCE_RANGE = 30f;
+    public const float VIEW_DISTANCE_RANGE = 38f;
+    public const int INITIAL_ORE_NUMBER = 15;
     public const float ORE_FLOOR_OFFSET = 0.4f;
 
     public const float MAX_DOUBLE_CLICK_DELAY = 1f;
@@ -105,6 +139,11 @@ public static class Constants
     public const float MAX_ZOOM_SIZE = 13f;
     public const float MIN_MINIMAP_ZOOM_SIZE = 13f;
     public const float MAX_MINIMAP_ZOOM_SIZE = 19f;
+
+    public const float MIN_X_WORLD_POSITION = -100f;
+    public const float MAX_X_WORLD_POSITION = 100f;
+    public const float MIN_Y_WORLD_POSITION = -100f;
+    public const float MAX_Y_WORLD_POSITION = 100f;
 
     public const float GATHERER_ACTION_OFFSET = 1.5f;
     
@@ -144,6 +183,11 @@ public static class Constants
 
     public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {600, 720, 900, 1080};
     public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {800, 1280, 1400, 1920};
+    
+    public const float WAYPOINTS_RADIUS = 12f;
+    public const int numberOfWaypoints = 8;
+    
+    public static Vector3 ENEMY_CENTER = new (75f, 0, 0);
 
     public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
     public static List<string> TUTORIAL_TEXTS = new List<string>() {
