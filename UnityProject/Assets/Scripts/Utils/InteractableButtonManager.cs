@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractableButtonManager : MonoBehaviour {
     
@@ -38,6 +39,12 @@ public class InteractableButtonManager : MonoBehaviour {
         //Hide exceeding buttons
         for (int i = buttonNumber; i < interactableButtonList.Count; i++) {
             interactableButtonList[i].SetActive(false);
+        }
+    }
+
+    public void ForceUpdateOfButtons() {
+        foreach (var button in interactableButtonList) {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(button.GetComponent<RectTransform>());
         }
     }
 }

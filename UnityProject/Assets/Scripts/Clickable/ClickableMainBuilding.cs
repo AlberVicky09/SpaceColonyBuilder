@@ -62,6 +62,9 @@ public class ClickableMainBuilding : Clickable {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentProp.ToString();
         }
         
+        //Force button width update
+        GameControllerScript.Instance.interactableButtonManager.ForceUpdateOfButtons();
+        
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
     }
@@ -94,7 +97,7 @@ public class ClickableMainBuilding : Clickable {
             //Stop placing if right click is pressed or scape button is pressed
             if (Input.GetMouseButton(1)) {
                 ResetPlacingVariables(false);
-                GameControllerScript.Instance.PlayVelocity(-1f);
+                GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
             } else {
                 placingDelay += Time.unscaledDeltaTime;
                 //Locate object with mouse
@@ -178,7 +181,7 @@ public class ClickableMainBuilding : Clickable {
         //Heal mainBuilding
         mainBuildingStats.IncreaseHealthPoints(healingAmount);
         
-        GameControllerScript.Instance.PlayVelocity(1f);
+        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
     }
     
     private void SetObjectTransparency(bool isTransparent) {
@@ -214,7 +217,7 @@ public class ClickableMainBuilding : Clickable {
             if(propCollider != null) { propCollider.isTrigger = false; }
             
             ResetPlacingVariables(true);
-            GameControllerScript.Instance.PlayVelocity(1f);
+            GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
         } else {
             GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources");
             Debug.Log("Couldnt place it");

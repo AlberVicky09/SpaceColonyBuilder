@@ -23,6 +23,9 @@ public class ClickablePlayerGatherer : ClickableGatherer {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentResource.ToString();
         }
         
+        //Force button width update
+        GameControllerScript.Instance.interactableButtonManager.ForceUpdateOfButtons();
+        
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
     }

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class OnHoverBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
@@ -19,8 +20,12 @@ public class OnHoverBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         RefreshText();
     }
-    
-    public void RefreshText() { hoveringCanvasText.text = hoveringDisplayText; }
+
+    public void RefreshText() {
+        hoveringCanvasText.text = hoveringDisplayText;
+        //Force button width update
+        LayoutRebuilder.ForceRebuildLayoutImmediate(hoveringCanvas.GetComponent<RectTransform>());
+    }
 
     public void OnPointerExit(PointerEventData eventData) {
         hoveringCanvas.SetActive(false);
