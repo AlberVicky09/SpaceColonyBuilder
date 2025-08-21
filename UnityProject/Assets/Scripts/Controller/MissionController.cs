@@ -16,10 +16,9 @@ public class MissionController : MonoBehaviour
 
     public GameObject endGameCanvas;
     public TMP_Text endGameText, missionsCompletedText, timeSpentText;
-    
+
     private void Start() {
         currentMission = PlayerPrefs.GetInt("mission", 0);
-        Debug.Log(currentMission);
         missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives"+currentMission));
         
         for(int i = 0; i < missionUIList.Length; i++) {
@@ -33,12 +32,12 @@ public class MissionController : MonoBehaviour
             missionUIListDuplicated[i].SetActive(true);
             //Display mission objective on screen
             missionListText[i].text = missionListTextDuplicated[i].text = missionListDto.missions[i].missionDescription;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(missionUIList[i].GetComponent<RectTransform>());
+            LayoutRebuilder.ForceRebuildLayoutImmediate(missionUIListDuplicated[i].GetComponent<RectTransform>());
         }
     }
 
     public void CheckResourceMission(ResourceEnum resourceType, int quantity) {
-        //TODO IM HERE
-        Debug.Log("Checking Resource Mission of " + resourceType + " for " + quantity);
         for (int i = 0; i < missionListDto.missions.Length; i++) {
             //If mission is not completed and of resource type
             if (!missionListDto.missions[i].completed && missionListDto.missions[i].missionType == MissionTypeEnum.Resource) {

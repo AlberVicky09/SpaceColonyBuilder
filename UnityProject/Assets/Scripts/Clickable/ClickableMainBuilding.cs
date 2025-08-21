@@ -201,16 +201,12 @@ public class ClickableMainBuilding : Clickable {
             //Reduce prop resources
             ReducePriceResources(Constants.PROP_CREATION_PRICES[currentProp]);
 
+            //Call placing function (instead of start, in case of delayed operation needed, avoid activating until placed
+            instantiatedProp.GetComponent<Placeable>().OnPropPlaced();
+                
             //Check if mission is completed
             GameControllerScript.Instance.missionController.CheckPropMission(currentProp, GameControllerScript.Instance.propDictionary[currentProp].Count);
 
-            if (PropsEnum.Storage.Equals(currentProp)) {
-                GameControllerScript.Instance.resourcesLimit += Constants.RESOURCES_LIMIT_INCREASE;
-                foreach (var maxResourceText in GameControllerScript.Instance.uiMaxResourcesList) {
-                    maxResourceText.text = GameControllerScript.Instance.resourcesLimit.ToString();
-                }
-            }
-            
             //Reset gatherer
             SetObjectTransparency(false);
             if(propRigibody != null) { propRigibody.detectCollisions = true; }

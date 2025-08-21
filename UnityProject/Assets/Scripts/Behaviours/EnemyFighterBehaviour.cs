@@ -54,7 +54,7 @@ public class EnemyFighterBehaviour : MonoBehaviour {
         
         // Check if the agent has reached the current waypoint
         if (FighterStatesEnum.Scouting.Equals(currentState) && !agent.pathPending && agent.remainingDistance < 0.5f) {
-            Utils.MoveToNextWayPoint(currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
+            Utils.MoveToNextWayPoint(ref currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
         }
     }
 
@@ -91,7 +91,7 @@ public class EnemyFighterBehaviour : MonoBehaviour {
             agent.SetDestination(GameControllerScript.Instance.mainBuilding.transform.position);
         } else {
             currentState = FighterStatesEnum.Scouting;
-            Utils.MoveToNextWayPoint(currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
+            Utils.MoveToNextWayPoint(ref currentWaypointIndex, EnemyBaseController.Instance.waypoints, agent);
         }
     }
 

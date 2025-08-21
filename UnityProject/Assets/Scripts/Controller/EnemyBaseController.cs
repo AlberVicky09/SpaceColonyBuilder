@@ -65,12 +65,13 @@ public class EnemyBaseController : MonoBehaviour {
 
     private IEnumerator GeneratorCheck() {
         while (true) {
-            Debug.Log("Enemy resources " +
-                      string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
+            //Debug.Log("Enemy resources " +
+            //          string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
             if (Utils.CheckEnoughResources(enemyResourcesDictionary,
                     Constants.PROP_CREATION_PRICES[currentObjectiveProp])) {
                 Debug.Log("Enemy prop gonna be created: " + currentObjectiveProp);
-                GenerateProp(currentObjectiveProp);
+                var generatedProp = GenerateProp(currentObjectiveProp);
+                generatedProp.GetComponent<Placeable>().OnPropPlaced();
             }
             yield return new WaitForSeconds(TIME_TO_CHECK_FOR_GENERATOR);
         }

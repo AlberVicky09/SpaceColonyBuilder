@@ -2,11 +2,11 @@ using UnityEngine.UI;
 
 public class ClickableFoodGenerator : Clickable {
 
-    private FoodGeneratorController foodGeneratorController;
+    private FoodGeneratorBehaviour foodGeneratorBehaviour;
     
     public override void UpdateTexts() {
-        if (foodGeneratorController == null) {
-            foodGeneratorController = GetComponent<FoodGeneratorController>();
+        if (foodGeneratorBehaviour == null) {
+            foodGeneratorBehaviour = GetComponent<FoodGeneratorBehaviour>();
         }
 
         if (selectedClickable == this) {
@@ -16,19 +16,19 @@ public class ClickableFoodGenerator : Clickable {
 
     protected override void StartButtons() {
         base.StartButtons();
-        if (foodGeneratorController == null) {
-            foodGeneratorController = GetComponent<FoodGeneratorController>();
+        if (foodGeneratorBehaviour == null) {
+            foodGeneratorBehaviour = GetComponent<FoodGeneratorBehaviour>();
         }
         GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(ToggleGenerator);
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = 
-            foodGeneratorController.isGeneratorPaused ? "Resume generator" : "Pause generator";
+            foodGeneratorBehaviour.isGeneratorPaused ? "Resume generator" : "Pause generator";
     }
 
     private void ToggleGenerator() {
-        foodGeneratorController.isGeneratorPaused = !foodGeneratorController.isGeneratorPaused;
-        foodGeneratorController.ToggleActionCanvas(!foodGeneratorController.isGeneratorPaused);
+        foodGeneratorBehaviour.isGeneratorPaused = !foodGeneratorBehaviour.isGeneratorPaused;
+        foodGeneratorBehaviour.ToggleActionCanvas(!foodGeneratorBehaviour.isGeneratorPaused);
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = 
-            foodGeneratorController.isGeneratorPaused ? "Resume generator" : "Pause generator";
+            foodGeneratorBehaviour.isGeneratorPaused ? "Resume generator" : "Pause generator";
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().RefreshText();
     }
 
@@ -37,6 +37,6 @@ public class ClickableFoodGenerator : Clickable {
         
         //Ensure image is correct with current state
         GameControllerScript.Instance.actionButtons[0].GetComponent<Image>().sprite =
-            foodGeneratorController.isGeneratorPaused ? buttonImages[0] : buttonImages[1];
+            foodGeneratorBehaviour.isGeneratorPaused ? buttonImages[0] : buttonImages[1];
     }
 }

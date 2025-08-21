@@ -47,6 +47,7 @@ public static class Constants
         { 12, "Dec" },
     };
 
+    //TODO Check if its good
     public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROPS_MANTAINING_COST =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
             {
@@ -55,17 +56,17 @@ public static class Constants
             },{ //TODO DECIDE RESOURCES
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+                    { { ResourceEnum.Iron, 5 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 5 } }
             },
             {
                 PropsEnum.FoodGenerator,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+                    { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 10 } }
             },
             {
                 PropsEnum.BasicFighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+                    { { ResourceEnum.Iron, 10 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 0 } }
             }
         };
 
@@ -162,9 +163,9 @@ public static class Constants
     public static int INITIAL_RESOURCES_LIMIT = 100;
     public static int RESOURCES_LIMIT_INCREASE = 50;
     
-    public static int GATHERER_GATHERING_QUANTITY = 3;
-    public static int DEFAULT_GATHERER_MAX_LOAD = 15;
-    public static int UPGRADED_GATHERER_LOAD = 45;
+    public static int GATHERER_GATHERING_QUANTITY = 15;
+    public static int DEFAULT_GATHERER_MAX_LOAD = 75;
+    public static int UPGRADED_GATHERER_LOAD = 175;
 
     public static float RESOURCE_CHANGE_MOVEMENT_TIME = 1.5f;
     public static float RESOURCE_CHANGE_MOVEMENT_LERP_TIME = 0.05f;

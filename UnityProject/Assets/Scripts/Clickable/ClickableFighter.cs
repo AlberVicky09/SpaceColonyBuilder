@@ -5,10 +5,6 @@ public class ClickableFighter : Clickable {
     private FighterBehaviour fighterBehaviour;
     
     public override void UpdateTexts() {
-        if (fighterBehaviour == null) {
-            fighterBehaviour = GetComponent<FighterBehaviour>();
-        }
-
         if (selectedClickable == this) {
             GameControllerScript.Instance.actionText.text = "Fighter";
         }
@@ -24,8 +20,12 @@ public class ClickableFighter : Clickable {
     }
     
     protected override void StartButtons() {
+        if (fighterBehaviour == null) {
+            fighterBehaviour = GetComponent<FighterBehaviour>();
+        }
+        
         //If there is no enemy base, disable buttons
-        if (EnemyBaseController.Instance.mainEnemyBase == null) {
+        if (EnemyBaseController.Instance.mainEnemyBase != null) {
             base.StartButtons();
             GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(ToggleState);
             SetUpToggleButton();
@@ -50,5 +50,8 @@ public class ClickableFighter : Clickable {
             //Start scouting
             fighterBehaviour.StartScouting();
         }
+        //Update screen and force tooltip update
+        SetUpToggleButton();
+        GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().RefreshText();
     }
 }

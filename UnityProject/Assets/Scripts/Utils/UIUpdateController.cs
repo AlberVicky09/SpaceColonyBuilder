@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class UIUpdateController : MonoBehaviour {
@@ -123,8 +122,10 @@ public class UIUpdateController : MonoBehaviour {
                                 * Constants.PROPS_MANTAINING_COST[prop]
                                     .GetValueOrDefault(resource, Constants.DEFAULT_MISSING_RESOURCE_VALUE);
             }
-            Debug.Log("Resource loss = " + resource + " [" + resourceLoss + "]");
-            UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);
+
+            if (resourceLoss != 0) {
+                UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);
+            }
         }
     }
 }

@@ -2,21 +2,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodGeneratorController : MonoBehaviour
+public class FoodGeneratorBehaviour : MonoBehaviour
 {
     public RectTransform canvas;
     public GameObject actionPercentage;
     public GameObject idleAction;
     private float actionPercentageValue;
-    private Image actionPercentageImage;
-    private Coroutine generatorCoroutine;
+    public Image actionPercentageImage;
+    public Coroutine generatorCoroutine;
     public bool isGeneratorPaused = false;
-
-    private void Start() {
-        actionPercentageImage = actionPercentage.GetComponent<Image>();
-        generatorCoroutine = StartCoroutine(GenerateFood());
-    }
-
+    
     private void Update() {
         if (actionPercentage.activeSelf && !isGeneratorPaused) {
             Utils.LocateMarkerOverGameObject(gameObject, actionPercentage, 3.5f, canvas);
@@ -29,7 +24,7 @@ public class FoodGeneratorController : MonoBehaviour
         
     }
     
-    private IEnumerator GenerateFood() {
+    public IEnumerator GenerateFood() {
         while (true) {
             //If is paused, dont generate
             while (isGeneratorPaused) { yield return null; }

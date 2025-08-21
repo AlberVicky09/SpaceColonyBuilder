@@ -20,11 +20,12 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
             selectedClickable = this;
             GameControllerScript.Instance.actionCanvas.SetActive(true);
             GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
-            if (!ReferenceEquals(gameObject, activeButtonsObject)) {
+            if (gameObject != activeButtonsObject) {
                 StartButtons();
+                UpdateTexts();
+                DisplayButtons();
             }
-            UpdateTexts();
-            DisplayButtons();
+            
             CheckDoubleClick();
         }
     }

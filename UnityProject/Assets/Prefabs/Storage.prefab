@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -254,6 +254,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a433dec935742a1488eb1d0dc6ba1c3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2827371505096957858}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a433dec935742a1488eb1d0dc6ba1c3d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7752056608761665051}
   m_SourcePrefab: {fileID: 100100000, guid: a433dec935742a1488eb1d0dc6ba1c3d, type: 3}
 --- !u!4 &2750524625497790774 stripped
 Transform:
@@ -302,3 +305,15 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.28, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-7752056608761665051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269616896079741836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b921a2cf3a64b1b418b60690924148a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

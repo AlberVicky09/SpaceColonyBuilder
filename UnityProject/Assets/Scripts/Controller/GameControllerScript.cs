@@ -133,8 +133,12 @@ public class GameControllerScript : MonoBehaviour {
         foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))) {
             propDictionary.Add(propType, new List<GameObject>());
         }
+        //Manually add props to list
         propDictionary[PropsEnum.MainBuilding].Add(mainBuilding);
         propDictionary[PropsEnum.Gatherer].Add(startingGatherer);
+        
+        //Manually initialize startingGatherer
+        startingGatherer.GetComponent<Placeable>().OnPropPlaced();
         
         //Calculate waypoints for patrolling
         waypoints = Utils.CalculateWaypointsForBuilding(transform.position, Constants.numberOfWaypoints, Constants.WAYPOINTS_RADIUS);
@@ -145,8 +149,7 @@ public class GameControllerScript : MonoBehaviour {
     void Start() {
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        currentMissionNumber = 2;  //TODO DELETE
-
+        
         switch (currentMissionNumber) {
             case 0:
                 enemyCountDownText.text = "No enemies in sight";

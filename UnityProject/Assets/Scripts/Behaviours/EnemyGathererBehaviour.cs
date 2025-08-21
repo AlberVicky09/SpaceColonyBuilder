@@ -1,9 +1,19 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyGathererBehaviour : GathererBehaviour
 {
     private void Start() {
-        base.Start();
+        actionProgressImage = actionProgress.GetComponent<Image>();
+        currentActionImage = currentAction.GetComponent<Image>();
+        
+        maxGathererLoad = Constants.DEFAULT_GATHERER_MAX_LOAD;
+        loadDictionary = new Dictionary<ResourceEnum, int>();
+        foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
+            loadDictionary.Add(resource, 0);
+        }
         
         EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
     }

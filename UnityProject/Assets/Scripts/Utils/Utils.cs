@@ -175,7 +175,7 @@ public static class Utils {
         return false;
     }
     
-    public static void MoveToNextWayPoint(int currentWaypointIndex, List<Vector3> waypointList, NavMeshAgent agent) {
+    public static void MoveToNextWayPoint(ref int currentWaypointIndex, List<Vector3> waypointList, NavMeshAgent agent) {
         // Move to the next waypoint
         currentWaypointIndex = (currentWaypointIndex + 1) % waypointList.Count;
         agent.SetDestination(waypointList[currentWaypointIndex]);
@@ -206,7 +206,7 @@ public static class Utils {
         string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".json");
 
         // Check if the file exists
-        Debug.Log(File.Exists(filePath));
+        Debug.Log("File: " + fileName + " exists? " + File.Exists(filePath));
         return File.Exists(filePath) ?
             // Read all text from the file
             File.ReadAllText(filePath) : "File not found";

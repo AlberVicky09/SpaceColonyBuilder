@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,26 +15,17 @@ public abstract class GathererBehaviour : MonoBehaviour
     public ResourceEnum resourceGatheringType;
     protected OreBehaviour currentGatheredOre;
     public int gathererLoad = 0;
-    protected Dictionary<ResourceEnum, int> loadDictionary;
+    public Dictionary<ResourceEnum, int> loadDictionary;
     public int maxGathererLoad;
     
     public RectTransform canvas;
     public GameObject actionProgress;
     protected float gatheredProgressTime = 0f;
-    protected Image actionProgressImage;
+    public Image actionProgressImage;
     public GameObject currentAction;
     public Image currentActionImage;
 
-    protected void Start() {
-        actionProgressImage = actionProgress.GetComponent<Image>();
-        currentActionImage = currentAction.GetComponent<Image>();
-        
-        maxGathererLoad = Constants.DEFAULT_GATHERER_MAX_LOAD;
-        loadDictionary = new Dictionary<ResourceEnum, int>();
-        foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
-            loadDictionary.Add(resource, 0);
-        }
-    }
+    private Coroutine gatheringCoroutine;
 
     private void Update() {
         if (currentAction.activeSelf) {
@@ -53,13 +43,16 @@ public abstract class GathererBehaviour : MonoBehaviour
             currentClickableOre = other.GetComponent<ClickableOre>();
             actionProgress.gameObject.SetActive(true);
             currentAction.gameObject.SetActive(false);
-            StartCoroutine(GatheringCoroutine());
+            gatheringCoroutine = StartCoroutine(GatheringCoroutine());
         }
     }
     
     private void OnTriggerExit(Collider other) {
         if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
-            StopCoroutine(GatheringCoroutine());
+            if (null != gatheringCoroutine) {
+                StopCoroutine(GatheringCoroutine());
+                gatheringCoroutine = null;
+            }
             DisplayAction(GameControllerScript.Instance.oreListImage[resourceGatheringType].sprite);
             currentGatheredOre = null;
         }
@@ -85,6 +78,7 @@ public abstract class GathererBehaviour : MonoBehaviour
         while (true) {
             // Check if the agent has reached its destination
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
+                //Add resources if it had any
                 foreach (var resource in loadDictionary.Keys.ToList()) {
                     if (loadDictionary[resource] != 0) {
                         UpdateResource(resource, loadDictionary[resource]);
@@ -104,13 +98,13 @@ public abstract class GathererBehaviour : MonoBehaviour
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
             gatheredProgressTime = 0f;
-            gathererLoad += Constants.GATHERER_GATHERING_QUANTITY;
+            gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();
 
-            if (gathererLoad >= maxGathererLoad) {
+            if (gathererLoad == maxGathererLoad) {
                 ReturnToBase(true);
                 Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
                     GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
