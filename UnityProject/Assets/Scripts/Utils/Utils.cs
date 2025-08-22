@@ -14,7 +14,7 @@ public static class Utils {
         for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
             var orePos = GenerateNewOrePositionInCircle(centerOfOres);
             //var orePos = GenerateNewOrePositionInSquare();
-            var randomResource = Constants.ORE_RESOURCES[Random.Range(0, Constants.ORE_RESOURCES.Count)];
+            var randomResource = OreResources.GetRandomOreResource();
             var instantiatedOre = Object.Instantiate(GameControllerScript.Instance.orePrefab, new Vector3(orePos.x, Constants.ORE_FLOOR_OFFSET, orePos.y), Quaternion.identity);
 
             instantiatedOre.name = randomResource.ToString() + orePos.ToString();
@@ -197,6 +197,61 @@ public static class Utils {
         }
     }
 
+    public static void SetAnchorPresets(RectTransform rt, AnchorPresets preset) {
+        switch (preset) {
+            case AnchorPresets.TopLeft:
+                rt.anchorMin = new Vector2(0, 1);
+                rt.anchorMax = new Vector2(0, 1);
+                rt.pivot = new Vector2(0, 1);
+                break;
+            case AnchorPresets.TopCenter:
+                rt.anchorMin = new Vector2(0.5f, 1);
+                rt.anchorMax = new Vector2(0.5f, 1);
+                rt.pivot = new Vector2(0.5f, 1);
+                break;
+            case AnchorPresets.TopRight:
+                rt.anchorMin = new Vector2(1, 1);
+                rt.anchorMax = new Vector2(1, 1);
+                rt.pivot = new Vector2(1, 1);
+                break;
+            case AnchorPresets.MiddleLeft:
+                rt.anchorMin = new Vector2(0, 0.5f);
+                rt.anchorMax = new Vector2(0, 0.5f);
+                rt.pivot = new Vector2(0, 0.5f);
+                break;
+            case AnchorPresets.MiddleCenter:
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.pivot = new Vector2(0.5f, 0.5f);
+                break;
+            case AnchorPresets.MiddleRight:
+                rt.anchorMin = new Vector2(1, 0.5f);
+                rt.anchorMax = new Vector2(1, 0.5f);
+                rt.pivot = new Vector2(1, 0.5f);
+                break;
+            case AnchorPresets.BottomLeft:
+                rt.anchorMin = new Vector2(0, 0);
+                rt.anchorMax = new Vector2(0, 0);
+                rt.pivot = new Vector2(0, 0);
+                break;
+            case AnchorPresets.BottomCenter:
+                rt.anchorMin = new Vector2(0.5f, 0);
+                rt.anchorMax = new Vector2(0.5f, 0);
+                rt.pivot = new Vector2(0.5f, 0);
+                break;
+            case AnchorPresets.BottomRight:
+                rt.anchorMin = new Vector2(1, 0);
+                rt.anchorMax = new Vector2(1, 0);
+                rt.pivot = new Vector2(1, 0);
+                break;
+            case AnchorPresets.StretchAll:
+                rt.anchorMin = Vector2.zero;
+                rt.anchorMax = Vector2.one;
+                rt.pivot = new Vector2(0.5f, 0.5f);
+                break;
+        }
+    }
+    
     public static bool CheckFile(string fileName) {
         return File.Exists(fileName);
     }

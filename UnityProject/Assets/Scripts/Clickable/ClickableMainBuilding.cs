@@ -52,12 +52,12 @@ public class ClickableMainBuilding : Clickable {
     
     private void DisplayBuildableScreen() {
         //Activate canvas and place buttons
-        GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(Constants.BUILDABLE_LIST.Count);
+        GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(BuildableProps.RetrieveBuildableProps().Count);
         
         //Setup buttons behaviour
-        for(int i = 0; i < Constants.BUILDABLE_LIST.Count; i++) {
+        for(int i = 0; i < BuildableProps.RetrieveBuildableProps().Count; i++) {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            var currentProp = Constants.BUILDABLE_LIST[i];
+            var currentProp = BuildableProps.RetrieveBuildableProps()[i];
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { GenerateProp(currentProp); });
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentProp.ToString();
         }

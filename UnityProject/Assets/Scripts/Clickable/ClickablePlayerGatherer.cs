@@ -13,12 +13,12 @@ public class ClickablePlayerGatherer : ClickableGatherer {
 
     private void DisplayScreen() {
         //Activate canvas and place buttons
-        GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(Constants.ORE_RESOURCES.Count);
+        GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(OreResources.RetrieveOreResources().Count);
         
         //Setup buttons behaviour
-        for(int i = 0; i < Constants.ORE_RESOURCES.Count; i++) {
+        for(int i = 0; i < OreResources.RetrieveOreResources().Count; i++) {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            var currentResource = Constants.ORE_RESOURCES[i];
+            var currentResource = OreResources.RetrieveOreResources()[i];
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { SelectResource(currentResource); });
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentResource.ToString();
         }

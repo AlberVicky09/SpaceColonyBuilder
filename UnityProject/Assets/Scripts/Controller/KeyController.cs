@@ -3,7 +3,7 @@ using UnityEngine;
 public class KeyController : MonoBehaviour {
 
     public PauseMenuController pauseMenuController;
-    public MeshCollider worldLimitMeshCollider;
+    public SummaryPanelController summaryPanelController;
     public GameObject cameraGO;
     
     void Update() {
@@ -51,5 +51,8 @@ public class KeyController : MonoBehaviour {
         
         //Enter/Exit pause menu
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) { pauseMenuController.PauseGame(); }
+        
+        //Enter/Exit summary menu
+        if(Input.GetKeyDown(KeyCode.T)) { summaryPanelController.ToggleSummaryMenu(); }
     }
 }

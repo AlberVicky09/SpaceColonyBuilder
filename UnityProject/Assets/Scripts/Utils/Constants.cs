@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Constants
-{
-    public static List<ResourceEnum> ORE_RESOURCES = new List<ResourceEnum>() {ResourceEnum.Water, ResourceEnum.Iron, ResourceEnum.Gold, ResourceEnum.Platinum };
-
-    public static List<PropsEnum> BUILDABLE_LIST = new List<PropsEnum>() {PropsEnum.Gatherer, PropsEnum.FoodGenerator, PropsEnum.BasicFighter, PropsEnum.Storage};
-
+public static class Constants {
+    
     public static Color WATER_COLOR = new (0, 0.42f, 1);
     public static Color IRON_COLOR = new (0.63f, 0.70f, 0.67f);
     public static Color GOLD_COLOR = new(1, 0.843f, 0);
@@ -122,6 +118,12 @@ public static class Constants
             },
         };
 
+    public static readonly Dictionary<PropsEnum, string> PROPS_SUMMARY_NAME =
+        new Dictionary<PropsEnum, string>() {
+            { PropsEnum.Gatherer, "Gathering ship" }, { PropsEnum.BasicFighter, "Fighting ship" },
+            { PropsEnum.FoodGenerator, "Food generator" }, { PropsEnum.Storage, "Resource Storage" }
+        };
+    
     public const float ORE_GENERATION_DISTANCE_RANGE = 30f;
     public const float VIEW_DISTANCE_RANGE = 38f;
     public const int INITIAL_ORE_NUMBER = 15;
@@ -190,6 +192,9 @@ public static class Constants
     
     public static Vector3 ENEMY_CENTER = new (75f, 0, 0);
 
+    public static Vector3 INITIAL_SUMMARY_ITEM_POSITION = new(-45, -340, 1);
+    public static float SUMMARY_OFFSET = -120f;
+    
     public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
     public static List<string> TUTORIAL_TEXTS = new List<string>() {
         "Tutorial Text 0",
