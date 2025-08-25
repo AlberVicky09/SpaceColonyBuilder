@@ -4,23 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Apply function when prop is being placed (avoid being activated before when it should)">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/AnchorPresets.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/AnchorPresets.cs.meta" afterDir="false" />
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Create summary panel">
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Buttons/Platinum.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UI/Buttons/Platinum.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SummaryItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SummaryItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyBase.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyBase.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FoodGenerator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FoodGenerator.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ore.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ore.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableMainBuilding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableMainBuilding.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/SummaryPanelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/SummaryPanelController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/PropsEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PropsEnum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/ResourceEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/ResourceEnum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/OnHoverUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/OnHoverUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Buttons/Iron.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Buttons/Iron.png.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +174,7 @@
       <workItem from="1754499572630" duration="4615000" />
       <workItem from="1754755188158" duration="1330000" />
       <workItem from="1755199389523" duration="22330000" />
-      <workItem from="1755614929482" duration="26636000" />
+      <workItem from="1755614929482" duration="42593000" />
     </task>
     <task id="LOCAL-00001" summary="Add healing operation to mainBuilding">
       <option name="closed" value="true" />
@@ -272,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755782104528</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Create summary panel">
+      <option name="closed" value="true" />
+      <created>1755873457079</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1755873457079</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,7 +320,8 @@
     <MESSAGE value="Improve behaviours" />
     <MESSAGE value="Fix mutable buttons width update" />
     <MESSAGE value="Apply function when prop is being placed (avoid being activated before when it should)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Apply function when prop is being placed (avoid being activated before when it should)" />
+    <MESSAGE value="Create summary panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create summary panel" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
@@ -333,19 +342,6 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableMainBuilding.cs</url>
-          <line>178</line>
-          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Clickable\ClickableMainBuilding.cs" containingFunctionPresentation="Method 'DoHeal'">
-            <startOffsets>
-              <option value="8381" />
-            </startOffsets>
-            <endOffsets>
-              <option value="8511" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/PropStats.cs</url>
           <line>39</line>
           <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\PropStats.cs" containingFunctionPresentation="Method 'IncreaseHealthPoints'">
@@ -357,19 +353,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs</url>
-          <line>150</line>
-          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\GameControllerScript.cs" containingFunctionPresentation="Method 'Awake'">
-            <startOffsets>
-              <option value="7096" />
-            </startOffsets>
-            <endOffsets>
-              <option value="7153" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs</url>

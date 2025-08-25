@@ -16,11 +16,17 @@ public class ClickablePlayerGatherer : ClickableGatherer {
         GameControllerScript.Instance.interactableButtonManager.PlaceButtonsInCircle(OreResources.RetrieveOreResources().Count);
         
         //Setup buttons behaviour
-        for(int i = 0; i < OreResources.RetrieveOreResources().Count; i++) {
+        var oreResources = OreResources.RetrieveOreResources();
+        for(int i = 0; i < oreResources.Count; i++) {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            var currentResource = OreResources.RetrieveOreResources()[i];
+            var currentResource = oreResources[i];
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { SelectResource(currentResource); });
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentResource.ToString();
+            //Setup hover behaviour
+            var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
+            onHoverBehaviour.hoveringDisplayText = currentResource.ToString();
+            onHoverBehaviour.usesResourceTooltip = false;
+            onHoverBehaviour.RefreshText();
         }
         
         //Force button width update

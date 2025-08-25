@@ -58,8 +58,14 @@ public class ClickableMainBuilding : Clickable {
         for(int i = 0; i < BuildableProps.RetrieveBuildableProps().Count; i++) {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             var currentProp = BuildableProps.RetrieveBuildableProps()[i];
+            //Setup button
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { GenerateProp(currentProp); });
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentProp.ToString();
+            GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = Constants.PROPS_SUMMARY_NAME[currentProp];
+            //Setup hover behaviour
+            var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
+            onHoverBehaviour.hoveringDisplayText = Constants.PROPS_SUMMARY_NAME[currentProp];
+            onHoverBehaviour.usesResourceTooltip = true;
+            onHoverBehaviour.RefreshText();
         }
         
         //Force button width update

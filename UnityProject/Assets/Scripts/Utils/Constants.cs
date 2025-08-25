@@ -63,6 +63,11 @@ public static class Constants {
                 PropsEnum.BasicFighter,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 10 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 0 } }
+            },
+            {
+                PropsEnum.Storage,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 0 } }
             }
         };
 

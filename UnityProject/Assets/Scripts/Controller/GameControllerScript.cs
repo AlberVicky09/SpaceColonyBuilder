@@ -74,6 +74,11 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, int> resourcesDictionary;
     public int resourcesLimit = Constants.INITIAL_RESOURCES_LIMIT;
 
+    public GameObject toolTipCanvas, toolTipResourceCanvas;
+    public RectTransform toolTipCanvasRect, toolTipResourceCanvasRect;
+    public TMP_Text toolTipText;
+    public List<TMP_Text> toolTipResourceText;
+
     public bool placing;
     #endregion
 

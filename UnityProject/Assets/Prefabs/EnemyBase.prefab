@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17186f4bbcb4089458adddefb787c9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 6bf2c5205c79f7e41957603f4ef7a3d0, type: 3}
   buttonImages: []
   buttonNumber: 0
 --- !u!23 &8212347161978244585 stripped
