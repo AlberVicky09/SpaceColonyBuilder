@@ -60,7 +60,10 @@ public class ClickableMainBuilding : Clickable {
             var currentProp = BuildableProps.RetrieveBuildableProps()[i];
             //Setup button
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { GenerateProp(currentProp); });
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = Constants.PROPS_SUMMARY_NAME[currentProp];
+            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i].sprite = GameControllerScript.Instance.propSpriteDictionary[currentProp];
+            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i]
+                .GetComponent<RectTransform>().localScale = Constants.INTERACTABLE_BUTTON_PROP_SCALE;
+            
             //Setup hover behaviour
             var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
             onHoverBehaviour.hoveringDisplayText = Constants.PROPS_SUMMARY_NAME[currentProp];

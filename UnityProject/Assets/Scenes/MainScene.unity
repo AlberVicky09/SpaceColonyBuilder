@@ -2326,7 +2326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199476082
@@ -7159,6 +7159,11 @@ MonoBehaviour:
   foodGeneratorSprite: {fileID: 21300000, guid: c52466577fc94254182e2a9c85b854d6, type: 3}
   storageSprite: {fileID: 21300000, guid: b374fd90b2c3f9e4fa2445d1b85147a2, type: 3}
   fighterSprite: {fileID: 21300000, guid: 90651282856a21c4f8076d68c5aa456e, type: 3}
+  waterSprite: {fileID: 21300000, guid: 016a683a9ff992f458b8ea9988282c21, type: 3}
+  foodSprite: {fileID: 21300000, guid: da052cff9c42deb4890c467328f0683f, type: 3}
+  ironSprite: {fileID: 21300000, guid: e1bb204158e423a4ca8fa97c0885b28b, type: 3}
+  goldSprite: {fileID: 21300000, guid: ec014dfb1f442364b90afe7ae8fcfefe, type: 3}
+  platinumSprite: {fileID: 21300000, guid: 3b6f0a3509b564b4d9015de393156a9e, type: 3}
   mainBuilding: {fileID: 5343432657082240490}
   startingGatherer: {fileID: 1109129703}
   oreImage: {fileID: 21300000, guid: 6bb2e6c7da0942c49a6b6296e334de5c, type: 3}
@@ -8232,7 +8237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820584787
@@ -9771,7 +9776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946643055
@@ -11529,7 +11534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079235328
@@ -17755,7 +17760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cee57ac1c7a4a842aed60e83778e696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableButtonPrefab: {fileID: 7771134475153287394, guid: c031ae14f8e63f945825960651a9b105, type: 3}
+  interactableButtonPrefab: {fileID: 7771134475153287394, guid: 9d2a58c351c374c43abb1c0aec52c7be, type: 3}
   interactableButtonList: []
 --- !u!1 &1724179641
 GameObject:

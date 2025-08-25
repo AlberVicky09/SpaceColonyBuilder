@@ -199,6 +199,9 @@ public static class Constants {
 
     public static Vector3 INITIAL_SUMMARY_ITEM_POSITION = new(-45, -340, 1);
     public static float SUMMARY_OFFSET = -120f;
+
+    public static Vector3 INTERACTABLE_BUTTON_PROP_SCALE = new(2.5f, 2.5f, 1);
+    public static Vector3 INTERACTABLE_BUTTON_RESOURCE_SCALE = new(1f, 1f, 1f);
     
     public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
     public static List<string> TUTORIAL_TEXTS = new List<string>() {

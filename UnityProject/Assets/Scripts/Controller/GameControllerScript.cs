@@ -34,15 +34,13 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject enemyFighterPrefab;
     public GameObject enemyGathererPrefab;
 
-    public Sprite oreSprite;
-    public Sprite gathererSprite;
-    public Sprite foodGeneratorSprite;
-    public Sprite storageSprite;
-    public Sprite fighterSprite;
+    public Sprite oreSprite, gathererSprite, foodGeneratorSprite, storageSprite, fighterSprite;
+    public Sprite waterSprite, foodSprite, ironSprite, goldSprite, platinumSprite;
 
     public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
     public Dictionary<PropsEnum, Sprite> propSpriteDictionary;
+    public Dictionary<ResourceEnum, Sprite> resourceSpriteDictionary;
     
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Image> oreListImage;
@@ -120,6 +118,13 @@ public class GameControllerScript : MonoBehaviour {
             { PropsEnum.BasicFighter, fighterSprite },
             { PropsEnum.FoodGenerator, foodGeneratorSprite },
             { PropsEnum.Storage, storageSprite }
+        };
+        resourceSpriteDictionary = new Dictionary<ResourceEnum, Sprite>() {
+            { ResourceEnum.Water, waterSprite },
+            { ResourceEnum.Food, fighterSprite },
+            { ResourceEnum.Iron, ironSprite },
+            { ResourceEnum.Gold, goldSprite },
+            { ResourceEnum.Platinum, platinumSprite }
         };
             
         //Initialize resources dictionaries

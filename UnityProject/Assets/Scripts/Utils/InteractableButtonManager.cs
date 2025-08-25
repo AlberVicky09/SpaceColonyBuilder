@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class InteractableButtonManager : MonoBehaviour {
     
     public GameObject interactableButtonPrefab;
     public List<GameObject> interactableButtonList;
+    public List<Image> interactableButtonImageList;
     private float buttonRadius = 275f;
 
     private void Awake() {
@@ -18,7 +20,10 @@ public class InteractableButtonManager : MonoBehaviour {
         
         //Add needed buttons
         while(buttonNumber > interactableButtonList.Count) {
-            interactableButtonList.Add(Instantiate(interactableButtonPrefab, transform));
+            var newButton = Instantiate(interactableButtonPrefab, transform);
+            interactableButtonList.Add(newButton);
+            interactableButtonImageList.Add(newButton.GetComponentsInChildren<Image>(true)
+                .FirstOrDefault(c => c.gameObject != newButton));
         }
 
         //Locate all buttons

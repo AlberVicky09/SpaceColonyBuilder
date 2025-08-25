@@ -1,4 +1,4 @@
-using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickablePlayerGatherer : ClickableGatherer {
@@ -21,7 +21,10 @@ public class ClickablePlayerGatherer : ClickableGatherer {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             var currentResource = oreResources[i];
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { SelectResource(currentResource); });
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponentInChildren<TMP_Text>().text = currentResource.ToString();
+            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i].sprite = GameControllerScript.Instance.resourceSpriteDictionary[currentResource];
+            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i]
+                .GetComponent<RectTransform>().localScale = Constants.INTERACTABLE_BUTTON_RESOURCE_SCALE;
+            
             //Setup hover behaviour
             var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
             onHoverBehaviour.hoveringDisplayText = currentResource.ToString();
