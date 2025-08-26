@@ -23,9 +23,11 @@ public class MainMenuFunctions : MonoBehaviour
         }
 
         if (!Utils.CheckFile("missionsAvailable")) {
-            resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
-            resumeButton.GetComponent<Button>().interactable = false;
-            resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
+            try {
+                resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
+                resumeButton.GetComponent<Button>().interactable = false;
+                resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
+            } catch {}
         }
     }
 

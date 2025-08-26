@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -70,7 +69,7 @@ public class PropStats : MonoBehaviour {
             for (int j = 0; j < renderer.materials.Length; j++) {
                 renderer.materials[j].color = i % 2 == 0 ? flashColor : originalColor[j];
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }

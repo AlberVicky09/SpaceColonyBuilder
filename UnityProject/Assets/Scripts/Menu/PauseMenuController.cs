@@ -2,15 +2,35 @@ using UnityEngine;
 
 public class PauseMenuController : MonoBehaviour {
 
-    public GameObject pauseCanvas;
+    public GameObject pauseCanvas, settingsCanvas, tutorialCanvas;
 
     public void PauseGame() {
-        if (GameControllerScript.Instance.isPauseMenuActive) {
-            GameControllerScript.Instance.PlayVelocity(1f);
+        if (GameControllerScript.Instance.isInAMenu) {
+            ReturnToPause();
         } else {
-            GameControllerScript.Instance.PauseGame();
+            if (GameControllerScript.Instance.isPauseMenuActive && !GameControllerScript.Instance.wasGamePaused) {
+                GameControllerScript.Instance.PlayVelocity(1f);
+            } else {
+                GameControllerScript.Instance.PauseGame();
+            }
+            GameControllerScript.Instance.TogglePauseMenu();
+            pauseCanvas.SetActive(!pauseCanvas.activeSelf);
         }
-        GameControllerScript.Instance.TogglePauseMenu();
-        pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+    }
+
+    public void GoToSettings() {
+        settingsCanvas.SetActive(true);
+        GameControllerScript.Instance.isInAMenu = true;
+    }
+
+    public void GoToTutorial() {
+        tutorialCanvas.SetActive(true);
+        GameControllerScript.Instance.isInAMenu = true;
+    }
+
+    public void ReturnToPause() {
+        settingsCanvas.SetActive(false);
+        tutorialCanvas.SetActive(false);
+        GameControllerScript.Instance.isInAMenu = false;
     }
 }

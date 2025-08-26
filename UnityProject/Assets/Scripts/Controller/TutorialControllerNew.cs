@@ -14,7 +14,6 @@ public class TutorialControllerNew : MonoBehaviour {
 
     private void Start() {
         RestartTutorial();
-        GameControllerScript.Instance.PauseGame();
     }
 
     public void GoToNextTutorial() {
@@ -27,18 +26,9 @@ public class TutorialControllerNew : MonoBehaviour {
         UpdateTutorial();
     }
 
-    private void RestartTutorial() {
+    public void RestartTutorial() {
         tutorialIndex = 0;
         UpdateTutorial();
-    }
-
-    public void CloseTutorial() {
-        if (wasInPause) {
-            pauseCanvas.SetActive(true);
-        } else {
-            GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
-        }
-        gameObject.SetActive(false);
     }
     
     private void UpdateTutorial() {

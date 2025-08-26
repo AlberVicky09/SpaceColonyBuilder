@@ -19,6 +19,7 @@ public class GameControllerScript : MonoBehaviour {
     public BulletPoolController bulletPoolController;
     public EnemyGenerationController enemyGenerationController;
     public TutorialControllerLegacy tutorialControllerLegacy;
+    public TutorialControllerNew tutorialControllerNew;
     public EnemyBaseController enemyBaseController;
     
     public CanvasGroup canvasGroup;
@@ -63,7 +64,7 @@ public class GameControllerScript : MonoBehaviour {
     public TMP_Text alertCanvasText;
     private float prevAlertTimeSpeed;
     public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
-    public bool isGamePaused, isPauseMenuActive;
+    public bool isGamePaused, wasGamePaused, isPauseMenuActive, isInAMenu;
     
     public List<Vector3> waypoints;
     
@@ -228,6 +229,7 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     public void PauseGame() {
+        wasGamePaused = isGamePaused;
         isGamePaused = true;
         Time.timeScale = Constants.TIME_SCALE_STOPPED;
     }

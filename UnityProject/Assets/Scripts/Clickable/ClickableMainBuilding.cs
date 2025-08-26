@@ -37,7 +37,16 @@ public class ClickableMainBuilding : Clickable {
     public override void UpdateTexts() {
         GameControllerScript.Instance.actionText.text = "Main building";
     }
-    
+
+    protected override void DisplayButtons() {
+        base.DisplayButtons();
+        
+        //If the base is fully healed, disable the button
+        if (mainBuildingStats.healthPoints == mainBuildingStats.MAX_HEALTHPOINTS) {
+            GameControllerScript.Instance.actionButtons[1].SetActive(false);
+        }
+    }
+
     protected override void StartButtons() {
         base.StartButtons();
         GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(DisplayBuildableScreen);
@@ -45,8 +54,6 @@ public class ClickableMainBuilding : Clickable {
         if (mainBuildingStats.healthPoints < mainBuildingStats.MAX_HEALTHPOINTS) {
             GameControllerScript.Instance.actionButtons[1].GetComponent<Button>().onClick.AddListener(DisplayRepairingScreen);
             GameControllerScript.Instance.actionButtons[1].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Repair base";
-        } else {
-            GameControllerScript.Instance.actionButtons[1].SetActive(true);
         }
     }
     
@@ -84,6 +91,8 @@ public class ClickableMainBuilding : Clickable {
         //Show slider at full fill
         healingSlider.value = 1;
         SetUpSlider(healingSlider.value);
+
+        activeButtonsObject = null;
         
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
@@ -107,7 +116,10 @@ public class ClickableMainBuilding : Clickable {
             if (Input.GetMouseButton(1)) {
                 ResetPlacingVariables(false);
                 GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
-            } else {
+            } else if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) {
+                GameControllerScript.Instance.wasGamePaused = false;
+                ResetPlacingVariables(false);
+            }else {
                 placingDelay += Time.unscaledDeltaTime;
                 //Locate object with mouse
                 placingRay = GameControllerScript.Instance.cameraMove.cameraGO.ScreenPointToRay(Input.mousePosition);

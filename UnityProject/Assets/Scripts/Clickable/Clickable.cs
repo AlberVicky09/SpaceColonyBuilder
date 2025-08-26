@@ -13,7 +13,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     private float doubleClickDelay;
     private bool secondClick = false;
 
-    private static GameObject activeButtonsObject;
+    protected static GameObject activeButtonsObject;
     
     public void OnMouseDown() {
         if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
