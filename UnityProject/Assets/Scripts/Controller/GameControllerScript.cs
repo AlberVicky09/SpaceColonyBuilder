@@ -191,6 +191,8 @@ public class GameControllerScript : MonoBehaviour {
     void Start() {
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        //TODO Just for debugging
+        //currentMissionNumber = 2;
         
         switch (currentMissionNumber) {
             case 0:

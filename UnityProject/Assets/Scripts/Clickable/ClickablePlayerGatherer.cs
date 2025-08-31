@@ -41,7 +41,6 @@ public class ClickablePlayerGatherer : ClickableGatherer {
 
     private void SelectResource(ResourceEnum resource) {
         gathererBehaviour.resourceGatheringType = resource;
-        gathererBehaviour.DisplayAction(GameControllerScript.Instance.oreListImage[resource].sprite);
         GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
         GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);

@@ -547,9 +547,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 4645084963767793777}
-  actionPercentage: {fileID: 7376917674243816208}
-  idleAction: {fileID: 7021235380465542861}
-  actionPercentageImage: {fileID: 7113940939556063323}
+  actionProgress: {fileID: 7376917674243816208}
+  actionProgressImage: {fileID: 7113940939556063323}
+  currentAction: {fileID: 7021235380465542861}
+  currentActionImage: {fileID: 5350412962370994229}
   isGeneratorPaused: 0
 --- !u!114 &4894918443242236690
 MonoBehaviour:

@@ -134,6 +134,8 @@ public static class Constants {
     public const int INITIAL_ORE_NUMBER = 15;
     public const float ORE_FLOOR_OFFSET = 0.4f;
 
+    public const float FOOD_GENERATOR_DURATION = 5.0f;
+
     public const float MAX_DOUBLE_CLICK_DELAY = 1f;
     
     public const float GAMEOBJECT_CENTERED_MAX_REFRESH_TIME = 1f;

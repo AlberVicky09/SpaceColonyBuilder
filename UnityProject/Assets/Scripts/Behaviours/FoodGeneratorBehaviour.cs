@@ -1,27 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class FoodGeneratorBehaviour : MonoBehaviour
-{
-    public RectTransform canvas;
-    public GameObject actionPercentage;
-    public GameObject idleAction;
-    private float actionPercentageValue;
-    public Image actionPercentageImage;
+public class FoodGeneratorBehaviour : ActionUIController {
+
     public Coroutine generatorCoroutine;
     public bool isGeneratorPaused = false;
-    
-    private void Update() {
-        if (actionPercentage.activeSelf && !isGeneratorPaused) {
-            Utils.LocateMarkerOverGameObject(gameObject, actionPercentage, 3.5f, canvas);
-            actionPercentageValue += Time.deltaTime;
-            actionPercentageImage.fillAmount = actionPercentageValue / 5.0f;
+    private bool hasWaterBeenAlreadyTaken = false;
 
-        } else {
-            Utils.LocateMarkerOverGameObject(gameObject, idleAction, 3.5f, canvas);
-        }
-        
+    public void Start() {
+        totalProgressTime = Constants.FOOD_GENERATOR_DURATION;
     }
     
     public IEnumerator GenerateFood() {
@@ -29,34 +16,34 @@ public class FoodGeneratorBehaviour : MonoBehaviour
             //If is paused, dont generate
             while (isGeneratorPaused) { yield return null; }
             
-            yield return new WaitForSeconds(5);
-            if (!isGeneratorPaused) {
-                if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
-                    ToggleActionCanvas(true);
-                    actionPercentageValue = 0f;
-                    actionPercentageImage.fillAmount = 0f;
-
+            if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
+                //Take water only once, even if we pause it
+                if (!hasWaterBeenAlreadyTaken) {
                     //Remove water
                     GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Water, 15,
                         ResourceOperationEnum.Decrease);
-
-                    //Add food
-                    GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Food, 30,
-                        ResourceOperationEnum.Increase);
-                } else {
-                    Debug.Log("Missing water");
-                    ToggleActionCanvas(false);
+                    hasWaterBeenAlreadyTaken = true;
                 }
+                
+                //Swap action canvas
+                DisplayProgress();
+                yield return new WaitForSeconds(5);
+                
+                //Add food
+                GameControllerScript.Instance.uiUpdateController.UpdateResource(ResourceEnum.Food, 30,
+                    ResourceOperationEnum.Increase);
+                
+                //Ensure next time water is taken again
+                hasWaterBeenAlreadyTaken = false;
+            } else {
+                Debug.Log("Missing water");
+                DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]);
             }
-        }
-    }
 
-    public void ToggleActionCanvas(bool isActive) {
-        actionPercentage.SetActive(isActive);
-        idleAction.SetActive(!isActive);
-        if (!isActive) {
-            actionPercentageValue = 0f;
-            actionPercentageImage.fillAmount = 0f;
+            //Check if has been paused, to stop it AFTER the loop is done
+            if (isGeneratorPaused) {
+                DisplayAction(GameControllerScript.Instance.stopActionSprite);
+            }
         }
     }
 }

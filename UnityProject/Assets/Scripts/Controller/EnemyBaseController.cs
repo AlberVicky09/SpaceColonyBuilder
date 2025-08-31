@@ -123,12 +123,6 @@ public class EnemyBaseController : MonoBehaviour {
                 CalculateOreForGatherer(gatherer);
                 Debug.Log("Enemy gatherer generated");
                 return gatherer;
-            case PropsEnum.FoodGenerator:
-                //TODO Where to place?
-                var generator = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, CalculateGeneratorLocation(), Quaternion.identity);
-                GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFoodGenerator].Add(generator);
-                Debug.Log("Enemy generator generated");
-                return generator;
             case PropsEnum.BasicFighter:
                 var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
                 GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Add(fighter);

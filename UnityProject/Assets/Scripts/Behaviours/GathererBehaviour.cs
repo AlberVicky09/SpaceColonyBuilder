@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
-public abstract class GathererBehaviour : MonoBehaviour
+public abstract class GathererBehaviour : ActionUIController
 {
     protected ClickableOre currentClickableOre;
     [SerializeField] protected ClickableGatherer clickableGatherer;
@@ -17,32 +16,14 @@ public abstract class GathererBehaviour : MonoBehaviour
     public int gathererLoad = 0;
     public Dictionary<ResourceEnum, int> loadDictionary;
     public int maxGathererLoad;
-    protected float gatheredProgressTime = 0f;
-    
-    public RectTransform canvas;
-    public GameObject actionProgress;
-    public Image actionProgressImage;
-    public GameObject currentAction;
-    public Image currentActionImage;
 
     private Coroutine gatheringCoroutine;
-
-    private void Update() {
-        if (currentAction.activeSelf) {
-            Utils.LocateMarkerOverGameObject(gameObject, currentAction, 5f, canvas);
-        } else {
-            actionProgressImage.fillAmount = gatheredProgressTime / currentGatheredOre.gatheringTimeRequired;
-            gatheredProgressTime += Time.deltaTime;
-            Utils.LocateMarkerOverGameObject(gameObject, actionProgress, 5f, canvas);
-        }
-    }
     
     private void OnTriggerEnter(Collider other) {
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
             currentGatheredOre = other.GetComponent<OreBehaviour>();
             currentClickableOre = other.GetComponent<ClickableOre>();
-            actionProgress.gameObject.SetActive(true);
-            currentAction.gameObject.SetActive(false);
+            totalProgressTime = currentGatheredOre.gatheringTimeRequired;
             gatheringCoroutine = StartCoroutine(GatheringCoroutine());
         }
     }
@@ -63,12 +44,6 @@ public abstract class GathererBehaviour : MonoBehaviour
 
     public void ReturnToBase(bool isRetreating) {
         StartCoroutine(CheckReturnToBaseCompleted(isRetreating));
-    }
-
-    public void DisplayAction(Sprite displayImage) {
-        actionProgress.gameObject.SetActive(false);
-        currentAction.gameObject.SetActive(true);
-        currentActionImage.sprite = displayImage;
     }
 
     protected IEnumerator CheckReturnToBaseCompleted(bool isRetreating) {
@@ -100,9 +75,10 @@ public abstract class GathererBehaviour : MonoBehaviour
     }
     
     private IEnumerator GatheringCoroutine() {
+        DisplayProgress();
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
-            gatheredProgressTime = 0f;
+            progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;

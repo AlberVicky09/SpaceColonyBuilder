@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class FighterBehaviour : MonoBehaviour{
+public abstract class FighterBehaviour : ActionUIController{
     
     public NavMeshAgent agent;
     public PropsEnum propType;
@@ -33,8 +33,6 @@ public abstract class FighterBehaviour : MonoBehaviour{
     protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 5f;
     protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
     
-    //TODO TODO TODO TODO!!! IMAGENES DE ACCIONES
-    
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_BUILDING_ATTACKING_DISTANCE);
@@ -42,10 +40,15 @@ public abstract class FighterBehaviour : MonoBehaviour{
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_FIGHTER_ATTACKING_DISTANCE);
     }
-    
-    void Update()
-    {
+
+    private void Start() {
+        DisplayAction(GameControllerScript.Instance.patrolBaseSprite);
+    }
+
+    void Update() {
         if (isActivated) {
+            base.Update();
+            
             switch (currentState) {
                 //When scouting, check for enemies and if not, go on with next waypoint
                 case FighterStatesEnum.Scouting:
