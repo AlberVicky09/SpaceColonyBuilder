@@ -39,8 +39,8 @@ public class CameraMove : MonoBehaviour {
         
         // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
         if (flatPos.magnitude <= Constants.VIEW_DISTANCE_RANGE ||
-                (EnemyBaseController.Instance.mainEnemyBase != null 
-                && flatPosAroundEnemyBase.magnitude < Constants.VIEW_DISTANCE_RANGE)) {
+                (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 
+                 && flatPosAroundEnemyBase.magnitude < Constants.VIEW_DISTANCE_RANGE)) {
             return;
         }
         //Else, find if we need to clamp it to one or another of the circles

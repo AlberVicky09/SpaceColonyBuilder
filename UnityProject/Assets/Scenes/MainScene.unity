@@ -2326,7 +2326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199476082
@@ -7165,11 +7165,22 @@ MonoBehaviour:
   ironSprite: {fileID: 21300000, guid: e1bb204158e423a4ca8fa97c0885b28b, type: 3}
   goldSprite: {fileID: 21300000, guid: ec014dfb1f442364b90afe7ae8fcfefe, type: 3}
   platinumSprite: {fileID: 21300000, guid: 3b6f0a3509b564b4d9015de393156a9e, type: 3}
+  missingWaterSprite: {fileID: 21300000, guid: 016a683a9ff992f458b8ea9988282c21, type: 3}
+  missingFoodSprite: {fileID: 21300000, guid: da052cff9c42deb4890c467328f0683f, type: 3}
+  missingIronSprite: {fileID: 21300000, guid: e1bb204158e423a4ca8fa97c0885b28b, type: 3}
+  missingGoldSprite: {fileID: 21300000, guid: ec014dfb1f442364b90afe7ae8fcfefe, type: 3}
+  missingPlatinumSprite: {fileID: 21300000, guid: 3b6f0a3509b564b4d9015de393156a9e, type: 3}
   mainBuilding: {fileID: 5343432657082240490}
   startingGatherer: {fileID: 1109129703}
   oreImage: {fileID: 21300000, guid: 6bb2e6c7da0942c49a6b6296e334de5c, type: 3}
-  missingResourceAction: {fileID: 21300000, guid: 84f060ccdc852b441b1d388eb5c85c59, type: 3}
-  returningToBaseAction: {fileID: 21300000, guid: e9e7e346d1d94f34ea8dd4757c5a9b43, type: 3}
+  generatePropsSprite: {fileID: 21300000, guid: 0733295f4af56a346a02d9d4a8051094, type: 3}
+  healBaseSprite: {fileID: 21300000, guid: 3431578666dff994a982077a1b9bedcc, type: 3}
+  selectResourceSprite: {fileID: 21300000, guid: a78d6bf85de4294489cb04ad45fe9828, type: 3}
+  returningToBaseSprite: {fileID: 21300000, guid: 814517a3864e158479bd0f2c4be6c22b, type: 3}
+  patrolBaseSprite: {fileID: 21300000, guid: 7647240033f4e17489e7ab198abee92e, type: 3}
+  attackSprite: {fileID: 21300000, guid: 719116d9e80201348a2edccaac66a820, type: 3}
+  startActionSprite: {fileID: 21300000, guid: be35b3e4ddbec9b4eb165a7c058bccfe, type: 3}
+  stopActionSprite: {fileID: 21300000, guid: c9586270cb4753c4ca55408a1cbec82f, type: 3}
   numberOfOres: 0
   actionCanvas: {fileID: 975231726}
   actionButtons:
@@ -7289,7 +7300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40563d0d84e78c44a6ac8656d5207e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainEnemyBase: {fileID: 0}
   waypoints: []
 --- !u!114 &696201174
 MonoBehaviour:
@@ -8242,7 +8252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820584787
@@ -9769,7 +9779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946643055
@@ -11527,7 +11537,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079235328

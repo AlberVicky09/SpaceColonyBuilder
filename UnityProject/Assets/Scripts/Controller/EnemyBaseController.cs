@@ -8,10 +8,8 @@ using UnityEngine;
 public class EnemyBaseController : MonoBehaviour {
 
     public static EnemyBaseController Instance;
-    public GameObject mainEnemyBase;
     public Dictionary<ResourceEnum, int> enemyResourcesDictionary;
     public Dictionary<ResourceEnum, int> enemyGathererObjectiveCount;
-    public Dictionary<PropsEnum, List<GameObject>> enemyPropsList;
     private List<ResourceEnum> resourcePrefferenceList;
     private static Vector3 shipGenerationPlace = Constants.ENEMY_CENTER + new Vector3(-5f, 0f, -5f);
     private Vector3 floorCenter = new(75f, -0.1f, 0);
@@ -34,21 +32,14 @@ public class EnemyBaseController : MonoBehaviour {
         enemyGathererObjectiveCount = new Dictionary<ResourceEnum, int>();
         resourcePrefferenceList = new List<ResourceEnum>();
         
-        //Initialize prop dictionary
-        enemyPropsList = new Dictionary<PropsEnum, List<GameObject>>();
-        foreach (PropsEnum propType in Enum.GetValues(typeof(PropsEnum))) {
-            enemyPropsList.Add(propType, new List<GameObject>());
-        }
-        enemyPropsList[PropsEnum.MainBuilding].Add(gameObject);
-        
         //Add floor and bake its navigation
         var floor = Instantiate(GameControllerScript.Instance.floorPrefab, floorCenter, Quaternion.identity);
         floor.GetComponent<NavMeshSurface>().BuildNavMesh();
         floor.GetComponent<MeshRenderer>().enabled = false;
         
         //Add main building
-        mainEnemyBase = Instantiate(GameControllerScript.Instance.enemyBasePrefab, Constants.ENEMY_CENTER, Quaternion.identity);
-        enemyPropsList[PropsEnum.MainBuilding].Add(mainEnemyBase);
+        GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Add(
+            Instantiate(GameControllerScript.Instance.enemyBasePrefab, Constants.ENEMY_CENTER, Quaternion.identity));
         
         //Add waypoints for fighters to scout
         waypoints = Utils.CalculateWaypointsForBuilding(Constants.ENEMY_CENTER, Constants.numberOfWaypoints, Constants.WAYPOINTS_RADIUS);
@@ -100,7 +91,9 @@ public class EnemyBaseController : MonoBehaviour {
             goto FindOreProcess;
         }
         
+        //Display current ore action
         gathererBehaviour.objectiveItem = nearestOre;
+        gathererBehaviour.DisplayAction(GameControllerScript.Instance.resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         gathererBehaviour.UpdateDestination();
     }
 
@@ -126,25 +119,25 @@ public class EnemyBaseController : MonoBehaviour {
         switch (propToGenerate) {
             case PropsEnum.Gatherer:
                 var gatherer = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, shipGenerationPlace, Quaternion.identity);
-                enemyPropsList[PropsEnum.Gatherer].Add(gatherer);
+                GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
                 Debug.Log("Enemy gatherer generated");
                 return gatherer;
             case PropsEnum.FoodGenerator:
                 //TODO Where to place?
                 var generator = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, CalculateGeneratorLocation(), Quaternion.identity);
-                enemyPropsList[PropsEnum.FoodGenerator].Add(generator);
+                GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFoodGenerator].Add(generator);
                 Debug.Log("Enemy generator generated");
                 return generator;
             case PropsEnum.BasicFighter:
                 var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
-                enemyPropsList[PropsEnum.BasicEnemy].Add(fighter);
+                GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Add(fighter);
         
                 //If we have more than 3, go to attack base, else scout automatically
-                if (enemyPropsList[PropsEnum.BasicEnemy].Count > 3) {
+                if (GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Count > 3) {
                     Debug.Log("Enemy fighter in attack mode");
-                    foreach (var enemy in enemyPropsList[PropsEnum.BasicEnemy]) {
-                        enemy.GetComponent<EnemyFighterBehaviour>().AttackPlayerBase();
+                    foreach (var enemy in GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy]) {
+                        enemy.GetComponent<EnemyFighterBehaviour>().StartChasingBase();
                     }
                 }
 

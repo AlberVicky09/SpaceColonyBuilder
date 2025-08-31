@@ -44,7 +44,7 @@ public class KeyController : MonoBehaviour {
 
                 //Zoom camera with mouseScroll
                 if (Input.mouseScrollDelta.y != 0) {
-                    CameraMove.Instance.ZoomCamera(Input.mouseScrollDelta.y < 0);
+                    CameraMove.Instance.ZoomCamera(Input.mouseScrollDelta.y > 0);
                 }
             }
         }

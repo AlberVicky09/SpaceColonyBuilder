@@ -1,152 +1,129 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FighterBehaviour : MonoBehaviour {
+public abstract class FighterBehaviour : MonoBehaviour{
     
     public NavMeshAgent agent;
-    public GameObject objectiveGO;
-    private const float MAXIMUM_DETECTION_DISTANCE = 13f;
-    private const float MAXIMUM_SHOOTING_DISTANCE = 5f;
-    private const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
-    
-    public FighterStatesEnum currentState = FighterStatesEnum.Scouting;
-    private FighterStatesEnum prevState;
-    public bool hasBeenPlaced = false;
-    
-    private const float TIME_TO_CHECK_FOR_ENEMIES = 3.5f;
-    private float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
-    private const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 1f;
-    private float timeSinceLastCheckForEnemyPosition;
-    
-    public int currentWaypointIndex;
-    
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, MAXIMUM_DETECTION_DISTANCE);
-    }
+    public PropsEnum propType;
 
+    //OppositeType is BasicEnemy for player, and BasicFighter for enemy
+    protected PropsEnum oppositeType;
+    //OpositeBase is enemyBase for player, and mainBase for enemy
+    protected GameObject oppositeBase;
+    //Set waypoints for this type, around its base
+    protected List<Vector3> waypoints;
+    
+    public GameObject objectiveGO;
+    public PropsEnum objectiveType;
+
+    public FighterStatesEnum currentState = FighterStatesEnum.Scouting;
+    protected FighterStatesEnum prevState;
+    public int currentWaypointIndex;
+
+    public bool isActivated;
+
+    protected const float TIME_TO_CHECK_FOR_ENEMIES = 1f;
+    protected float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
+    protected const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 1f;
+    protected float timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
+
+    protected const float MAXIMUM_DETECTION_DISTANCE = 13f;
+    protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 5f;
+    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
+    
+    //TODO TODO TODO TODO!!! IMAGENES DE ACCIONES
+    
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, MAXIMUM_BUILDING_ATTACKING_DISTANCE);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, MAXIMUM_FIGHTER_ATTACKING_DISTANCE);
+    }
+    
     void Update()
     {
-        if (hasBeenPlaced && !FighterStatesEnum.Attacking.Equals(currentState)) {
+        if (isActivated) {
             switch (currentState) {
-                //When the fighter is scouting, it can find enemies
+                //When scouting, check for enemies and if not, go on with next waypoint
                 case FighterStatesEnum.Scouting:
-                    //Check for enemies nearby
-                    if (!CheckForEnemiesNearby(MAXIMUM_DETECTION_DISTANCE, false)) {
-                        // Check if the agent has reached the current waypoint, and if so, move to the next one
-                        if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-                            Debug.Log("Moving to next waypoint");
-                            Utils.MoveToNextWayPoint(ref currentWaypointIndex, GameControllerScript.Instance.waypoints,
-                                agent);
-                        }
+                    //Check for enemies nearby (if none, keep scouting)
+                    if (CheckForEnemiesInSight()) { return; }
+                    
+                    // Check if the agent has reached the current waypoint, and if so, move to the next one
+                    if (!agent.pathPending && agent.remainingDistance < 0.5f) {
+                        Debug.Log("Moving to next waypoint");
+                        Utils.MoveToNextWayPoint(
+                            ref currentWaypointIndex,
+                            waypoints,
+                            agent);
+                    }
+                    break;
+                
+                //If chasing low priority (base), check for enemies just in case (its more priority)
+                case FighterStatesEnum.ChasingLowPriority:
+                    //If there are enemies on sight, change objective and go towards them
+                    if (CheckForEnemiesInSight()) { return; }
+
+                    //If base is near enough, start attacking it
+                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
+                        Debug.Log("Base in range");
+                        currentState = FighterStatesEnum.AttackingLowPriority;
+                        //Start fighting
+                        StartCoroutine(StartFighting());
+                    }
+                    break;
+                
+                //If fighting low priority (base), check for enemies just in case (its more priority)
+                case FighterStatesEnum.AttackingLowPriority:
+                    //If there are enemies on sight, change objective and go towards them
+                    CheckForEnemiesInSight();
+                    break;
+                
+                //When the fighter is chasing enemies, won´t stop until being close enough
+                case FighterStatesEnum.Chasing:
+                    //If other ship destroys current enemy
+                    if (!GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
+                        RestartAgent();
+                        return;
                     }
 
-                    break;
-
-                //When the fighter is chasing enemies, wont stop until being close enough
-                case FighterStatesEnum.Chasing:
-                    timeSinceLastCheckForEnemyPosition += Time.deltaTime;
-
                     //Update enemy position each X seconds (in case it has moved)
+                    timeSinceLastCheckForEnemyPosition += Time.deltaTime;
                     if (timeSinceLastCheckForEnemyPosition >= TIME_TO_CHECK_FOR_ENEMY_POSITION) {
                         UpdateFighterDestination(objectiveGO.transform.position);
                     }
 
                     //If enemy is near enough, start attacking it
-                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_SHOOTING_DISTANCE) {
+                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
                         Debug.Log("Enemy in range");
-                        prevState = currentState;
                         currentState = FighterStatesEnum.Attacking;
                         //Start fighting
                         StartCoroutine(StartFighting());
                     }
-
                     break;
-
-                //When the fighter is chasing the base, check if the base is near enough or if there are enemies nearby
-                case FighterStatesEnum.ChasingLowPriority:
-
-                    //If base is near enough, start attacking it
-                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_SHOOTING_DISTANCE) {
-                        Debug.Log("Base in range");
-                        prevState = currentState;
-                        currentState = FighterStatesEnum.AttackingLowPriority;
-                        //Start fighting
-                        StartCoroutine(StartFighting());
-                    }
-
-                    break;
-
-                case FighterStatesEnum.AttackingLowPriority:
-                    //If its atacking the base, check if there is a enemy nearby
-                    if (CheckForEnemiesNearby(MAXIMUM_DETECTION_DISTANCE, true)) {
-                        Debug.Log("Stop attacking the base, start chasing enemy");
-                        StopCoroutine(StartFighting());
-                        prevState = currentState;
-                        currentState = FighterStatesEnum.Chasing;
-                    }
-
-                    break;
+                
+                //If its attacking, do nothing
+                case FighterStatesEnum.Attacking: break;
             }
         }
     }
-
-    private IEnumerator StartFighting() {
-        //Stop agent
-        agent.isStopped = true;
-
-        //Start shooting to objective, finish when objective is death
-        while (GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Contains(objectiveGO)) {
-            //Spawn bullet in front
-            var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
-            bullet.transform.position = transform.position + Vector3.forward * 0.5f;
-
-            //Set bullet direction
-            bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody>().velocity =
-                (objectiveGO.transform.position - transform.position) * 0.5f;
-            //Set bullet shooter
-            var bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-            bulletBehaviour.SetShooter(PropsEnum.BasicEnemy, gameObject);
-
-            //Reload
-            yield return new WaitForSeconds(2.5f);
-        }
-
-        //Restart the agent, and instantly find enemies
-        currentState = prevState;
-        switch (currentState) {
-            //TODO missing states?
-            case FighterStatesEnum.Scouting:
-                timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
-                agent.isStopped = false;
-                Utils.MoveToNextWayPoint(ref currentWaypointIndex, GameControllerScript.Instance.waypoints, agent);
-                break;
-                
-            case FighterStatesEnum.Chasing:
-                break;
-            
-            case FighterStatesEnum.ChasingLowPriority:
-                break;
-                
-            case FighterStatesEnum.AttackingLowPriority:
-                break;
-        }
-    }
-
-    private bool CheckForEnemiesNearby(float checkDistance, bool isCheckingForBase) {
+    
+    private bool CheckForEnemiesInSight() {
         //Check for enemies each TIME_TO_CHECK_FOR_ENEMIES
         timeSinceLastCheckForEnemies += Time.deltaTime;
         if (timeSinceLastCheckForEnemies >= TIME_TO_CHECK_FOR_ENEMIES) {
             timeSinceLastCheckForEnemies = 0f;
             //If enemy is detected, start chasing it
-            if (Utils.DetectObjective(GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy],
-                    transform, checkDistance, ref objectiveGO)) {
+            if (Utils.DetectObjective(GameControllerScript.Instance.propDictionary[oppositeType],
+                    transform, MAXIMUM_DETECTION_DISTANCE, ref objectiveGO)) {
+                //Set state
                 prevState = currentState;
-                currentState = isCheckingForBase ? FighterStatesEnum.ChasingLowPriority : FighterStatesEnum.Chasing;
+                currentState = FighterStatesEnum.Chasing;
                 
+                //Force timer to check for enemies just in case is near enough to shoot
                 timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
                 UpdateFighterDestination(objectiveGO.transform.position);
                 return true;
@@ -155,29 +132,76 @@ public class FighterBehaviour : MonoBehaviour {
 
         return false;
     }
-
+    
+    protected IEnumerator StartFighting() {
+        //Stop agent
+        agent.isStopped = true;
+        
+        //Rotate agent towards objective
+        transform.LookAt(objectiveGO.transform);
+        
+        //Start shooting to objective until dead
+        while (GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
+            //Spawn bullet in front
+            var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
+            bullet.transform.position = transform.position + Vector3.forward * 0.5f;
+            
+            //Set bullet direction
+            bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody>().velocity =
+                (objectiveGO.transform.position - transform.position) * 0.5f;
+            //Set bullet shooter
+            bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject);
+            
+            //Reload
+            yield return new WaitForSeconds(2.5f);
+        }
+        
+        RestartAgent();
+        
+    }
+    
     public void StartScouting() {
         //Find nearest waypoint
         var nearestScoutingPointPosition =
-            Utils.FindNearestGameObjectPositionInList(gameObject, GameControllerScript.Instance.waypoints);
+            Utils.FindNearestGameObjectPositionInList(gameObject, waypoints);
         //Set nearest waypoint as objective
-        UpdateFighterDestination(
-            GameControllerScript.Instance.waypoints[nearestScoutingPointPosition]);
-        //Set nearest waypoint as current
+        UpdateFighterDestination(waypoints[nearestScoutingPointPosition]);
+        //Set nearest waypoint index as current
         currentWaypointIndex = nearestScoutingPointPosition;
+        
         //Update state
         currentState = FighterStatesEnum.Scouting;
     }
-
-    public void StartChasing() {
+    
+    public void StartChasingBase() {
         //Mark the enemy base as objectiveS
-        UpdateFighterDestination(EnemyBaseController.Instance.mainEnemyBase.transform.position);
+        UpdateFighterDestination(oppositeBase.transform.position);
         //Update state
-        currentState = FighterStatesEnum.AttackingLowPriority;
+        currentState = FighterStatesEnum.ChasingLowPriority;
     }
     
-    public void UpdateFighterDestination(Vector3 destination) {
+    protected void UpdateFighterDestination(Vector3 destination) {
         agent.SetDestination(destination);
     }
-}
 
+    protected void RestartAgent() {
+        //Ensure its not stopped, and force checking for enemies
+        agent.isStopped = false;
+        timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
+        
+        //Restart the agent, depending on what it was doing before
+        switch (prevState) {
+            //If it was chasing or attacking the base, get back to chasing it
+            case FighterStatesEnum.ChasingLowPriority:
+            case FighterStatesEnum.AttackingLowPriority:
+                StartChasingBase();
+                break;
+            
+            //In any other case, go back to scouting
+            default:
+                StartScouting();
+                break;
+        }
+    }
+}

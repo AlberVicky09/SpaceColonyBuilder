@@ -3,19 +3,15 @@ using System.Collections.Generic;
 public enum PropsEnum
 {
    Gatherer,
-   ImprovedGatherer,
+   EnemyGatherer,
    FoodGenerator,
-   ImprovedFoodGenerator,
+   EnemyFoodGenerator,
    BasicFighter,
-   ImprovedFighter,
    BasicEnemy,
-   ImprovedEnemy,
    House,
-   ImprovedHouse,
    Storage,
-   ImprovedStorage,
    MainBuilding,
-   ImprovedMainBuilding
+   EnemyBase,
 }
 
 public static class BuildableProps {

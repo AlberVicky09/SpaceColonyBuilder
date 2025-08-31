@@ -25,9 +25,9 @@ public class BulletBehaviour : MonoBehaviour {
         if (shooterGO.Equals(other.gameObject)) { return; }
         
         //If a fighter shoots and a enemy is hit (the rest of object cant get damage from allies)
-        if (((PropsEnum.BasicFighter.Equals(shooter) || PropsEnum.ImprovedFighter.Equals(shooter)) && other.gameObject.tag.Equals("Enemy")) 
+        if ((PropsEnum.BasicFighter.Equals(shooter) && other.gameObject.tag.Equals("Enemy")) 
             //Or if a enemy shoots and anything hittable is hit
-            || ((PropsEnum.BasicEnemy.Equals(shooter) || PropsEnum.ImprovedEnemy.Equals(shooter))
+            || (PropsEnum.BasicEnemy.Equals(shooter)
                 && other.gameObject.tag.Equals("MainBuilding") && !other.gameObject.tag.Equals("Fighter"))){
             other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(20);
         }

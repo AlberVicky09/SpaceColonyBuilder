@@ -16,7 +16,7 @@ public class PlayerGathererBehaviour : GathererBehaviour
         return GameControllerScript.Instance.propDictionary[PropsEnum.MainBuilding][0];
     }
 
-    protected override void RemoveCompletedOre() {
-        Utils.RemoveOre(GameControllerScript.Instance.gameObject.transform.position);
+    protected override void RemoveCompletedOre(ResourceEnum oreType, GameObject oreToRemove) {
+        Utils.RemoveOre(oreType, oreToRemove, GameControllerScript.Instance.gameObject.transform.position);
     }
 }

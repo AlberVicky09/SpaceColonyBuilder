@@ -352,10 +352,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1471278771838766375}
+  propType: 4
   objectiveGO: {fileID: 0}
+  objectiveType: 5
   currentState: 0
-  hasBeenPlaced: 0
   currentWaypointIndex: 0
+  isActivated: 0
 --- !u!114 &-2663390031771838603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940aba70122c7ba4193e1eca82ac1b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fighterBehaviour: {fileID: 9014150855329147964}
+  playerFighterBehaviour: {fileID: 9014150855329147964}
 --- !u!114 &3339112899061927884
 MonoBehaviour:
   m_ObjectHideFlags: 0

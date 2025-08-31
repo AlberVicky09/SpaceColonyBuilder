@@ -5139,8 +5139,9 @@ MonoBehaviour:
   maxGathererLoad: 0
   canvas: {fileID: 5278725371120652187}
   actionProgress: {fileID: 3345042851995547276}
+  actionProgressImage: {fileID: 5060128864218940965}
   currentAction: {fileID: 6131193330086127712}
-  currentActionImage: {fileID: 0}
+  currentActionImage: {fileID: 752242548870597783}
 --- !u!1 &3345042851995547276
 GameObject:
   m_ObjectHideFlags: 0

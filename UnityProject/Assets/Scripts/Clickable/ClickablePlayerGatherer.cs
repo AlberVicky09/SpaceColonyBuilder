@@ -48,6 +48,6 @@ public class ClickablePlayerGatherer : ClickableGatherer {
     }
 
     private void Retreat() {
-        gathererBehaviour.ReturnToBase(false);
+        gathererBehaviour.ReturnToBase(true);
     }
 }

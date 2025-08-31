@@ -28,10 +28,10 @@ public class EnemyGathererBehaviour : GathererBehaviour
     }
     
     protected override GameObject GetNearestBase() {
-        return EnemyBaseController.Instance.mainEnemyBase;
+        return GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase][0];
     }
 
-    protected override void RemoveCompletedOre() {
-        Utils.RemoveOre(EnemyBaseController.Instance.gameObject.transform.position);
+    protected override void RemoveCompletedOre(ResourceEnum oreType, GameObject oreToRemove) {
+        Utils.RemoveOre(oreType, oreToRemove, EnemyBaseController.Instance.gameObject.transform.position);
     }
 }

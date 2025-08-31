@@ -2,7 +2,7 @@ using UnityEngine.UI;
 
 public class ClickableFighter : Clickable {
     
-    private FighterBehaviour fighterBehaviour;
+    private PlayerFighterBehaviour playerFighterBehaviour;
     
     public override void UpdateTexts() {
         if (selectedClickable == this) {
@@ -14,18 +14,18 @@ public class ClickableFighter : Clickable {
         base.DisplayButtons();
         
         //If there is no enemy base, disable buttons
-        if (EnemyBaseController.Instance.mainEnemyBase == null) {
+        if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count == 0) {
             GameControllerScript.Instance.actionButtons[0].SetActive(false);
         }
     }
     
     protected override void StartButtons() {
-        if (fighterBehaviour == null) {
-            fighterBehaviour = GetComponent<FighterBehaviour>();
+        if (playerFighterBehaviour == null) {
+            playerFighterBehaviour = GetComponent<PlayerFighterBehaviour>();
         }
         
         //If there is no enemy base, disable buttons
-        if (EnemyBaseController.Instance.mainEnemyBase != null) {
+        if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0) {
             base.StartButtons();
             GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(ToggleState);
             SetUpToggleButton();
@@ -33,7 +33,7 @@ public class ClickableFighter : Clickable {
     }
 
     public void SetUpToggleButton() {
-        if (FighterStatesEnum.Scouting.Equals(fighterBehaviour.currentState)) {
+        if (FighterStatesEnum.Scouting.Equals(playerFighterBehaviour.currentState)) {
             GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().hoveringDisplayText = "Attack enemy base";
             GameControllerScript.Instance.actionButtons[0].GetComponent<Image>().sprite = buttonImages[0];
         } else {
@@ -43,12 +43,12 @@ public class ClickableFighter : Clickable {
     }
     
     private void ToggleState() {
-        if (FighterStatesEnum.Scouting.Equals(fighterBehaviour.currentState)) {
+        if (FighterStatesEnum.Scouting.Equals(playerFighterBehaviour.currentState)) {
             //Start chasing enemy base
-            fighterBehaviour.StartChasing();
+            playerFighterBehaviour.StartChasingBase();
         } else {
             //Start scouting
-            fighterBehaviour.StartScouting();
+            playerFighterBehaviour.StartScouting();
         }
         //Update screen and force tooltip update
         SetUpToggleButton();

@@ -37,16 +37,26 @@ public class GameControllerScript : MonoBehaviour {
 
     public Sprite oreSprite, gathererSprite, foodGeneratorSprite, storageSprite, fighterSprite;
     public Sprite waterSprite, foodSprite, ironSprite, goldSprite, platinumSprite;
+    public Sprite missingWaterSprite, missingFoodSprite, missingIronSprite, missingGoldSprite, missingPlatinumSprite;
 
     public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
     public Dictionary<PropsEnum, Sprite> propSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> resourceSpriteDictionary;
+    public Dictionary<ResourceEnum, Sprite> missingResourceSpriteDictionary;
     
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Image> oreListImage;
     public Sprite oreImage;
-    public Sprite missingResourceAction, returningToBaseAction;
+
+    public Sprite generatePropsSprite,
+        healBaseSprite,
+        selectResourceSprite,
+        returningToBaseSprite,
+        patrolBaseSprite,
+        attackSprite,
+        startActionSprite,
+        stopActionSprite;
     public int numberOfOres;
 
     public GameObject actionCanvas;
@@ -122,10 +132,17 @@ public class GameControllerScript : MonoBehaviour {
         };
         resourceSpriteDictionary = new Dictionary<ResourceEnum, Sprite>() {
             { ResourceEnum.Water, waterSprite },
-            { ResourceEnum.Food, fighterSprite },
+            { ResourceEnum.Food, foodSprite },
             { ResourceEnum.Iron, ironSprite },
             { ResourceEnum.Gold, goldSprite },
             { ResourceEnum.Platinum, platinumSprite }
+        };
+        missingResourceSpriteDictionary = new Dictionary<ResourceEnum, Sprite>() {
+            { ResourceEnum.Water, missingWaterSprite },
+            { ResourceEnum.Food, missingFoodSprite },
+            { ResourceEnum.Iron, missingIronSprite },
+            { ResourceEnum.Gold, missingGoldSprite },
+            { ResourceEnum.Platinum, missingPlatinumSprite }
         };
             
         //Initialize resources dictionaries
@@ -201,8 +218,9 @@ public class GameControllerScript : MonoBehaviour {
         if (nearestOre is not null) {
             gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
+            gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         } else {
-            gathererBehaviour.DisplayAction(missingResourceAction);
+            gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         }
     }
 

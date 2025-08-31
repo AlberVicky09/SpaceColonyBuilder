@@ -190,7 +190,12 @@ public static class Utils {
         return true;
     }
     
-    public static void RemoveOre(Vector2 centerOfOres) {
+    public static void RemoveOre(ResourceEnum oreType, GameObject oreToRemove, Vector2 centerOfOres) {
+        //Destroy ore
+        Object.Destroy(oreToRemove);
+        //Remove from list
+        GameControllerScript.Instance.oreListDictionary[oreType].RemoveAll(item => item.gameObject.Equals(oreToRemove));
+        //Check if we need to create more ores
         GameControllerScript.Instance.numberOfOres--;
         if (GameControllerScript.Instance.numberOfOres <= 3) {
             GenerateRandomOres(centerOfOres);
