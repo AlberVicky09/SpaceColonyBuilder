@@ -40,18 +40,19 @@ public class CameraMove : MonoBehaviour {
         // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
         if (flatPos.magnitude <= Constants.VIEW_DISTANCE_RANGE ||
                 (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 
-                 && flatPosAroundEnemyBase.magnitude < Constants.VIEW_DISTANCE_RANGE)) {
+                 && flatPosAroundEnemyBase.magnitude <= Constants.VIEW_DISTANCE_RANGE)) {
             return;
         }
         //Else, find if we need to clamp it to one or another of the circles
-        if (flatPos.magnitude < flatPosAroundEnemyBase.magnitude) {
-            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE;
-            pos.x = flatPos.x;
-            pos.z = flatPos.y;
-        } else {
+        if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 &&
+                flatPosAroundEnemyBase.magnitude < flatPos.magnitude) {
             var clamped = flatPosAroundEnemyBase.normalized * Constants.VIEW_DISTANCE_RANGE;
             pos.x = clamped.x + Constants.ENEMY_CENTER.x;
             pos.z = clamped.y + Constants.ENEMY_CENTER.y;
+        } else {
+            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE;
+            pos.x = flatPos.x;
+            pos.z = flatPos.y;
         }
         cameraPivot.transform.position = pos;
         
