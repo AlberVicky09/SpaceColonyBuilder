@@ -12,20 +12,15 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     private float doubleClickDelay;
     private bool secondClick = false;
-
-    protected static GameObject activeButtonsObject;
     
     public void OnMouseDown() {
         if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
             selectedClickable = this;
             GameControllerScript.Instance.actionCanvas.SetActive(true);
             GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
-            if (gameObject != activeButtonsObject) {
-                StartButtons();
-                UpdateTexts();
-                DisplayButtons();
-            }
-            
+            StartButtons();
+            UpdateTexts();
+            DisplayButtons();
             CheckDoubleClick();
         }
     }
@@ -64,7 +59,6 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
         foreach (var button in GameControllerScript.Instance.actionButtons) {
             button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
-        activeButtonsObject = gameObject;
     }
 
     public void OnDeselect(BaseEventData eventData) {

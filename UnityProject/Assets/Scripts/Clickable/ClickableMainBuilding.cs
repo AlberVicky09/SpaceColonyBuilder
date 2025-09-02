@@ -91,8 +91,6 @@ public class ClickableMainBuilding : Clickable {
         //Show slider at full fill
         healingSlider.value = 1;
         SetUpSlider(healingSlider.value);
-
-        activeButtonsObject = null;
         
         GameControllerScript.Instance.actionCanvas.SetActive(false);
         GameControllerScript.Instance.PauseGame();
