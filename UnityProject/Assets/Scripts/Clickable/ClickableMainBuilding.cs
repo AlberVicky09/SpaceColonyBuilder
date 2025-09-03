@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,12 +27,16 @@ public class ClickableMainBuilding : Clickable {
     private GameObject instantiatedProp;
     private Rigidbody propRigibody;
     private BoxCollider propCollider;
-    private Renderer[] propRenderers;
+    public Renderer[] propRenderers;
+    private Color[] propOriginalColor;
+    private Color invalidColor;
     
     public LayerMask placementMask, obstructionMask;
 
     private void Start() {
         healingSlider.onValueChanged.AddListener(s => SetUpSlider(s));
+        invalidColor = Color.red;
+        invalidColor.a = 0.3f;
     }
 
     public override void UpdateTexts() {
@@ -147,18 +152,23 @@ public class ClickableMainBuilding : Clickable {
                     
                     //Store gatherer material info
                     propRenderers = instantiatedProp.GetComponentsInChildren<Renderer>();
+                    propOriginalColor = propRenderers
+                        .SelectMany(r => r.materials)
+                        .Select(m => m.color)
+                        .ToArray();
                 }
                 
                 // Check if the ray hits any object in the obstruction layer first
                 if (Physics.Raycast(placingRay, out hitPoint, Mathf.Infinity, obstructionMask)) {
-                    Debug.Log("Is not placeable");
                     if (placeable) {
+                        Debug.Log("Setting as not placeable");
                         // If the ray hits an obstructing object, prevent placing
                         placeable = false;
                         SetObjectTransparency(false);
                     }
                 } else {
                     if (!placeable) {
+                        Debug.Log("Setting as yes placeable");
                         placeable = true;
                         SetObjectTransparency(true);
                     }
@@ -203,12 +213,14 @@ public class ClickableMainBuilding : Clickable {
         GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
     }
     
-    private void SetObjectTransparency(bool isTransparent) {
+    private void SetObjectTransparency(bool isPositionValid) {
+        var counter = 0;
         for (int i = 0; i < propRenderers.Length; i++) {
-            var material = propRenderers[i].material;
-            var color = material.color;
-            color.a = isTransparent ? 0.25f : 1.0f;
-            material.color = color;
+            for (int j = 0; j < propRenderers[i].materials.Length; j++) {
+                propRenderers[i].materials[j].color =
+                    isPositionValid ? propOriginalColor[counter] : invalidColor;
+                counter++;
+            }
         }
     }
     
@@ -227,7 +239,7 @@ public class ClickableMainBuilding : Clickable {
             GameControllerScript.Instance.missionController.CheckPropMission(currentProp, GameControllerScript.Instance.propDictionary[currentProp].Count);
 
             //Reset gatherer
-            SetObjectTransparency(false);
+            SetObjectTransparency(true);
             if(propRigibody != null) { propRigibody.detectCollisions = true; }
             if(propCollider != null) { propCollider.isTrigger = false; }
             
@@ -252,6 +264,7 @@ public class ClickableMainBuilding : Clickable {
         if(!hasBeenPlaced) Destroy(instantiatedProp);
         instantiatedProp = null;
         propRenderers = null;
+        propOriginalColor = null;
         propCollider = null;
         propRigibody = null;
         GameControllerScript.Instance.SwapUIInteraction();
