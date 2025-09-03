@@ -60,7 +60,7 @@ public static class Constants {
                     { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 10 } }
             },
             {
-                PropsEnum.BasicFighter,
+                PropsEnum.Fighter,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 10 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 0 } }
             },
@@ -84,7 +84,7 @@ public static class Constants {
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
             },
             {
-                PropsEnum.BasicFighter,
+                PropsEnum.Fighter,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
             },
@@ -92,40 +92,33 @@ public static class Constants {
                 PropsEnum.Storage,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            }
+            },
+            { 
+                PropsEnum.EnemyGatherer,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
+            { 
+                PropsEnum.EnemyFighter,
+                new Dictionary<ResourceEnum, int>()
+                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
+            },
         };
 
     public static readonly Dictionary<PropsEnum, List<ResourceEnum>> ENEMY_RESOURCE_PREFFERENCE =
         new Dictionary<PropsEnum, List<ResourceEnum>> {
             {
-                PropsEnum.Gatherer,
+                PropsEnum.EnemyGatherer,
                 new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
             },{ 
-                PropsEnum.FoodGenerator,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
-            },{ 
-                PropsEnum.BasicFighter,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
-            },
-        };
-    
-    public static readonly Dictionary<PropsEnum, List<ResourceEnum>> UNUSUED_ENEMY_RESOURCE_PREFFERENCE =
-        new Dictionary<PropsEnum, List<ResourceEnum>> {
-            { //TODO Add unused resources
-                PropsEnum.Gatherer,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
-            },{ 
-                PropsEnum.FoodGenerator,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
-            },{ 
-                PropsEnum.BasicFighter,
+                PropsEnum.EnemyFighter,
                 new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
             },
         };
 
     public static readonly Dictionary<PropsEnum, string> PROPS_SUMMARY_NAME =
         new Dictionary<PropsEnum, string>() {
-            { PropsEnum.Gatherer, "Gathering ship" }, { PropsEnum.BasicFighter, "Fighting ship" },
+            { PropsEnum.Gatherer, "Gathering ship" }, { PropsEnum.Fighter, "Fighting ship" },
             { PropsEnum.FoodGenerator, "Food generator" }, { PropsEnum.Storage, "Resource Storage" }
         };
     
@@ -170,6 +163,7 @@ public static class Constants {
 
     public static int INITIAL_RESOURCES_QUANTITY = 300;
     public static int INITIAL_RESOURCES_LIMIT = 100;
+    public static int ENEMY_INITIAL_RESOURCES_LIMIT = 250;
     public static int RESOURCES_LIMIT_INCREASE = 50;
     
     public static int GATHERER_GATHERING_QUANTITY = 15;

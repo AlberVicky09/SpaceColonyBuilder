@@ -136,7 +136,7 @@ public class ClickableMainBuilding : Clickable {
                             PropsEnum.FoodGenerator => GameControllerScript.Instance.foodGeneratorPrefab,
                             PropsEnum.House => GameControllerScript.Instance.housePrefab,
                             PropsEnum.Storage => GameControllerScript.Instance.storagePrefab,
-                            PropsEnum.BasicFighter => GameControllerScript.Instance.fighterPrefab
+                            PropsEnum.Fighter => GameControllerScript.Instance.fighterPrefab
                         },
                         hitPoint.point,
                         Quaternion.identity);

@@ -79,14 +79,16 @@ public abstract class GathererBehaviour : ActionUIController
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
             progressTime = 0f;
-            gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
+            //gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
+            //TODO Cheating
+            gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();
 
             //If gatherer is full, exit coroutine
-            if (gathererLoad == maxGathererLoad) {
+            if (gathererLoad >= maxGathererLoad) {
                 ReturnToBase(false);
                 Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
                     GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);

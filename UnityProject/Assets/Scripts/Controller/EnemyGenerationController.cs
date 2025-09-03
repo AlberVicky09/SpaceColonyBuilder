@@ -13,7 +13,7 @@ public class EnemyGenerationController : MonoBehaviour {
             var enemy = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, currentGenerator.position, currentGenerator.rotation);
             
             //Add enemy to enemies prop list
-            GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Add(enemy);
+            GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(enemy);
             
             //Set enemy objective to base
             var enemyBehaviour = enemy.GetComponent<EnemyFighterBehaviour>();

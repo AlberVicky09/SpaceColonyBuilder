@@ -57,7 +57,6 @@ public abstract class FighterBehaviour : ActionUIController{
                     
                     // Check if the agent has reached the current waypoint, and if so, move to the next one
                     if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-                        Debug.Log("Moving to next waypoint");
                         Utils.MoveToNextWayPoint(
                             ref currentWaypointIndex,
                             waypoints,

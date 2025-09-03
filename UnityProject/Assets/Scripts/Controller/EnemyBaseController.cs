@@ -13,7 +13,7 @@ public class EnemyBaseController : MonoBehaviour {
     private List<ResourceEnum> resourcePrefferenceList;
     private static Vector3 shipGenerationPlace = Constants.ENEMY_CENTER + new Vector3(-5f, 0f, -5f);
     private Vector3 floorCenter = new(75f, -0.1f, 0);
-    private PropsEnum currentObjectiveProp = PropsEnum.Gatherer;
+    private PropsEnum currentObjectiveProp = PropsEnum.EnemyGatherer;
     private const float TIME_TO_CHECK_FOR_GENERATOR = 1.5f;
     private float timeSinceLastCheckForGenerator;
     public List<Vector3> waypoints;
@@ -48,7 +48,7 @@ public class EnemyBaseController : MonoBehaviour {
         Utils.GenerateRandomOres(Constants.ENEMY_CENTER);
         
         //Add initial gatherer
-        GenerateProp(PropsEnum.Gatherer);
+        GenerateProp(PropsEnum.EnemyGatherer);
         
         //Activate "update" function
         StartCoroutine(GeneratorCheck());
@@ -56,13 +56,14 @@ public class EnemyBaseController : MonoBehaviour {
 
     private IEnumerator GeneratorCheck() {
         while (true) {
-            //Debug.Log("Enemy resources " +
-            //          string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
             if (Utils.CheckEnoughResources(enemyResourcesDictionary,
                     Constants.PROP_CREATION_PRICES[currentObjectiveProp])) {
                 Debug.Log("Enemy prop gonna be created: " + currentObjectiveProp);
-                var generatedProp = GenerateProp(currentObjectiveProp);
-                generatedProp.GetComponent<Placeable>().OnPropPlaced();
+                //Remove spent resources
+                foreach (var (type, cost) in Constants.PROP_CREATION_PRICES[currentObjectiveProp]) {
+                    UpdateResource(type, cost, ResourceOperationEnum.Decrease);
+                }
+                GenerateProp(currentObjectiveProp);
             }
             yield return new WaitForSeconds(TIME_TO_CHECK_FOR_GENERATOR);
         }
@@ -103,8 +104,11 @@ public class EnemyBaseController : MonoBehaviour {
             case ResourceOperationEnum.Increase:
                 //If is more than limit, increase until limit
                 var maxPossibleIncrease = Constants.INITIAL_RESOURCES_LIMIT - enemyResourcesDictionary[resourceType];
-                enemyResourcesDictionary[resourceType] = maxPossibleIncrease < quantity ?
-                    GameControllerScript.Instance.resourcesLimit : quantity;
+                //enemyResourcesDictionary[resourceType] = maxPossibleIncrease < quantity ?
+                //    GameControllerScript.Instance.resourcesLimit : quantity;
+                //TODO Cheating
+                enemyResourcesDictionary.Keys.ToList()
+                    .ForEach(key => enemyResourcesDictionary[key] = Constants.ENEMY_INITIAL_RESOURCES_LIMIT);
                 break;
             case ResourceOperationEnum.Decrease:
                 //If its more than current quantity, remove until 0
@@ -112,30 +116,32 @@ public class EnemyBaseController : MonoBehaviour {
                     0 : enemyResourcesDictionary[resourceType] - quantity;
                 break;
         }
-        Debug.Log("Enemy resources " + string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
+        //Debug.Log("Enemy resources " + string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
     }
 
     private GameObject GenerateProp(PropsEnum propToGenerate) {
         switch (propToGenerate) {
-            case PropsEnum.Gatherer:
+            case PropsEnum.EnemyGatherer:
                 var gatherer = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, shipGenerationPlace, Quaternion.identity);
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
                 Debug.Log("Enemy gatherer generated");
+                if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 2) {
+                    Debug.Log("Changing enemy objective to: Fighter");
+                    currentObjectiveProp = PropsEnum.EnemyFighter;
+                }
                 return gatherer;
-            case PropsEnum.BasicFighter:
+            case PropsEnum.EnemyFighter:
                 var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
-                GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Add(fighter);
-        
+                GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(fighter);
+                Debug.Log("Enemy fighter generated");
                 //If we have more than 3, go to attack base, else scout automatically
-                if (GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy].Count > 3) {
+                if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Count > 3) {
                     Debug.Log("Enemy fighter in attack mode");
-                    foreach (var enemy in GameControllerScript.Instance.propDictionary[PropsEnum.BasicEnemy]) {
+                    foreach (var enemy in GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter]) {
                         enemy.GetComponent<EnemyFighterBehaviour>().StartChasingBase();
                     }
                 }
-
-                Debug.Log("Enemy fighter generated");
                 return fighter;
         }
         return null;
@@ -155,16 +161,13 @@ public class EnemyBaseController : MonoBehaviour {
             }
         }
         
-        //Add non desired resources
-        foreach (var unwantedResource in Constants.UNUSUED_ENEMY_RESOURCE_PREFFERENCE[currentObjectiveProp]) {
-            duplicatedList.Add(unwantedResource);
-        }
+        //Add non desired resources (we remove the ones already in resourceList
+        Enum.GetValues(typeof(ResourceEnum))
+            .Cast<ResourceEnum>()
+            .Except(resourceList)
+            .ToList()
+            .ForEach(unwantedResource => duplicatedList.Add(unwantedResource));
 
         return duplicatedList;
-    }
-
-    private Vector3 CalculateGeneratorLocation() {
-        //TODO Slowly surround main base
-        return Constants.ENEMY_CENTER + new Vector3(5f, 0f, 5f);
     }
 }

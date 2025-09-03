@@ -6,8 +6,8 @@ public enum PropsEnum
    EnemyGatherer,
    FoodGenerator,
    EnemyFoodGenerator,
-   BasicFighter,
-   BasicEnemy,
+   Fighter,
+   EnemyFighter,
    House,
    Storage,
    MainBuilding,
@@ -16,6 +16,6 @@ public enum PropsEnum
 
 public static class BuildableProps {
    public static List<PropsEnum> RetrieveBuildableProps() {
-      return new List<PropsEnum>{PropsEnum.Gatherer, PropsEnum.BasicFighter, PropsEnum.FoodGenerator, PropsEnum.Storage};
+      return new List<PropsEnum>{PropsEnum.Gatherer, PropsEnum.Fighter, PropsEnum.FoodGenerator, PropsEnum.Storage};
    }
 }

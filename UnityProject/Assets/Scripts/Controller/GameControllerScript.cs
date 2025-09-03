@@ -126,7 +126,7 @@ public class GameControllerScript : MonoBehaviour {
 
         propSpriteDictionary = new Dictionary<PropsEnum, Sprite>() {
             { PropsEnum.Gatherer, gathererSprite },
-            { PropsEnum.BasicFighter, fighterSprite },
+            { PropsEnum.Fighter, fighterSprite },
             { PropsEnum.FoodGenerator, foodGeneratorSprite },
             { PropsEnum.Storage, storageSprite }
         };
@@ -192,7 +192,7 @@ public class GameControllerScript : MonoBehaviour {
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
         //TODO Just for debugging
-        //currentMissionNumber = 2;
+        currentMissionNumber = 2;
         
         switch (currentMissionNumber) {
             case 0:
