@@ -11,12 +11,19 @@ public class ActionUIController : MonoBehaviour {
     protected float totalProgressTime;
 
     public void Update() {
-        if (currentAction.activeSelf) {
-            Utils.LocateMarkerOverGameObject(gameObject, currentAction, 5f, canvas);
+        //Only update position if its inside camera
+        var positionInCamera = CameraMove.Instance.cameraGO.WorldToViewportPoint(transform.position);
+        if (positionInCamera.z > 0 && positionInCamera.x > 0 && positionInCamera.x < 1 && positionInCamera.y > 0 && positionInCamera.y < 1) {
+            canvas.gameObject.SetActive(true);
+            if (currentAction.activeSelf) {
+                Utils.LocateMarkerOverGameObject(gameObject, currentAction, 5f, canvas);
+            } else {
+                actionProgressImage.fillAmount = progressTime / totalProgressTime;
+                progressTime += Time.deltaTime;
+                Utils.LocateMarkerOverGameObject(gameObject, actionProgress, 5f, canvas);
+            }
         } else {
-            actionProgressImage.fillAmount = progressTime / totalProgressTime;
-            progressTime += Time.deltaTime;
-            Utils.LocateMarkerOverGameObject(gameObject, actionProgress, 5f, canvas);
+            canvas.gameObject.SetActive(false);
         }
     }
     
