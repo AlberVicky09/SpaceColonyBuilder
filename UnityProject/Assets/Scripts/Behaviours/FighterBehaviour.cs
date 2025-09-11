@@ -12,8 +12,11 @@ public abstract class FighterBehaviour : ActionUIController{
     protected PropsEnum oppositeType;
     //OpositeBase is enemyBase for player, and mainBase for enemy
     protected GameObject oppositeBase;
+    protected PropsEnum oppositeBaseType;
     //Set waypoints for this type, around its base
     protected List<Vector3> waypoints;
+    
+    protected PropsEnum? currentObjectiveType;
     
     public GameObject objectiveGO;
     public PropsEnum objectiveType;
@@ -41,9 +44,7 @@ public abstract class FighterBehaviour : ActionUIController{
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_FIGHTER_ATTACKING_DISTANCE);
     }
 
-    private void Start() {
-        DisplayAction(GameControllerScript.Instance.patrolBaseSprite);
-    }
+    private void Start() { DisplayAction(GameControllerScript.Instance.patrolBaseSprite); }
 
     void Update() {
         if (isActivated) {
@@ -70,7 +71,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     if (CheckForEnemiesInSight()) { return; }
 
                     //If base is near enough, start attacking it
-                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
+                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
                         Debug.Log("Base in range");
                         currentState = FighterStatesEnum.AttackingLowPriority;
                         //Start fighting
@@ -124,6 +125,7 @@ public abstract class FighterBehaviour : ActionUIController{
                 //Set state
                 prevState = currentState;
                 currentState = FighterStatesEnum.Chasing;
+                currentObjectiveType = oppositeType;
                 
                 //Force timer to check for enemies just in case is near enough to shoot
                 timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
@@ -136,6 +138,9 @@ public abstract class FighterBehaviour : ActionUIController{
     }
     
     protected IEnumerator StartFighting() {
+        //Display fighting sprite
+        DisplayAction(GameControllerScript.Instance.attackSprite);
+        
         //Stop agent
         agent.isStopped = true;
         
@@ -143,7 +148,7 @@ public abstract class FighterBehaviour : ActionUIController{
         transform.LookAt(objectiveGO.transform);
         
         //Start shooting to objective until dead
-        while (GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
+        while (GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
             //Spawn bullet in front
             var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
             bullet.transform.position = transform.position + Vector3.forward * 0.5f;
@@ -156,14 +161,17 @@ public abstract class FighterBehaviour : ActionUIController{
             bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject);
             
             //Reload
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(3.5f);
         }
         
+        Debug.Log("No more pium pium");
         RestartAgent();
         
     }
     
     public void StartScouting() {
+        //Display correct image
+        DisplayAction(GameControllerScript.Instance.patrolBaseSprite);
         //Find nearest waypoint
         var nearestScoutingPointPosition =
             Utils.FindNearestGameObjectPositionInList(gameObject, waypoints);
@@ -171,14 +179,19 @@ public abstract class FighterBehaviour : ActionUIController{
         UpdateFighterDestination(waypoints[nearestScoutingPointPosition]);
         //Set nearest waypoint index as current
         currentWaypointIndex = nearestScoutingPointPosition;
+        currentObjectiveType = null;
         
         //Update state
         currentState = FighterStatesEnum.Scouting;
     }
     
     public void StartChasingBase() {
-        //Mark the enemy base as objectiveS
+        //TODO Add chasing sprite
+        DisplayAction(GameControllerScript.Instance.healBaseSprite);
+        //Mark the enemy base as objective
         UpdateFighterDestination(oppositeBase.transform.position);
+        objectiveGO = oppositeBase;
+        currentObjectiveType = oppositeBaseType;
         //Update state
         currentState = FighterStatesEnum.ChasingLowPriority;
     }
@@ -191,17 +204,20 @@ public abstract class FighterBehaviour : ActionUIController{
         //Ensure its not stopped, and force checking for enemies
         agent.isStopped = false;
         timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
+        objectiveGO = null;
         
         //Restart the agent, depending on what it was doing before
         switch (prevState) {
             //If it was chasing or attacking the base, get back to chasing it
             case FighterStatesEnum.ChasingLowPriority:
             case FighterStatesEnum.AttackingLowPriority:
+                Debug.Log("Chasing base again");
                 StartChasingBase();
                 break;
             
             //In any other case, go back to scouting
             default:
+                Debug.Log("Scouting again");
                 StartScouting();
                 break;
         }

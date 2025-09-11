@@ -108,6 +108,7 @@ public static class Constants {
     public static readonly Dictionary<PropsEnum, List<ResourceEnum>> ENEMY_RESOURCE_PREFFERENCE =
         new Dictionary<PropsEnum, List<ResourceEnum>> {
             {
+                //TODO Put the resources that the producing doesnt use
                 PropsEnum.EnemyGatherer,
                 new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
             },{ 
@@ -138,7 +139,7 @@ public static class Constants {
 
     public const float ZOOM_CHANGE = 12;
     public const float CAMERA_SMOOTHER_VALUE = 1.3f;
-    public const float MIN_ZOOM_SIZE = 7f;
+    public const float MIN_ZOOM_SIZE = 4f;
     public const float MAX_ZOOM_SIZE = 13f;
     public const float MIN_MINIMAP_ZOOM_SIZE = 13f;
     public const float MAX_MINIMAP_ZOOM_SIZE = 19f;
@@ -151,7 +152,7 @@ public static class Constants {
     public const float GATHERER_ACTION_OFFSET = 1.5f;
     
     public static Vector3 RESET_CAMERA_POSITION = new Vector3(-9.3f, 7.25f, 0f);
-    public static Vector3 BASE_RETREAT_OFFSET = new Vector3(6.5f, 0f, 6.5f);
+    public static float BASE_RETREAT_OFFSET = 6.5f;
 
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
@@ -188,7 +189,7 @@ public static class Constants {
     public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {600, 720, 900, 1080};
     public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {800, 1280, 1400, 1920};
     
-    public const float WAYPOINTS_RADIUS = 12f;
+    public const float WAYPOINTS_RADIUS = 18f;
     public const int numberOfWaypoints = 8;
     
     public static Vector3 ENEMY_CENTER = new (75f, 0, 0);

@@ -11,11 +11,13 @@ public class EnemyBaseController : MonoBehaviour {
     public Dictionary<ResourceEnum, int> enemyResourcesDictionary;
     public Dictionary<ResourceEnum, int> enemyGathererObjectiveCount;
     private List<ResourceEnum> resourcePrefferenceList;
+    private Dictionary<ResourceEnum, int> resourcePrefferenceDictionary;
     private static Vector3 shipGenerationPlace = Constants.ENEMY_CENTER + new Vector3(-5f, 0f, -5f);
     private Vector3 floorCenter = new(75f, -0.1f, 0);
     private PropsEnum currentObjectiveProp = PropsEnum.EnemyGatherer;
     private const float TIME_TO_CHECK_FOR_GENERATOR = 1.5f;
     private float timeSinceLastCheckForGenerator;
+    public NavMeshSurface originalFloor;
     public List<Vector3> waypoints;
 
     void Awake() { Instance = this; }
@@ -24,23 +26,27 @@ public class EnemyBaseController : MonoBehaviour {
         //Initialize resources dictionaries
         enemyResourcesDictionary = new Dictionary<ResourceEnum, int>();
         enemyGathererObjectiveCount = new Dictionary<ResourceEnum, int>();
+        resourcePrefferenceDictionary = new Dictionary<ResourceEnum, int>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             enemyResourcesDictionary.Add(resource, 0);
             enemyGathererObjectiveCount.Add(resource, 0);
+            resourcePrefferenceDictionary.Add(resource, 0);
         }
 
-        enemyGathererObjectiveCount = new Dictionary<ResourceEnum, int>();
         resourcePrefferenceList = new List<ResourceEnum>();
         
         //Add floor and bake its navigation
         var floor = Instantiate(GameControllerScript.Instance.floorPrefab, floorCenter, Quaternion.identity);
+        originalFloor.GetComponent<MeshRenderer>().enabled = true;
+        originalFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
         floor.GetComponent<NavMeshSurface>().BuildNavMesh();
+        originalFloor.GetComponent<MeshRenderer>().enabled = false;
         floor.GetComponent<MeshRenderer>().enabled = false;
         
         //Add main building
-        GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Add(
-            Instantiate(GameControllerScript.Instance.enemyBasePrefab, Constants.ENEMY_CENTER, Quaternion.identity));
-        
+        var enemyBaseGO = Instantiate(GameControllerScript.Instance.enemyBasePrefab, Constants.ENEMY_CENTER, Quaternion.identity);
+        enemyBaseGO.name = "EnemyBase";
+        GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Add(enemyBaseGO);
         //Add waypoints for fighters to scout
         waypoints = Utils.CalculateWaypointsForBuilding(Constants.ENEMY_CENTER, Constants.numberOfWaypoints, Constants.WAYPOINTS_RADIUS);
 
@@ -70,29 +76,36 @@ public class EnemyBaseController : MonoBehaviour {
     }
     
     public void CalculateOreForGatherer(GameObject oreGatherer) {
-        //Finds nearest ore of specified type
         var gathererBehaviour = oreGatherer.GetComponent<EnemyGathererBehaviour>();
         
-        //Get desired ore type
+        //Remove from current gathering map if it was gathering
+        if (!gathererBehaviour.isFirstTimeGathering) {
+            resourcePrefferenceDictionary[gathererBehaviour.resourceGatheringType]--;
+        }
+        
+        //Get desired ore type in prefference order
         resourcePrefferenceList = CalculateDesiredOre();
         GameObject nearestOre = null;
         
         //Find nearest ore in preference order
         FindOreProcess: 
+            Debug.Log("Finding best ore");
             foreach (var prefferedResource in resourcePrefferenceList) {
-                if (nearestOre == null) {
-                    nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, GameControllerScript.Instance.oreListDictionary[prefferedResource]);
-                    gathererBehaviour.resourceGatheringType = prefferedResource;
-                }
+                nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, GameControllerScript.Instance.oreListDictionary[prefferedResource]);
+                gathererBehaviour.resourceGatheringType = prefferedResource;
+                break;
             }
 
         //If null, generate more ores around enemy base
         if (nearestOre == null) {
+            Debug.Log("Generating more ores around enemy base");
             Utils.GenerateRandomOres(Constants.ENEMY_CENTER);
             goto FindOreProcess;
         }
         
         //Display current ore action
+        resourcePrefferenceDictionary[gathererBehaviour.resourceGatheringType]++;
+        gathererBehaviour.isFirstTimeGathering = false;
         gathererBehaviour.objectiveItem = nearestOre;
         gathererBehaviour.DisplayAction(GameControllerScript.Instance.resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         gathererBehaviour.UpdateDestination();
@@ -104,11 +117,8 @@ public class EnemyBaseController : MonoBehaviour {
             case ResourceOperationEnum.Increase:
                 //If is more than limit, increase until limit
                 var maxPossibleIncrease = Constants.INITIAL_RESOURCES_LIMIT - enemyResourcesDictionary[resourceType];
-                //enemyResourcesDictionary[resourceType] = maxPossibleIncrease < quantity ?
-                //    GameControllerScript.Instance.resourcesLimit : quantity;
-                //TODO Cheating
-                enemyResourcesDictionary.Keys.ToList()
-                    .ForEach(key => enemyResourcesDictionary[key] = Constants.ENEMY_INITIAL_RESOURCES_LIMIT);
+                enemyResourcesDictionary[resourceType] = maxPossibleIncrease < quantity ?
+                    GameControllerScript.Instance.resourcesLimit : quantity;
                 break;
             case ResourceOperationEnum.Decrease:
                 //If its more than current quantity, remove until 0
@@ -116,7 +126,6 @@ public class EnemyBaseController : MonoBehaviour {
                     0 : enemyResourcesDictionary[resourceType] - quantity;
                 break;
         }
-        //Debug.Log("Enemy resources " + string.Join(", ", enemyResourcesDictionary.Select(kvp => $"{kvp.Key}={kvp.Value}")));
     }
 
     private GameObject GenerateProp(PropsEnum propToGenerate) {
@@ -126,13 +135,14 @@ public class EnemyBaseController : MonoBehaviour {
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
                 Debug.Log("Enemy gatherer generated");
-                if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 2) {
+                if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 3) {
                     Debug.Log("Changing enemy objective to: Fighter");
                     currentObjectiveProp = PropsEnum.EnemyFighter;
                 }
                 return gatherer;
             case PropsEnum.EnemyFighter:
                 var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
+                fighter.name = "EnemyFighter";
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(fighter);
                 Debug.Log("Enemy fighter generated");
                 //If we have more than 3, go to attack base, else scout automatically
@@ -152,15 +162,17 @@ public class EnemyBaseController : MonoBehaviour {
         var resourceList = Constants.ENEMY_RESOURCE_PREFFERENCE[currentObjectiveProp];
         var duplicatedList = new List<ResourceEnum>(resourceList);
         
-        //Move back resources already had
+        //Move back resources already had or already being gathered
         foreach (var wantedResource in resourceList) {
             //Remove it from its position and add it in the back of the list
-            if (enemyResourcesDictionary[wantedResource] > Constants.PROP_CREATION_PRICES[currentObjectiveProp][wantedResource]) {
+            if (enemyResourcesDictionary[wantedResource] > Constants.PROP_CREATION_PRICES[currentObjectiveProp][wantedResource]
+                || resourcePrefferenceDictionary[wantedResource] > 0) {
                 duplicatedList.Remove(wantedResource);
                 duplicatedList.Add(wantedResource);
             }
         }
         
+
         //Add non desired resources (we remove the ones already in resourceList
         Enum.GetValues(typeof(ResourceEnum))
             .Cast<ResourceEnum>()

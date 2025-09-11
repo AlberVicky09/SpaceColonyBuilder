@@ -141,6 +141,11 @@ public class ClickableMainBuilding : Clickable {
                         hitPoint.point,
                         Quaternion.identity);
                     
+                    //Put a name on it if its a fighter
+                    if (PropsEnum.Fighter.Equals(currentProp)) {
+                        instantiatedProp.name = "PlayerFighter";
+                    }
+                    
                     //Disable collisions if needed
                     propRigibody = instantiatedProp.GetComponent<Rigidbody>();
                     if (propRigibody != null) { propRigibody.detectCollisions = false; }
@@ -161,14 +166,12 @@ public class ClickableMainBuilding : Clickable {
                 // Check if the ray hits any object in the obstruction layer first
                 if (Physics.Raycast(placingRay, out hitPoint, Mathf.Infinity, obstructionMask)) {
                     if (placeable) {
-                        Debug.Log("Setting as not placeable");
                         // If the ray hits an obstructing object, prevent placing
                         placeable = false;
                         SetObjectTransparency(false);
                     }
                 } else {
                     if (!placeable) {
-                        Debug.Log("Setting as yes placeable");
                         placeable = true;
                         SetObjectTransparency(true);
                     }

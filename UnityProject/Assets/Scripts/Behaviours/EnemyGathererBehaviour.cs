@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGathererBehaviour : GathererBehaviour
-{
+public class EnemyGathererBehaviour : GathererBehaviour {
+    public bool isFirstTimeGathering = true;
+    
     private void Start() {
         maxGathererLoad = Constants.DEFAULT_GATHERER_MAX_LOAD;
         loadDictionary = new Dictionary<ResourceEnum, int>();

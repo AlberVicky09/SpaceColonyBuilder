@@ -7300,6 +7300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40563d0d84e78c44a6ac8656d5207e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalFloor: {fileID: 1849918949}
   waypoints: []
 --- !u!114 &696201174
 MonoBehaviour:
@@ -19007,6 +19008,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847596677}
   m_CullTransparentMesh: 1
+--- !u!114 &1849918949 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6011153847886648918, guid: b3cb6dc62fcc1f54f97e2cd483aef3d2, type: 3}
+  m_PrefabInstance: {fileID: 8424935566917141877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1854447599
 GameObject:
   m_ObjectHideFlags: 0
@@ -23354,7 +23366,7 @@ PrefabInstance:
       objectReference: {fileID: 688568865}
     - target: {fileID: 7708159576533183548, guid: 894f769aa5ddbdc4f8474fbf8c770dfb, type: 3}
       propertyPath: m_Name
-      value: MainBuilding
+      value: PlayerBase
       objectReference: {fileID: 0}
     - target: {fileID: 7749548021567276943, guid: 894f769aa5ddbdc4f8474fbf8c770dfb, type: 3}
       propertyPath: healingText

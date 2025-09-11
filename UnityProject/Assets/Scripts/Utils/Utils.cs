@@ -69,6 +69,20 @@ public static class Utils {
         }
         return valid;
     }
+
+    public static Vector3 CalculateRandomPositionAroundBase(GameObject baseGO) {
+        // Choose a random angle in radians
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+
+        // Get the offset at a fixed distance around the base
+        Vector3 offset = new Vector3(
+            Mathf.Cos(angle),
+            0f,
+            Mathf.Sin(angle)
+        ) * Constants.BASE_RETREAT_OFFSET;
+
+        return baseGO.transform.position + offset;
+    }
     
     public static List<Vector3> CalculateWaypointsForBuilding(Vector3 buildingOrigin, int numberOfWaypoints, float radius) {
         var waypoints = new List<Vector3>();

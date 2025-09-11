@@ -19,6 +19,7 @@ public class PropStats : MonoBehaviour {
     void Update() { Utils.LocateMarkerOverGameObject(gameObject, healthBar.gameObject, healthBarOffSet, canvas); }
 
     private void Start() {
+        healthBar.maxValue = MAX_HEALTHPOINTS;
         UpdateHealthBar();
         originalColor = renderer.materials.Select(m => m.color).ToArray();
     }
@@ -52,14 +53,18 @@ public class PropStats : MonoBehaviour {
     }
     
     private void DestroyProp() {
+        Debug.Log("Destroying a " + propType);
         //Notify the gameController
         GameControllerScript.Instance.propDictionary[propType].Remove(gameObject);
         
         //If is an enemy, check enemy defeat missions
         GameControllerScript.Instance.missionController.CheckEnemiesDefeatedMission(propType, 1);
-        //If is the main building, end game
-        GameControllerScript.Instance.missionController.DisplayEndGameCanvas("You have lost!");
-        
+
+        if (PropsEnum.MainBuilding.Equals(propType)) {
+            //If is the main building, end game
+            GameControllerScript.Instance.missionController.DisplayEndGameCanvas("You have lost!");
+        }
+
         //Destroy this gameobject
         Destroy(this);
     }

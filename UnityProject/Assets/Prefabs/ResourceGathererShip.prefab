@@ -4952,11 +4952,14 @@ GameObject:
   - component: {fileID: 7623019779672759552}
   - component: {fileID: 1463507873778583978}
   - component: {fileID: 342102882058857096}
+  - component: {fileID: 4375691513263473223}
   - component: {fileID: 2502404077333040987}
+  - component: {fileID: 65473554207149421}
   - component: {fileID: 1597363917280192473}
   - component: {fileID: 1823176391311649558}
   - component: {fileID: 1975633258544385677}
   - component: {fileID: 5708130511738825990}
+  - component: {fileID: 3935184809242767002}
   m_Layer: 3
   m_Name: ResourceGathererShip
   m_TagString: Untagged
@@ -5057,6 +5060,22 @@ NavMeshAgent:
   m_BaseOffset: 0.025
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 3
+--- !u!208 &4375691513263473223
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935667877756296035}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.0500001, y: 0.4, z: 1.0500001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &2502404077333040987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5074,9 +5093,32 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 2.0000002, y: 0.79999995, z: 2.1000004}
+  m_Center: {x: 0, y: 0.39999998, z: 0}
+--- !u!136 &65473554207149421
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935667877756296035}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.0500002
+  m_Height: 0.79999995
+  m_Direction: 1
   m_Center: {x: 0, y: 0.39999998, z: 0}
 --- !u!54 &1597363917280192473
 Rigidbody:
@@ -5134,17 +5176,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317f9f8ce3dd4a399b814882b884362b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 5278725371120652187}
+  actionProgress: {fileID: 3345042851995547276}
+  actionProgressImage: {fileID: 5060128864218940965}
+  currentAction: {fileID: 6131193330086127712}
+  currentActionImage: {fileID: 752242548870597783}
   clickableGatherer: {fileID: 1823176391311649558}
   agent: {fileID: 342102882058857096}
   objectiveItem: {fileID: 0}
   resourceGatheringType: 0
   gathererLoad: 0
   maxGathererLoad: 0
-  canvas: {fileID: 5278725371120652187}
-  actionProgress: {fileID: 3345042851995547276}
-  actionProgressImage: {fileID: 5060128864218940965}
-  currentAction: {fileID: 6131193330086127712}
-  currentActionImage: {fileID: 752242548870597783}
 --- !u!114 &5708130511738825990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5158,6 +5200,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gathererBehaviour: {fileID: 1975633258544385677}
+--- !u!114 &3935184809242767002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935667877756296035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868dc9e76205458f95e5ac792ba82061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repulsionRadius: 1.2
+  repulsionStrength: 2.5
+  enableDynamicObstacle: 1
+  idleThreshold: 0.1
+  idleTimeToObstacle: 1
+  agent: {fileID: 342102882058857096}
+  obstacle: {fileID: 4375691513263473223}
 --- !u!1 &3345042851995547276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5468,7 +5529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4117647, g: 1, b: 0.3647059, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

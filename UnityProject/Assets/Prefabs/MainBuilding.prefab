@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4117647, g: 1, b: 0.3647059, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -685,6 +685,7 @@ MonoBehaviour:
   healingSliderBeginning: {fileID: 0}
   healingAcceptButton: {fileID: 0}
   mainBuildingStats: {fileID: 8372312498913627255}
+  propRenderers: []
   placementMask:
     serializedVersion: 2
     m_Bits: 128
@@ -742,7 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 30
   MAX_HEALTHPOINTS: 100
-  propType: 12
+  propType: 8
   canvas: {fileID: 7995483060941295856}
   healthBar: {fileID: 4206634517156146978}
   healthBarOffSet: 5.3

@@ -21,15 +21,25 @@ public class BulletBehaviour : MonoBehaviour {
     }
     
     private void OnTriggerEnter(Collider other) {
+        Debug.Log("Bullet from " + shooter + " to " + other.gameObject.name);
         //Avoid collision on shooter itself
-        if (shooterGO.Equals(other.gameObject)) { return; }
+        if (shooterGO.Equals(other.gameObject)) {
+            Debug.Log("Bullet hit the shooter");
+            return;
+        }
         
         //If a fighter shoots and a enemy is hit (the rest of object cant get damage from allies)
-        if ((PropsEnum.Fighter.Equals(shooter) && other.gameObject.tag.Equals("Enemy")) 
-            //Or if a enemy shoots and anything hittable is hit
-            || (PropsEnum.EnemyFighter.Equals(shooter)
-                && other.gameObject.tag.Equals("MainBuilding") && !other.gameObject.tag.Equals("Fighter"))){
-            other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(20);
+        switch (shooter) {
+            case PropsEnum.Fighter:
+                if (other.gameObject.name.StartsWith("EnemyFighter") || other.gameObject.name.StartsWith("EnemyBase")) {
+                    other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(15);
+                }
+                break;
+            case PropsEnum.EnemyFighter:
+                if (other.gameObject.name.StartsWith("PlayerFighter") || other.gameObject.name.StartsWith("PlayerBase")) {
+                    other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(10);
+                }
+                break;
         }
         
         //Deactivate bullet

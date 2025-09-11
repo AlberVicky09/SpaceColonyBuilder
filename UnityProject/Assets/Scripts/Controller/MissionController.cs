@@ -19,7 +19,9 @@ public class MissionController : MonoBehaviour
 
     private void Start() {
         currentMission = PlayerPrefs.GetInt("mission", 0);
-        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives"+currentMission));
+        //TODO just for debugging
+        currentMission = 2;
+        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives" + currentMission));
         
         for(int i = 0; i < missionUIList.Length; i++) {
             missionUIList[i].SetActive(false);

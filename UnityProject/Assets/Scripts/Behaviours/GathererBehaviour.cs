@@ -48,7 +48,8 @@ public abstract class GathererBehaviour : ActionUIController
 
     protected IEnumerator CheckReturnToBaseCompleted(bool isRetreating) {
         var nearestBase = GetNearestBase();
-        agent.SetDestination(nearestBase.transform.position + Constants.BASE_RETREAT_OFFSET);
+        var calculatePositionAroundBase = Utils.CalculateRandomPositionAroundBase(nearestBase);
+        agent.SetDestination(calculatePositionAroundBase);
         DisplayAction(GameControllerScript.Instance.returningToBaseSprite);
         
         while (true) {
@@ -82,7 +83,7 @@ public abstract class GathererBehaviour : ActionUIController
             //gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             //TODO Cheating
             gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
-            loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
+            loadDictionary[currentGatheredOre.resourceType] += Constants.INITIAL_RESOURCES_LIMIT;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();

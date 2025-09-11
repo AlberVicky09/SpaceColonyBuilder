@@ -726,7 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 100
   MAX_HEALTHPOINTS: 100
-  propType: 12
+  propType: 9
   canvas: {fileID: 7995483060941295856}
   healthBar: {fileID: 4206634517156146978}
   healthBarOffSet: 5.3
