@@ -8,6 +8,10 @@ public class ClickablePlayerFighter : ClickableFighter {
         //If there is no enemy base, disable buttons
         if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count == 0) {
             GameControllerScript.Instance.actionButtons[0].SetActive(false);
+        } else {
+            var isActive = !(FighterStatesEnum.Attacking.Equals(fighterBehaviour.currentState) ||
+                             FighterStatesEnum.AttackingLowPriority.Equals(fighterBehaviour.currentState));
+            SetUpToggleButton(isActive);
         }
     }
     
@@ -20,9 +24,6 @@ public class ClickablePlayerFighter : ClickableFighter {
         if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0) {
             base.StartButtons();
             GameControllerScript.Instance.actionButtons[0].GetComponent<Button>().onClick.AddListener(ToggleState);
-            var isActive = !(FighterStatesEnum.Attacking.Equals(fighterBehaviour.currentState) ||
-                           FighterStatesEnum.AttackingLowPriority.Equals(fighterBehaviour.currentState));
-            SetUpToggleButton(isActive);
         }
     }
 
