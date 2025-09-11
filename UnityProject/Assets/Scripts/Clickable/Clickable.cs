@@ -57,7 +57,9 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     protected virtual void StartButtons() {
         foreach (var button in GameControllerScript.Instance.actionButtons) {
-            button.GetComponent<Button>().onClick.RemoveAllListeners();
+            var buttonComponent = button.GetComponent<Button>();
+            buttonComponent.onClick.RemoveAllListeners();
+            buttonComponent.interactable = true;
         }
     }
 

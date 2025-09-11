@@ -15,6 +15,7 @@ public class PropStats : MonoBehaviour {
 
     public Renderer renderer;
     private Color[] originalColor;
+    public Clickable clickable;
     
     void Update() { Utils.LocateMarkerOverGameObject(gameObject, healthBar.gameObject, healthBarOffSet, canvas); }
 
@@ -33,6 +34,8 @@ public class PropStats : MonoBehaviour {
         if (healthPoints <= 0) {
             DestroyProp();
         }
+        
+        clickable.UpdateTexts();
     }
 
     public bool IncreaseHealthPoints(int curation) {
@@ -43,8 +46,10 @@ public class PropStats : MonoBehaviour {
         //If its completely cured, return to caller a false to check that no more curation is needed
         if (healthPoints > MAX_HEALTHPOINTS) {
             healthPoints = MAX_HEALTHPOINTS;
+            clickable.UpdateTexts();
             return false;
         }
+        clickable.UpdateTexts();
         return true;
     }
 

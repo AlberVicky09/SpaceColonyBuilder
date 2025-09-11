@@ -40,7 +40,9 @@ public class ClickableMainBuilding : Clickable {
     }
 
     public override void UpdateTexts() {
-        GameControllerScript.Instance.actionText.text = "Main building";
+        if (selectedClickable == this) {
+            GameControllerScript.Instance.actionText.text = "Main building " + "\nHealth: " + mainBuildingStats.healthPoints + "/" + mainBuildingStats.MAX_HEALTHPOINTS;
+        }
     }
 
     protected override void DisplayButtons() {

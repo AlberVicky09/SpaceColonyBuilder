@@ -43,6 +43,15 @@ public static class Constants {
         { 12, "Dec" },
     };
 
+    public static Dictionary<FighterStatesEnum, string> FIGHTER_STATE_DISPLAY_NAME =
+        new Dictionary<FighterStatesEnum, string>() {
+            {FighterStatesEnum.Scouting, "Scouting base"},
+            {FighterStatesEnum.Chasing, "Searching enemies"},
+            {FighterStatesEnum.ChasingLowPriority, "Tracking enemy base"},
+            {FighterStatesEnum.Attacking, "Attacking!"},
+            {FighterStatesEnum.AttackingLowPriority, "Attacking base!"}
+        };
+
     //TODO Check if its good
     public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROPS_MANTAINING_COST =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {

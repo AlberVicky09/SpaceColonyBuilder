@@ -23,6 +23,7 @@ public abstract class FighterBehaviour : ActionUIController{
 
     public FighterStatesEnum currentState = FighterStatesEnum.Scouting;
     protected FighterStatesEnum prevState;
+    public ClickableFighter clickableFighter;
     public int currentWaypointIndex;
 
     public bool isActivated;
@@ -34,7 +35,7 @@ public abstract class FighterBehaviour : ActionUIController{
 
     protected const float MAXIMUM_DETECTION_DISTANCE = 13f;
     protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 5f;
-    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8f;
+    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 9f;
     
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
@@ -73,7 +74,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     //If base is near enough, start attacking it
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
                         Debug.Log("Base in range");
-                        currentState = FighterStatesEnum.AttackingLowPriority;
+                        UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
                         StartCoroutine(StartFighting());
                     }
@@ -102,7 +103,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     //If enemy is near enough, start attacking it
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
                         Debug.Log("Enemy in range");
-                        currentState = FighterStatesEnum.Attacking;
+                        UpdateState(FighterStatesEnum.Attacking);
                         //Start fighting
                         StartCoroutine(StartFighting());
                     }
@@ -124,7 +125,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     transform, MAXIMUM_DETECTION_DISTANCE, ref objectiveGO)) {
                 //Set state
                 prevState = currentState;
-                currentState = FighterStatesEnum.Chasing;
+                UpdateState(FighterStatesEnum.Chasing);
                 currentObjectiveType = oppositeType;
                 
                 //Force timer to check for enemies just in case is near enough to shoot
@@ -137,7 +138,7 @@ public abstract class FighterBehaviour : ActionUIController{
         return false;
     }
     
-    protected IEnumerator StartFighting() {
+    protected virtual IEnumerator StartFighting() {
         //Display fighting sprite
         DisplayAction(GameControllerScript.Instance.attackSprite);
         
@@ -166,7 +167,11 @@ public abstract class FighterBehaviour : ActionUIController{
         
         Debug.Log("No more pium pium");
         RestartAgent();
-        
+    }
+
+    protected virtual void UpdateState(FighterStatesEnum newState) {
+        currentState = newState;
+        clickableFighter.UpdateTexts();
     }
     
     public void StartScouting() {
@@ -182,7 +187,7 @@ public abstract class FighterBehaviour : ActionUIController{
         currentObjectiveType = null;
         
         //Update state
-        currentState = FighterStatesEnum.Scouting;
+        UpdateState(FighterStatesEnum.Scouting);
     }
     
     public void StartChasingBase() {
@@ -193,7 +198,7 @@ public abstract class FighterBehaviour : ActionUIController{
         objectiveGO = oppositeBase;
         currentObjectiveType = oppositeBaseType;
         //Update state
-        currentState = FighterStatesEnum.ChasingLowPriority;
+        UpdateState(FighterStatesEnum.ChasingLowPriority);
     }
     
     protected void UpdateFighterDestination(Vector3 destination) {

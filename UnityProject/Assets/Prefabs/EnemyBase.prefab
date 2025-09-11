@@ -731,6 +731,7 @@ MonoBehaviour:
   healthBar: {fileID: 4206634517156146978}
   healthBarOffSet: 5.3
   renderer: {fileID: 8212347161978244585}
+  clickable: {fileID: -5569476900022646777}
 --- !u!114 &-5569476900022646777
 MonoBehaviour:
   m_ObjectHideFlags: 0

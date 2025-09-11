@@ -748,6 +748,7 @@ MonoBehaviour:
   healthBar: {fileID: 4206634517156146978}
   healthBarOffSet: 5.3
   renderer: {fileID: 8212347161978244585}
+  clickable: {fileID: 7749548021567276943}
 --- !u!23 &8212347161978244585 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}

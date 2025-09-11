@@ -80,9 +80,9 @@ public abstract class GathererBehaviour : ActionUIController
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
             progressTime = 0f;
-            //gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
+            gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             //TODO Cheating
-            gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
+            //gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
             loadDictionary[currentGatheredOre.resourceType] += Constants.INITIAL_RESOURCES_LIMIT;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();

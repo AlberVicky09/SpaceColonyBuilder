@@ -1,3 +1,5 @@
+using System.Collections;
+
 public class PlayerFighterBehaviour : FighterBehaviour {
     
     private void Awake() {
@@ -8,6 +10,12 @@ public class PlayerFighterBehaviour : FighterBehaviour {
             ? GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase][0] : null;
         oppositeBaseType = PropsEnum.EnemyBase;
         isActivated = false;
+    }
+
+    protected override IEnumerator StartFighting() {
+        //Disable action buttons if needed
+        ((ClickablePlayerFighter)clickableFighter).SetUpToggleButton(false);
+        return base.StartFighting();
     }
 }
 

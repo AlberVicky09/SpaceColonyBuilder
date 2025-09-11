@@ -795,7 +795,7 @@ PrefabInstance:
       addedObject: {fileID: -2663390031771838603}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3339112899061927884}
+      addedObject: {fileID: 8156126804224106304}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2932292402724136634}
@@ -946,6 +946,7 @@ MonoBehaviour:
   currentState: 0
   currentWaypointIndex: 0
   isActivated: 0
+  clickableFighter: {fileID: 8156126804224106304}
 --- !u!114 &-2663390031771838603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFighterBehaviour: {fileID: 9014150855329147964}
---- !u!114 &3339112899061927884
+--- !u!114 &8156126804224106304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -968,14 +969,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 794179956799453363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b7d5bc5ec23c46b0c54e4fcf1ecd9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ee452a356177fb4d967f634b6def710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectImage: {fileID: 21300000, guid: 90651282856a21c4f8076d68c5aa456e, type: 3}
   buttonImages:
   - {fileID: 21300000, guid: 719116d9e80201348a2edccaac66a820, type: 3}
   - {fileID: 21300000, guid: 7647240033f4e17489e7ab198abee92e, type: 3}
+  - {fileID: 21300000, guid: 668a5e262e5e63349a528357806b5190, type: 3}
+  - {fileID: 21300000, guid: 61730d2c161ebe54fa9e44e7bf6cb54c, type: 3}
   buttonNumber: 1
+  fighterBehaviour: {fileID: 9014150855329147964}
+  propStats: {fileID: 8409436911151035472}
 --- !u!114 &2932292402724136634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,6 +1019,7 @@ MonoBehaviour:
   healthBar: {fileID: 1154143853745386724}
   healthBarOffSet: 2.2
   renderer: {fileID: 1154471844765210982}
+  clickable: {fileID: 0}
 --- !u!23 &1154471844765210982 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}
