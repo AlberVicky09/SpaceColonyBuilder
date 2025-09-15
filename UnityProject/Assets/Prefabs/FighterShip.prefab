@@ -759,6 +759,10 @@ PrefabInstance:
       value: FighterShip
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}
       propertyPath: m_TagString
       value: Fighter
       objectReference: {fileID: 0}
@@ -826,7 +830,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 250
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -944,9 +948,9 @@ MonoBehaviour:
   objectiveGO: {fileID: 0}
   objectiveType: 5
   currentState: 0
+  clickableFighter: {fileID: 8156126804224106304}
   currentWaypointIndex: 0
   isActivated: 0
-  clickableFighter: {fileID: 8156126804224106304}
 --- !u!114 &-2663390031771838603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1019,7 +1023,7 @@ MonoBehaviour:
   healthBar: {fileID: 1154143853745386724}
   healthBarOffSet: 2.2
   renderer: {fileID: 1154471844765210982}
-  clickable: {fileID: 0}
+  clickable: {fileID: 8156126804224106304}
 --- !u!23 &1154471844765210982 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 7b48b4ee3d287c3469be0c8e0c47d7d4, type: 3}

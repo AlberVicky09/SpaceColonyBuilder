@@ -56,6 +56,9 @@ public class EnemyBaseController : MonoBehaviour {
         //Add initial gatherer
         GenerateProp(PropsEnum.EnemyGatherer);
         
+        //TODO Remove
+        GenerateProp(PropsEnum.EnemyFighter).GetComponent<FighterBehaviour>().StartChasingBase();
+                
         //Activate "update" function
         StartCoroutine(GeneratorCheck());
     }
@@ -64,7 +67,6 @@ public class EnemyBaseController : MonoBehaviour {
         while (true) {
             if (Utils.CheckEnoughResources(enemyResourcesDictionary,
                     Constants.PROP_CREATION_PRICES[currentObjectiveProp])) {
-                Debug.Log("Enemy prop gonna be created: " + currentObjectiveProp);
                 //Remove spent resources
                 foreach (var (type, cost) in Constants.PROP_CREATION_PRICES[currentObjectiveProp]) {
                     UpdateResource(type, cost, ResourceOperationEnum.Decrease);
@@ -89,7 +91,6 @@ public class EnemyBaseController : MonoBehaviour {
         
         //Find nearest ore in preference order
         FindOreProcess: 
-            Debug.Log("Finding best ore");
             foreach (var prefferedResource in resourcePrefferenceList) {
                 nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, GameControllerScript.Instance.oreListDictionary[prefferedResource]);
                 gathererBehaviour.resourceGatheringType = prefferedResource;
@@ -134,7 +135,6 @@ public class EnemyBaseController : MonoBehaviour {
                 var gatherer = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, shipGenerationPlace, Quaternion.identity);
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
-                Debug.Log("Enemy gatherer generated");
                 if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 3) {
                     Debug.Log("Changing enemy objective to: Fighter");
                     currentObjectiveProp = PropsEnum.EnemyFighter;
@@ -144,7 +144,6 @@ public class EnemyBaseController : MonoBehaviour {
                 var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
                 fighter.name = "EnemyFighter";
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(fighter);
-                Debug.Log("Enemy fighter generated");
                 //If we have more than 3, go to attack base, else scout automatically
                 if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Count > 3) {
                     Debug.Log("Enemy fighter in attack mode");

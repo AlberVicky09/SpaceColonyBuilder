@@ -34,8 +34,8 @@ public abstract class FighterBehaviour : ActionUIController{
     protected float timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
 
     protected const float MAXIMUM_DETECTION_DISTANCE = 13f;
-    protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 5f;
-    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 9f;
+    protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 6f;
+    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 7f;
     
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
@@ -73,7 +73,6 @@ public abstract class FighterBehaviour : ActionUIController{
 
                     //If base is near enough, start attacking it
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
-                        Debug.Log("Base in range");
                         UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
                         StartCoroutine(StartFighting());
@@ -90,6 +89,7 @@ public abstract class FighterBehaviour : ActionUIController{
                 case FighterStatesEnum.Chasing:
                     //If other ship destroys current enemy
                     if (!GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
+                        Debug.Log("Enemy of type " + objectiveType + "has dissapeared");
                         RestartAgent();
                         return;
                     }
@@ -102,7 +102,6 @@ public abstract class FighterBehaviour : ActionUIController{
 
                     //If enemy is near enough, start attacking it
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
-                        Debug.Log("Enemy in range");
                         UpdateState(FighterStatesEnum.Attacking);
                         //Start fighting
                         StartCoroutine(StartFighting());
@@ -150,9 +149,12 @@ public abstract class FighterBehaviour : ActionUIController{
         
         //Start shooting to objective until dead
         while (GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
+            //Variables to avoid waiting unnecesarily
+            float timer = 0f;
+            
             //Spawn bullet in front
             var bullet = GameControllerScript.Instance.bulletPoolController.GetBullet();
-            bullet.transform.position = transform.position + Vector3.forward * 0.5f;
+            bullet.transform.position = transform.position + Constants.BULLET_OFFSET;
             
             //Set bullet direction
             bullet.SetActive(true);
@@ -161,8 +163,21 @@ public abstract class FighterBehaviour : ActionUIController{
             //Set bullet shooter
             bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject);
             
-            //Reload
-            yield return new WaitForSeconds(3.5f);
+            // Wait until "reload" happened OR the enemy is already destroyed
+            while (timer < Constants.SHOOTING_RELOAD_TIME) {
+                if (!GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
+                    Debug.Log("Enemy destroyed before reload finished");
+                    break;
+                }
+
+                timer += Time.deltaTime;
+                yield return null; // Wait for next frame
+            }
+
+            // Check again if the enemy is gone, and exit the shooting loop if so
+            if (!GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
+                break;
+            }
         }
         
         Debug.Log("No more pium pium");

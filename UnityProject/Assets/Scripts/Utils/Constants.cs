@@ -136,8 +136,11 @@ public static class Constants {
     public const float VIEW_DISTANCE_RANGE = 38f;
     public const int INITIAL_ORE_NUMBER = 15;
     public const float ORE_FLOOR_OFFSET = 0.4f;
+    public static Vector3 BULLET_OFFSET = new Vector3(0f, 0.25f, 0f);
 
     public const float FOOD_GENERATOR_DURATION = 5.0f;
+    
+    public const float SHOOTING_RELOAD_TIME = 3.5f;
 
     public const float MAX_DOUBLE_CLICK_DELAY = 1f;
     

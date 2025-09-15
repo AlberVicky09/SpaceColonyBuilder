@@ -15,18 +15,13 @@ public class BulletBehaviour : MonoBehaviour {
     private void Update() {
         //Calculate distance with origin position, if too far away, destroy
         if (Vector3.Distance(transform.position, shooterGO.transform.position) >= Constants.MAX_BULLET_TRAVEL_DISTANCE) {
-            Debug.Log("Bullet destroyed due to too much distance");
             gameObject.SetActive(false);
         }
     }
     
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Bullet from " + shooter + " to " + other.gameObject.name);
         //Avoid collision on shooter itself
-        if (shooterGO.Equals(other.gameObject)) {
-            Debug.Log("Bullet hit the shooter");
-            return;
-        }
+        if (shooterGO.Equals(other.gameObject)) { return; }
         
         //If a fighter shoots and a enemy is hit (the rest of object cant get damage from allies)
         switch (shooter) {

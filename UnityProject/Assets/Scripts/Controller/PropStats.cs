@@ -30,12 +30,11 @@ public class PropStats : MonoBehaviour {
         healthPoints -= damage;
         UpdateHealthBar();
         StartCoroutine(FlashOnColor(Color.red));
+        clickable.UpdateTexts();
         //Check if this prop has enough healthPoints
         if (healthPoints <= 0) {
             DestroyProp();
         }
-        
-        clickable.UpdateTexts();
     }
 
     public bool IncreaseHealthPoints(int curation) {
@@ -71,7 +70,7 @@ public class PropStats : MonoBehaviour {
         }
 
         //Destroy this gameobject
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private IEnumerator FlashOnColor(Color flashColor) {
