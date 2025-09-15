@@ -44,6 +44,7 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<PropsEnum, Sprite> propSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> resourceSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> missingResourceSpriteDictionary;
+    public Dictionary<FighterStatesEnum, Sprite> fighterActionsDictionary;
     
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Image> oreListImage;
@@ -54,6 +55,7 @@ public class GameControllerScript : MonoBehaviour {
         selectResourceSprite,
         returningToBaseSprite,
         patrolBaseSprite,
+        chasingSprite, //TODO Create a new sprite
         attackSprite,
         startActionSprite,
         stopActionSprite;
@@ -143,6 +145,13 @@ public class GameControllerScript : MonoBehaviour {
             { ResourceEnum.Iron, missingIronSprite },
             { ResourceEnum.Gold, missingGoldSprite },
             { ResourceEnum.Platinum, missingPlatinumSprite }
+        };
+        fighterActionsDictionary = new Dictionary<FighterStatesEnum, Sprite>() {
+            { FighterStatesEnum.Scouting, patrolBaseSprite },
+            { FighterStatesEnum.Chasing, chasingSprite },
+            { FighterStatesEnum.ChasingLowPriority, chasingSprite },
+            { FighterStatesEnum.Attacking, attackSprite },
+            { FighterStatesEnum.AttackingLowPriority, attackSprite },
         };
             
         //Initialize resources dictionaries

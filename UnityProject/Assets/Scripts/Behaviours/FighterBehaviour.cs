@@ -186,6 +186,7 @@ public abstract class FighterBehaviour : ActionUIController{
 
     protected virtual void UpdateState(FighterStatesEnum newState) {
         currentState = newState;
+        DisplayAction(GameControllerScript.Instance.fighterActionsDictionary[newState]);
         clickableFighter.UpdateTexts();
     }
     
