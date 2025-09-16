@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerGathererBehaviour : GathererBehaviour
 {
     protected override void UpdateResource(ResourceEnum resource, int quantity) {
-        Debug.Log("Storing in PLAYER resources " + quantity + " of " + resource);
         GameControllerScript.Instance.uiUpdateController.UpdateResource(resource, quantity,
             ResourceOperationEnum.Increase);
     }

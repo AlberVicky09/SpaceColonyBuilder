@@ -37,6 +37,8 @@ public abstract class FighterBehaviour : ActionUIController{
     protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 6f;
     protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 7f;
     
+    protected Coroutine currentShootingCoroutine;
+    
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_BUILDING_ATTACKING_DISTANCE);
@@ -75,7 +77,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
                         UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
-                        StartCoroutine(StartFighting());
+                        currentShootingCoroutine = StartCoroutine(StartFighting());
                     }
                     break;
                 
@@ -104,7 +106,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
                         UpdateState(FighterStatesEnum.Attacking);
                         //Start fighting
-                        StartCoroutine(StartFighting());
+                        currentShootingCoroutine = StartCoroutine(StartFighting());
                     }
                     break;
                 
@@ -130,6 +132,10 @@ public abstract class FighterBehaviour : ActionUIController{
                 //Force timer to check for enemies just in case is near enough to shoot
                 timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
                 UpdateFighterDestination(objectiveGO.transform.position);
+
+                //Stop current shooting coroutine if needed
+                try { StopCoroutine(currentShootingCoroutine); } catch {}
+
                 return true;
             }
         }
