@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickablePlayerFighter : ClickableFighter {
@@ -13,6 +14,12 @@ public class ClickablePlayerFighter : ClickableFighter {
                              FighterStatesEnum.AttackingLowPriority.Equals(fighterBehaviour.currentState));
             SetUpToggleButton(isActive);
         }
+    }
+    
+    protected override void DisplayRepresentation() {
+        //Put the original color
+        GameControllerScript.Instance.uiRepresentation.color = Color.white;
+        GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
     }
     
     protected override void StartButtons() {

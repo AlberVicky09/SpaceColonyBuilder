@@ -7,6 +7,7 @@ public static class Constants {
     public static Color IRON_COLOR = new (0.63f, 0.70f, 0.67f);
     public static Color GOLD_COLOR = new(1, 0.843f, 0);
     public static Color PLATINUM_COLOR = new(0.5f, 0.41f, 0.34f);
+    public static Color ENEMY_MASK_COLOR = new(1f, 0.3647798f, 0.3647798f);
     
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
             { ResourceEnum.Water, WATER_COLOR },

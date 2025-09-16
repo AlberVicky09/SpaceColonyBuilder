@@ -2,13 +2,9 @@ using UnityEngine.UI;
 
 public class ClickableFoodGenerator : Clickable {
 
-    private FoodGeneratorBehaviour foodGeneratorBehaviour;
+    public FoodGeneratorBehaviour foodGeneratorBehaviour;
     
     public override void UpdateTexts() {
-        if (foodGeneratorBehaviour == null) {
-            foodGeneratorBehaviour = GetComponent<FoodGeneratorBehaviour>();
-        }
-
         if (selectedClickable == this) {
             GameControllerScript.Instance.actionText.text = "Food generator";
         }

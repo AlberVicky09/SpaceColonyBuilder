@@ -6,7 +6,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     
     protected static Clickable selectedClickable;
     
-    [SerializeField] Sprite objectImage;
+    [SerializeField] protected Sprite objectImage;
     [SerializeField] protected Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
 
@@ -17,7 +17,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
         if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
             selectedClickable = this;
             GameControllerScript.Instance.actionCanvas.SetActive(true);
-            GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
+            DisplayRepresentation();
             StartButtons();
             UpdateTexts();
             DisplayButtons();
@@ -38,6 +38,12 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
             GameControllerScript.Instance.actionButtons[i].GetComponent<Image>().sprite = buttonImages[i];
             i++;
         }
+    }
+
+    protected virtual void DisplayRepresentation() {
+        //Reset color just in case it has been modified
+        GameControllerScript.Instance.uiRepresentation.color = Color.white;
+        GameControllerScript.Instance.uiRepresentation.sprite = objectImage;
     }
 
     protected void CheckDoubleClick() {
