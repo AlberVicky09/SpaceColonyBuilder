@@ -28,7 +28,7 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData) {
         isHovering = true;
-        AudioManager.Instance.PlaySfx("OnHoverMenu");
+        AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnHoverMenu);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -36,7 +36,7 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        AudioManager.Instance.PlaySfx("OnClickMenu");
+        AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickMenu);
     }
 
     public void ForceStopHovering() {

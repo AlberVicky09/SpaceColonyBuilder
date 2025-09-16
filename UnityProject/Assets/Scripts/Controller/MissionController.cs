@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MissionController : MonoBehaviour
@@ -136,6 +135,6 @@ public class MissionController : MonoBehaviour
             Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(missionAvailability));
         }
 
-        SceneManager.LoadScene("MissionSelection");
+        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MissionSelection"));
     }
 }

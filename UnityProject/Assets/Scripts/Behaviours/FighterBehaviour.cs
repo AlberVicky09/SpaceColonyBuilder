@@ -162,6 +162,8 @@ public abstract class FighterBehaviour : ActionUIController{
                 (objectiveGO.transform.position - transform.position) * 0.5f;
             //Set bullet shooter
             bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject);
+            //Activate bullet sound
+            bullet.GetComponent<SfxSource>().PlaySfx();
             
             // Wait until "reload" happened OR the enemy is already destroyed
             while (timer < Constants.SHOOTING_RELOAD_TIME) {

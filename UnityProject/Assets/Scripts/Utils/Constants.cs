@@ -174,7 +174,7 @@ public static class Constants {
     public const float TIME_SCALE_FAST = 1.5f;
     public static float TIME_SCALE_STOPPED = 0f;
 
-    public static int INITIAL_RESOURCES_QUANTITY = 300;
+    public static int INITIAL_RESOURCES_QUANTITY = 300; //TODO Fix this number
     public static int INITIAL_RESOURCES_LIMIT = 100;
     public static int ENEMY_INITIAL_RESOURCES_LIMIT = 250;
     public static int RESOURCES_LIMIT_INCREASE = 50;

@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuFunctions : MonoBehaviour
-{
+public class MainMenuFunctions : MonoBehaviour {
+    
     public Slider musicSlider, sfxSlider;
     public Sprite activeSprite, deactivatedSprite;
     public Image fullScreenBtn, muteMusicBtn, muteSfxBtn;
@@ -19,7 +19,7 @@ public class MainMenuFunctions : MonoBehaviour
         SetUpResolutions();
 
         if (!AudioManager.Instance.musicSource.isPlaying) {
-            AudioManager.Instance.PlayMusic("MenuBackground");
+            AudioManager.Instance.PlayMusic(MusicTrackNamesEnum.MenuBackGround);
         }
 
         if (!Utils.CheckFile("missionsAvailable")) {

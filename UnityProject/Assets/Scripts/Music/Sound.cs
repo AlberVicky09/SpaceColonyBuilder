@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class Sound
-{
-    public string clipName;
+public class Sound {
+    public MusicTrackNamesEnum musicTrackName;
+    public SfxTrackNamesEnum sfxTrackName;
     public AudioClip clip;
 }

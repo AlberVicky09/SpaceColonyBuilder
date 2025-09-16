@@ -5,15 +5,15 @@ public class MissionSelector : MonoBehaviour {
     public int missionNumber;
 
     private void OnMouseEnter() {
-        AudioManager.Instance.PlaySfx("OnHoverMenu");
+        AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnHoverMenu);
     }
 
     private void OnMouseDown() {
         if (MissionSelectionManager.Instance.missionsAvailable[missionNumber]) {
             MissionSelectionManager.Instance.MoveToMission(missionNumber);
-            AudioManager.Instance.PlaySfx("OnClickMenu");
+            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickMenu);
         } else {
-            AudioManager.Instance.PlaySfx("OnClickInvalid");
+            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickInvalid);
         }
     }
 
