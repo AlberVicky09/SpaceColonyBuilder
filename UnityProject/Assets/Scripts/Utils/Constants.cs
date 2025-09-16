@@ -7,7 +7,11 @@ public static class Constants {
     public static Color IRON_COLOR = new (0.63f, 0.70f, 0.67f);
     public static Color GOLD_COLOR = new(1, 0.843f, 0);
     public static Color PLATINUM_COLOR = new(0.5f, 0.41f, 0.34f);
+    public static Color MISSING_RESOURCE_COLOR = new(1f, 0.5f, 0);
     public static Color ENEMY_MASK_COLOR = new(1f, 0.3647798f, 0.3647798f);
+
+    public static string LOSE_GAME_TEXT = "You have lost!";
+    public static string WIN_GAME_TEXT = "Mission Completed!";
     
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
             { ResourceEnum.Water, WATER_COLOR },
@@ -170,12 +174,15 @@ public static class Constants {
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
 
-    public const float TIME_SCALE_NORMAL = 1f;
-    public const float TIME_SCALE_SLOW = 0.5f;
-    public const float TIME_SCALE_FAST = 1.5f;
-    public static float TIME_SCALE_STOPPED = 0f;
+    public static readonly Dictionary<SpeedLevels, float> SPEED_LEVEL_EQUIVALENCE =
+        new Dictionary<SpeedLevels, float> {
+            { SpeedLevels.NORMAL, 1f},
+            { SpeedLevels.SLOW, 0.5f},
+            { SpeedLevels.FAST, 1.5f},
+            { SpeedLevels.STOPPED, 0f},
+        };
 
-    public static int INITIAL_RESOURCES_QUANTITY = 300; //TODO Fix this number
+    public static int INITIAL_RESOURCES_QUANTITY = 0; //TODO Fix this number
     public static int INITIAL_RESOURCES_LIMIT = 100;
     public static int ENEMY_INITIAL_RESOURCES_LIMIT = 250;
     public static int RESOURCES_LIMIT_INCREASE = 50;

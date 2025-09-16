@@ -3,63 +3,52 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DatePanelController : MonoBehaviour
-{
+public class DatePanelController : MonoBehaviour {
+
+    public static DatePanelController Instance;
     public int day, month, year;
     public TMP_Text dayText, monthText, yearText;
     public Button pauseButton, playButton, fastButton;
     public Sprite pauseButtonOn, pauseButtonOff, playButtonOn, playButtonOff, fastButtonOn, fastButtonOff;
-    int prevActiveButton = 0;
+    public SpeedLevels prevSpeed = SpeedLevels.NORMAL;
 
-    void Start()
-    {
+    void Start() {
+        if (Instance == null) {
+            Instance = this;
+        }
+        
         StartCoroutine("StartDayCicle");
         UpdateDayText();
         UpdateMonthText();
         UpdateYearText();
     }
 
-    public void PauseVelocity() {
-        GameControllerScript.Instance.PauseGame();
-        SwapButtons(-1);
-    }
-
-    public void NormalVelocity() {
-        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
-        SwapButtons(0);
-    }
-
-    public void FastVelocity() {
-        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_FAST);
-        SwapButtons(1);
-    }
-
-    public void SwapButtons(int newButton) {
-        switch(prevActiveButton) {
-            case -1:
+    public void SwapButtons(SpeedLevels newSpeed) {
+        switch(prevSpeed) {
+            case SpeedLevels.STOPPED:
                 pauseButton.GetComponent<Image>().sprite = pauseButtonOff;
                 break;
-            case 0:
+            case SpeedLevels.NORMAL:
                 playButton.GetComponent<Image>().sprite = playButtonOff;
                 break;
-            case 1:
+            case SpeedLevels.FAST:
                 fastButton.GetComponent<Image>().sprite = fastButtonOff;
                 break;
         }
 
-        switch(newButton) {
-            case -1:
+        switch(newSpeed) {
+            case SpeedLevels.STOPPED:
                 pauseButton.GetComponent<Image>().sprite = pauseButtonOn;
                 break;
-            case 0:
+            case SpeedLevels.NORMAL:
                 playButton.GetComponent<Image>().sprite = playButtonOn;
                 break;
-            case 1:
+            case SpeedLevels.FAST:
                 fastButton.GetComponent<Image>().sprite = fastButtonOn;
                 break;
         }
 
-        prevActiveButton = newButton;
+        prevSpeed = newSpeed;
     }
 
     private IEnumerator StartDayCicle() {

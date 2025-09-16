@@ -76,7 +76,7 @@ public class MissionController : MonoBehaviour
                 } else {
                     //If date is after limit, loose
                     if (missionListDto.missions[i].objectiveQuantity <= months) {
-                        DisplayEndGameCanvas("You loose!");
+                        DisplayEndGameCanvas(Constants.LOSE_GAME_TEXT);
                         //Else, if all other missions have been completed, win
                     } else if (completedMissions == missionListDto.missionQuantity - 1) {
                         CompleteMission(missionListDto.missions[i], i);
@@ -109,7 +109,7 @@ public class MissionController : MonoBehaviour
     
     private void CheckVictoryConditions() {
         if (completedMissions == missionListDto.missionQuantity) {
-           DisplayEndGameCanvas("Mission Completed!");
+           DisplayEndGameCanvas(Constants.WIN_GAME_TEXT);
         }
     }
 

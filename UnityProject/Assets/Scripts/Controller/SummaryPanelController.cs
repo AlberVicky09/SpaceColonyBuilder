@@ -64,7 +64,7 @@ public class SummaryPanelController : MonoBehaviour {
         if (isSummaryActive) {
             FlushOnClose();
             summaryPanel.SetActive(false);
-            GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
+            GameControllerScript.Instance.PlayNormalVelocity();
         } else {
             GameControllerScript.Instance.PauseGame();
             summaryPanel.SetActive(true);

@@ -70,7 +70,7 @@ public class TutorialControllerLegacy : MonoBehaviour {
     }
     
     public void CloseCurrentTutorial() {
-        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
+        GameControllerScript.Instance.PlayNormalVelocity();
         tutorialCanvas.SetActive(false);
     }
 }

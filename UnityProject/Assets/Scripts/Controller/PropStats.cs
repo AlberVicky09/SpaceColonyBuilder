@@ -66,7 +66,7 @@ public class PropStats : MonoBehaviour {
 
         if (PropsEnum.MainBuilding.Equals(propType)) {
             //If is the main building, end game
-            GameControllerScript.Instance.missionController.DisplayEndGameCanvas("You have lost!");
+            GameControllerScript.Instance.missionController.DisplayEndGameCanvas(Constants.LOSE_GAME_TEXT);
         }
 
         //Destroy this gameobject

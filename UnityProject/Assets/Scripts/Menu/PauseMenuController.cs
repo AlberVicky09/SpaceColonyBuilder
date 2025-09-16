@@ -9,7 +9,7 @@ public class PauseMenuController : MonoBehaviour {
             ReturnToPause();
         } else {
             if (GameControllerScript.Instance.isPauseMenuActive && !GameControllerScript.Instance.wasGamePaused) {
-                GameControllerScript.Instance.PlayVelocity(1f);
+                GameControllerScript.Instance.PlayNormalVelocity();
             } else {
                 GameControllerScript.Instance.PauseGame();
             }

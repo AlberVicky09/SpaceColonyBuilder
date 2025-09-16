@@ -7,9 +7,11 @@ public class UIUpdateController : MonoBehaviour {
 
     public Dictionary<ResourceEnum, Vector3> resourcesInitialPositions;
     private Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>> resourcesChangeCoroutines;
+    private Dictionary<ResourceEnum, bool> missingResourcesFlags;
 
     private void Start() {
         resourcesChangeCoroutines = new Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>>();
+        missingResourcesFlags = new Dictionary<ResourceEnum, bool>();
         Dictionary<ResourceOperationEnum, Coroutine> auxDictionary;
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             auxDictionary = new Dictionary<ResourceOperationEnum, Coroutine>();
@@ -17,6 +19,7 @@ public class UIUpdateController : MonoBehaviour {
                 auxDictionary.Add(op, null);
             }
             resourcesChangeCoroutines.Add(resource, auxDictionary);
+            missingResourcesFlags.Add(resource, false);
         }
     }
 
@@ -44,6 +47,7 @@ public class UIUpdateController : MonoBehaviour {
                     GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.white;
                 }
                 
+                missingResourcesFlags[resourceType] = false;
                 GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = 
                     GameControllerScript.Instance.resourcesLimit == GameControllerScript.Instance.resourcesDictionary[resourceType] ?
                         Color.yellow : Color.white;
@@ -53,15 +57,25 @@ public class UIUpdateController : MonoBehaviour {
                 if (quantity > GameControllerScript.Instance.resourcesDictionary[resourceType]) {
                     limitedQuantity = GameControllerScript.Instance.resourcesDictionary[resourceType];
                     GameControllerScript.Instance.resourcesDictionary[resourceType] = 0;
-                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.grey;
-
                 } else {
                     GameControllerScript.Instance.resourcesDictionary[resourceType] -= quantity;
                 }
 
-                GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = 
-                    GameControllerScript.Instance.resourcesDictionary[resourceType] == 0 ?
-                        Color.grey : Color.white;
+                if (GameControllerScript.Instance.resourcesDictionary[resourceType] == 0) {
+                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Constants.MISSING_RESOURCE_COLOR;
+                    
+                    //If already in risk, lose the game
+                    if (missingResourcesFlags[resourceType]) {
+                        GameControllerScript.Instance.missionController.DisplayEndGameCanvas(Constants.LOSE_GAME_TEXT);
+                    //Else, alert the player
+                    } else {
+                        GameControllerScript.Instance.ActivateAlertCanvas("Missing " + resourceType + "\nObtain some or the base will be destroyed!");
+                        missingResourcesFlags[resourceType] = true;
+                    }
+                } else {
+                    GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.white;
+                }
+                
                 break;
         }
 

@@ -72,8 +72,8 @@ public class GameControllerScript : MonoBehaviour {
     public TMP_Text enemyCountDownText;
     public Image enemyCountDownBg;
 
-    public GameObject alertCanvas;
-    public TMP_Text alertCanvasText;
+    public RectTransform alertCanvas;
+    public TMP_Text alertText;
     private float prevAlertTimeSpeed;
     public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
     public bool isGamePaused, wasGamePaused, isPauseMenuActive, isInAMenu;
@@ -237,30 +237,46 @@ public class GameControllerScript : MonoBehaviour {
 
     public void ActivateAlertCanvas(string alertDisplayText) {
         //Display alert canvas with specified text and stop time
-        alertCanvas.SetActive(true);
-        alertCanvasText.text = alertDisplayText;
-        prevAlertTimeSpeed = Time.timeScale;
+        alertCanvas.gameObject.SetActive(true);
+        alertText.text = alertDisplayText;
+        //Force canvas width update
+        LayoutRebuilder.ForceRebuildLayoutImmediate(alertCanvas);
         PauseGame();
     }
 
     public void CloseAlertCanvas() {
         //Close alert panel and restart time
-        alertCanvas.SetActive(false);
-        if (prevAlertTimeSpeed != 0) { 
-            PlayVelocity(Constants.TIME_SCALE_STOPPED);
-        }
+        alertCanvas.gameObject.SetActive(false);
+        RevertToPreviousVelocity();
     }
 
-    public void PlayVelocity(float velocity) {
+    public void PauseVelocity() { PauseGame(); }
+
+    public void PlayNormalVelocity() { PlayVelocity(SpeedLevels.NORMAL); }
+
+    public void PlayFastVelocity() { PlayVelocity(SpeedLevels.FAST); }
+
+    public void RevertToPreviousVelocity() {
+        if (DatePanelController.Instance.prevSpeed.Equals(SpeedLevels.STOPPED)) {
+            PauseGame();
+        } else {
+            PlayVelocity(DatePanelController.Instance.prevSpeed);
+        }
+    }
+    
+    public void PlayVelocity(SpeedLevels velocity) {
         //Sets game velocity, to be able to play normal, fast or slow speed
         isGamePaused = false;
-        Time.timeScale = velocity;
+        Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[velocity];
+        DatePanelController.Instance.SwapButtons(velocity);
     }
 
     public void PauseGame() {
         wasGamePaused = isGamePaused;
         isGamePaused = true;
-        Time.timeScale = Constants.TIME_SCALE_STOPPED;
+        Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[SpeedLevels.STOPPED];
+        DatePanelController.Instance.SwapButtons(SpeedLevels.STOPPED);
+
     }
     
     public void TogglePauseMenu() { isPauseMenuActive = !isPauseMenuActive;}

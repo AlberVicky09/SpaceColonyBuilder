@@ -43,7 +43,7 @@ public class ClickablePlayerGatherer : ClickableGatherer {
         gathererBehaviour.resourceGatheringType = resource;
         GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
-        GameControllerScript.Instance.PlayVelocity(Constants.TIME_SCALE_NORMAL);
+        GameControllerScript.Instance.PlayNormalVelocity();
     }
 
     private void Retreat() {
