@@ -7511,7 +7511,7 @@ MonoBehaviour:
   selectResourceSprite: {fileID: 21300000, guid: a78d6bf85de4294489cb04ad45fe9828, type: 3}
   returningToBaseSprite: {fileID: 21300000, guid: 814517a3864e158479bd0f2c4be6c22b, type: 3}
   patrolBaseSprite: {fileID: 21300000, guid: 7647240033f4e17489e7ab198abee92e, type: 3}
-  chasingSprite: {fileID: 0}
+  chasingSprite: {fileID: 21300000, guid: 814517a3864e158479bd0f2c4be6c22b, type: 3}
   attackSprite: {fileID: 21300000, guid: 719116d9e80201348a2edccaac66a820, type: 3}
   startActionSprite: {fileID: 21300000, guid: be35b3e4ddbec9b4eb165a7c058bccfe, type: 3}
   stopActionSprite: {fileID: 21300000, guid: c9586270cb4753c4ca55408a1cbec82f, type: 3}

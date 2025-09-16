@@ -14,7 +14,7 @@ public class BulletBehaviour : MonoBehaviour {
 
     private void Update() {
         //Calculate distance with origin position, if too far away, destroy
-        if (Vector3.Distance(transform.position, shooterGO.transform.position) >= Constants.MAX_BULLET_TRAVEL_DISTANCE) {
+        if (shooterGO == null || Vector3.Distance(transform.position, shooterGO.transform.position) >= Constants.MAX_BULLET_TRAVEL_DISTANCE) {
             gameObject.SetActive(false);
         }
     }

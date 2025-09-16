@@ -104,7 +104,6 @@ public class AudioManager : MonoBehaviour {
     }
     
     public IEnumerator StartFade(float duration, bool increaseVolume, bool fadeBackground) {
-        Debug.Log("Fading into black");
         fadeToBlackImage.gameObject.SetActive(true);
         float currentTime = 0;
         float start = musicSource.volume = increaseVolume ? 0f : 1f;

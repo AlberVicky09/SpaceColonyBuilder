@@ -12,7 +12,6 @@ public class EnemyBaseController : MonoBehaviour {
     public Dictionary<ResourceEnum, int> enemyGathererObjectiveCount;
     private List<ResourceEnum> resourcePrefferenceList;
     private Dictionary<ResourceEnum, int> resourcePrefferenceDictionary;
-    private static Vector3 shipGenerationPlace = Constants.ENEMY_CENTER + new Vector3(-5f, 0f, -5f);
     private Vector3 floorCenter = new(75f, -0.1f, 0);
     private PropsEnum currentObjectiveProp = PropsEnum.EnemyGatherer;
     private const float TIME_TO_CHECK_FOR_GENERATOR = 1.5f;
@@ -130,9 +129,10 @@ public class EnemyBaseController : MonoBehaviour {
     }
 
     private GameObject GenerateProp(PropsEnum propToGenerate) {
+        var calculatePositionAroundBase = Utils.CalculateRandomPositionAroundBase(GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase][0]);
         switch (propToGenerate) {
             case PropsEnum.EnemyGatherer:
-                var gatherer = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, shipGenerationPlace, Quaternion.identity);
+                var gatherer = Instantiate(GameControllerScript.Instance.enemyGathererPrefab, calculatePositionAroundBase, Quaternion.identity);
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
                 if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 3) {
@@ -141,7 +141,7 @@ public class EnemyBaseController : MonoBehaviour {
                 }
                 return gatherer;
             case PropsEnum.EnemyFighter:
-                var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, shipGenerationPlace, Quaternion.identity);
+                var fighter = Instantiate(GameControllerScript.Instance.enemyFighterPrefab, calculatePositionAroundBase, Quaternion.identity);
                 fighter.name = "EnemyFighter";
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(fighter);
                 //If we have more than 3, go to attack base, else scout automatically

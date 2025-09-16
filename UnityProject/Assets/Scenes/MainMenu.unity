@@ -7418,6 +7418,9 @@ MonoBehaviour:
   - musicTrackName: 0
     sfxTrackName: 3
     clip: {fileID: 8300000, guid: fc7b4b3528e8be342b08e8c60be090d1, type: 3}
+  - musicTrackName: 0
+    sfxTrackName: 4
+    clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
   musicSource: {fileID: 1666890702}
   sfxSource: {fileID: 213453539}
   auxSource: {fileID: 1282242083}

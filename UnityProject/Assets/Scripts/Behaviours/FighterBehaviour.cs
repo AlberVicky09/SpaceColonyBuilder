@@ -209,8 +209,6 @@ public abstract class FighterBehaviour : ActionUIController{
     }
     
     public void StartChasingBase() {
-        //TODO Add chasing sprite
-        DisplayAction(GameControllerScript.Instance.healBaseSprite);
         //Mark the enemy base as objective
         UpdateFighterDestination(oppositeBase.transform.position);
         objectiveGO = oppositeBase;

@@ -47,7 +47,6 @@ public class MainMenuFunctions : MonoBehaviour {
                 
                 if (resolution.width == Screen.width &&
                     resolution.height == Screen.height) {
-                    Debug.Log("Resolution found");
                     resolutionDropdown.value = options.Count - 1;
                     found = true;
                 }

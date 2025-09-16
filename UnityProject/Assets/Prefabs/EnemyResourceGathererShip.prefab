@@ -5161,6 +5161,7 @@ MonoBehaviour:
   objectImage: {fileID: 21300000, guid: aed4a75f907cfc64997d2e0a11eb2316, type: 3}
   buttonImages: []
   buttonNumber: 0
+  gathererBehaviour: {fileID: 7292270889317451698}
 --- !u!114 &7292270889317451698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5184,6 +5185,7 @@ MonoBehaviour:
   resourceGatheringType: 0
   gathererLoad: 0
   maxGathererLoad: 0
+  isFirstTimeGathering: 1
 --- !u!114 &1720426776528579171
 MonoBehaviour:
   m_ObjectHideFlags: 0

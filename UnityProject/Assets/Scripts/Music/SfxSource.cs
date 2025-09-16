@@ -14,7 +14,6 @@ public class SfxSource : MonoBehaviour {
     public void PlaySfx() {
         var s = Array.Find(AudioManager.Instance.sfxClips, x => x.sfxTrackName.Equals(audioClip));
         if (s != null) {
-            Debug.Log("Playing " + s.sfxTrackName);
             source.PlayOneShot(s.clip);
         } else {
             Debug.Log("No sound found with name " + audioClip);
