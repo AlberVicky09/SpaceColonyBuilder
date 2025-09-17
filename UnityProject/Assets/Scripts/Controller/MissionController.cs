@@ -36,6 +36,8 @@ public class MissionController : MonoBehaviour
             LayoutRebuilder.ForceRebuildLayoutImmediate(missionUIList[i].GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(missionUIListDuplicated[i].GetComponent<RectTransform>());
         }
+
+        GameControllerScript.Instance.isInMissions = true;
     }
 
     public void CheckResourceMission(ResourceEnum resourceType, int quantity) {
@@ -114,13 +116,14 @@ public class MissionController : MonoBehaviour
     }
 
     public void DisplayEndGameCanvas(string endText) {
+        GameControllerScript.Instance.isGameFinished = true;
         Time.timeScale = 0f;
         endGameCanvas.SetActive(true);
         endGameText.text = endText;
-        missionsCompletedText.text = $"Missions completed = {completedMissions}/{missionListDto.missionQuantity}";
-        var minutesSpent = Math.Truncate(Time.timeSinceLevelLoad / 60);
-        var secondsSpent = Math.Round(Time.timeSinceLevelLoad % 60);
-        timeSpentText.text = $"Time = {minutesSpent}:{secondsSpent}";
+        missionsCompletedText.text = $"Missions completed = {completedMissions} / {missionListDto.missionQuantity}";
+        var minutesSpent = (int)(Time.timeSinceLevelLoad / 60);
+        var secondsSpent = (int)(Time.timeSinceLevelLoad % 60);
+        timeSpentText.text = $"Time = {minutesSpent:00}:{secondsSpent:00}";
     }
 
     public void EndGame() {

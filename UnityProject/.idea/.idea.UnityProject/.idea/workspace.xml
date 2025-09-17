@@ -4,23 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix multiple shooting coroutines at the same time">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/SpeedLevels.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/SpeedLevels.cs.meta" afterDir="false" />
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix alert canvas and pause and play controls">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableMainBuilding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableMainBuilding.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/MissionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/MissionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/PropStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/PropStats.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/SummaryPanelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/SummaryPanelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerLegacy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerLegacy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -460,7 +457,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758035036158</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Fix alert canvas and pause and play controls">
+      <option name="closed" value="true" />
+      <created>1758047051422</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1758047051422</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +493,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Improve behaviours" />
     <MESSAGE value="Fix mutable buttons width update" />
     <MESSAGE value="Apply function when prop is being placed (avoid being activated before when it should)" />
     <MESSAGE value="Create summary panel" />
@@ -513,7 +517,8 @@
     <MESSAGE value="Make enemies representation red and ores its color" />
     <MESSAGE value="Removed debuggers" />
     <MESSAGE value="Fix multiple shooting coroutines at the same time" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix multiple shooting coroutines at the same time" />
+    <MESSAGE value="Fix alert canvas and pause and play controls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix alert canvas and pause and play controls" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>

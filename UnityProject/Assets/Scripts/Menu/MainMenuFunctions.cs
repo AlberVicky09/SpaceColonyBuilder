@@ -15,7 +15,7 @@ public class MainMenuFunctions : MonoBehaviour {
     Resolution[] resolutions;
 
     public void Start() {
-        StartCoroutine(AudioManager.Instance.StartFade(0.5f, true, true));
+        StartCoroutine(AudioManager.Instance.StartFade(1.5f, true, true));
         SetUpResolutions();
 
         if (!AudioManager.Instance.musicSource.isPlaying) {

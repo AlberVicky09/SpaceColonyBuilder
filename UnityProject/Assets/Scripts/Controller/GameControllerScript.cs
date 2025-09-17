@@ -21,6 +21,8 @@ public class GameControllerScript : MonoBehaviour {
     public TutorialControllerLegacy tutorialControllerLegacy;
     public TutorialControllerNew tutorialControllerNew;
     public EnemyBaseController enemyBaseController;
+    public PauseMenuController pauseMenuController;
+    public SummaryPanelController summaryPanelController;
     
     public CanvasGroup canvasGroup;
 
@@ -72,11 +74,12 @@ public class GameControllerScript : MonoBehaviour {
     public TMP_Text enemyCountDownText;
     public Image enemyCountDownBg;
 
+    public GameObject missionBigCanvas, missionSmallCanvas;
     public RectTransform alertCanvas;
     public TMP_Text alertText;
     private float prevAlertTimeSpeed;
     public Sprite blueLabelSprite, redLabelSprite, greenLabelSprite;
-    public bool isGamePaused, wasGamePaused, isPauseMenuActive, isInAMenu;
+    public bool isGamePaused, wasGamePaused, isPauseMenuActive, isInMissions, isInAMenu, isInAlert, isInSummary, isGameFinished;
     
     public List<Vector3> waypoints;
     
@@ -239,32 +242,41 @@ public class GameControllerScript : MonoBehaviour {
         //Display alert canvas with specified text and stop time
         alertCanvas.gameObject.SetActive(true);
         alertText.text = alertDisplayText;
+        isInAlert = true;
         //Force canvas width update
         LayoutRebuilder.ForceRebuildLayoutImmediate(alertCanvas);
         PauseGame();
     }
 
     public void CloseAlertCanvas() {
-        //Close alert panel and restart time
         alertCanvas.gameObject.SetActive(false);
-        RevertToPreviousVelocity();
+        isInAlert = false;
     }
 
-    public void PauseVelocity() { PauseGame(); }
-
+    public void CloseMissionCanvas() {
+        missionBigCanvas.SetActive(false);
+        missionSmallCanvas.SetActive(true);
+        isInMissions = false;
+        StartCoroutine(DatePanelController.Instance.StartDayCicle());
+        PlayNormalVelocity();
+    }
+    
     public void PlayNormalVelocity() { PlayVelocity(SpeedLevels.NORMAL); }
 
     public void PlayFastVelocity() { PlayVelocity(SpeedLevels.FAST); }
 
     public void RevertToPreviousVelocity() {
         if (DatePanelController.Instance.prevSpeed.Equals(SpeedLevels.STOPPED)) {
+            Debug.Log("Going back to pause");
             PauseGame();
         } else {
+            Debug.Log("Going back to " + DatePanelController.Instance.prevSpeed);
             PlayVelocity(DatePanelController.Instance.prevSpeed);
         }
     }
     
     public void PlayVelocity(SpeedLevels velocity) {
+        Debug.Log("Play velocity" + velocity);
         //Sets game velocity, to be able to play normal, fast or slow speed
         isGamePaused = false;
         Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[velocity];
@@ -274,9 +286,8 @@ public class GameControllerScript : MonoBehaviour {
     public void PauseGame() {
         wasGamePaused = isGamePaused;
         isGamePaused = true;
-        Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[SpeedLevels.STOPPED];
         DatePanelController.Instance.SwapButtons(SpeedLevels.STOPPED);
-
+        Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[SpeedLevels.STOPPED];
     }
     
     public void TogglePauseMenu() { isPauseMenuActive = !isPauseMenuActive;}

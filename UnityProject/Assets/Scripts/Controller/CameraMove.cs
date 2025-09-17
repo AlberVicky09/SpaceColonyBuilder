@@ -7,7 +7,7 @@ public class CameraMove : MonoBehaviour {
     public Camera cameraGO, miniMapCamera;
     public GameObject cameraPivot;
 
-    public bool isGameObjectCentered;
+    public bool isGameObjectCentered; //TODO Check usage of this
     public GameObject gameObjectCentered;
     public float gameObjectCenteredRefreshTime;
 

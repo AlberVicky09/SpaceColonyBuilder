@@ -10,21 +10,20 @@ public class DatePanelController : MonoBehaviour {
     public TMP_Text dayText, monthText, yearText;
     public Button pauseButton, playButton, fastButton;
     public Sprite pauseButtonOn, pauseButtonOff, playButtonOn, playButtonOff, fastButtonOn, fastButtonOff;
+    public SpeedLevels currentSpeed = SpeedLevels.NORMAL;
     public SpeedLevels prevSpeed = SpeedLevels.NORMAL;
 
     void Start() {
         if (Instance == null) {
             Instance = this;
         }
-        
-        StartCoroutine("StartDayCicle");
         UpdateDayText();
         UpdateMonthText();
         UpdateYearText();
     }
 
     public void SwapButtons(SpeedLevels newSpeed) {
-        switch(prevSpeed) {
+        switch(currentSpeed) {
             case SpeedLevels.STOPPED:
                 pauseButton.GetComponent<Image>().sprite = pauseButtonOff;
                 break;
@@ -48,13 +47,16 @@ public class DatePanelController : MonoBehaviour {
                 break;
         }
 
-        prevSpeed = newSpeed;
+        //Update old speed
+        prevSpeed = currentSpeed;
+        currentSpeed = newSpeed;
     }
 
-    private IEnumerator StartDayCicle() {
+    public IEnumerator StartDayCicle() {
         while (true) {
             //Every 15 seconds, a day passes
             yield return new WaitForSeconds(5);
+            Debug.Log("Day passed");
             IncreaseDay();
         }
     }

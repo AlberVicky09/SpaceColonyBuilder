@@ -26,7 +26,7 @@ public class MissionSelectionManager : MonoBehaviour {
         descriptionTexts = new string[missionPositions.Length];
         missionsAvailable = new bool[missionPositions.Length];
         
-        StartCoroutine(AudioManager.Instance.StartFade(0.5f, true, true));
+        StartCoroutine(AudioManager.Instance.StartFade(1.5f, true, true));
         
         //Retrieve completed missions from file
         var missionAvailability = Utils.CheckFile("missionsAvailable") ?

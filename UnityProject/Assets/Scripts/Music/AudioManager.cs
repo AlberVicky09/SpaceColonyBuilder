@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour {
     public AudioSource musicSource, sfxSource, auxSource;
     public List<SfxSource> sfxSourceList;
     public Image fadeToBlackImage;
+    private bool firstFrame = true;
 
     public void Awake() {
         if(Instance == null) {
@@ -104,19 +105,25 @@ public class AudioManager : MonoBehaviour {
     }
     
     public IEnumerator StartFade(float duration, bool increaseVolume, bool fadeBackground) {
+        Debug.Log("Animation should take " + duration + " seconds");
         fadeToBlackImage.gameObject.SetActive(true);
         float currentTime = 0;
         float start = musicSource.volume = increaseVolume ? 0f : 1f;
         var fadeToBlack = fadeToBlackImage.color;
         while (currentTime < duration)
         {
-            currentTime += Time.deltaTime;
-            var currentValue = Mathf.Lerp(start, 1 - start, currentTime / duration);
-            musicSource.volume = currentValue;
+            if (firstFrame) {
+                firstFrame = false;
+            } else {
+                currentTime += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
+                Debug.Log("Current time is " + currentTime);
+                var currentValue = Mathf.Lerp(start, 1 - start, currentTime / duration);
+                musicSource.volume = currentValue;
             
-            if (fadeBackground) {
-                fadeToBlack.a = 1 - currentValue;
-                fadeToBlackImage.color = fadeToBlack;
+                if (fadeBackground) {
+                    fadeToBlack.a = 1 - currentValue;
+                    fadeToBlackImage.color = fadeToBlack;
+                }
             }
 
             yield return null;

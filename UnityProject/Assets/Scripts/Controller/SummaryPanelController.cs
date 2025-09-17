@@ -30,8 +30,7 @@ public class SummaryPanelController : MonoBehaviour {
 
         //Only if there is from that prop
         foreach (var item in GameControllerScript.Instance.propDictionary) {
-            if (!PropsEnum.MainBuilding.Equals(item.Key) && item.Value != null && item.Value.Count != 0) {
-                
+            if (BuildableProps.RetrieveBuildableProps().Contains(item.Key) && item.Value != null && item.Value.Count != 0) {
                 //Instantiate new summary item
                 var summaryItem = Instantiate(summaryItemProp, summaryPanel.transform, false);
                 //Setup position related to parent
@@ -65,10 +64,12 @@ public class SummaryPanelController : MonoBehaviour {
             FlushOnClose();
             summaryPanel.SetActive(false);
             GameControllerScript.Instance.PlayNormalVelocity();
+            GameControllerScript.Instance.isInSummary = false;
         } else {
             GameControllerScript.Instance.PauseGame();
             summaryPanel.SetActive(true);
             DisplaySummaryPanel();
+            GameControllerScript.Instance.isInSummary = true;
         }
 
         isSummaryActive = !isSummaryActive;
