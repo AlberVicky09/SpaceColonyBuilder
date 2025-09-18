@@ -17,8 +17,10 @@ public class MissionSelectionManager : MonoBehaviour {
     private String[] titleTexts, descriptionTexts;
     public Boolean[] missionsAvailable;
     public Color missionAvailableColor, missionNotAvailableColor;
+    public GameObject demoCompletedCanvas;
 
     void Start() {
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.BackGround2);
 
         Instance = this;
         
@@ -26,7 +28,6 @@ public class MissionSelectionManager : MonoBehaviour {
         descriptionTexts = new string[missionPositions.Length];
         missionsAvailable = new bool[missionPositions.Length];
         
-        StartCoroutine(AudioManager.Instance.StartFade(1.5f, true, true));
         
         //Retrieve completed missions from file
         var missionAvailability = Utils.CheckFile("missionsAvailable") ?
@@ -39,6 +40,11 @@ public class MissionSelectionManager : MonoBehaviour {
             missionPositions[i].GetComponent<Renderer>().material.color = missionsAvailable[i] ? missionAvailableColor : missionNotAvailableColor;
             titleTexts[i] = missionTexts.missionDescriptions[i].missionTitle;
             descriptionTexts[i] = missionTexts.missionDescriptions[i].missionDescription;
+        }
+
+        //If latest is true, its because the demo has been completed
+        if (missionAvailability.boolArray[2]) {
+            demoCompletedCanvas.SetActive(true);
         }
     }
     void Update()
@@ -75,6 +81,6 @@ public class MissionSelectionManager : MonoBehaviour {
     }
 
     public void ReturnToMenu() {
-        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MainMenu"));
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainMenu"));
     }
 }
