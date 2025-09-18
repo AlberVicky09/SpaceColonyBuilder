@@ -30,9 +30,15 @@ public class MissionSelectionManager : MonoBehaviour {
         
         
         //Retrieve completed missions from file
-        var missionAvailability = Utils.CheckFile("missionsAvailable") ?
-                                    JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable")) :
-                                    new MissionAvailabilityDTO(new []{true, false, false});
+        MissionAvailabilityDTO missionAvailability;
+        try {
+            Debug.Log("Missions available found");
+            missionAvailability = JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable"));
+        } catch {
+            Debug.Log("Missions available not found");
+            missionAvailability = new MissionAvailabilityDTO(new []{true, false, false});
+        }
+        
         var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
@@ -43,6 +49,7 @@ public class MissionSelectionManager : MonoBehaviour {
         }
 
         //If latest is true, its because the demo has been completed
+        Debug.Log("Mission 2 completed? " + missionAvailability.boolArray[2]);
         if (missionAvailability.boolArray[2]) {
             demoCompletedCanvas.SetActive(true);
         }

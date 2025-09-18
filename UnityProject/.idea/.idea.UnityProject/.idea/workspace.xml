@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Key interactions fixes">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix fadeIn/fadeOut of scenes">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/MissionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/MissionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Music/SfxTrackNamesEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Music/SfxTrackNamesEnum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/DatePanelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +34,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/2d/fda7e1cc/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/87/2da9620c/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/95/ab0d6070/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -56,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/5c/d612a9e9/Void.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/787acc3c9a4c471ba7d971300105af2446ac00/d6/f7c7ad22/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8663735a20c74d52bbebc96c2dd5803fd400/51/c46ef36c/NavMeshAgent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad4852b4f5ee4ca4850dcbbbd79c23693600/dc/70b2c7ac/JsonUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFighter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFoodGenerator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Clickable/ClickableMainBuilding.cs" root0="SKIP_HIGHLIGHTING" />
@@ -478,7 +467,39 @@
       <option name="project" value="LOCAL" />
       <updated>1758124107890</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add tutorial texts">
+      <option name="closed" value="true" />
+      <created>1758215814314</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1758215814314</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Add tutorial texts">
+      <option name="closed" value="true" />
+      <created>1758215891055</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1758215891055</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Add demo completed canvas">
+      <option name="closed" value="true" />
+      <created>1758215928265</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1758215928265</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fix fadeIn/fadeOut of scenes">
+      <option name="closed" value="true" />
+      <created>1758215947444</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1758215947444</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,9 +527,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Apply function when prop is being placed (avoid being activated before when it should)" />
-    <MESSAGE value="Create summary panel" />
-    <MESSAGE value="Add tooltip for prop creation" />
     <MESSAGE value="Implement interactable buttons with image" />
     <MESSAGE value="Update props action images" />
     <MESSAGE value="Fix pausing states" />
@@ -531,26 +549,16 @@
     <MESSAGE value="Fix multiple shooting coroutines at the same time" />
     <MESSAGE value="Fix alert canvas and pause and play controls" />
     <MESSAGE value="Key interactions fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Key interactions fixes" />
+    <MESSAGE value="Add tutorial texts" />
+    <MESSAGE value="Add demo completed canvas" />
+    <MESSAGE value="Fix fadeIn/fadeOut of scenes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix fadeIn/fadeOut of scenes" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs</url>
-          <line>123</line>
-          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Music\AudioManager.cs" containingFunctionPresentation="Method 'UpdateScene'">
-            <startOffsets>
-              <option value="3836" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3837" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Music/AudioManager.cs</url>
           <line>48</line>
@@ -563,6 +571,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs</url>
+          <line>283</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Utils\Utils.cs" containingFunctionPresentation="Method 'ReadFile'">
+            <startOffsets>
+              <option value="12123" />
+            </startOffsets>
+            <endOffsets>
+              <option value="12255" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

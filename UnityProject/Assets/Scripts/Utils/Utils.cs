@@ -277,7 +277,7 @@ public static class Utils {
     
     public static string ReadFile(string fileName) {
         // Path to the file
-        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".json");
+        string filePath = Path.Combine(Application.dataPath, "Resources/", fileName + ".json");
 
         // Check if the file exists
         Debug.Log("File: " + fileName + " exists? " + File.Exists(filePath));
