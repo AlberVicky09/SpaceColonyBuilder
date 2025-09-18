@@ -293,4 +293,9 @@ public static class Utils {
         // Store file
         File.WriteAllText(filePath, fileContent);
     }
+
+    public static void DeleteSaveFile() {
+        string filePath = Path.Combine(Application.dataPath, "Resources/missionsAvailable.json");
+        try {File.Delete(filePath);} catch { Debug.Log("Save file not deleted"); }
+    }
 }

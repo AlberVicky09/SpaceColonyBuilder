@@ -18,7 +18,7 @@ public class MainMenuFunctions : MonoBehaviour {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBackGround);
         SetUpResolutions();
 
-        if (!Utils.CheckFile("missionsAvailable")) {
+        if (Utils.ReadFile("missionsAvailable") == null) {
             try {
                 resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
                 resumeButton.GetComponent<Button>().interactable = false;
@@ -84,6 +84,11 @@ public class MainMenuFunctions : MonoBehaviour {
     public void ToggleFullscreen() {
         Screen.fullScreen = !Screen.fullScreen;
         fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
+    }
+
+    public void StartNewGame(int activateTutorial) {
+        Utils.DeleteSaveFile();
+        EnterMissionSelection(activateTutorial);
     }
     
     public void EnterMissionSelection(int activateTutorial) {
