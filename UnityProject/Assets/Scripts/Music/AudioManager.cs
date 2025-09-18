@@ -13,7 +13,14 @@ public class AudioManager : MonoBehaviour {
     public List<SfxSource> sfxSourceList;
     public Image fadeToBlackImage;
     private bool firstFrame = true;
+    private float auxMusicSourceVolume = 1f;
 
+    private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+
+    private void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) { StartCoroutine(FadeInScene(1.5f)); }
+    
     public void Awake() {
         if(Instance == null) {
             Instance = this;
@@ -21,20 +28,37 @@ public class AudioManager : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
-
-        musicSource.Stop();
-        sfxSource.Stop();
-        auxSource.Stop();
-        fadeToBlackImage.gameObject.SetActive(false);
     }
 
-    public void PlayMusic(MusicTrackNamesEnum audioClip, bool loop = true) {
+    public bool SetMusic(MusicTrackNamesEnum audioClip, bool loop = true) {
         var s = Array.Find(musicClips, x => x.musicTrackName.Equals(audioClip));
         if (s != null) {
             musicSource.clip = s.clip;
             musicSource.loop = loop;
             musicSource.Play();
+            return true;
         }
+
+        return false;
+    }
+    
+    public void PlayMusic(MusicTrackNamesEnum audioClip, bool loop = true) {
+        if(SetMusic(audioClip, loop)) { StartCoroutine(MusicFadeIn(1.5f)); }
+    }
+
+    public IEnumerator MusicFadeIn(float fadeTime) {
+        var volumeLimit = musicSource.volume;
+        float elapsed = 0f;
+        musicSource.volume = 0f;
+        
+        while (elapsed < fadeTime) {
+            elapsed += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
+            musicSource.volume = Mathf.Lerp(0f, volumeLimit, elapsed / fadeTime);
+            yield return null;
+        }
+
+        //Ensure volume is exactly set
+        musicSource.volume = volumeLimit;
     }
 
     public void PlaySfx(SfxTrackNamesEnum audioClip, bool loop = false) {
@@ -74,6 +98,7 @@ public class AudioManager : MonoBehaviour {
 
     public void SetMusicVolume(float volume) {
         musicSource.volume = volume;
+        auxMusicSourceVolume = volume;
         TestSound(volume);
     }
 
@@ -95,38 +120,75 @@ public class AudioManager : MonoBehaviour {
         observerSfxSource.source.mute = sfxSource.mute;
         observerSfxSource.source.volume = sfxSource.volume;
     }
-
-    public IEnumerator UpdateScene(float duration, bool increaseVolume, bool fadeBg, String sceneToLoad) {
+    
+    public IEnumerator UpdateScene(float duration, String sceneToLoad) {
         //Clear all SFX before moving from scene
         sfxSourceList.Clear();
-        yield return StartCoroutine(StartFade(duration, increaseVolume, fadeBg));
+        yield return StartCoroutine(FadeOutScene(duration));
         SceneManager.LoadScene(sceneToLoad);
-        fadeToBlackImage.gameObject.SetActive(false);
     }
     
-    public IEnumerator StartFade(float duration, bool increaseVolume, bool fadeBackground) {
-        Debug.Log("Animation should take " + duration + " seconds");
-        fadeToBlackImage.gameObject.SetActive(true);
+    public IEnumerator FadeOutScene(float duration) {
         float currentTime = 0;
-        float start = musicSource.volume = increaseVolume ? 0f : 1f;
-        var fadeToBlack = fadeToBlackImage.color;
-        while (currentTime < duration)
-        {
+        float currentImgValue, currentAudioValue;
+        
+        //Activate black screen and set alpha depending on situation
+        var originalBlack = fadeToBlackImage.color;
+        originalBlack.a = 0f;
+        fadeToBlackImage.color = originalBlack;
+        
+        while (currentTime < duration) {
             if (firstFrame) {
                 firstFrame = false;
             } else {
+                //Get increased/decreased alpha and volume
                 currentTime += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
-                Debug.Log("Current time is " + currentTime);
-                var currentValue = Mathf.Lerp(start, 1 - start, currentTime / duration);
-                musicSource.volume = currentValue;
-            
-                if (fadeBackground) {
-                    fadeToBlack.a = 1 - currentValue;
-                    fadeToBlackImage.color = fadeToBlack;
-                }
+                currentImgValue = Mathf.Lerp(0, 1, currentTime / duration);
+                currentAudioValue = Mathf.Lerp(auxMusicSourceVolume, 0, currentTime / duration);
+
+                //Set updated alpha and volume
+                originalBlack.a = currentImgValue;
+                fadeToBlackImage.color = originalBlack;
+                musicSource.volume = currentAudioValue;
             }
 
             yield return null;
         }
+
+        musicSource.volume = 0f;
+        originalBlack.a = 1f;
+        fadeToBlackImage.color = originalBlack;
+    }
+    
+    public IEnumerator FadeInScene(float duration) {
+        float currentTime = 0;
+        float currentImgValue, currentAudioValue;
+        
+        //Activate black screen and set alpha depending on situation
+        var originalBlack = fadeToBlackImage.color;
+        originalBlack.a = 1f;
+        fadeToBlackImage.color = originalBlack;
+        
+        while (currentTime < duration) {
+            if (firstFrame) {
+                firstFrame = false;
+            } else {
+                //Get increased/decreased alpha and volume
+                currentTime += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
+                currentImgValue = Mathf.Lerp(1, 0, currentTime / duration);
+                currentAudioValue = Mathf.Lerp(0, auxMusicSourceVolume, currentTime / duration);
+                
+                //Set updated alpha and volume
+                originalBlack.a = currentImgValue;
+                fadeToBlackImage.color = originalBlack;
+                musicSource.volume = currentAudioValue;
+            }
+
+            yield return null;
+        }
+        
+        musicSource.volume = auxMusicSourceVolume;
+        originalBlack.a = 0f;
+        fadeToBlackImage.color = originalBlack;
     }
 }

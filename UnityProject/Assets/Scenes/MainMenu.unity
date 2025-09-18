@@ -7122,7 +7122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -7417,7 +7417,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4852e1e93ab6774488a08d643a19afbd, type: 3}
   - musicTrackName: 0
     sfxTrackName: 3
-    clip: {fileID: 8300000, guid: fc7b4b3528e8be342b08e8c60be090d1, type: 3}
+    clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
+  - musicTrackName: 0
+    sfxTrackName: 5
+    clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
   - musicTrackName: 0
     sfxTrackName: 4
     clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}

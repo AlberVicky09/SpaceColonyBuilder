@@ -15,12 +15,8 @@ public class MainMenuFunctions : MonoBehaviour {
     Resolution[] resolutions;
 
     public void Start() {
-        StartCoroutine(AudioManager.Instance.StartFade(1.5f, true, true));
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBackGround);
         SetUpResolutions();
-
-        if (!AudioManager.Instance.musicSource.isPlaying) {
-            AudioManager.Instance.PlayMusic(MusicTrackNamesEnum.MenuBackGround);
-        }
 
         if (!Utils.CheckFile("missionsAvailable")) {
             try {
@@ -92,7 +88,7 @@ public class MainMenuFunctions : MonoBehaviour {
     
     public void EnterMissionSelection(int activateTutorial) {
         PlayerPrefs.SetInt("tutorialActivated", activateTutorial);
-        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MissionSelection"));
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MissionSelection"));
     }
 
     public void ReturnToMainMenu() {

@@ -3,5 +3,6 @@ public enum SfxTrackNamesEnum {
     OnHoverMenu,
     OnClickMenu,
     OnClickInvalid,
+    EngineNoise,
     SingleLaser
 }

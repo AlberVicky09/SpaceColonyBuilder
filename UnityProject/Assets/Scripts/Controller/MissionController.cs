@@ -138,6 +138,6 @@ public class MissionController : MonoBehaviour
             Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(missionAvailability));
         }
 
-        StartCoroutine(AudioManager.Instance.UpdateScene(0.35f, false, true, "MissionSelection"));
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MissionSelection"));
     }
 }

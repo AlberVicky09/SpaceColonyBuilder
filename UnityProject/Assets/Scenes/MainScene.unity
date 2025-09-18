@@ -2056,6 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6006c94d1f3ce24b8ae05ca3aa41bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialCanvas: {fileID: 147460532}
   videoClips:
   - clipName: TutorialClip0
     clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
@@ -2069,14 +2070,22 @@ MonoBehaviour:
     clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
   - clipName: TutorialClip5
     clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip6
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip7
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip8
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip9
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip10
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
   leftVideoPlayer: {fileID: 1935945122}
   rightVideoPlayer: {fileID: 2062640698}
   leftTutorialText: {fileID: 938991986}
   rightTutorialText: {fileID: 281750476}
   prevTutorialButton: {fileID: 1798163953}
   nextTutorialButton: {fileID: 1921483003}
-  pauseCanvas: {fileID: 1617839963}
-  wasInPause: 0
 --- !u!1 &147767668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3154,15 +3163,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
   m_fontSizeMax: 72
   m_fontStyle: 8
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3220,8 +3229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 500, y: 275}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 470, y: 245}
+  m_SizeDelta: {x: 870, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &289349549
 GameObject:
@@ -3902,7 +3911,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 696201171}
         m_TargetAssemblyTypeName: PauseMenuController, Assembly-CSharp
-        m_MethodName: ReturnToPause
+        m_MethodName: ExitTutorialScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7354,8 +7363,10 @@ MonoBehaviour:
   isInAMenu: 0
   isInAlert: 0
   isInSummary: 0
+  isGameFinished: 0
   waypoints: []
   currentMissionNumber: 0
+  isTutorialActivated: 0
   resourcesLimit: 100
   toolTipCanvas: {fileID: 2139895518}
   toolTipResourceCanvas: {fileID: 370774004}
@@ -9797,8 +9808,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 275}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: -450, y: 245}
+  m_SizeDelta: {x: 880, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &938991986
 MonoBehaviour:
@@ -9847,15 +9858,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
   m_fontSizeMax: 72
   m_fontStyle: 8
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

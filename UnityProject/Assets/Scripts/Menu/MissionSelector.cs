@@ -3,7 +3,7 @@ using UnityEngine;
 public class MissionSelector : MonoBehaviour {
    
     public int missionNumber;
-
+    
     private void OnMouseEnter() {
         AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnHoverMenu);
     }
@@ -11,7 +11,7 @@ public class MissionSelector : MonoBehaviour {
     private void OnMouseDown() {
         if (MissionSelectionManager.Instance.missionsAvailable[missionNumber]) {
             MissionSelectionManager.Instance.MoveToMission(missionNumber);
-            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickMenu);
+            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.EngineNoise);
         } else {
             AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickInvalid);
         }
