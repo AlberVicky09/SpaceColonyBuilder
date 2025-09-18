@@ -101,4 +101,8 @@ public class MainMenuFunctions : MonoBehaviour {
     }
     
     public void QuitGame() { Application.Quit(); }
+
+    public void RedirectToLink(string link) {
+        Application.OpenURL(link);
+    }
 }
