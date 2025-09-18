@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix resume game button">
-      <change afterPath="$PROJECT_DIR$/Assets/UI/Buttons/Info.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/UI/Buttons/Info.png.meta" afterDir="false" />
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Add credits canvas">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -518,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758219340622</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Add credits canvas">
+      <option name="closed" value="true" />
+      <created>1758221969920</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1758221969920</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +551,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fix pausing states" />
     <MESSAGE value="Make both fighters inherit from parent" />
     <MESSAGE value="Fix camera not going out of zone when enemy base doesnt exist" />
     <MESSAGE value="UI action canvas for all props (inherited)" />
@@ -571,7 +575,8 @@
     <MESSAGE value="Fix fadeIn/fadeOut of scenes" />
     <MESSAGE value="Fix mission selection file read" />
     <MESSAGE value="Fix resume game button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix resume game button" />
+    <MESSAGE value="Add credits canvas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add credits canvas" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
