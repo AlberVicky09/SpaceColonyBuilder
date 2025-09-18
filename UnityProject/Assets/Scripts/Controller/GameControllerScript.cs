@@ -82,8 +82,8 @@ public class GameControllerScript : MonoBehaviour {
     public bool isGamePaused, wasGamePaused, isPauseMenuActive, isInMissions, isInAMenu, isInAlert, isInSummary, isGameFinished;
     
     public List<Vector3> waypoints;
-    
-    public int currentMissionNumber;
+
+    public int currentMissionNumber, isTutorialActivated;
 
     public Dictionary<ResourceEnum, int> resourcesDictionary;
     public int resourcesLimit = Constants.INITIAL_RESOURCES_LIMIT;
@@ -203,14 +203,16 @@ public class GameControllerScript : MonoBehaviour {
     void Start() {
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
+        
         //TODO Just for debugging
         currentMissionNumber = 2;
+        isTutorialActivated = 1;
         
         switch (currentMissionNumber) {
             case 0:
                 enemyCountDownText.text = "No enemies in sight";
                 enemyCountDownBg.sprite = greenLabelSprite;
-                //TODO Display tutorial screen
                 break;
             case 1:
                 StartCoroutine(GenerateEnemyShipsCoroutine());
@@ -220,6 +222,8 @@ public class GameControllerScript : MonoBehaviour {
                 enemyCountDownBg.gameObject.SetActive(false);
                 break;
         }
+
+        if (isTutorialActivated == 1) { tutorialControllerNew.DisplayTutorialForMission(); }
         
         PauseGame();
     }

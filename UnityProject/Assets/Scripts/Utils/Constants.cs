@@ -219,14 +219,25 @@ public static class Constants {
 
     public static Vector3 INTERACTABLE_BUTTON_PROP_SCALE = new(2.5f, 2.5f, 1);
     public static Vector3 INTERACTABLE_BUTTON_RESOURCE_SCALE = new(1f, 1f, 1f);
-    
+
+    public static int TUTORIAL_MISSION_0_MAX = 8;
+    public static int TUTORIAL_MISSION_1_MAX = 10;
     public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
     public static List<string> TUTORIAL_TEXTS = new List<string>() {
-        "Tutorial Text 0",
-        "Tutorial Text 1",
-        "Tutorial Text 2",
-        "Tutorial Text 3",
-        "Tutorial Text 4",
-        "Tutorial Text 5",
+        //MISSION 1
+        "Welcome to Space Colony Builder!.\nYour objective in this game is to complete the missions within 5 (in-game) years and without loosing all health in your base.",
+        "This is your base. It has a health bar with 100 health points, if you loose all of them, your mission will fail! Protect it and spread around to win.",
+        "On the top left of your screen, its the list of your resources, being in order water, food, iron, gold and platinum. The base limit is " + INITIAL_RESOURCES_LIMIT + ", but wou will be able to increase it once we are better established.",
+        "On the top right is the calendar panel. On it, you can check the current in-game date and find the buttons to control time. You can pause, play or put it in fast forward, as desired.",
+        "Under it, you can check at any moment the missions you need to complete to win the level. Once they are completed, they will turn green.",
+        "If you select the base, you can generate other ships to help you complete your missions, which will cost specific resources. Besides that, you can heal the base (in case you loose some health).",
+        "This is a gatherer. It can retrieve resources from the ores spread along the galaxy. You can select the desired resource, and it will automatically search for the nearest of that type.",
+        "This is a food generator. With it, you can transform water into food (which cannot be obtained from any ore). It can be started and paused at will.",
+        //MISSION 2
+        "This, are the fighters. This ships will patrol around the base and will defend it from the pirates, but beware, because they can be destroyed if they suffer too much",
+        "Along with them, you can now create storages, which will increase the maximum of each resource that you can store. You will need some to be able to create fighters!",
+        //MISSION 3
+        "The nearby base, Phobos III, has been established nearby for some years now. Lately, they have shown some aggressive behaviour, and now its our moment to counter-attack. You must destroy their base before they defeat us!",
+        "Now, your fighter ships will have an option to attack enemy base. Select it, and they will go towards it. While its not fighting, you can make it go back to patrolling mode."
     };
 }

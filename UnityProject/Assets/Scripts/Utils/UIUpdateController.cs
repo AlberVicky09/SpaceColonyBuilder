@@ -132,7 +132,6 @@ public class UIUpdateController : MonoBehaviour {
             int resourceLoss = 0;
             //Get mantaining cost of each prop * number of them
             foreach (var prop in BuildableProps.RetrieveBuildableProps()) {
-                //TODO Storage not found in dictionaryy
                 resourceLoss += GameControllerScript.Instance.propDictionary[prop].Count
                                 * Constants.PROPS_MANTAINING_COST[prop]
                                     .GetValueOrDefault(resource, Constants.DEFAULT_MISSING_RESOURCE_VALUE);
