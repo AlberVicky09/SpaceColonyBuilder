@@ -62,6 +62,7 @@ public class ClickablePlayerFighter : ClickableFighter {
         }
         //Update screen and force tooltip update
         SetUpToggleButton(true);
+        selectedClickable = null;
         GameControllerScript.Instance.actionButtons[0].GetComponent<OnHoverBehaviour>().RefreshText();
     }
 }

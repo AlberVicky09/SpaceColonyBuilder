@@ -264,8 +264,11 @@ public class GameControllerScript : MonoBehaviour {
         StartCoroutine(DatePanelController.Instance.StartDayCicle());
         PlayNormalVelocity();
     }
-    
-    public void PlayNormalVelocity() { PlayVelocity(SpeedLevels.NORMAL); }
+
+    public void PlayNormalVelocity() {
+        Clickable.selectedClickable = null;
+        PlayVelocity(SpeedLevels.NORMAL);
+    }
 
     public void PlayFastVelocity() { PlayVelocity(SpeedLevels.FAST); }
 

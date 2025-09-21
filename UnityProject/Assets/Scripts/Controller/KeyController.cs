@@ -51,7 +51,6 @@ public class KeyController : MonoBehaviour {
 
             //Enter/Exit pause menu
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) {
-                Debug.Log("Pause pressed");
                 GameControllerScript.Instance.pauseMenuController.PauseGame();
             }
 
