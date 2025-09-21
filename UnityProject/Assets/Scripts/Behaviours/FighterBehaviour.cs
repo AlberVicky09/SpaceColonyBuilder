@@ -103,7 +103,7 @@ public abstract class FighterBehaviour : ActionUIController{
                     }
 
                     //If enemy is near enough, start attacking it
-                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
+                    if (agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
                         UpdateState(FighterStatesEnum.Attacking);
                         //Start fighting
                         currentShootingCoroutine = StartCoroutine(StartFighting());
