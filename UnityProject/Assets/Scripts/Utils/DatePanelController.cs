@@ -56,7 +56,6 @@ public class DatePanelController : MonoBehaviour {
         while (true) {
             //Every 15 seconds, a day passes
             yield return new WaitForSeconds(5);
-            Debug.Log("Day passed");
             IncreaseDay();
         }
     }

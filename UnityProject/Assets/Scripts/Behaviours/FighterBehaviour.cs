@@ -174,7 +174,6 @@ public abstract class FighterBehaviour : ActionUIController{
             // Wait until "reload" happened OR the enemy is already destroyed
             while (timer < Constants.SHOOTING_RELOAD_TIME) {
                 if (!GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
-                    Debug.Log("Enemy destroyed before reload finished");
                     break;
                 }
 
@@ -188,7 +187,6 @@ public abstract class FighterBehaviour : ActionUIController{
             }
         }
         
-        Debug.Log("No more pium pium");
         RestartAgent();
     }
 
@@ -238,13 +236,11 @@ public abstract class FighterBehaviour : ActionUIController{
             //If it was chasing or attacking the base, get back to chasing it
             case FighterStatesEnum.ChasingLowPriority:
             case FighterStatesEnum.AttackingLowPriority:
-                Debug.Log("Chasing base again");
                 StartChasingBase();
                 break;
             
             //In any other case, go back to scouting
             default:
-                Debug.Log("Scouting again");
                 StartScouting();
                 break;
         }

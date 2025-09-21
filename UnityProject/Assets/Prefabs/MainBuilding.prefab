@@ -648,6 +648,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8372312498913627255}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1403002470323919671}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4230693163909509365}
   m_SourcePrefab: {fileID: 100100000, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}
 --- !u!4 &7040026610463504006 stripped
 Transform:
@@ -676,6 +682,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0733295f4af56a346a02d9d4a8051094, type: 3}
   - {fileID: 21300000, guid: 3431578666dff994a982077a1b9bedcc, type: 3}
   buttonNumber: 2
+  sfxSource: {fileID: 1403002470323919671}
   healingCanvas: {fileID: 0}
   healingSlider: {fileID: 0}
   healingSliderRectTransform: {fileID: 0}
@@ -749,6 +756,116 @@ MonoBehaviour:
   healthBarOffSet: 5.3
   renderer: {fileID: 8212347161978244585}
   clickable: {fileID: 7749548021567276943}
+--- !u!114 &1403002470323919671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708159576533183548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c002bcb3eb11eb34c863ad4aecb4805f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 4230693163909509365}
+  audioClip: 6
+--- !u!82 &4230693163909509365
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708159576533183548}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!23 &8212347161978244585 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 295bddbdf3bf893419b99d5b09d113f6, type: 3}

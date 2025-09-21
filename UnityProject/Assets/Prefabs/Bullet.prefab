@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 2725306825707169053}
-  audioClip: 4
+  audioClip: 5
 --- !u!82 &2725306825707169053
 AudioSource:
   m_ObjectHideFlags: 0

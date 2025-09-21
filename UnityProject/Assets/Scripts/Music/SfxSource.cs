@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class SfxSource : MonoBehaviour {
 
     public AudioSource source;
@@ -11,7 +12,7 @@ public class SfxSource : MonoBehaviour {
         AudioManager.Instance.AddNewSfxSource(this);
     }
 
-    public void PlaySfx() {
+    public virtual void PlaySfx() {
         var s = Array.Find(AudioManager.Instance.sfxClips, x => x.sfxTrackName.Equals(audioClip));
         if (s != null) {
             source.PlayOneShot(s.clip);

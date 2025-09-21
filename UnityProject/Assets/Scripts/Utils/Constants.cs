@@ -182,7 +182,7 @@ public static class Constants {
             { SpeedLevels.STOPPED, 0f},
         };
 
-    public static int INITIAL_RESOURCES_QUANTITY = 0; //TODO Fix this number
+    public static int INITIAL_RESOURCES_QUANTITY = 500; //TODO Fix this number
     public static int INITIAL_RESOURCES_LIMIT = 100;
     public static int ENEMY_INITIAL_RESOURCES_LIMIT = 250;
     public static int RESOURCES_LIMIT_INCREASE = 50;

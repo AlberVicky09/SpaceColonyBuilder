@@ -271,16 +271,13 @@ public class GameControllerScript : MonoBehaviour {
 
     public void RevertToPreviousVelocity() {
         if (DatePanelController.Instance.prevSpeed.Equals(SpeedLevels.STOPPED)) {
-            Debug.Log("Going back to pause");
             PauseGame();
         } else {
-            Debug.Log("Going back to " + DatePanelController.Instance.prevSpeed);
             PlayVelocity(DatePanelController.Instance.prevSpeed);
         }
     }
     
     public void PlayVelocity(SpeedLevels velocity) {
-        Debug.Log("Play velocity" + velocity);
         //Sets game velocity, to be able to play normal, fast or slow speed
         isGamePaused = false;
         Time.timeScale = Constants.SPEED_LEVEL_EQUIVALENCE[velocity];
@@ -299,6 +296,13 @@ public class GameControllerScript : MonoBehaviour {
     public void SwapUIInteraction() {
         canvasGroup.interactable = !canvasGroup.interactable;
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
+    }
+    
+    public void CloseActionPanel() {
+        Clickable.selectedClickable = null;
+        actionCanvas.SetActive(false);
+        CameraMove.Instance.UnFocusCameraInGO();
+        PlayNormalVelocity();
     }
 
     private IEnumerator GenerateEnemyShipsCoroutine() {

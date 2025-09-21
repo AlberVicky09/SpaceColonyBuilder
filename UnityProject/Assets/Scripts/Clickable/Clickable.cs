@@ -4,17 +4,18 @@ using UnityEngine.UI;
 
 public abstract class Clickable : MonoBehaviour, IDeselectHandler {
     
-    protected static Clickable selectedClickable;
+    public static Clickable selectedClickable;
     
     [SerializeField] protected Sprite objectImage;
     [SerializeField] protected Sprite[] buttonImages;
     [SerializeField] protected int buttonNumber;
+    [SerializeField] protected SfxSource sfxSource;
 
     private float doubleClickDelay;
     private bool secondClick = false;
     
     public void OnMouseDown() {
-        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
+        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing || selectedClickable == this)) {
             selectedClickable = this;
             GameControllerScript.Instance.actionCanvas.SetActive(true);
             DisplayRepresentation();
@@ -22,6 +23,7 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
             UpdateTexts();
             DisplayButtons();
             CheckDoubleClick();
+            sfxSource.PlaySfx();
         }
     }
     

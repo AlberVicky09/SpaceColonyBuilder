@@ -4,5 +4,8 @@ public enum SfxTrackNamesEnum {
     OnClickMenu,
     OnClickInvalid,
     EngineNoise,
-    SingleLaser
+    SingleLaser,
+    MainBase,
+    Fighter,
+    FoodGenerator
 }

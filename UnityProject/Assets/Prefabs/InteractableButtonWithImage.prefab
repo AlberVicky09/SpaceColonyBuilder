@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7799309877905492431}
   - component: {fileID: 1628024092381199651}
   - component: {fileID: 8558821933515778883}
+  - component: {fileID: 1127952399623830528}
   m_Layer: 5
   m_Name: InteractableButtonWithImage
   m_TagString: Untagged
@@ -212,3 +213,16 @@ MonoBehaviour:
   hoveringDisplayText: 
   usesResourceTooltip: 0
   propType: 0
+--- !u!114 &1127952399623830528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771134475153287394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 0
