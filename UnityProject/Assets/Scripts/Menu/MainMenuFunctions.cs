@@ -10,20 +10,25 @@ public class MainMenuFunctions : MonoBehaviour {
     public Sprite activeSprite, deactivatedSprite;
     public Image fullScreenBtn, muteMusicBtn, muteSfxBtn;
     public TMP_Dropdown resolutionDropdown;
-    public GameObject resumeButton;
+    public GameObject resumeButton, deleteSaveCanvas, selectTutorialCanvas;
     public Sprite resumeButtonActive, resumeButtonInactive;
+    private bool isThereASaveGame;
     Resolution[] resolutions;
 
     public void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
         SetUpResolutions();
 
-        if (Utils.ReadFile("missionsAvailable") == null) {
+        if (Utils.ReadFile("missionsAvailable").Equals(Constants.FILE_NOT_FOUND)) {
             try {
+                Debug.Log("Missions available file NOT found");
                 resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
                 resumeButton.GetComponent<Button>().interactable = false;
                 resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
             } catch {}
+        } else {
+            Debug.Log("Missions available file found");
+            isThereASaveGame = true;
         }
     }
 
@@ -86,6 +91,15 @@ public class MainMenuFunctions : MonoBehaviour {
         fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
     }
 
+    public void EnterStartNewGame() {
+        //If there is already a save game, display ensure delete save
+        if (isThereASaveGame) {
+            deleteSaveCanvas.SetActive(true);
+        } else {
+            selectTutorialCanvas.SetActive(true);
+        }
+    }
+    
     public void StartNewGame(int activateTutorial) {
         Utils.DeleteSaveFile();
         EnterMissionSelection(activateTutorial);

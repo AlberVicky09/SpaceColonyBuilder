@@ -12,6 +12,8 @@ public static class Constants {
 
     public static string LOSE_GAME_TEXT = "You have lost!";
     public static string WIN_GAME_TEXT = "Mission Completed!";
+
+    public static string FILE_NOT_FOUND = "404: File not found";
     
     public static Dictionary<ResourceEnum, Color> ORE_COLOR_MAP = new Dictionary<ResourceEnum, Color> {
             { ResourceEnum.Water, WATER_COLOR },

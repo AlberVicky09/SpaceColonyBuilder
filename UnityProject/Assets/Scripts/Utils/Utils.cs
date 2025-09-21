@@ -283,7 +283,7 @@ public static class Utils {
         Debug.Log("File: " + fileName + " exists? " + File.Exists(filePath));
         return File.Exists(filePath) ?
             // Read all text from the file
-            File.ReadAllText(filePath) : "File not found";
+            File.ReadAllText(filePath) : Constants.FILE_NOT_FOUND;
     }
     
     public static void WriteFile(string fileName, string fileContent) {
