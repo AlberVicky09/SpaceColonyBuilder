@@ -20,7 +20,7 @@ public class MissionSelectionManager : MonoBehaviour {
     public GameObject demoCompletedCanvas;
 
     void Start() {
-        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.BackGround2);
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MissionSelectionBG);
 
         Instance = this;
         

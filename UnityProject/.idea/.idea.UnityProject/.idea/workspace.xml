@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Adding audioSources to all clickables">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix clicking on same Clickable twice">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyFighter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyFighter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FighterShip.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FighterShip.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerFighter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerFighter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Music/MusicTrackNamesEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Music/MusicTrackNamesEnum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/BackGround1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/BackGround1.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/CandyBackground.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sounds/CandyBackground.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UI/Fonts/SpaceShardsItalic-nRem1 SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +185,7 @@
       <workItem from="1757021034527" duration="4243000" />
       <workItem from="1757239231675" duration="9029000" />
       <workItem from="1757489005193" duration="14617000" />
-      <workItem from="1758444943398" duration="2910000" />
+      <workItem from="1758444943398" duration="6031000" />
     </task>
     <task id="LOCAL-00001" summary="Add healing operation to mainBuilding">
       <option name="closed" value="true" />
@@ -544,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1758446262078</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Fix fighters slowly moving when facing each other">
+      <option name="closed" value="true" />
+      <created>1758460374476</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1758460374476</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Fix clicking on same Clickable twice">
+      <option name="closed" value="true" />
+      <created>1758460397044</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1758460397044</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,8 +591,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="UI action canvas for all props (inherited)" />
-    <MESSAGE value="Fix clickable not updating correctly" />
     <MESSAGE value="Set gameObject as red when invalid placing position" />
     <MESSAGE value="Fix color going red when invalid placing position" />
     <MESSAGE value="Fix enemy resource not reducing" />
@@ -597,7 +614,9 @@
     <MESSAGE value="Add credits canvas" />
     <MESSAGE value="Update demo completed canvas" />
     <MESSAGE value="Adding audioSources to all clickables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding audioSources to all clickables" />
+    <MESSAGE value="Fix fighters slowly moving when facing each other" />
+    <MESSAGE value="Fix clicking on same Clickable twice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix clicking on same Clickable twice" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>

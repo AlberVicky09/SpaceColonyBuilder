@@ -99,6 +99,8 @@ public class GameControllerScript : MonoBehaviour {
     void Awake() {
         Instance = this;
         
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MainBG);
+        
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },

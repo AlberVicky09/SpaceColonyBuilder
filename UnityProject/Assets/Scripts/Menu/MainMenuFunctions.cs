@@ -15,7 +15,7 @@ public class MainMenuFunctions : MonoBehaviour {
     Resolution[] resolutions;
 
     public void Start() {
-        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBackGround);
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
         SetUpResolutions();
 
         if (Utils.ReadFile("missionsAvailable") == null) {
