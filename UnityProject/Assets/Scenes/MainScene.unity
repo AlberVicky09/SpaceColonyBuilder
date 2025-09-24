@@ -1952,6 +1952,8 @@ MonoBehaviour:
     clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
   - clipName: TutorialClip10
     clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
+  - clipName: TutorialClip11
+    clip: {fileID: 32900000, guid: 455b480d45767cf43b22edfecf4e68f7, type: 3}
   leftVideoPlayer: {fileID: 1935945122}
   rightVideoPlayer: {fileID: 2062640698}
   leftTutorialText: {fileID: 938991986}
@@ -2336,7 +2338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199476082
@@ -8079,6 +8081,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786892081}
   m_CullTransparentMesh: 1
+--- !u!1001 &800367438
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.0123448
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.2523386
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.30517483
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 921379540165108140, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073362719822246730, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
 --- !u!1 &820584785
 GameObject:
   m_ObjectHideFlags: 0
@@ -8114,7 +8173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820584787
@@ -9631,7 +9690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946643055
@@ -11382,7 +11441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079235328
@@ -25079,3 +25138,4 @@ SceneRoots:
   - {fileID: 8424935566917141877}
   - {fileID: 986797740}
   - {fileID: 475944361}
+  - {fileID: 800367438}

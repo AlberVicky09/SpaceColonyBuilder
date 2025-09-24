@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Add and setup all sound effects">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailable.json.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailableBackUp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/missionsAvailableBackUp.json.meta" afterDir="false" />
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Delete save file on new game">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/PauseMenuController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +37,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/2d/fda7e1cc/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/87/2da9620c/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/95/ab0d6070/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -122,13 +118,15 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="10748">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="10748" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list />
+        <list>
+          <MonoRuntime />
+        </list>
       </option>
       <option name="selectedOptions">
         <list />
@@ -182,7 +180,7 @@
       <workItem from="1757021034527" duration="4243000" />
       <workItem from="1757239231675" duration="9029000" />
       <workItem from="1757489005193" duration="14617000" />
-      <workItem from="1758444943398" duration="7721000" />
+      <workItem from="1758444943398" duration="11308000" />
     </task>
     <task id="LOCAL-00001" summary="Add healing operation to mainBuilding">
       <option name="closed" value="true" />
@@ -568,7 +566,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758463649106</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Delete save file on new game">
+      <option name="closed" value="true" />
+      <created>1758465534239</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1758465534239</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,7 +602,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fix color going red when invalid placing position" />
     <MESSAGE value="Fix enemy resource not reducing" />
     <MESSAGE value="Add AgentAvoidingBehaviour for better AI" />
     <MESSAGE value="Fighters fix" />
@@ -621,7 +626,8 @@
     <MESSAGE value="Fix fighters slowly moving when facing each other" />
     <MESSAGE value="Fix clicking on same Clickable twice" />
     <MESSAGE value="Add and setup all sound effects" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add and setup all sound effects" />
+    <MESSAGE value="Delete save file on new game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete save file on new game" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
@@ -653,6 +659,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs</url>
+          <line>47</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\TutorialControllerNew.cs" containingFunctionPresentation="Method 'UpdateTutorial'">
+            <startOffsets>
+              <option value="1421" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1549" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs</url>
+          <line>42</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\TutorialControllerNew.cs" containingFunctionPresentation="Method 'UpdateTutorial'">
+            <startOffsets>
+              <option value="1178" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1305" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

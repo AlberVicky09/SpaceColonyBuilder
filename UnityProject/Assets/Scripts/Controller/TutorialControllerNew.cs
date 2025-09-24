@@ -9,12 +9,7 @@ public class TutorialControllerNew : MonoBehaviour {
     public VideoPlayer leftVideoPlayer, rightVideoPlayer;
     public TMP_Text leftTutorialText, rightTutorialText;
     public GameObject prevTutorialButton, nextTutorialButton;
-    private int tutorialIndex, currentMissionNumber;
-
-    private void Start() {
-        currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        RestartTutorial();
-    }
+    private int tutorialIndex;
 
     public void GoToNextTutorial() {
         tutorialIndex++;
@@ -33,7 +28,7 @@ public class TutorialControllerNew : MonoBehaviour {
 
     public void DisplayTutorialForMission() {
         tutorialCanvas.SetActive(true);
-        tutorialIndex = currentMissionNumber switch {
+        tutorialIndex = GameControllerScript.Instance.currentMissionNumber switch {
             0 => 0,
             1 => Constants.TUTORIAL_MISSION_0_MAX,
             2 => Constants.TUTORIAL_MISSION_1_MAX,
@@ -54,7 +49,7 @@ public class TutorialControllerNew : MonoBehaviour {
             v.clipName == Constants.VIDEO_TUTORIAL_CLIP_NAME + tutorialIndex).clip;
         rightTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndex];
 
-        switch (currentMissionNumber) {
+        switch (GameControllerScript.Instance.currentMissionNumber) {
             case 0:
                 nextTutorialButton.SetActive(tutorialIndex != Constants.TUTORIAL_MISSION_0_MAX - 1);
                 break;

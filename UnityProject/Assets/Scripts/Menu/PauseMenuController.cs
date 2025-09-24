@@ -28,6 +28,7 @@ public class PauseMenuController : MonoBehaviour {
     public void GoToTutorial() {
         tutorialCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
+        GameControllerScript.Instance.tutorialControllerNew.RestartTutorial();
         GameControllerScript.Instance.isInAMenu = true;
     }
 

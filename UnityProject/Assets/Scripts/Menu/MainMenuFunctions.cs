@@ -21,13 +21,11 @@ public class MainMenuFunctions : MonoBehaviour {
 
         if (Utils.ReadFile("missionsAvailable").Equals(Constants.FILE_NOT_FOUND)) {
             try {
-                Debug.Log("Missions available file NOT found");
                 resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
                 resumeButton.GetComponent<Button>().interactable = false;
                 resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
             } catch {}
         } else {
-            Debug.Log("Missions available file found");
             isThereASaveGame = true;
         }
     }
