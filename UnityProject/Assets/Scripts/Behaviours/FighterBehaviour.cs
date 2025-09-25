@@ -28,9 +28,9 @@ public abstract class FighterBehaviour : ActionUIController{
 
     public bool isActivated;
 
-    protected const float TIME_TO_CHECK_FOR_ENEMIES = 1f;
+    protected const float TIME_TO_CHECK_FOR_ENEMIES = 0.35f;
     protected float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
-    protected const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 1f;
+    protected const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 0.5f;
     protected float timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
 
     protected const float MAXIMUM_DETECTION_DISTANCE = 13f;
@@ -45,6 +45,9 @@ public abstract class FighterBehaviour : ActionUIController{
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_FIGHTER_ATTACKING_DISTANCE);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, MAXIMUM_DETECTION_DISTANCE);
     }
 
     private void Start() { DisplayAction(GameControllerScript.Instance.patrolBaseSprite); }

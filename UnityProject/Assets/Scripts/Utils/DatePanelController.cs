@@ -76,8 +76,8 @@ public class DatePanelController : MonoBehaviour {
         }
         UpdateDayText();
 
-        //Consume resources every 15 days
-        if (day % 15 == 0) {
+        //Consume resources every 15 days and only if not on the first mission
+        if (day % 15 == 0 && GameControllerScript.Instance.currentMissionNumber != 0) {
             GameControllerScript.Instance.uiUpdateController.ConsumeResources();
         }
         

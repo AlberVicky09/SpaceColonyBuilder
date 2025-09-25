@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a437dc6860e64b828431b6e236e008ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 30
+  healthPoints: 100
   MAX_HEALTHPOINTS: 100
   propType: 8
   canvas: {fileID: 7995483060941295856}

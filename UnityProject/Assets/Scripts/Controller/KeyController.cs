@@ -55,7 +55,7 @@ public class KeyController : MonoBehaviour {
             }
 
             //Enter/Exit summary menu
-            if (!(GameControllerScript.Instance.isInAlert || GameControllerScript.Instance.isInAMenu || GameControllerScript.Instance.isPauseMenuActive)) {
+            if (!(GameControllerScript.Instance.isInAlert || GameControllerScript.Instance.isInAMenu || GameControllerScript.Instance.isPauseMenuActive || GameControllerScript.Instance.currentMissionNumber == 0)) {
                 if (Input.GetKeyDown(KeyCode.T)) {
                     Debug.Log("T pressed");
                     GameControllerScript.Instance.summaryPanelController.ToggleSummaryMenu();

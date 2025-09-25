@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -101,6 +102,14 @@ public class GameControllerScript : MonoBehaviour {
         
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MainBG);
         
+        //Different behaviour depending on the level you are on
+        currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
+        
+        //TODO Just for debugging
+        //currentMissionNumber = 2;
+        //isTutorialActivated = 1;
+        
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },
@@ -165,7 +174,7 @@ public class GameControllerScript : MonoBehaviour {
         uiUpdateController.resourcesInitialPositions = new Dictionary<ResourceEnum, Vector3>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY);
+            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[resource]);
             uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.transform.position);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
@@ -203,14 +212,6 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     void Start() {
-        //Different behaviour depending on the level you are on
-        currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
-        
-        //TODO Just for debugging
-        currentMissionNumber = 2;
-        isTutorialActivated = 1;
-        
         switch (currentMissionNumber) {
             case 0:
                 enemyCountDownText.text = "No enemies in sight";
@@ -262,6 +263,8 @@ public class GameControllerScript : MonoBehaviour {
     public void CloseMissionCanvas() {
         missionBigCanvas.SetActive(false);
         missionSmallCanvas.SetActive(true);
+        missionController.missionUIList.ToList().ForEach(item =>
+            LayoutRebuilder.ForceRebuildLayoutImmediate(item.GetComponent<RectTransform>()));
         isInMissions = false;
         StartCoroutine(DatePanelController.Instance.StartDayCicle());
         PlayNormalVelocity();
@@ -307,7 +310,6 @@ public class GameControllerScript : MonoBehaviour {
         Clickable.selectedClickable = null;
         actionCanvas.SetActive(false);
         CameraMove.Instance.UnFocusCameraInGO();
-        PlayNormalVelocity();
     }
 
     private IEnumerator GenerateEnemyShipsCoroutine() {

@@ -3,9 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissionController : MonoBehaviour
-{
-    private int currentMission;
+public class MissionController : MonoBehaviour {
     private int completedMissions;
     private MissionListDTO missionListDto;
 
@@ -17,10 +15,7 @@ public class MissionController : MonoBehaviour
     public TMP_Text endGameText, missionsCompletedText, timeSpentText;
 
     private void Start() {
-        currentMission = PlayerPrefs.GetInt("mission", 0);
-        //TODO just for debugging
-        currentMission = 2;
-        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives" + currentMission));
+        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives" + GameControllerScript.Instance.currentMissionNumber));
         
         for(int i = 0; i < missionUIList.Length; i++) {
             missionUIList[i].SetActive(false);
@@ -131,7 +126,7 @@ public class MissionController : MonoBehaviour
         if (completedMissions == missionListDto.missionQuantity) {
             //Retrieve mission availability and update current mission to completed
             var missionAvailability = new MissionAvailabilityDTO();
-            for (int i = 0; i <= currentMission; i++) {
+            for (int i = 0; i <= GameControllerScript.Instance.currentMissionNumber; i++) {
                 missionAvailability.boolArray[i] = true;
             }
             //Store mission availability
