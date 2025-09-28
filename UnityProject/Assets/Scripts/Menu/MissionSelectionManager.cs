@@ -9,15 +9,19 @@ public class MissionSelectionManager : MonoBehaviour {
     public static MissionSelectionManager Instance;
     
     public NavMeshAgent agent;
-    private int currentPosition = -1;
-    private int objectiveMission;
     public GameObject[] missionPositions;
     public TMP_Text titleText, descriptionText;
     public Button startMissionBtn;
-    private String[] titleTexts, descriptionTexts;
     public Boolean[] missionsAvailable;
     public Color missionAvailableColor, missionNotAvailableColor;
     public GameObject demoCompletedCanvas;
+    public Sprite startMissionActivatedSprite, startMissionDeactivatedSprite;
+
+    private Image startMissionBtnImage;
+    private int currentPosition = -1;
+    private int objectiveMission;
+    private String[] titleTexts, descriptionTexts;
+    private bool isAlradyInMission = false;
 
     void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MissionSelectionBG);
@@ -50,15 +54,18 @@ public class MissionSelectionManager : MonoBehaviour {
         if (missionAvailability.boolArray[2]) {
             demoCompletedCanvas.SetActive(true);
         }
+
+        startMissionBtnImage = startMissionBtn.GetComponent<Image>();
+        startMissionBtnImage.sprite = startMissionDeactivatedSprite;
     }
-    void Update()
-    {
-        // Check if the agent has reached its destination
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-            {
-                MoveToMission(objectiveMission);
+    
+    void Update() {
+        if (!isAlradyInMission) {
+            // Check if the agent has reached its destination
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) {
+                    MoveToMission(objectiveMission);
+                }
             }
         }
     }
@@ -67,9 +74,11 @@ public class MissionSelectionManager : MonoBehaviour {
         objectiveMission = mission;
         if (objectiveMission > currentPosition) {
             agent.SetDestination(missionPositions[++currentPosition].transform.position);
+            ActivateInMission(false);
         }else if (objectiveMission < currentPosition) {
             agent.SetDestination(missionPositions[--currentPosition].transform.position);
-        }
+            ActivateInMission(false);
+        } else { ActivateInMission(true); }
     }
 
     public void DisplayCurrentMission(int mission) {
@@ -86,5 +95,11 @@ public class MissionSelectionManager : MonoBehaviour {
 
     public void ReturnToMenu() {
         StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainMenu"));
+    }
+
+    private void ActivateInMission(bool activated) {
+        isAlradyInMission = activated;
+        startMissionBtnImage.sprite = activated ? startMissionActivatedSprite : startMissionDeactivatedSprite;
+        startMissionBtn.interactable = activated;
     }
 }
