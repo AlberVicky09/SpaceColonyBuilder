@@ -167,13 +167,30 @@ public static class Constants {
         };
 
     //TODO Give coherent values
-    public static readonly Dictionary<ResourceEnum, int> INITIAL_RESOURCES_QUANTITY_MAP =
-        new Dictionary<ResourceEnum, int> {
-            { ResourceEnum.Water, 500},
-            { ResourceEnum.Food, 500},
-            { ResourceEnum.Platinum, 500},
-            { ResourceEnum.Gold, 500},
-            { ResourceEnum.Iron, 500},
+    public static readonly Dictionary<int, Dictionary<ResourceEnum, int>> INITIAL_RESOURCES_QUANTITY_MAP =
+        new Dictionary<int, Dictionary<ResourceEnum, int>> {
+            { 0, new Dictionary<ResourceEnum, int> {
+                    { ResourceEnum.Water, 10 },
+                    { ResourceEnum.Food, 10 },
+                    { ResourceEnum.Platinum, 10 },
+                    { ResourceEnum.Gold, 10 },
+                    { ResourceEnum.Iron, 10 },
+                }
+            }, { 1, new Dictionary<ResourceEnum, int> {
+                    { ResourceEnum.Water, 20 },
+                    { ResourceEnum.Food, 20 },
+                    { ResourceEnum.Platinum, 20 },
+                    { ResourceEnum.Gold, 20 },
+                    { ResourceEnum.Iron, 20 },
+                }
+            },{ 2, new Dictionary<ResourceEnum, int> {
+                    { ResourceEnum.Water, 500 },
+                    { ResourceEnum.Food, 500 },
+                    { ResourceEnum.Platinum, 500 },
+                    { ResourceEnum.Gold, 500 },
+                    { ResourceEnum.Iron, 500 },
+                }
+            },
         };
 
     public static int INITIAL_RESOURCES_LIMIT = 100;

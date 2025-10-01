@@ -105,6 +105,7 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        currentMissionNumber = 2; //TODO
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //Initialize ui text resource counters
@@ -171,11 +172,13 @@ public class GameControllerScript : MonoBehaviour {
         uiUpdateController.resourcesInitialPositions = new Dictionary<ResourceEnum, Vector3>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[resource]);
+            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[currentMissionNumber][resource]);
             uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.transform.position);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
         }
+        //Set resources and max on UI
+        foreach (var maxResourceText in uiMaxResourcesList) { maxResourceText.text = resourcesLimit.ToString(); }
         uiUpdateController.SetResourcesText();
 
         //Initialize ore images 
@@ -263,9 +266,13 @@ public class GameControllerScript : MonoBehaviour {
         missionSmallCanvas.SetActive(true);
         missionController.missionUIList.ToList().ForEach(item =>
             LayoutRebuilder.ForceRebuildLayoutImmediate(item.GetComponent<RectTransform>()));
-        isInMissions = false;
         StartCoroutine(DatePanelController.Instance.StartDayCicle());
-        PlayNormalVelocity();
+        if (currentMissionNumber == 2) {
+            StartCoroutine(cameraMove.StartTravellingToEnemyBase());
+        } else {
+            isInMissions = false;
+            PlayNormalVelocity();
+        }
     }
 
     public void PlayNormalVelocity() {
