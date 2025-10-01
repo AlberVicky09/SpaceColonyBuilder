@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Disable mission selection button while ship is moving">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="If gatherer doesnt find the desired resource, goes back to base">
       <change afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/FloorClicking.cs" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/FloorClicking.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/Clickable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/Clickable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,14 +47,23 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8663735a20c74d52bbebc96c2dd5803fd400/51/c46ef36c/NavMeshAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad4852b4f5ee4ca4850dcbbbd79c23693600/dc/70b2c7ac/JsonUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fe7039efe678478d9c83e73bc6a6566d94b400/a2/9dc41431/Editor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scenes/MainScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Clickable/Clickable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Clickable/Clickable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFighter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFoodGenerator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/CameraMove.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/EnemyBaseController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/KeyController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Music/SpaceShipEngineHum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlaceableProp/Placeable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlaceableProp/PlaceableStorage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.8/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
@@ -186,31 +191,7 @@
       <workItem from="1757239231675" duration="9029000" />
       <workItem from="1757489005193" duration="14617000" />
       <workItem from="1758444943398" duration="12017000" />
-      <workItem from="1758802523531" duration="14395000" />
-    </task>
-    <task id="LOCAL-00004" summary="Minimap creation">
-      <option name="closed" value="true" />
-      <created>1744916426751</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1744916426751</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix camera move inside of valid area">
-      <option name="closed" value="true" />
-      <created>1755355462188</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1755355462188</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Improve clickables">
-      <option name="closed" value="true" />
-      <created>1755355545318</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1755355545318</updated>
+      <workItem from="1758802523531" duration="15222000" />
     </task>
     <task id="LOCAL-00007" summary="Clickable improvement">
       <option name="closed" value="true" />
@@ -580,7 +561,31 @@
       <option name="project" value="LOCAL" />
       <updated>1759076242390</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Fix double clicking">
+      <option name="closed" value="true" />
+      <created>1759302611070</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1759302611070</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Fix gameObjectCentered functionality and camera travelling to enemy base">
+      <option name="closed" value="true" />
+      <created>1759302703351</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1759302703351</updated>
+    </task>
+    <task id="LOCAL-00055" summary="If gatherer doesnt find the desired resource, goes back to base">
+      <option name="closed" value="true" />
+      <created>1759302747122</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1759302747122</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,9 +613,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Display current action only if in screen" />
-    <MESSAGE value="Improve clickable working" />
-    <MESSAGE value="Bullets colliding with fighters" />
     <MESSAGE value="Ensure all fighter actions are correctly updated" />
     <MESSAGE value="Add audiosources and control them globally" />
     <MESSAGE value="Make enemies representation red and ores its color" />
@@ -633,7 +635,10 @@
     <MESSAGE value="Fix tutorial for each mission" />
     <MESSAGE value="Misc cleanup" />
     <MESSAGE value="Disable mission selection button while ship is moving" />
-    <option name="LAST_COMMIT_MESSAGE" value="Disable mission selection button while ship is moving" />
+    <MESSAGE value="Fix double clicking" />
+    <MESSAGE value="Fix gameObjectCentered functionality and camera travelling to enemy base" />
+    <MESSAGE value="If gatherer doesnt find the desired resource, goes back to base" />
+    <option name="LAST_COMMIT_MESSAGE" value="If gatherer doesnt find the desired resource, goes back to base" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
