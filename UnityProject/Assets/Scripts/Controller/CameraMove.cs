@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class CameraMove : MonoBehaviour {
     public Camera cameraGO, miniMapCamera;
     public GameObject cameraPivot;
 
-    public bool isGameObjectCentered; //TODO Check usage of this
+    public bool isGameObjectCentered;
     public GameObject gameObjectCentered;
     public float gameObjectCenteredRefreshTime;
 
@@ -26,10 +27,6 @@ public class CameraMove : MonoBehaviour {
     }
     
     void LateUpdate(){
-
-        if (isGameObjectCentered && gameObjectCenteredRefreshTime <= Constants.GAMEOBJECT_CENTERED_MAX_REFRESH_TIME) {
-            gameObjectCenteredRefreshTime += Time.deltaTime;
-        }
         
         //Clamp camera position inside circle (avoid going to far)
         var pos = cameraPivot.transform.position;
@@ -112,16 +109,51 @@ public class CameraMove : MonoBehaviour {
         miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
         miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE, Constants.MAX_MINIMAP_ZOOM_SIZE);
     }
+
+    public void StartTravellingToEnemyBase() {
+        StartCoroutine(MakeCameraTravelling(Constants.ENEMY_CENTER_FOR_CAMERA, 2.5f, 1.5f));
+    }
+    
+    public IEnumerator MakeCameraTravelling(Vector3 objectivePosition, float duration, float waitingTime) {
+        var startingPoint = cameraPivot.transform.position;
+
+        //Move to objective
+        yield return StartCoroutine(CameraTravellingMove(startingPoint, objectivePosition, duration));
+
+        //Wait for X seconds
+        yield return new WaitForSeconds(waitingTime);
+        
+        //Do the opposite travelling
+        yield return StartCoroutine(CameraTravellingMove(cameraPivot.transform.position, startingPoint, duration));
+    }
+
+    private IEnumerator CameraTravellingMove(Vector3 startingPosition, Vector3 objectivePosition, float duration) {
+        var elapsedTime = 0f;
+        float delta;
+        
+        while (elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            delta = elapsedTime / duration;
+            
+            transform.position = Vector3.Lerp(startingPosition, objectivePosition, delta);
+
+            yield return null;
+        }
+    }
 }
 
 
 [CustomEditor (typeof(CameraMove))]
-public class CameraMoveEditor : Editor {
+public class CameraMoveEditor : Editor  {
     public override void OnInspectorGUI() {
         base.OnInspectorGUI();
         CameraMove cameraMove = (CameraMove)target;
         if (GUILayout.Button("Reset move")) {
             cameraMove.ResetCamera();
+        }
+
+        if (GUILayout.Button("Move to enemyBase")) {
+            cameraMove.StartTravellingToEnemyBase();
         }
     }
 }
