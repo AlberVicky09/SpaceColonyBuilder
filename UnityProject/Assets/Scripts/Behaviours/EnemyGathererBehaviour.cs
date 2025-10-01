@@ -15,10 +15,7 @@ public class EnemyGathererBehaviour : GathererBehaviour {
         EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
     }
 
-    protected override void UpdateResource(ResourceEnum resource, int quantity) {
-        Debug.Log("Storing in ENEMY resources " + quantity + " of " + resource);
-        EnemyBaseController.Instance.UpdateResource(resource, quantity, ResourceOperationEnum.Increase);
-    }
+    protected override void UpdateResource(ResourceEnum resource, int quantity) { EnemyBaseController.Instance.UpdateResource(resource, quantity, ResourceOperationEnum.Increase); }
 
     protected override void CalculateOreForGatherer() {
         EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);

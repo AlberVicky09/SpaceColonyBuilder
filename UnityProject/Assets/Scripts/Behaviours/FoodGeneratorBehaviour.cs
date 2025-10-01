@@ -35,10 +35,7 @@ public class FoodGeneratorBehaviour : ActionUIController {
                 
                 //Ensure next time water is taken again
                 hasWaterBeenAlreadyTaken = false;
-            } else {
-                Debug.Log("Missing water");
-                DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]);
-            }
+            } else { DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]); }
 
             //Check if has been paused, to stop it AFTER the loop is done
             if (isGeneratorPaused) {

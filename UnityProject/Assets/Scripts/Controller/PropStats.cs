@@ -57,7 +57,6 @@ public class PropStats : MonoBehaviour {
     }
     
     private void DestroyProp() {
-        Debug.Log("Destroying a " + propType);
         //Notify the gameController
         GameControllerScript.Instance.propDictionary[propType].Remove(gameObject);
         

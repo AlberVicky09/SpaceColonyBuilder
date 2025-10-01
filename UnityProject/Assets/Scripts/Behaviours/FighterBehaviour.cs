@@ -94,7 +94,6 @@ public abstract class FighterBehaviour : ActionUIController{
                 case FighterStatesEnum.Chasing:
                     //If other ship destroys current enemy
                     if (!GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
-                        Debug.Log("Enemy of type " + objectiveType + "has dissapeared");
                         RestartAgent();
                         return;
                     }

@@ -98,7 +98,6 @@ public class EnemyBaseController : MonoBehaviour {
 
         //If null, generate more ores around enemy base
         if (nearestOre == null) {
-            Debug.Log("Generating more ores around enemy base");
             Utils.GenerateRandomOres(Constants.ENEMY_CENTER);
             goto FindOreProcess;
         }
@@ -136,7 +135,6 @@ public class EnemyBaseController : MonoBehaviour {
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Add(gatherer);
                 CalculateOreForGatherer(gatherer);
                 if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyGatherer].Count >= 3) {
-                    Debug.Log("Changing enemy objective to: Fighter");
                     currentObjectiveProp = PropsEnum.EnemyFighter;
                 }
                 return gatherer;
@@ -146,7 +144,6 @@ public class EnemyBaseController : MonoBehaviour {
                 GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(fighter);
                 //If we have more than 3, go to attack base, else scout automatically
                 if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Count > 3) {
-                    Debug.Log("Enemy fighter in attack mode");
                     foreach (var enemy in GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter]) {
                         enemy.GetComponent<EnemyFighterBehaviour>().StartChasingBase();
                     }
@@ -161,7 +158,6 @@ public class EnemyBaseController : MonoBehaviour {
         var resourceList = Constants.PROP_CREATION_PRICES[currentObjectiveProp]
             .OrderByDescending(kvp => kvp.Value)
             .ToList();
-        Debug.Log("Original for " + currentObjectiveProp + " : " + string.Join(", ", resourceList.Select(kvp => $"{kvp.Key}: {kvp.Value}")));
         var duplicatedList = new List<ResourceEnum>(resourceList.Select(kvp => kvp.Key));
         
         //Move back resources already had or already being gathered
@@ -169,7 +165,6 @@ public class EnemyBaseController : MonoBehaviour {
             //Remove it from its position and add it in the back of the list
             if (enemyResourcesDictionary[wantedResource.Key] > Constants.PROP_CREATION_PRICES[currentObjectiveProp][wantedResource.Key]
                 || resourcePrefferenceDictionary[wantedResource.Key] > 0) {
-                Debug.Log("Pushed back " + wantedResource);
                 duplicatedList.Remove(wantedResource.Key);
                 duplicatedList.Add(wantedResource.Key);
             }
@@ -183,7 +178,6 @@ public class EnemyBaseController : MonoBehaviour {
             .ToList()
             .ForEach(unwantedResource => duplicatedList.Add(unwantedResource));
 
-        Debug.Log("Result is: " + string.Join(", ", duplicatedList));
         return duplicatedList;
     }
 }

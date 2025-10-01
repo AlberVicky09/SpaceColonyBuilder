@@ -107,10 +107,6 @@ public class GameControllerScript : MonoBehaviour {
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
-        //TODO Just for debugging
-        currentMissionNumber = 2;
-        //isTutorialActivated = 1;
-        
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
             { ResourceEnum.Water, GameObject.Find("WaterCounter").GetComponent<TMP_Text>() },

@@ -59,13 +59,12 @@ public static class Constants {
             {FighterStatesEnum.AttackingLowPriority, "Attacking base!"}
         };
 
-    //TODO Check if its good
     public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROPS_MANTAINING_COST =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
             {
                 PropsEnum.MainBuilding,
                 new Dictionary<ResourceEnum, int>()
-            },{ //TODO DECIDE RESOURCES
+            },{
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
                     { { ResourceEnum.Iron, 5 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 5 } }
@@ -89,47 +88,30 @@ public static class Constants {
 
     public static readonly Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> PROP_CREATION_PRICES =
         new Dictionary<PropsEnum, Dictionary<ResourceEnum, int>> {
-            { //TODO DECIDE RESOURCES
+            {
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            {
+                    { { ResourceEnum.Iron, 100 }, { ResourceEnum.Platinum, 50 } }
+            }, {
                 PropsEnum.FoodGenerator,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            {
+                    { { ResourceEnum.Water, 75 }, { ResourceEnum.Iron, 50 }, { ResourceEnum.Platinum, 50 } }
+            }, {
                 PropsEnum.Fighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            {
+                    { { ResourceEnum.Food, 175 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 175 } }
+            }, {
                 PropsEnum.Storage,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            { 
+                    { { ResourceEnum.Water, 100 }, { ResourceEnum.Gold, 100 }, { ResourceEnum.Iron, 100 } }
+            }, {
                 PropsEnum.EnemyGatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-            { 
+                    { { ResourceEnum.Iron, 50 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 50 } }
+            }, {
                 PropsEnum.EnemyFighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 25 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 25 } }
-            },
-        };
-
-    public static readonly Dictionary<PropsEnum, List<ResourceEnum>> ENEMY_RESOURCE_PREFFERENCE =
-        new Dictionary<PropsEnum, List<ResourceEnum>> {
-            {
-                //TODO Put the resources that the producing doesnt use
-                PropsEnum.EnemyGatherer,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
-            },{ 
-                PropsEnum.EnemyFighter,
-                new List<ResourceEnum>(new [] { ResourceEnum.Gold, ResourceEnum.Iron, ResourceEnum.Platinum})
+                    { { ResourceEnum.Iron, 125 }, { ResourceEnum.Water, 125 }, { ResourceEnum.Platinum, 125 } }
             },
         };
 
@@ -149,7 +131,7 @@ public static class Constants {
     
     public const float SHOOTING_RELOAD_TIME = 3.5f;
 
-    public const float MAX_DOUBLE_CLICK_DELAY = 1f;
+    public const float MAX_DOUBLE_CLICK_DELAY = 0.5f;
     
     public const float GAMEOBJECT_CENTERED_MAX_REFRESH_TIME = 1f;
 
@@ -224,6 +206,7 @@ public static class Constants {
     public const int numberOfWaypoints = 8;
     
     public static Vector3 ENEMY_CENTER = new (75f, 0, 0);
+    public static Vector3 ENEMY_CENTER_FOR_CAMERA = ENEMY_CENTER + new Vector3(-5f, 0, 10f);
 
     public static Vector3 INITIAL_SUMMARY_ITEM_POSITION = new(-45, -340, 1);
     public static float SUMMARY_OFFSET = -120f;

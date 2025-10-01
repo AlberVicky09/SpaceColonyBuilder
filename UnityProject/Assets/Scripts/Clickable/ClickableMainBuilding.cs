@@ -109,10 +109,7 @@ public class ClickableMainBuilding : Clickable {
             GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
             currentProp = prop;
             
-        } else {
-            GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources");
-            Debug.Log("Not enough resources");
-        }
+        } else { GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources"); }
     }
 
     private void Update() {
@@ -252,7 +249,6 @@ public class ClickableMainBuilding : Clickable {
             GameControllerScript.Instance.PlayNormalVelocity();
         } else {
             GameControllerScript.Instance.ActivateAlertCanvas("Not enough resources");
-            Debug.Log("Couldnt place it");
             ResetPlacingVariables(false);
         }
     }
