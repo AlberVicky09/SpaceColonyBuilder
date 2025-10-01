@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -348,5 +349,23 @@ public class GameControllerScript : MonoBehaviour {
                || isInSummary
                || isGameFinished
                || placing;
+    }
+}
+
+[CustomEditor (typeof(GameControllerScript))]
+public class GameControllerEditor : Editor  {
+    public override void OnInspectorGUI() {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Reset camera move")) {
+            GameControllerScript.Instance.cameraMove.ResetCamera();
+        }
+
+        if (GUILayout.Button("Move to enemyBase")) {
+            GameControllerScript.Instance.cameraMove.StartTravellingToEnemyBase();
+        }
+
+        if (GUILayout.Button("Increase/Decrease random resources")) {
+            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY();
+        }
     }
 }

@@ -5,6 +5,8 @@ public class KeyController : MonoBehaviour {
     public GameObject cameraGO;
     
     void Update() {
+        if (Input.GetKey(KeyCode.RightControl)){ GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(); }
+        
         if (!(GameControllerScript.Instance.isInMissions || GameControllerScript.Instance.isGameFinished)) {
             //Camera controlls
             if (!GameControllerScript.Instance.IsThereSomethingOnTheScreen()) {
