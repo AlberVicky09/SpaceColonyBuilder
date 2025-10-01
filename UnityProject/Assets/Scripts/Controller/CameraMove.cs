@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour {
@@ -25,24 +24,25 @@ public class CameraMove : MonoBehaviour {
         upCameraMovementThreshold = Screen.height * 0.85f;
         upCameraMovementRange = (Screen.height - upCameraMovementThreshold);
     }
-    
-    void LateUpdate(){
-        
+
+    void LateUpdate() {
+
         //Clamp camera position inside circle (avoid going to far)
         var pos = cameraPivot.transform.position;
         // Ignore Y axis (clamp only in XZ plane)
         var flatPos = new Vector2(pos.x, pos.z);
         var flatPosAroundEnemyBase = new Vector2(pos.x - Constants.ENEMY_CENTER.x, pos.z - Constants.ENEMY_CENTER.y);
-        
+
         // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
         if (flatPos.magnitude <= Constants.VIEW_DISTANCE_RANGE ||
-                (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 
-                 && flatPosAroundEnemyBase.magnitude <= Constants.VIEW_DISTANCE_RANGE)) {
+            (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0
+             && flatPosAroundEnemyBase.magnitude <= Constants.VIEW_DISTANCE_RANGE)) {
             return;
         }
+
         //Else, find if we need to clamp it to one or another of the circles
         if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 &&
-                flatPosAroundEnemyBase.magnitude < flatPos.magnitude) {
+            flatPosAroundEnemyBase.magnitude < flatPos.magnitude) {
             var clamped = flatPosAroundEnemyBase.normalized * Constants.VIEW_DISTANCE_RANGE;
             pos.x = clamped.x + Constants.ENEMY_CENTER.x;
             pos.z = clamped.y + Constants.ENEMY_CENTER.y;
@@ -51,8 +51,9 @@ public class CameraMove : MonoBehaviour {
             pos.x = flatPos.x;
             pos.z = flatPos.y;
         }
+
         cameraPivot.transform.position = pos;
-        
+
         //MOVE CAMERA MOVEMENT TO WASD FOR USEFULNESS
         //Move by clicking and dragging
         //if (Input.GetMouseButton(0) && (!isGameObjectCentered ||
@@ -61,14 +62,14 @@ public class CameraMove : MonoBehaviour {
         //    MoveCameraVertical(Input.GetAxis("Mouse X"));
         //    MoveCameraHorizontal(Input.GetAxis("Mouse Y"));
         //}
-                
+
         //Move by mousePosition
         //if(Input.mousePosition.x >= rightCameraMovementThreshold && Input.mousePosition.x <= Screen.width) {
         //    MoveCameraVertical(-(Input.mousePosition.x - rightCameraMovementThreshold) / rightCameraMovementRange * 0.4f);
         //}else if (Input.mousePosition.x <= leftCameraMovementThreshold && Input.mousePosition.x >= 0) {
         //    MoveCameraVertical(1 - Input.mousePosition.x * 0.5f / leftCameraMovementThreshold);
         //}
-                
+
         //if(Input.mousePosition.y >= upCameraMovementThreshold && Input.mousePosition.y <= Screen.height) {
         //    MoveCameraHorizontal(-(Input.mousePosition.y - upCameraMovementThreshold) / upCameraMovementRange * 0.4f);
         //}else if (Input.mousePosition.y <= downCameraMovementThreshold && Input.mousePosition.y >= 0) {
@@ -103,17 +104,23 @@ public class CameraMove : MonoBehaviour {
     }
 
     public void ZoomCamera(bool zoomIn) {
-        cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
-        cameraGO.orthographicSize = Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
+        cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
+                                     Constants.CAMERA_SMOOTHER_VALUE;
+        cameraGO.orthographicSize =
+            Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
 
-        miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime * Constants.CAMERA_SMOOTHER_VALUE;
-        miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE, Constants.MAX_MINIMAP_ZOOM_SIZE);
+        miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
+                                          Constants.CAMERA_SMOOTHER_VALUE;
+        miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE,
+            Constants.MAX_MINIMAP_ZOOM_SIZE);
     }
 
-    public void StartTravellingToEnemyBase() {
-        StartCoroutine(MakeCameraTravelling(Constants.ENEMY_CENTER_FOR_CAMERA, 2.5f, 1.5f));
+    public IEnumerator StartTravellingToEnemyBase() {
+        yield return StartCoroutine(MakeCameraTravelling(Constants.ENEMY_CENTER_FOR_CAMERA, 2.5f, 1.5f));
+        GameControllerScript.Instance.isInMissions = false;
+        GameControllerScript.Instance.PlayNormalVelocity();
     }
-    
+
     public IEnumerator MakeCameraTravelling(Vector3 objectivePosition, float duration, float waitingTime) {
         var startingPoint = cameraPivot.transform.position;
 
@@ -121,8 +128,8 @@ public class CameraMove : MonoBehaviour {
         yield return StartCoroutine(CameraTravellingMove(startingPoint, objectivePosition, duration));
 
         //Wait for X seconds
-        yield return new WaitForSeconds(waitingTime);
-        
+        yield return new WaitForSecondsRealtime(waitingTime);
+
         //Do the opposite travelling
         yield return StartCoroutine(CameraTravellingMove(cameraPivot.transform.position, startingPoint, duration));
     }
@@ -130,30 +137,14 @@ public class CameraMove : MonoBehaviour {
     private IEnumerator CameraTravellingMove(Vector3 startingPosition, Vector3 objectivePosition, float duration) {
         var elapsedTime = 0f;
         float delta;
-        
+
         while (elapsedTime < duration) {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             delta = elapsedTime / duration;
-            
+
             transform.position = Vector3.Lerp(startingPosition, objectivePosition, delta);
 
             yield return null;
-        }
-    }
-}
-
-
-[CustomEditor (typeof(CameraMove))]
-public class CameraMoveEditor : Editor  {
-    public override void OnInspectorGUI() {
-        base.OnInspectorGUI();
-        CameraMove cameraMove = (CameraMove)target;
-        if (GUILayout.Button("Reset move")) {
-            cameraMove.ResetCamera();
-        }
-
-        if (GUILayout.Button("Move to enemyBase")) {
-            cameraMove.StartTravellingToEnemyBase();
         }
     }
 }

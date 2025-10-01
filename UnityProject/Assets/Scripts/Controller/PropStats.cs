@@ -77,7 +77,7 @@ public class PropStats : MonoBehaviour {
             for (int j = 0; j < renderer.materials.Length; j++) {
                 renderer.materials[j].color = i % 2 == 0 ? flashColor : originalColor[j];
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
     }
 }
