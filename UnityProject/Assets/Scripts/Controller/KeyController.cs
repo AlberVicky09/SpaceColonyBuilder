@@ -7,7 +7,7 @@ public class KeyController : MonoBehaviour {
     void Update() {
         if (!(GameControllerScript.Instance.isInMissions || GameControllerScript.Instance.isGameFinished)) {
             //Camera controlls
-            if (!GameControllerScript.Instance.isGamePaused && !GameControllerScript.Instance.isPauseMenuActive) {
+            if (!GameControllerScript.Instance.IsThereSomethingOnTheScreen()) {
                 //Place camera in gameObject
                 if (CameraMove.Instance.isGameObjectCentered) {
                     CameraMove.Instance.cameraPivot.transform.position =
@@ -55,9 +55,9 @@ public class KeyController : MonoBehaviour {
             }
 
             //Ensure summary and time controls can be used
-            if (!(GameControllerScript.Instance.isInAlert || GameControllerScript.Instance.isInAMenu || GameControllerScript.Instance.isPauseMenuActive || GameControllerScript.Instance.currentMissionNumber == 0)) {
+            if (!(GameControllerScript.Instance.isInAlert || GameControllerScript.Instance.isInAMenu || GameControllerScript.Instance.isPauseMenuActive)) {
                 //Enter/Exit summary menu
-                if (Input.GetKeyDown(KeyCode.T)) { GameControllerScript.Instance.summaryPanelController.ToggleSummaryMenu(); }
+                if (Input.GetKeyDown(KeyCode.T) && GameControllerScript.Instance.currentMissionNumber != 0) { GameControllerScript.Instance.summaryPanelController.ToggleSummaryMenu(); }
 
                 //Adjust play/pause with numbers 1 to 3
                 if (!GameControllerScript.Instance.isInSummary) {

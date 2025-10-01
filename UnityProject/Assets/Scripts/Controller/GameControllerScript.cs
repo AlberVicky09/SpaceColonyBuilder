@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -332,5 +333,17 @@ public class GameControllerScript : MonoBehaviour {
             enemyGenerationController.GenerateNewEnemy(Random.Range(2, 5));
             remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
         }
+    }
+
+    //isGamePaused, wasGamePaused, isPauseMenuActive, isInMissions, isInAMenu, isInAlert, isInSummary, isGameFinished;
+    public bool IsThereSomethingOnTheScreen() {
+        return EventSystem.current.IsPointerOverGameObject()
+               || isPauseMenuActive
+               || isInMissions
+               || isInAMenu
+               || isInAlert
+               || isInSummary
+               || isGameFinished
+               || placing;
     }
 }

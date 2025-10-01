@@ -15,18 +15,18 @@ public abstract class Clickable : MonoBehaviour {
     private bool secondClick = false;
 
     public void OnMouseDown() {
-        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
-            if (selectedClickable == this) {
-                CheckDoubleClick();
-            } else {
-                selectedClickable = this;
-                GameControllerScript.Instance.actionCanvas.SetActive(true);
-                DisplayRepresentation();
-                StartButtons();
-                UpdateTexts();
-                DisplayButtons();
-                sfxSource.PlaySfx();
-            }
+        if (GameControllerScript.Instance.IsThereSomethingOnTheScreen()) { return; }
+        
+        if (selectedClickable == this) {
+            CheckDoubleClick();
+        } else {
+            selectedClickable = this;
+            GameControllerScript.Instance.actionCanvas.SetActive(true);
+            DisplayRepresentation();
+            StartButtons();
+            UpdateTexts();
+            DisplayButtons();
+            sfxSource.PlaySfx();
         }
     }
 
