@@ -107,7 +107,7 @@ public class GameControllerScript : MonoBehaviour {
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //TODO Just for debugging
-        //currentMissionNumber = 2;
+        currentMissionNumber = 2;
         //isTutorialActivated = 1;
         
         //Initialize ui text resource counters
@@ -242,6 +242,7 @@ public class GameControllerScript : MonoBehaviour {
             gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         } else {
             gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
+            gathererBehaviour.ReturnToBase(true);
         }
     }
 

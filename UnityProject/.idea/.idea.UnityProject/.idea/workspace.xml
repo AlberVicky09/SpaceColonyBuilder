@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Misc cleanup">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Disable mission selection button while ship is moving">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/FloorClicking.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/FloorClicking.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MissionSelection.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Clickable/Clickable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Clickable/Clickable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/CameraMove.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -186,15 +186,7 @@
       <workItem from="1757239231675" duration="9029000" />
       <workItem from="1757489005193" duration="14617000" />
       <workItem from="1758444943398" duration="12017000" />
-      <workItem from="1758802523531" duration="13534000" />
-    </task>
-    <task id="LOCAL-00003" summary="Finished tutorial">
-      <option name="closed" value="true" />
-      <created>1744908842402</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1744908842402</updated>
+      <workItem from="1758802523531" duration="14395000" />
     </task>
     <task id="LOCAL-00004" summary="Minimap creation">
       <option name="closed" value="true" />
@@ -580,7 +572,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758819707909</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Disable mission selection button while ship is moving">
+      <option name="closed" value="true" />
+      <created>1759076242390</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1759076242390</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +608,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fighters fix" />
     <MESSAGE value="Display current action only if in screen" />
     <MESSAGE value="Improve clickable working" />
     <MESSAGE value="Bullets colliding with fighters" />
@@ -633,7 +632,8 @@
     <MESSAGE value="Delete save file on new game" />
     <MESSAGE value="Fix tutorial for each mission" />
     <MESSAGE value="Misc cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Misc cleanup" />
+    <MESSAGE value="Disable mission selection button while ship is moving" />
+    <option name="LAST_COMMIT_MESSAGE" value="Disable mission selection button while ship is moving" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>

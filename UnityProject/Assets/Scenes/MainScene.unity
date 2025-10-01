@@ -24389,6 +24389,10 @@ PrefabInstance:
       propertyPath: healingSliderRectTransform
       value: 
       objectReference: {fileID: 1331727132}
+    - target: {fileID: 8372312498913627255, guid: 894f769aa5ddbdc4f8474fbf8c770dfb, type: 3}
+      propertyPath: healthPoints
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
