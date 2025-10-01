@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class Clickable : MonoBehaviour, IDeselectHandler {
+public abstract class Clickable : MonoBehaviour {
     
     public static Clickable selectedClickable;
     
@@ -13,20 +13,23 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
 
     private float doubleClickDelay;
     private bool secondClick = false;
-    
+
     public void OnMouseDown() {
-        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing || selectedClickable == this)) {
-            selectedClickable = this;
-            GameControllerScript.Instance.actionCanvas.SetActive(true);
-            DisplayRepresentation();
-            StartButtons();
-            UpdateTexts();
-            DisplayButtons();
-            CheckDoubleClick();
-            sfxSource.PlaySfx();
+        if (!(EventSystem.current.IsPointerOverGameObject() || GameControllerScript.Instance.isGamePaused || GameControllerScript.Instance.placing)) {
+            if (selectedClickable == this) {
+                CheckDoubleClick();
+            } else {
+                selectedClickable = this;
+                GameControllerScript.Instance.actionCanvas.SetActive(true);
+                DisplayRepresentation();
+                StartButtons();
+                UpdateTexts();
+                DisplayButtons();
+                sfxSource.PlaySfx();
+            }
         }
     }
-    
+
     public abstract void UpdateTexts();
     
     protected virtual void DisplayButtons() {
@@ -69,9 +72,5 @@ public abstract class Clickable : MonoBehaviour, IDeselectHandler {
             buttonComponent.onClick.RemoveAllListeners();
             buttonComponent.interactable = true;
         }
-    }
-
-    public void OnDeselect(BaseEventData eventData) {
-        GameControllerScript.Instance.cameraMove.UnFocusCameraInGO();
     }
 }
