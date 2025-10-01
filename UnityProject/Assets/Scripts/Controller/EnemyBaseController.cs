@@ -56,7 +56,7 @@ public class EnemyBaseController : MonoBehaviour {
         GenerateProp(PropsEnum.EnemyGatherer);
         
         //TODO Remove
-        GenerateProp(PropsEnum.EnemyFighter).GetComponent<FighterBehaviour>().StartChasingBase();
+        //GenerateProp(PropsEnum.EnemyFighter).GetComponent<FighterBehaviour>().StartChasingBase();
                 
         //Activate "update" function
         StartCoroutine(GeneratorCheck());
@@ -158,16 +158,20 @@ public class EnemyBaseController : MonoBehaviour {
 
     private List<ResourceEnum> CalculateDesiredOre() {
         //Get desired resources
-        var resourceList = Constants.ENEMY_RESOURCE_PREFFERENCE[currentObjectiveProp];
-        var duplicatedList = new List<ResourceEnum>(resourceList);
+        var resourceList = Constants.PROP_CREATION_PRICES[currentObjectiveProp]
+            .OrderByDescending(kvp => kvp.Value)
+            .ToList();
+        Debug.Log("Original for " + currentObjectiveProp + " : " + string.Join(", ", resourceList.Select(kvp => $"{kvp.Key}: {kvp.Value}")));
+        var duplicatedList = new List<ResourceEnum>(resourceList.Select(kvp => kvp.Key));
         
         //Move back resources already had or already being gathered
         foreach (var wantedResource in resourceList) {
             //Remove it from its position and add it in the back of the list
-            if (enemyResourcesDictionary[wantedResource] > Constants.PROP_CREATION_PRICES[currentObjectiveProp][wantedResource]
-                || resourcePrefferenceDictionary[wantedResource] > 0) {
-                duplicatedList.Remove(wantedResource);
-                duplicatedList.Add(wantedResource);
+            if (enemyResourcesDictionary[wantedResource.Key] > Constants.PROP_CREATION_PRICES[currentObjectiveProp][wantedResource.Key]
+                || resourcePrefferenceDictionary[wantedResource.Key] > 0) {
+                Debug.Log("Pushed back " + wantedResource);
+                duplicatedList.Remove(wantedResource.Key);
+                duplicatedList.Add(wantedResource.Key);
             }
         }
         
@@ -175,10 +179,11 @@ public class EnemyBaseController : MonoBehaviour {
         //Add non desired resources (we remove the ones already in resourceList
         Enum.GetValues(typeof(ResourceEnum))
             .Cast<ResourceEnum>()
-            .Except(resourceList)
+            .Except(resourceList.Select(kvp => kvp.Key))
             .ToList()
             .ForEach(unwantedResource => duplicatedList.Add(unwantedResource));
 
+        Debug.Log("Result is: " + string.Join(", ", duplicatedList));
         return duplicatedList;
     }
 }
