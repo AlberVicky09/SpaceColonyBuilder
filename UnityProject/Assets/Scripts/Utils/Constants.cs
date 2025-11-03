@@ -184,11 +184,11 @@ public static class Constants {
                     { ResourceEnum.Iron, 20 },
                 }
             },{ 2, new Dictionary<ResourceEnum, int> {
-                    { ResourceEnum.Water, 500 },
-                    { ResourceEnum.Food, 500 },
-                    { ResourceEnum.Platinum, 500 },
-                    { ResourceEnum.Gold, 500 },
-                    { ResourceEnum.Iron, 500 },
+                    { ResourceEnum.Water, 50 },
+                    { ResourceEnum.Food, 50 },
+                    { ResourceEnum.Platinum, 50 },
+                    { ResourceEnum.Gold, 50 },
+                    { ResourceEnum.Iron, 50 },
                 }
             },
         };
@@ -216,9 +216,9 @@ public static class Constants {
 
     public static int DEFAULT_MISSING_RESOURCE_VALUE = 0;
 
-    public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {600, 720, 900, 1080};
-    public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {800, 1280, 1400, 1920};
-    
+    public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {540, 720, 900, 1080, 1440, 2160};
+    public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {960, 1280, 1600, 1920, 2560, 3840};
+
     public const float WAYPOINTS_RADIUS = 18f;
     public const int numberOfWaypoints = 8;
     
