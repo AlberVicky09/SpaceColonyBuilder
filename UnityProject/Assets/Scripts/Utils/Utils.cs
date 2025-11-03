@@ -270,20 +270,11 @@ public static class Utils {
                 break;
         }
     }
-    
-    public static bool CheckFile(string fileName) {
-        return File.Exists(fileName);
-    }
-    
-    public static string ReadFile(string fileName) {
-        // Path to the file
-        string filePath = Path.Combine(Application.dataPath, "Resources/", fileName + ".json");
 
-        // Check if the file exists
-        Debug.Log("File: " + fileName + " exists? " + File.Exists(filePath));
-        return File.Exists(filePath) ?
-            // Read all text from the file
-            File.ReadAllText(filePath) : Constants.FILE_NOT_FOUND;
+    public static string ReadFile(string fileName) {
+        TextAsset txt = Resources.Load<TextAsset>(fileName); // no extension
+        Debug.Log("File " + fileName + " exists? " + (txt != null));
+        return txt != null ? txt.text : Constants.FILE_NOT_FOUND;
     }
     
     public static void WriteFile(string fileName, string fileContent) {
