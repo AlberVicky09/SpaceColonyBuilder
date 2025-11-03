@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -42,7 +41,7 @@ public class GameControllerScript : MonoBehaviour {
 
     public Sprite oreSprite, gathererSprite, foodGeneratorSprite, storageSprite, fighterSprite;
     public Sprite waterSprite, foodSprite, ironSprite, goldSprite, platinumSprite;
-    public Sprite missingWaterSprite, missingFoodSprite, missingIronSprite, missingGoldSprite, missingPlatinumSprite;
+    public Sprite missingWaterSprite, missingFoodSprite, missingIronSprite, missingGoldSprite, missingPlatinumSprite; //TODO Add missing resources sprite
 
     public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
@@ -101,8 +100,6 @@ public class GameControllerScript : MonoBehaviour {
 
     void Awake() {
         Instance = this;
-        
-        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MainBG);
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
@@ -213,6 +210,8 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     void Start() {
+        AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MainBG);
+
         switch (currentMissionNumber) {
             case 0:
                 enemyCountDownText.text = "No enemies in sight";
@@ -349,23 +348,5 @@ public class GameControllerScript : MonoBehaviour {
                || isInSummary
                || isGameFinished
                || placing;
-    }
-}
-
-[CustomEditor (typeof(GameControllerScript))]
-public class GameControllerEditor : Editor  {
-    public override void OnInspectorGUI() {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Reset camera move")) {
-            GameControllerScript.Instance.cameraMove.ResetCamera();
-        }
-
-        if (GUILayout.Button("Move to enemyBase")) {
-            GameControllerScript.Instance.cameraMove.StartTravellingToEnemyBase();
-        }
-
-        if (GUILayout.Button("Increase/Decrease random resources")) {
-            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY();
-        }
     }
 }

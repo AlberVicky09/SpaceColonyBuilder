@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class UIUpdateController : MonoBehaviour {
 
@@ -37,8 +38,7 @@ public class UIUpdateController : MonoBehaviour {
                 //If is more than limit, increase until limit
                 var maxPossibleIncrease = GameControllerScript.Instance.resourcesLimit -
                                           GameControllerScript.Instance.resourcesDictionary[resourceType];
-                
-                if (maxPossibleIncrease > quantity) {
+                if (quantity > maxPossibleIncrease) {
                     GameControllerScript.Instance.resourcesDictionary[resourceType] = GameControllerScript.Instance.resourcesLimit;
                     GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.yellow;
                     limitedQuantity = maxPossibleIncrease;
@@ -48,10 +48,8 @@ public class UIUpdateController : MonoBehaviour {
                 }
                 
                 missingResourcesFlags[resourceType] = false;
-                GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = 
-                    GameControllerScript.Instance.resourcesLimit == GameControllerScript.Instance.resourcesDictionary[resourceType] ?
-                        Color.yellow : Color.white;
                 break;
+            
             case ResourceOperationEnum.Decrease:
                 //If its more than current quantity, remove until 0
                 if (quantity > GameControllerScript.Instance.resourcesDictionary[resourceType]) {
@@ -112,7 +110,7 @@ public class UIUpdateController : MonoBehaviour {
         while (timeEllapsed < Constants.RESOURCE_CHANGE_MOVEMENT_TIME) {
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.gameObject.transform.position = Vector3.Lerp(origin, destination, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
             timeEllapsed += Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME;
-            yield return new WaitForSeconds(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
+            yield return new WaitForSecondsRealtime(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
         }
 
         //Fade out text
@@ -123,7 +121,7 @@ public class UIUpdateController : MonoBehaviour {
         while (timeEllapsed < Constants.RESOURCE_CHANGE_MOVEMENT_TIME) {
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.gameObject.transform.position = Vector3.Lerp(destination, origin, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
             timeEllapsed += Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME;
-            yield return new WaitForSeconds(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
+            yield return new WaitForSecondsRealtime(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
         }
     }
 
@@ -140,6 +138,13 @@ public class UIUpdateController : MonoBehaviour {
             if (resourceLoss != 0) {
                 UpdateResource(resource, resourceLoss, ResourceOperationEnum.Decrease);
             }
+        }
+    }
+
+    public void UpdateRandomResources_TESTONLY(ResourceOperationEnum operationType) {
+        foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
+            var resourceValue = Random.Range(5 / 5, 25 / 5 + 1) * 5;
+            UpdateResource(resource, resourceValue, operationType);
         }
     }
 }
