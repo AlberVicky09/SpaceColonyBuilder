@@ -18,6 +18,7 @@ public abstract class GathererBehaviour : ActionUIController
     public int maxGathererLoad;
 
     private Coroutine gatheringCoroutine;
+    private bool isGatheringStopping;
     
     private void OnTriggerEnter(Collider other) {
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
@@ -31,6 +32,7 @@ public abstract class GathererBehaviour : ActionUIController
     private void OnTriggerExit(Collider other) {
         if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
             if (null != gatheringCoroutine) {
+                isGatheringStopping = true;
                 StopCoroutine(GatheringCoroutine());
                 gatheringCoroutine = null;
             }
@@ -43,6 +45,11 @@ public abstract class GathererBehaviour : ActionUIController
     }
 
     public void ReturnToBase(bool isRetreating) {
+        if (null != gatheringCoroutine) {
+            isGatheringStopping = true;
+            StopCoroutine(GatheringCoroutine());
+            gatheringCoroutine = null;
+        }
         StartCoroutine(CheckReturnToBaseCompleted(isRetreating));
     }
 
@@ -64,6 +71,7 @@ public abstract class GathererBehaviour : ActionUIController
                 }
                 gathererLoad = 0;
                 clickableGatherer.UpdateTexts();
+                currentClickableOre.UpdateTexts();
                 if (isRetreating) {
                     DisplayAction(GameControllerScript.Instance.stopActionSprite);
                 } else {
@@ -71,7 +79,7 @@ public abstract class GathererBehaviour : ActionUIController
                 }
                 yield break;
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
     
@@ -79,11 +87,17 @@ public abstract class GathererBehaviour : ActionUIController
         DisplayProgress();
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
             yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
+            //Ensure coroutine hasnt been stopped
+            if (isGatheringStopping) {
+                isGatheringStopping = false;
+                yield break;
+            }
+            
             progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             //TODO Cheating
             //gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
-            loadDictionary[currentGatheredOre.resourceType] += Constants.INITIAL_RESOURCES_LIMIT;
+            loadDictionary[currentGatheredOre.resourceType] += gathererLoad;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();
