@@ -5,7 +5,12 @@ public class KeyController : MonoBehaviour {
     public GameObject cameraGO;
     
     void Update() {
-        if (Input.GetKey(KeyCode.RightControl)){ GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(); }
+        //TODO Remove
+        if (Input.GetKeyDown(KeyCode.PageUp)) {
+            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Decrease);
+        }else if (Input.GetKeyDown(KeyCode.PageDown)) {
+            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Increase);
+        }
         
         if (!(GameControllerScript.Instance.isInMissions || GameControllerScript.Instance.isGameFinished)) {
             //Camera controlls
@@ -31,13 +36,7 @@ public class KeyController : MonoBehaviour {
                 } else if (Input.GetKey(KeyCode.D)) {
                     CameraMove.Instance.MoveCameraVertical(-0.3f);
                 }
-
-                //Reset camera by right clicking or by clicking F
-                if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.F)) {
-                    CameraMove.Instance.ResetCamera();
-                    CameraMove.Instance.UnFocusCameraInGO();
-                }
-
+                
                 //Zoom camera with Q and E
                 if (Input.GetKey(KeyCode.Q)) {
                     CameraMove.Instance.ZoomCamera(false);
@@ -45,6 +44,12 @@ public class KeyController : MonoBehaviour {
                     CameraMove.Instance.ZoomCamera(true);
                 }
 
+                //Reset camera by right clicking or by clicking F
+                if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F)) {
+                    CameraMove.Instance.ResetCamera();
+                    CameraMove.Instance.UnFocusCameraInGO();
+                }
+                
                 //Zoom camera with mouseScroll
                 if (Input.mouseScrollDelta.y != 0) {
                     CameraMove.Instance.ZoomCamera(Input.mouseScrollDelta.y > 0);

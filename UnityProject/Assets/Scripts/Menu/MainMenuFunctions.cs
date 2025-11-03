@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,9 +15,64 @@ public class MainMenuFunctions : MonoBehaviour {
     public Sprite resumeButtonActive, resumeButtonInactive;
     private bool isThereASaveGame;
     Resolution[] resolutions;
+    private int currentResolutionIndex;
+    private FullScreenMode currentFullScreenMode;
 
+    private float targetAspectWidth = 16f;
+    private float targetAspectHeight = 9f;
+    
+    private void ApplyLetterbox() {
+        Camera cam = Camera.main;
+
+        float targetAspect = targetAspectWidth / targetAspectHeight;
+        float windowAspect = (float)Screen.width / Screen.height;
+        float scaleHeight = windowAspect / targetAspect;
+
+        if (scaleHeight < 1f) {
+            // Add black bars top/bottom (pillarbox)
+            Rect rect = cam.rect;
+
+            rect.width = 1f;
+            rect.height = scaleHeight;
+            rect.x = 0f;
+            rect.y = (1f - scaleHeight) / 2f;
+
+            cam.rect = rect;
+        } else {
+            // Add black bars left/right (letterbox)
+            float scaleWidth = 1f / scaleHeight;
+
+            Rect rect = cam.rect;
+            rect.width = scaleWidth;
+            rect.height = 1f;
+            rect.x = (1f - scaleWidth) / 2f;
+            rect.y = 0f;
+
+            cam.rect = rect;
+        }
+    }
+    
+    private int lastWidth;
+    private int lastHeight;
+    
+    void Update() {
+        if (Screen.width != lastWidth || Screen.height != lastHeight) {
+            lastWidth = Screen.width;
+            lastHeight = Screen.height;
+            
+            OnWindowResize(lastWidth, lastHeight);
+        }
+    }
+
+    void OnWindowResize(int width, int height) {
+        Debug.Log($"Window resized to {width}x{height}");
+        ApplyLetterbox();
+    }
+    
     public void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
+        lastWidth = Screen.width;
+        lastHeight = Screen.height;
         SetUpResolutions();
 
         if (Utils.ReadFile("missionsAvailable").Equals(Constants.FILE_NOT_FOUND)) {
@@ -31,37 +87,46 @@ public class MainMenuFunctions : MonoBehaviour {
     }
 
     public void SetUpResolutions() {
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions
+            .Where(r => Mathf.Abs((float)r.width / r.height - 16f / 9f) < 0.01f)
+            .GroupBy(r => (r.width, r.height))
+            .Select(g => g.First())
+            .ToArray();
+
+        var currentFoundSolution = -1;
         resolutionDropdown.ClearOptions();
 
         var options = new List<string>();
         var found = false;
 
-        foreach (var resolution in Screen.resolutions) {
-            if (Constants.RESOLUTIONS_VALID_WIDTHS.Contains(resolution.width)
-                && Constants.RESOLUTIONS_VALID_HEIGHTS.Contains(resolution.height)) {
+        foreach (var resolution in resolutions) {
+            string option = resolution.width + " X " + resolution.height;
+            
+            options.Add(option);
                 
-                string option = resolution.width + " X " + resolution.height;
-                options.Add(option);
-                
-                if (resolution.width == Screen.width &&
+            if (resolution.width == Screen.width &&
                     resolution.height == Screen.height) {
-                    resolutionDropdown.value = options.Count - 1;
-                    found = true;
-                }
+                Debug.Log("Current resolution is " + option);
+                currentFoundSolution = options.Count - 1;
+                found = true;
             }
         }
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.RefreshShownValue();
 
+        resolutionDropdown.AddOptions(options);
         if (!found) {
-            resolutionDropdown.value = resolutions.Length - 1;
+            resolutionDropdown.value = resolutionDropdown.options.Count - 1;
             SetResolution(resolutionDropdown.value);
+        } else {
+            resolutionDropdown.value = currentFoundSolution;
         }
+        resolutionDropdown.RefreshShownValue();
     }
     
     public void SetResolution(int resolutionIndex) {
-        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, currentFullScreenMode);
+        currentResolutionIndex = resolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+        ApplyLetterbox();
     }
 
     public void ToggleMusic() {
@@ -85,8 +150,18 @@ public class MainMenuFunctions : MonoBehaviour {
     }
 
     public void ToggleFullscreen() {
-        Screen.fullScreen = !Screen.fullScreen;
-        fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
+        if (Screen.fullScreen) {
+            // Go windowed
+            Screen.fullScreenMode = currentFullScreenMode = FullScreenMode.Windowed;
+            // Optionally restore a windowed resolution
+            SetResolution(currentResolutionIndex);
+            fullScreenBtn.sprite = deactivatedSprite;
+        } else {
+            // Go fullscreen window
+            Screen.fullScreenMode = currentFullScreenMode = FullScreenMode.FullScreenWindow;
+            SetResolution(resolutions.Length - 1);
+            fullScreenBtn.sprite = activeSprite;
+        }
     }
 
     public void EnterStartNewGame() {
