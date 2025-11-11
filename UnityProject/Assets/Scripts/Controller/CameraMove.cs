@@ -13,16 +13,21 @@ public class CameraMove : MonoBehaviour {
 
     public float leftCameraMovementThreshold, rightCameraMovementThreshold, rightCameraMovementRange;
     public float upCameraMovementThreshold, upCameraMovementRange, downCameraMovementThreshold;
-
+    
+    private int lastWidth;
+    private int lastHeight;
+    
     void Awake() { Instance = this; }
-
-    void Start() {
-        leftCameraMovementThreshold = Screen.width * 0.15f;
-        rightCameraMovementThreshold = Screen.width * 0.85f;
-        rightCameraMovementRange = (Screen.width - rightCameraMovementThreshold);
-        downCameraMovementThreshold = Screen.height * 0.15f;
-        upCameraMovementThreshold = Screen.height * 0.85f;
-        upCameraMovementRange = (Screen.height - upCameraMovementThreshold);
+    
+    void Start() { OnWindowResize(); }
+    
+    void Update() {
+        if (Screen.width != lastWidth || Screen.height != lastHeight) {
+            lastWidth = Screen.width;
+            lastHeight = Screen.height;
+            
+            OnWindowResize();
+        }
     }
 
     void LateUpdate() {
@@ -146,5 +151,14 @@ public class CameraMove : MonoBehaviour {
 
             yield return null;
         }
+    }
+    
+    private void OnWindowResize() {
+        leftCameraMovementThreshold = Screen.width * 0.15f;
+        rightCameraMovementThreshold = Screen.width * 0.85f;
+        rightCameraMovementRange = (Screen.width - rightCameraMovementThreshold);
+        downCameraMovementThreshold = Screen.height * 0.15f;
+        upCameraMovementThreshold = Screen.height * 0.85f;
+        upCameraMovementRange = (Screen.height - upCameraMovementThreshold);
     }
 }

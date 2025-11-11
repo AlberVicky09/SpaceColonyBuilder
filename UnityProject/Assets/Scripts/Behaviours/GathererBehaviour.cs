@@ -24,7 +24,7 @@ public abstract class GathererBehaviour : ActionUIController
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
             currentGatheredOre = other.GetComponent<OreBehaviour>();
             currentClickableOre = other.GetComponent<ClickableOre>();
-            totalProgressTime = currentGatheredOre.gatheringTimeRequired;
+            totalProgressTime = currentGatheredOre.GATHERING_TIME_REQUIRED;
             gatheringCoroutine = StartCoroutine(GatheringCoroutine());
         }
     }
@@ -86,7 +86,7 @@ public abstract class GathererBehaviour : ActionUIController
     private IEnumerator GatheringCoroutine() {
         DisplayProgress();
         while (currentGatheredOre.gatheredTimes < currentGatheredOre.MAXGATHEREDTIMES) {
-            yield return new WaitForSeconds(currentGatheredOre.gatheringTimeRequired);
+            yield return new WaitForSeconds(currentGatheredOre.GATHERING_TIME_REQUIRED);
             //Ensure coroutine hasnt been stopped
             if (isGatheringStopping) {
                 isGatheringStopping = false;

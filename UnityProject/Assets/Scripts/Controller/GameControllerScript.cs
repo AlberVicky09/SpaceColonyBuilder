@@ -13,7 +13,7 @@ public class GameControllerScript : MonoBehaviour {
 
     #region Variables
 
-    public static GameControllerScript Instance;
+    public static GameControllerScript Instance { get; private set; }
     public UIUpdateController uiUpdateController; 
     public InteractableButtonManager interactableButtonManager;
     public MissionController missionController;
@@ -103,7 +103,6 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        currentMissionNumber = 2; //TODO
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //Initialize ui text resource counters

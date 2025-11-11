@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuFunctions : MonoBehaviour {
@@ -17,62 +16,9 @@ public class MainMenuFunctions : MonoBehaviour {
     Resolution[] resolutions;
     private int currentResolutionIndex;
     private FullScreenMode currentFullScreenMode;
-
-    private float targetAspectWidth = 16f;
-    private float targetAspectHeight = 9f;
-    
-    private void ApplyLetterbox() {
-        Camera cam = Camera.main;
-
-        float targetAspect = targetAspectWidth / targetAspectHeight;
-        float windowAspect = (float)Screen.width / Screen.height;
-        float scaleHeight = windowAspect / targetAspect;
-
-        if (scaleHeight < 1f) {
-            // Add black bars top/bottom (pillarbox)
-            Rect rect = cam.rect;
-
-            rect.width = 1f;
-            rect.height = scaleHeight;
-            rect.x = 0f;
-            rect.y = (1f - scaleHeight) / 2f;
-
-            cam.rect = rect;
-        } else {
-            // Add black bars left/right (letterbox)
-            float scaleWidth = 1f / scaleHeight;
-
-            Rect rect = cam.rect;
-            rect.width = scaleWidth;
-            rect.height = 1f;
-            rect.x = (1f - scaleWidth) / 2f;
-            rect.y = 0f;
-
-            cam.rect = rect;
-        }
-    }
-    
-    private int lastWidth;
-    private int lastHeight;
-    
-    void Update() {
-        if (Screen.width != lastWidth || Screen.height != lastHeight) {
-            lastWidth = Screen.width;
-            lastHeight = Screen.height;
-            
-            OnWindowResize(lastWidth, lastHeight);
-        }
-    }
-
-    void OnWindowResize(int width, int height) {
-        Debug.Log($"Window resized to {width}x{height}");
-        ApplyLetterbox();
-    }
     
     public void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
-        lastWidth = Screen.width;
-        lastHeight = Screen.height;
         SetUpResolutions();
 
         if (Utils.ReadFile("missionsAvailable").Equals(Constants.FILE_NOT_FOUND)) {
@@ -126,7 +72,7 @@ public class MainMenuFunctions : MonoBehaviour {
         Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, currentFullScreenMode);
         currentResolutionIndex = resolutionIndex;
         resolutionDropdown.RefreshShownValue();
-        ApplyLetterbox();
+        ScreenResizeUtility.ApplyLetterbox();
     }
 
     public void ToggleMusic() {
@@ -174,7 +120,7 @@ public class MainMenuFunctions : MonoBehaviour {
     }
     
     public void StartNewGame(int activateTutorial) {
-        Utils.DeleteSaveFile();
+        Utils.DeleteSaveFile("missionsAvailable");
         EnterMissionSelection(activateTutorial);
     }
     
@@ -184,7 +130,7 @@ public class MainMenuFunctions : MonoBehaviour {
     }
 
     public void ReturnToMainMenu() {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainMenu"));
     }
     
     public void QuitGame() { Application.Quit(); }
