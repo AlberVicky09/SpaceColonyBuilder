@@ -15,7 +15,9 @@ public class MissionController : MonoBehaviour {
     public TMP_Text endGameText, missionsCompletedText, timeSpentText;
 
     private void Start() {
-        missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives" + GameControllerScript.Instance.currentMissionNumber));
+        var missionListTextFile = Resources.Load<TextAsset>("missionObjectives" + GameControllerScript.Instance.currentMissionNumber);
+        missionListDto = JsonUtility.FromJson<MissionListDTO>(missionListTextFile.text);
+        //missionListDto = JsonUtility.FromJson<MissionListDTO>(Utils.ReadFile("missionObjectives" + GameControllerScript.Instance.currentMissionNumber));
         
         for(int i = 0; i < missionUIList.Length; i++) {
             missionUIList[i].SetActive(false);

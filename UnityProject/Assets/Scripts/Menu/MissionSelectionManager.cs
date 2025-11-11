@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MissionSelectionManager : MonoBehaviour {
@@ -41,7 +40,9 @@ public class MissionSelectionManager : MonoBehaviour {
             missionAvailability = new MissionAvailabilityDTO(new []{true, false, false});
         }
         
-        var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
+        var missionTextFile = Resources.Load<TextAsset>("missionDescriptions");
+        var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(missionTextFile.text);
+        //var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
             missionsAvailable[i] = missionAvailability.boolArray[i];
@@ -90,7 +91,7 @@ public class MissionSelectionManager : MonoBehaviour {
     
     public void PlayMission(int mission) {
         PlayerPrefs.SetInt("mission", mission);
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainScene"));
     }
 
     public void ReturnToMenu() {

@@ -270,23 +270,26 @@ public static class Utils {
                 break;
         }
     }
-
+    
     public static string ReadFile(string fileName) {
-        TextAsset txt = Resources.Load<TextAsset>(fileName); // no extension
-        Debug.Log("File " + fileName + " exists? " + (txt != null));
-        return txt != null ? txt.text : Constants.FILE_NOT_FOUND;
+        string filePath = Path.Combine(Application.persistentDataPath, fileName + ".json");
+
+        if (!File.Exists(filePath)) {
+            Debug.Log("File " + filePath + " not found");
+            return Constants.FILE_NOT_FOUND;
+        }
+
+        return File.ReadAllText(filePath);
     }
     
     public static void WriteFile(string fileName, string fileContent) {
-        // Path to the file
-        string filePath = Path.Combine(Application.dataPath, "Resources", fileName + ".json");
-
-        // Store file
+        string filePath = Path.Combine(Application.persistentDataPath, fileName + ".json");
         File.WriteAllText(filePath, fileContent);
+        Debug.Log("Saved to: " + filePath);
     }
 
-    public static void DeleteSaveFile() {
-        string filePath = Path.Combine(Application.dataPath, "Resources/missionsAvailable.json");
+    public static void DeleteSaveFile(string fileName) {
+        string filePath = Path.Combine(Application.persistentDataPath, fileName + ".json");
         try {File.Delete(filePath);} catch { Debug.Log("Save file not deleted"); }
     }
 }
