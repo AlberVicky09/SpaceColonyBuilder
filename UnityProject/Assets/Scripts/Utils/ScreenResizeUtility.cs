@@ -22,14 +22,11 @@ public class ScreenResizeUtility : MonoBehaviour {
             lastWidth = Screen.width;
             lastHeight = Screen.height;
             
-            OnWindowResize(lastWidth, lastHeight);
+            OnWindowResize();
         }
     }
 
-    void OnWindowResize(int width, int height) {
-        Debug.Log($"Window resized to {width}x{height}");
-        ApplyLetterbox();
-    }
+    void OnWindowResize() { ApplyLetterbox(); }
     
     public static void ApplyLetterbox() {
         Camera cam = Camera.main;

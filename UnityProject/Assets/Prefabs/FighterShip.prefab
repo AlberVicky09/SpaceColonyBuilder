@@ -227,8 +227,8 @@ RectTransform:
   m_GameObject: {fileID: 4523496798088306993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4216657283941693346}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -302,8 +302,8 @@ RectTransform:
   m_GameObject: {fileID: 5337305570936254334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4216657283941693346}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 1410148944443664569}
   - component: {fileID: 9184458987836272098}
   - component: {fileID: 6720664997312271108}
+  - component: {fileID: 3351654429266765372}
   m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
@@ -475,7 +476,7 @@ Canvas:
   m_GameObject: {fileID: 7165681061151352706}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -487,7 +488,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &9184458987836272098
 MonoBehaviour:
@@ -529,6 +530,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3351654429266765372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165681061151352706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70050c81499d3a3498706cc695c99070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propCanvas: {fileID: 1410148944443664569}
 --- !u!1 &8360097451681973102
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,11 +958,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b26fcde1021c994283b65774aa600ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 4216657283941693346}
-  actionProgress: {fileID: 5337305570936254334}
+  actionProgress: {fileID: 876756967446697059}
+  currentAction: {fileID: 1168397147579766140}
+  canvasRect: {fileID: 4216657283941693346}
+  actionCanvas: {fileID: 1410148944443664569}
+  currentGameObject: {fileID: 22147300020478473}
   actionProgressImage: {fileID: 1599575986650622475}
-  currentAction: {fileID: 4523496798088306993}
   currentActionImage: {fileID: 863507420221720282}
+  iconWorldOffset: 2
   agent: {fileID: 1471278771838766375}
   propType: 4
   objectiveGO: {fileID: 0}
@@ -1023,6 +1040,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a437dc6860e64b828431b6e236e008ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionProgress: {fileID: 0}
+  currentAction: {fileID: 2016583292356147894}
+  canvasRect: {fileID: 4216657283941693346}
+  actionCanvas: {fileID: 1410148944443664569}
+  currentGameObject: {fileID: 22147300020478473}
+  actionProgressImage: {fileID: 0}
+  currentActionImage: {fileID: 0}
+  iconWorldOffset: 2
   healthPoints: 50
   MAX_HEALTHPOINTS: 50
   propType: 4

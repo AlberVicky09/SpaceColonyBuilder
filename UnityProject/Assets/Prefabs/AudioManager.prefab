@@ -496,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 921379540165108140}
   - component: {fileID: 8167541339231933009}
+  - component: {fileID: 5490930603265306833}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -537,7 +538,7 @@ MonoBehaviour:
   musicClips:
   - musicTrackName: 1
     sfxTrackName: 0
-    clip: {fileID: 8300000, guid: 8834df119142a704b844b694a3080ece, type: 3}
+    clip: {fileID: 8300000, guid: 622968134eadd9f43893bb75907b3c04, type: 3}
   - musicTrackName: 2
     sfxTrackName: 0
     clip: {fileID: 8300000, guid: 0e6aa5e1e667d074788534f345f4dd4d, type: 3}
@@ -553,7 +554,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4852e1e93ab6774488a08d643a19afbd, type: 3}
   - musicTrackName: 0
     sfxTrackName: 3
-    clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
+    clip: {fileID: 8300000, guid: fc7b4b3528e8be342b08e8c60be090d1, type: 3}
+  - musicTrackName: 0
+    sfxTrackName: 4
+    clip: {fileID: 8300000, guid: 74737c4dde20a6941a8e5aa1fe97ef2b, type: 3}
   - musicTrackName: 0
     sfxTrackName: 5
     clip: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
@@ -571,6 +575,18 @@ MonoBehaviour:
   auxSource: {fileID: 3498359531496693340}
   sfxSourceList: []
   fadeToBlackImage: {fileID: 121314770670200344}
+--- !u!114 &5490930603265306833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073362719822246730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f1f6b397996614a919f3944bc3e794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7021875779939022677
 GameObject:
   m_ObjectHideFlags: 0

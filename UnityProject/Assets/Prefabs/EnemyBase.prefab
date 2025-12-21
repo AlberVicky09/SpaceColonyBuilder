@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 5364118786174221502}
   - component: {fileID: 6743050178531636155}
   - component: {fileID: 98485059589301050}
+  - component: {fileID: 3850309104499710491}
   m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
@@ -198,7 +199,7 @@ Canvas:
   m_GameObject: {fileID: 2972536755991825513}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -252,6 +253,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3850309104499710491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972536755991825513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70050c81499d3a3498706cc695c99070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propCanvas: {fileID: 5364118786174221502}
 --- !u!1 &3236687540948727526
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +744,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a437dc6860e64b828431b6e236e008ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionProgress: {fileID: 0}
+  currentAction: {fileID: 1837683444898757218}
+  canvasRect: {fileID: 7995483060941295856}
+  actionCanvas: {fileID: 5364118786174221502}
+  currentGameObject: {fileID: 7040026610463504006}
+  actionProgressImage: {fileID: 0}
+  currentActionImage: {fileID: 0}
+  iconWorldOffset: 6
   healthPoints: 100
   MAX_HEALTHPOINTS: 100
   propType: 9

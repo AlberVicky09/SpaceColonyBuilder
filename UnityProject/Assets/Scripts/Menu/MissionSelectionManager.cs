@@ -17,10 +17,10 @@ public class MissionSelectionManager : MonoBehaviour {
     public Sprite startMissionActivatedSprite, startMissionDeactivatedSprite;
 
     private Image startMissionBtnImage;
-    private int currentPosition = -1;
+    private int currentPosition;
     private int objectiveMission;
     private String[] titleTexts, descriptionTexts;
-    private bool isAlradyInMission = false;
+    private bool isAlradyInMission;
 
     void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MissionSelectionBG);
@@ -58,6 +58,11 @@ public class MissionSelectionManager : MonoBehaviour {
 
         startMissionBtnImage = startMissionBtn.GetComponent<Image>();
         startMissionBtnImage.sprite = startMissionDeactivatedSprite;
+
+        currentPosition = -1;
+        objectiveMission = 0;
+        isAlradyInMission = false;
+        agent.SetDestination(missionPositions[objectiveMission].transform.position);
     }
     
     void Update() {

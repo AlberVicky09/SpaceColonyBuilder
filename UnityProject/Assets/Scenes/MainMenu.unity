@@ -9155,23 +9155,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586552273}
   m_CullTransparentMesh: 1
---- !u!1 &1595036481 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6073362719822246730, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-  m_PrefabInstance: {fileID: 8829496849355221058}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1595036484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595036481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f1f6b397996614a919f3944bc3e794, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1660590266
 GameObject:
   m_ObjectHideFlags: 0
@@ -16599,69 +16582,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: fc7b4b3528e8be342b08e8c60be090d1, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 74737c4dde20a6941a8e5aa1fe97ef2b, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 78890ca9f6e15ad408abf03373ac67ef, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4fb0e070228b0ce4f9dea5368a35825f, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4be1155636d224d4e96bd63c4759425e, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 74737c4dde20a6941a8e5aa1fe97ef2b, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: musicClips.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 622968134eadd9f43893bb75907b3c04, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: musicClips.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e7e54979201fc854f9ea8baf96b7792a, type: 3}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[3].sfxTrackName
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[4].sfxTrackName
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[5].sfxTrackName
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[6].sfxTrackName
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167541339231933009, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      propertyPath: sfxClips.Array.data[7].sfxTrackName
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6073362719822246730, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1595036484}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
 --- !u!199 &8889626649911208364
 ParticleSystemRenderer:

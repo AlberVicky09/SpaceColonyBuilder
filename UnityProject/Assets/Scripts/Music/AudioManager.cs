@@ -125,6 +125,7 @@ public class AudioManager : MonoBehaviour {
         //Clear all SFX before moving from scene
         sfxSourceList.Clear();
         yield return StartCoroutine(FadeOutScene(duration));
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
     

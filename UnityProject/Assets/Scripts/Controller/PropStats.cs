@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PropStats : MonoBehaviour {
+public class PropStats : ActionUIController_v2 {
 
     public int healthPoints = 100;
     public int MAX_HEALTHPOINTS;
@@ -17,8 +17,6 @@ public class PropStats : MonoBehaviour {
     private Color[] originalColor;
     public Clickable clickable;
     
-    void Update() { Utils.LocateMarkerOverGameObject(gameObject, healthBar.gameObject, healthBarOffSet, canvas); }
-
     private void Start() {
         healthBar.maxValue = MAX_HEALTHPOINTS;
         UpdateHealthBar();

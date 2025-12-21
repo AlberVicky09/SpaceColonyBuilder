@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class FighterBehaviour : ActionUIController{
+public abstract class FighterBehaviour : ActionUIController_v2 {
     
     public NavMeshAgent agent;
     public PropsEnum propType;
@@ -54,7 +54,6 @@ public abstract class FighterBehaviour : ActionUIController{
 
     void Update() {
         if (isActivated) {
-            base.Update();
             
             switch (currentState) {
                 //When scouting, check for enemies and if not, go on with next waypoint

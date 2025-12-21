@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FoodGeneratorBehaviour : ActionUIController {
+public class FoodGeneratorBehaviour : ActionUIController_v2 {
 
     public Coroutine generatorCoroutine;
     public bool isGeneratorPaused = false;

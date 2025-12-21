@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class GathererBehaviour : ActionUIController
+public abstract class GathererBehaviour : ActionUIController_v2
 {
     protected ClickableOre currentClickableOre;
     [SerializeField] protected ClickableGatherer clickableGatherer;
@@ -71,7 +72,8 @@ public abstract class GathererBehaviour : ActionUIController
                 }
                 gathererLoad = 0;
                 clickableGatherer.UpdateTexts();
-                currentClickableOre.UpdateTexts();
+                try { currentClickableOre.UpdateTexts(); } catch (Exception) {}
+
                 if (isRetreating) {
                     DisplayAction(GameControllerScript.Instance.stopActionSprite);
                 } else {

@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoveringDisplayText: 
-  usesResourceTooltip: 0
+  usesResourceTooltip: 1
   propType: 0
 --- !u!114 &1127952399623830528
 MonoBehaviour:
