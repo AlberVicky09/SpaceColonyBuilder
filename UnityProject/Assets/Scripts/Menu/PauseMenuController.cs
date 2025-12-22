@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PauseMenuController : MonoBehaviour {
 
-    public GameObject pauseCanvas, settingsCanvas, tutorialCanvas, quitGameCanvas;
+    public GameObject pauseCanvas, settingsCanvas, tutorialCanvas, controlsCanvas, quitGameCanvas;
     private bool isTutorialFirstTime = true;
     
     public void PauseGame() {
@@ -28,7 +28,14 @@ public class PauseMenuController : MonoBehaviour {
     public void GoToTutorial() {
         tutorialCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
-        GameControllerScript.Instance.tutorialControllerNew.RestartTutorial();
+        GameControllerScript.Instance.tutorialControllerImage.RestartTutorial();
+        GameControllerScript.Instance.isInAMenu = true;
+    }
+
+    public void GoToControls() {
+        controlsCanvas.SetActive(true);
+        pauseCanvas.SetActive(false);
+        GameControllerScript.Instance.controlsController.RestartControls();
         GameControllerScript.Instance.isInAMenu = true;
     }
 
@@ -51,6 +58,7 @@ public class PauseMenuController : MonoBehaviour {
         settingsCanvas.SetActive(false);
         tutorialCanvas.SetActive(false);
         quitGameCanvas.SetActive(false);
+        controlsCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
         GameControllerScript.Instance.isInAMenu = false;
     }

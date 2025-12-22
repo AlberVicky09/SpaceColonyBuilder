@@ -38,7 +38,7 @@ public class UIUpdateController : MonoBehaviour {
                 //If is more than limit, increase until limit
                 var maxPossibleIncrease = GameControllerScript.Instance.resourcesLimit -
                                           GameControllerScript.Instance.resourcesDictionary[resourceType];
-                if (quantity > maxPossibleIncrease) {
+                if (quantity >= maxPossibleIncrease) {
                     GameControllerScript.Instance.resourcesDictionary[resourceType] = GameControllerScript.Instance.resourcesLimit;
                     GameControllerScript.Instance.uiResourcesTextMap[resourceType].color = Color.yellow;
                     limitedQuantity = maxPossibleIncrease;

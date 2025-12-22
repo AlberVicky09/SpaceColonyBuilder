@@ -21,7 +21,8 @@ public class GameControllerScript : MonoBehaviour {
     public BulletPoolController bulletPoolController;
     public EnemyGenerationController enemyGenerationController;
     public TutorialControllerLegacy tutorialControllerLegacy;
-    public TutorialControllerNew tutorialControllerNew;
+    public TutorialControllerImage tutorialControllerImage;
+    public ControlsController controlsController;
     public EnemyBaseController enemyBaseController;
     public PauseMenuController pauseMenuController;
     public SummaryPanelController summaryPanelController;
@@ -225,7 +226,7 @@ public class GameControllerScript : MonoBehaviour {
                 break;
         }
 
-        if (isTutorialActivated == 1) { tutorialControllerNew.DisplayTutorialForMission(); }
+        if (isTutorialActivated == 1) { tutorialControllerImage.DisplayTutorialForMission(); }
         
         PauseGame();
     }

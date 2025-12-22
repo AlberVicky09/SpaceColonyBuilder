@@ -230,8 +230,13 @@ public static class Constants {
     public static Vector3 INTERACTABLE_BUTTON_PROP_SCALE = new(2.5f, 2.5f, 1);
     public static Vector3 INTERACTABLE_BUTTON_RESOURCE_SCALE = new(1f, 1f, 1f);
 
-    public static int TUTORIAL_MISSION_0_MAX = 8;
-    public static int TUTORIAL_MISSION_1_MAX = 12;
+    public static List<string> CONTROLS_TEXTS = new List<string>() {
+        "W -> Move camera up\nA -> Move camera left\nS -> Move camera down\nD -> Move camera right\n\nQ / Mouse wheel \u2193 -> Zoom out camera\nE / Mouse wheel \u2191 ->  Zoom in camera",
+        "F / Left click -> Reset camera to base\nP / Esc -> Pause game\nT -> Toggle summary menu"
+    };
+    
+    public static int TUTORIAL_MISSION_0_MAX = 7;
+    public static int TUTORIAL_MISSION_1_MAX = 11;
     public static string VIDEO_TUTORIAL_CLIP_NAME = "TutorialClip";
     public static List<string> TUTORIAL_TEXTS = new List<string>() {
         //MISSION 1
