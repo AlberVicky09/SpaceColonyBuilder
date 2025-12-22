@@ -170,7 +170,7 @@ public class GameControllerScript : MonoBehaviour {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
             resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[currentMissionNumber][resource]);
-            uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.transform.position);
+            uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.rectTransform.position);
             //Hide resources loss text
             uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
         }

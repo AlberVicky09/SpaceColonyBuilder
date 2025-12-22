@@ -201,9 +201,8 @@ public static class Constants {
     public static int DEFAULT_GATHERER_MAX_LOAD = 75;
     public static int UPGRADED_GATHERER_LOAD = 175;
 
-    public static float RESOURCE_CHANGE_MOVEMENT_TIME = 1.5f;
-    public static float RESOURCE_CHANGE_MOVEMENT_LERP_TIME = 0.05f;
-    public static Vector3 RESOURCE_CHANGE_DISPLACE = new Vector3(0, 30f, 0);
+    public static float RESOURCE_CHANGE_MOVEMENT_TIME = 1f;
+    public static Vector3 RESOURCE_CHANGE_DISPLACE = new (0, 1.7f, 0);
     public static Color GREEN_COLOR = new Color(0.4947595f, 1, 0.3176471f);
     public static Color RED_COLOR = new Color(1, 0.3539989f, 0.31761f);
 

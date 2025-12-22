@@ -7,11 +7,11 @@ using Random = UnityEngine.Random;
 public class UIUpdateController : MonoBehaviour {
 
     public Dictionary<ResourceEnum, Vector3> resourcesInitialPositions;
-    private Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>> resourcesChangeCoroutines;
+    private Dictionary<ResourceEnum, Coroutine> resourceChangeCoroutine;
     private Dictionary<ResourceEnum, bool> missingResourcesFlags;
 
     private void Start() {
-        resourcesChangeCoroutines = new Dictionary<ResourceEnum, Dictionary<ResourceOperationEnum, Coroutine>>();
+        resourceChangeCoroutine = new Dictionary<ResourceEnum, Coroutine>();
         missingResourcesFlags = new Dictionary<ResourceEnum, bool>();
         Dictionary<ResourceOperationEnum, Coroutine> auxDictionary;
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
@@ -19,7 +19,7 @@ public class UIUpdateController : MonoBehaviour {
             foreach (ResourceOperationEnum op in Enum.GetValues(typeof(ResourceOperationEnum))) {
                 auxDictionary.Add(op, null);
             }
-            resourcesChangeCoroutines.Add(resource, auxDictionary);
+            resourceChangeCoroutine[resource] = null;
             missingResourcesFlags.Add(resource, false);
         }
     }
@@ -81,18 +81,26 @@ public class UIUpdateController : MonoBehaviour {
         GameControllerScript.Instance.uiResourcesTextMap[resourceType].text = GameControllerScript.Instance.resourcesDictionary[resourceType].ToString();
         
         //Display update
-        try { StopCoroutine(resourcesChangeCoroutines[resourceType][operation]); } catch { }
-
-        resourcesChangeCoroutines[resourceType][operation] = StartCoroutine(DisplayResourceChange(resourceType, limitedQuantity, operation));
+        if (resourceChangeCoroutine[resourceType] != null) {
+            StopCoroutine(resourceChangeCoroutine[resourceType]);
+        }
+        
+        resourceChangeCoroutine[resourceType] =
+            StartCoroutine(DisplayResourceChange(resourceType, limitedQuantity, operation));
         
         GameControllerScript.Instance.missionController.CheckResourceMission(resourceType, GameControllerScript.Instance.resourcesDictionary[resourceType]);
     }
-
+    
     public IEnumerator DisplayResourceChange(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
         //Display resource text and set value
-        GameControllerScript.Instance.uiResourcesTextMap[resourceType].transform.position = resourcesInitialPositions[resourceType];
-        GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].canvas.SetAlpha(1.0f);
+        var changeText = GameControllerScript.Instance
+            .uiResourcesChangeTextMap[resourceType].text;
 
+        // HARD RESET (prevents drifting)
+        var origin = resourcesInitialPositions[resourceType];
+        changeText.rectTransform.position = origin;
+        changeText.canvasRenderer.SetAlpha(1f);
+        
         if(ResourceOperationEnum.Increase.Equals(operation)) {
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.GREEN_COLOR;
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.text = "+" + quantity;
@@ -103,25 +111,37 @@ public class UIUpdateController : MonoBehaviour {
 
         //Get origin and destination position for "bounce"
         float timeEllapsed = 0;
-        var origin = GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.gameObject.transform.position;
         var destination = origin + Constants.RESOURCE_CHANGE_DISPLACE;
 
         //Move text up
         while (timeEllapsed < Constants.RESOURCE_CHANGE_MOVEMENT_TIME) {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.gameObject.transform.position = Vector3.Lerp(origin, destination, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
-            timeEllapsed += Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME;
-            yield return new WaitForSecondsRealtime(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
-        }
 
-        //Fade out text
-        timeEllapsed = 0;
-        GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.CrossFadeAlpha(0.0f, Constants.RESOURCE_CHANGE_MOVEMENT_TIME, true);
+            timeEllapsed += Time.unscaledDeltaTime;
+
+            changeText.rectTransform.position = Vector3.Lerp(
+                origin,
+                destination,
+                timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME
+            );
+
+            yield return null;
+        }
         
         //Move text down
+        timeEllapsed = 0f;
         while (timeEllapsed < Constants.RESOURCE_CHANGE_MOVEMENT_TIME) {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.gameObject.transform.position = Vector3.Lerp(destination, origin, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
-            timeEllapsed += Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME;
-            yield return new WaitForSecondsRealtime(Constants.RESOURCE_CHANGE_MOVEMENT_LERP_TIME);
+
+            timeEllapsed += Time.unscaledDeltaTime;
+
+            changeText.rectTransform.position = Vector3.Lerp(
+                destination,
+                origin,
+                timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME
+            );
+
+            changeText.alpha = Mathf.Lerp(1f, 0f, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
+
+            yield return null;
         }
     }
 
