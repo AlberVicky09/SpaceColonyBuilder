@@ -1,10 +1,20 @@
 {
-    "missionQuantity": 1,
+    "missionQuantity": 3,
     "missions": [{
             "missionType": 0,
             "objectiveName": "Iron",
             "objectiveQuantity": 200,
             "missionDescription": "Gather 200 iron"
-        }
+        }, {
+            "missionType": 1,
+            "objectiveName": "Storage",
+            "objectiveQuantity": 3,
+            "missionDescription": "Have at least 250 of max storage"
+        }, {
+            "missionType": 1,
+            "objectiveName": "Fighter",
+            "objectiveQuantity": 2,
+            "missionDescription": "Have at least 2 active fighters"
+          }
     ]
 }

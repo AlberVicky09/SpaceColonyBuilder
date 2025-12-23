@@ -14,7 +14,7 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
     public IEnumerator GenerateFood() {
         while (true) {
             //If is paused, dont generate
-            while (isGeneratorPaused) { yield return null; }
+            while (isGeneratorPaused) { yield return new WaitUntil(() => isGeneratorPaused); }
             
             if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
                 //Take water only once, even if we pause it
@@ -35,7 +35,12 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
                 
                 //Ensure next time water is taken again
                 hasWaterBeenAlreadyTaken = false;
-            } else { DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]); }
+            } else {
+                DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]);
+                yield return new WaitUntil(() =>
+                    GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15
+                );
+            }
 
             //Check if has been paused, to stop it AFTER the loop is done
             if (isGeneratorPaused) {

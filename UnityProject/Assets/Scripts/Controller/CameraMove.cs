@@ -18,9 +18,9 @@ public class CameraMove : MonoBehaviour {
     private int lastHeight;
     
     void Awake() { Instance = this; }
-    
+
     void Start() { OnWindowResize(); }
-    
+
     void Update() {
         if (Screen.width != lastWidth || Screen.height != lastHeight) {
             lastWidth = Screen.width;
@@ -96,26 +96,42 @@ public class CameraMove : MonoBehaviour {
         isGameObjectCentered = false;
     }
 
-    public void MoveCameraVertical(float verticalMovement) {
-        cameraPivot.transform.position += Vector3.left * verticalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
-        cameraPivot.transform.position += Vector3.forward * verticalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
+    public void MoveCameraVertical(float input) {
+        Vector3 desiredMove = -cameraGO.transform.right * input;
+
+        desiredMove = ProjectOnPlane(desiredMove, cameraGO.transform.forward);
+        desiredMove.Normalize();
+
+        cameraPivot.transform.position +=
+            desiredMove * Constants.CAMERA_MOVEMENT_SMOOTHER_VALUE;
+
         UnFocusCameraInGO();
     }
 
-    public void MoveCameraHorizontal(float horizontalMovement) {
-        cameraPivot.transform.position -= Vector3.right * horizontalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
-        cameraPivot.transform.position -= Vector3.forward * horizontalMovement * Constants.CAMERA_SMOOTHER_VALUE * 0.5f;
+    public void MoveCameraHorizontal(float input) {
+        Vector3 desiredMove = -cameraGO.transform.up * input;
+
+        desiredMove = ProjectOnPlane(desiredMove, cameraGO.transform.forward);
+        desiredMove.Normalize();
+
+        cameraPivot.transform.position +=
+            desiredMove * Constants.CAMERA_MOVEMENT_SMOOTHER_VALUE;
+
         UnFocusCameraInGO();
+    }
+
+    Vector3 ProjectOnPlane(Vector3 v, Vector3 normal) {
+        return v - Vector3.Dot(v, normal) * normal;
     }
 
     public void ZoomCamera(bool zoomIn) {
         cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
-                                     Constants.CAMERA_SMOOTHER_VALUE;
+                                     Constants.CAMERA_ZOOM_SMOOTHER_VALUE;
         cameraGO.orthographicSize =
             Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
 
         miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
-                                          Constants.CAMERA_SMOOTHER_VALUE;
+                                          Constants.CAMERA_ZOOM_SMOOTHER_VALUE;
         miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE,
             Constants.MAX_MINIMAP_ZOOM_SIZE);
     }

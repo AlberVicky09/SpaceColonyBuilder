@@ -5,7 +5,7 @@ public class CanvasCameraSetter : MonoBehaviour {
 
     void Start() {
         propCanvas.worldCamera = GameControllerScript.Instance.cameraMove.cameraGO;
-        propCanvas.planeDistance = 20f;
+        propCanvas.planeDistance = 1f;
         propCanvas.sortingOrder = 1;
     }
 }

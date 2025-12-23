@@ -139,11 +139,12 @@ public static class Constants {
     public const float CAMERA_OFFSET_Y = 7.25f;
 
     public const float ZOOM_CHANGE = 12;
-    public const float CAMERA_SMOOTHER_VALUE = 1.3f;
-    public const float MIN_ZOOM_SIZE = 4f;
-    public const float MAX_ZOOM_SIZE = 13f;
-    public const float MIN_MINIMAP_ZOOM_SIZE = 13f;
-    public const float MAX_MINIMAP_ZOOM_SIZE = 19f;
+    public const float CAMERA_MOVEMENT_SMOOTHER_VALUE = 0.25f;
+    public const float CAMERA_ZOOM_SMOOTHER_VALUE = 1.3f;
+    public const float MIN_ZOOM_SIZE = 7f;
+    public const float MAX_ZOOM_SIZE = 17f;
+    public const float MIN_MINIMAP_ZOOM_SIZE = 10f;
+    public const float MAX_MINIMAP_ZOOM_SIZE = 20f;
 
     public const float MIN_X_WORLD_POSITION = -100f;
     public const float MAX_X_WORLD_POSITION = 100f;
@@ -152,7 +153,7 @@ public static class Constants {
 
     public const float GATHERER_ACTION_OFFSET = 1.5f;
     
-    public static Vector3 RESET_CAMERA_POSITION = new Vector3(-9.3f, 7.25f, 0f);
+    public static Vector3 RESET_CAMERA_POSITION = new (-9.3f, 7.25f, 0f);
     public static float BASE_RETREAT_OFFSET = 6.5f;
 
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
@@ -232,7 +233,7 @@ public static class Constants {
 
     public static List<string> CONTROLS_TEXTS = new List<string>() {
         "W -> Move camera up\nA -> Move camera left\nS -> Move camera down\nD -> Move camera right\n\nQ / Mouse wheel \u2193 -> Zoom out camera\nE / Mouse wheel \u2191 ->  Zoom in camera",
-        "F / Left click -> Reset camera to base\nP / Esc -> Pause game\nT -> Toggle summary menu"
+        "F / Right click -> Reset camera to base\nP / Esc -> Pause game\nT -> Toggle summary menu"
     };
     
     public static int TUTORIAL_MISSION_0_MAX = 7;
