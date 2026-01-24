@@ -90,29 +90,58 @@ public class UIUpdateController : MonoBehaviour {
         
         GameControllerScript.Instance.missionController.CheckResourceMission(resourceType, GameControllerScript.Instance.resourcesDictionary[resourceType]);
     }
-    
+
     public IEnumerator DisplayResourceChange(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
+        //Set quantity and color
+        if(ResourceOperationEnum.Increase.Equals(operation)) {
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].color = Constants.GREEN_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text = "+" + quantity;
+        } else {
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].color = Constants.RED_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text = "-" + quantity;
+        }
+        
+        //Display it and fade it out
+        float currentTime = 0f;
+        while (GameControllerScript.Instance.uiResourcesTextMap[resourceType].alpha < 1f) {
+            Debug.Log("Fading in");
+            currentTime += Time.deltaTime;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha =
+                Mathf.Lerp(0, 1, currentTime / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
+            yield return null;
+        }
+
+        currentTime = 0f;
+        while (GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha > 0) {
+            currentTime += Time.deltaTime;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha =
+                Mathf.Lerp(1, 0, currentTime / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
+            yield return null;
+        }
+    } 
+    
+    public IEnumerator DisplayResourceChange_Moving(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {
         //Display resource text and set value
         var changeText = GameControllerScript.Instance
-            .uiResourcesChangeTextMap[resourceType].text;
+            .uiResourcesChangeTextMap[resourceType];
 
         // HARD RESET (prevents drifting)
         var origin = resourcesInitialPositions[resourceType];
-        changeText.rectTransform.position = origin;
-        changeText.canvasRenderer.SetAlpha(1f);
+        changeText.transform.position = origin;
+        GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha = 1f;
         
         if(ResourceOperationEnum.Increase.Equals(operation)) {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.GREEN_COLOR;
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.text = "+" + quantity;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].color = Constants.GREEN_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text = "+" + quantity;
         } else {
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.color = Constants.RED_COLOR;
-            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text.text = "-" + quantity;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].color = Constants.RED_COLOR;
+            GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].text = "-" + quantity;
         }
 
         //Get origin and destination position for "bounce"
         float timeEllapsed = 0;
-        var destination = origin + Constants.RESOURCE_CHANGE_DISPLACE;
-
+        var destination = origin + Screen.height * Constants.RESOURCE_CHANGE_DISPLACE;
+        
         //Move text up
         while (timeEllapsed < Constants.RESOURCE_CHANGE_MOVEMENT_TIME) {
 
@@ -138,11 +167,10 @@ public class UIUpdateController : MonoBehaviour {
                 origin,
                 timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME
             );
-
-            changeText.alpha = Mathf.Lerp(1f, 0f, timeEllapsed / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);
-
             yield return null;
         }
+
+        GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha = 0f;
     }
 
     public void ConsumeResources() {

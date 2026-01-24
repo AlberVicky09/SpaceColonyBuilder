@@ -72,7 +72,7 @@ public class GameControllerScript : MonoBehaviour {
     public Image uiRepresentation;
     public Dictionary<ResourceEnum, TMP_Text> uiResourcesTextMap;
     public List<TMP_Text> uiMaxResourcesList;
-    public Dictionary<ResourceEnum, (TMP_Text text, CanvasRenderer canvas)> uiResourcesChangeTextMap;
+    public Dictionary<ResourceEnum, TMP_Text> uiResourcesChangeTextMap;
 
     public TMP_Text enemyCountDownText;
     public Image enemyCountDownBg;
@@ -128,13 +128,16 @@ public class GameControllerScript : MonoBehaviour {
         var ironChangeGO = GameObject.Find("IronChangeCounter");
         var goldChangeGO = GameObject.Find("GoldChangeCounter");
         var platinumChangeGO = GameObject.Find("PlatinumChangeCounter");
-        uiResourcesChangeTextMap = new Dictionary<ResourceEnum, ValueTuple<TMP_Text, CanvasRenderer>> {
-            { ResourceEnum.Water, new ValueTuple<TMP_Text, CanvasRenderer>(waterChangeGO.GetComponent<TMP_Text>(), waterChangeGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Food, new ValueTuple<TMP_Text, CanvasRenderer>(foodChangeGO.GetComponent<TMP_Text>(), foodChangeGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Iron, new ValueTuple<TMP_Text, CanvasRenderer>(ironChangeGO.GetComponent<TMP_Text>(), ironChangeGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Gold, new ValueTuple<TMP_Text, CanvasRenderer>(goldChangeGO.GetComponent<TMP_Text>(), goldChangeGO.GetComponent<CanvasRenderer>()) },
-            { ResourceEnum.Platinum, new ValueTuple<TMP_Text, CanvasRenderer>(platinumChangeGO.GetComponent<TMP_Text>(), platinumChangeGO.GetComponent<CanvasRenderer>()) }
+        uiResourcesChangeTextMap = new Dictionary<ResourceEnum, TMP_Text> {
+            { ResourceEnum.Water, waterChangeGO.GetComponent<TMP_Text>() },
+            { ResourceEnum.Food, foodChangeGO.GetComponent<TMP_Text>() },
+            { ResourceEnum.Iron, ironChangeGO.GetComponent<TMP_Text>() },
+            { ResourceEnum.Gold, goldChangeGO.GetComponent<TMP_Text>() },
+            { ResourceEnum.Platinum, platinumChangeGO.GetComponent<TMP_Text>() }
         };
+        foreach (var resourceText in uiResourcesChangeTextMap.Values) {
+            resourceText.alpha = 0f;
+        }
 
         propSpriteDictionary = new Dictionary<PropsEnum, Sprite>() {
             { PropsEnum.Gatherer, gathererSprite },
@@ -171,9 +174,7 @@ public class GameControllerScript : MonoBehaviour {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
             resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[currentMissionNumber][resource]);
-            uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].text.rectTransform.position);
-            //Hide resources loss text
-            uiResourcesChangeTextMap[resource].canvas.SetAlpha(0f);
+            uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].transform.position);
         }
         //Set resources and max on UI
         foreach (var maxResourceText in uiMaxResourcesList) { maxResourceText.text = resourcesLimit.ToString(); }

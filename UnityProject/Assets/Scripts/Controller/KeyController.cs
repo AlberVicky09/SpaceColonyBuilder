@@ -3,6 +3,9 @@ using UnityEngine;
 public class KeyController : MonoBehaviour {
     
     public GameObject cameraGO;
+
+    private float horizontalMove = 0f;
+    private float verticalMove = 0f;
     
     void Update() {
         //TODO Remove
@@ -26,15 +29,24 @@ public class KeyController : MonoBehaviour {
                 
                 //Move with wasd
                 if (Input.GetKey(KeyCode.W)) {
-                    CameraMove.Instance.MoveCameraHorizontal(-0.3f);
+                    verticalMove = 0.3f;
+                    //CameraMove.Instance.MoveCameraHorizontal(-0.3f);
                 } else if (Input.GetKey(KeyCode.S)) {
-                    CameraMove.Instance.MoveCameraHorizontal(0.3f);
+                    verticalMove = -0.3f;
+                    //CameraMove.Instance.MoveCameraHorizontal(0.3f);
+                }
+                
+                if (Input.GetKey(KeyCode.A)) {
+                    horizontalMove = -0.3f;
+                    //CameraMove.Instance.MoveCameraVertical(0.3f);
+                } else if (Input.GetKey(KeyCode.D)) {
+                    horizontalMove = 0.3f;
+                    //CameraMove.Instance.MoveCameraVertical(-0.3f);
                 }
 
-                if (Input.GetKey(KeyCode.A)) {
-                    CameraMove.Instance.MoveCameraVertical(0.3f);
-                } else if (Input.GetKey(KeyCode.D)) {
-                    CameraMove.Instance.MoveCameraVertical(-0.3f);
+                if (horizontalMove != 0 || verticalMove != 0) {
+                    CameraMove.Instance.MoveCamera(horizontalMove, verticalMove);
+                    horizontalMove = verticalMove = 0f;
                 }
                 
                 //Zoom camera with Q and E

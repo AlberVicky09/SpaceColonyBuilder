@@ -35,7 +35,7 @@ public class CameraMove : MonoBehaviour {
         //Clamp camera position inside circle (avoid going to far)
         var pos = cameraPivot.transform.position;
         // Ignore Y axis (clamp only in XZ plane)
-        var flatPos = new Vector2(pos.x, pos.z);
+        var flatPos = new Vector2(pos.x - Constants.INITIAL_CAMERA_POSITION.x, pos.z - Constants.INITIAL_CAMERA_POSITION.y);
         var flatPosAroundEnemyBase = new Vector2(pos.x - Constants.ENEMY_CENTER.x, pos.z - Constants.ENEMY_CENTER.y);
 
         // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
@@ -52,7 +52,7 @@ public class CameraMove : MonoBehaviour {
             pos.x = clamped.x + Constants.ENEMY_CENTER.x;
             pos.z = clamped.y + Constants.ENEMY_CENTER.y;
         } else {
-            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE;
+            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE + Constants.INITIAL_CAMERA_POSITION;
             pos.x = flatPos.x;
             pos.z = flatPos.y;
         }
@@ -96,11 +96,17 @@ public class CameraMove : MonoBehaviour {
         isGameObjectCentered = false;
     }
 
+    public void MoveCamera(float horizontalInput, float verticalInput) {
+        cameraPivot.transform.position += Quaternion.Euler(0, cameraGO.transform.eulerAngles.y, 0)
+                                          * new Vector3(horizontalInput, 0, verticalInput);
+    }
+    
     public void MoveCameraVertical(float input) {
         Vector3 desiredMove = -cameraGO.transform.right * input;
 
         desiredMove = ProjectOnPlane(desiredMove, cameraGO.transform.forward);
         desiredMove.Normalize();
+        desiredMove.y = 0f;
 
         cameraPivot.transform.position +=
             desiredMove * Constants.CAMERA_MOVEMENT_SMOOTHER_VALUE;
@@ -113,6 +119,7 @@ public class CameraMove : MonoBehaviour {
 
         desiredMove = ProjectOnPlane(desiredMove, cameraGO.transform.forward);
         desiredMove.Normalize();
+        desiredMove.y = 0f;
 
         cameraPivot.transform.position +=
             desiredMove * Constants.CAMERA_MOVEMENT_SMOOTHER_VALUE;

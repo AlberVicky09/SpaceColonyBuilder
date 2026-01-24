@@ -5201,9 +5201,7 @@ MonoBehaviour:
   currentGameObject: {fileID: 5955068170652941638}
   actionProgressImage: {fileID: 5060128864218940965}
   currentActionImage: {fileID: 752242548870597783}
-  scalingFactor: 0.017
-  worldIconOffset: {x: 0, y: 1.5, z: 0}
-  screenOffset: {x: 0, y: 0}
+  iconWorldOffset: 2
   clickableGatherer: {fileID: 1823176391311649558}
   agent: {fileID: 342102882058857096}
   objectiveItem: {fileID: 0}
@@ -5383,7 +5381,7 @@ RectTransform:
   m_GameObject: {fileID: 3345042851995547276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5278725371120652187}
@@ -5458,7 +5456,7 @@ RectTransform:
   m_GameObject: {fileID: 6131193330086127712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.8500001, y: 0.8500001, z: 0.8500001}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5278725371120652187}
