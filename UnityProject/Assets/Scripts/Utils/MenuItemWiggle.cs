@@ -24,18 +24,8 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
             targetAngle = currentAngle;
             
-        } else {
-            targetAngle = Mathf.Lerp(targetAngle, 0f, Time.unscaledDeltaTime * Constants.MENU_ITEM_WIGGLE_SPEED);
-            
-            // When almost back to zero, fully reset to prevent drift
-            if (Mathf.Abs(targetAngle) < 0.05f) {
-                targetAngle = 0f;
-                currentAngle = 0f;
-                transform.localRotation = startingRotation;
-            }
+            transform.localRotation = startingRotation * Quaternion.Euler(0f, 0f, currentAngle);
         }
-
-        transform.localRotation = startingRotation * Quaternion.Euler(0f, currentAngle, 0f);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -44,9 +34,13 @@ public class MenuItemWiggle : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnHoverMenu);
     }
 
-    public void OnPointerExit(PointerEventData eventData) { isHovering = false; }
+    public void OnPointerExit(PointerEventData eventData) {
+        isHovering = false;
+        transform.localRotation = startingRotation;
+    }
 
     public void OnPointerDown(PointerEventData eventData) {
         AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickMenu);
+        transform.localRotation = startingRotation;
     }
 }

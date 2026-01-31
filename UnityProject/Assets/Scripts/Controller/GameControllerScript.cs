@@ -50,6 +50,7 @@ public class GameControllerScript : MonoBehaviour {
     public Dictionary<ResourceEnum, Sprite> resourceSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> missingResourceSpriteDictionary;
     public Dictionary<FighterStatesEnum, Sprite> fighterActionsDictionary;
+    public Dictionary<FighterStatesEnum, Sprite> enemyFighterActionsDictionary;
     
     public Dictionary<ResourceEnum, List<ResourceTuple>> oreListDictionary;
     public Dictionary<ResourceEnum, Image> oreListImage;
@@ -59,9 +60,14 @@ public class GameControllerScript : MonoBehaviour {
         healBaseSprite,
         selectResourceSprite,
         returningToBaseSprite,
-        patrolBaseSprite,
-        chasingSprite, //TODO Create a new sprite
+        patrolBaseSprite, //TODO create enemy ones
+        enemyPatrolBaseSprite, 
+        chasingEnemySprite,
+        enemyChasingShipSprite,
+        chasingBaseSprite,
+        enemyChasingBaseSprite,
         attackSprite,
+        enemyAttackSprite,
         startActionSprite,
         stopActionSprite;
     public int numberOfOres;
@@ -161,10 +167,17 @@ public class GameControllerScript : MonoBehaviour {
         };
         fighterActionsDictionary = new Dictionary<FighterStatesEnum, Sprite>() {
             { FighterStatesEnum.Scouting, patrolBaseSprite },
-            { FighterStatesEnum.Chasing, chasingSprite },
-            { FighterStatesEnum.ChasingLowPriority, chasingSprite },
+            { FighterStatesEnum.Chasing, chasingEnemySprite },
+            { FighterStatesEnum.ChasingLowPriority, chasingBaseSprite },
             { FighterStatesEnum.Attacking, attackSprite },
             { FighterStatesEnum.AttackingLowPriority, attackSprite },
+        };
+        enemyFighterActionsDictionary = new Dictionary<FighterStatesEnum, Sprite>() {
+            { FighterStatesEnum.Scouting, enemyPatrolBaseSprite },
+            { FighterStatesEnum.Chasing, enemyChasingShipSprite },
+            { FighterStatesEnum.ChasingLowPriority, enemyChasingBaseSprite },
+            { FighterStatesEnum.Attacking, enemyAttackSprite },
+            { FighterStatesEnum.AttackingLowPriority, enemyAttackSprite },
         };
             
         //Initialize resources dictionaries

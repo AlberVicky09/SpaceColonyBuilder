@@ -234,7 +234,7 @@ public static class Constants {
 
     public static List<string> CONTROLS_TEXTS = new List<string>() {
         "W -> Move camera up\nA -> Move camera left\nS -> Move camera down\nD -> Move camera right\n\nQ / Mouse wheel \u2193 -> Zoom out camera\nE / Mouse wheel \u2191 ->  Zoom in camera",
-        "F / Right click -> Reset camera to base\nP / Esc -> Pause game\nT -> Toggle summary menu"
+        "F / Right click -> Reset camera to base\n1 -> Pause speed\n2 -> Normal speed\n3 -> Fast speed\nP / Esc -> Pause game\nT -> Toggle summary menu"
     };
     
     public static int TUTORIAL_MISSION_0_MAX = 7;

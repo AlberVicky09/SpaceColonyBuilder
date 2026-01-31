@@ -7598,7 +7598,7 @@ MonoBehaviour:
   goldSprite: {fileID: 21300000, guid: ec014dfb1f442364b90afe7ae8fcfefe, type: 3}
   platinumSprite: {fileID: 21300000, guid: 3b6f0a3509b564b4d9015de393156a9e, type: 3}
   missingWaterSprite: {fileID: 21300000, guid: 14dbeccd031b3044fbe985c9111c001f, type: 3}
-  missingFoodSprite: {fileID: 21300000, guid: da052cff9c42deb4890c467328f0683f, type: 3}
+  missingFoodSprite: {fileID: 21300000, guid: 058e10a5987f2d04f8e0de6162b8a713, type: 3}
   missingIronSprite: {fileID: 21300000, guid: b71a68ad1a0cb224880f1479037958e1, type: 3}
   missingGoldSprite: {fileID: 21300000, guid: 39648617e1c677249a034c0ed3471628, type: 3}
   missingPlatinumSprite: {fileID: 21300000, guid: bf27378fb52fcda48a879b2292e49dc0, type: 3}
@@ -7610,8 +7610,13 @@ MonoBehaviour:
   selectResourceSprite: {fileID: 21300000, guid: a78d6bf85de4294489cb04ad45fe9828, type: 3}
   returningToBaseSprite: {fileID: 21300000, guid: 814517a3864e158479bd0f2c4be6c22b, type: 3}
   patrolBaseSprite: {fileID: 21300000, guid: 7647240033f4e17489e7ab198abee92e, type: 3}
-  chasingSprite: {fileID: 21300000, guid: 814517a3864e158479bd0f2c4be6c22b, type: 3}
+  enemyPatrolBaseSprite: {fileID: 0}
+  chasingEnemySprite: {fileID: 0}
+  enemyChasingShipSprite: {fileID: 0}
+  chasingBaseSprite: {fileID: 21300000, guid: 3a260ccf1a7b81c4e9ac5c3ddf54a500, type: 3}
+  enemyChasingBaseSprite: {fileID: 21300000, guid: 76a762dbf34eb1b44bc5d3f57c80e054, type: 3}
   attackSprite: {fileID: 21300000, guid: 719116d9e80201348a2edccaac66a820, type: 3}
+  enemyAttackSprite: {fileID: 21300000, guid: 4b28e59ea189d994fad4e6e439296446, type: 3}
   startActionSprite: {fileID: 21300000, guid: be35b3e4ddbec9b4eb165a7c058bccfe, type: 3}
   stopActionSprite: {fileID: 21300000, guid: c9586270cb4753c4ca55408a1cbec82f, type: 3}
   numberOfOres: 0

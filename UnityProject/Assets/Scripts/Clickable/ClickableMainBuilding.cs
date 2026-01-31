@@ -82,6 +82,7 @@ public class ClickableMainBuilding : Clickable {
             var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
             onHoverBehaviour.hoveringDisplayText = Constants.PROPS_SUMMARY_NAME[currentProp];
             onHoverBehaviour.usesResourceTooltip = true;
+            onHoverBehaviour.propType = currentProp;
             onHoverBehaviour.RefreshText();
         }
         
