@@ -217,6 +217,13 @@ public static class Utils {
         }
     }
 
+    public static bool IsValidBuildingInMission(PropsEnum propType) {
+        if (GameControllerScript.Instance.currentMissionNumber == 0) {
+            return PropsEnum.Gatherer.Equals(propType) || PropsEnum.FoodGenerator.Equals(propType);
+        }
+        return true;
+    }
+
     public static void SetAnchorPresets(RectTransform rt, AnchorPresets preset) {
         switch (preset) {
             case AnchorPresets.TopLeft:
