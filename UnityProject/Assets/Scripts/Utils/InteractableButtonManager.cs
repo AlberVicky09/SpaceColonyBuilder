@@ -21,6 +21,8 @@ public class InteractableButtonManager : MonoBehaviour {
         //Add needed buttons
         while(buttonNumber > interactableButtonList.Count) {
             var newButton = Instantiate(interactableButtonPrefab, transform);
+            newButton.GetComponent<MenuItemWiggle>().wiggleDirection =
+                interactableButtonList.Count % 2 == 0 ? 1 : -1;
             interactableButtonList.Add(newButton);
             interactableButtonImageList.Add(newButton.GetComponentsInChildren<Image>(true)
                 .FirstOrDefault(c => c.gameObject != newButton));

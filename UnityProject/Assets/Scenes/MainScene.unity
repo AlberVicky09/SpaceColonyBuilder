@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go back
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -3436,6 +3436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &289349554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3737,7 +3738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &319965538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,7 +3972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &362488083
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,7 +5219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Leave adventure
+  m_text: Leave adventure?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -5380,6 +5383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &493928307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6070,7 +6074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &573861531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6352,6 +6357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &580117256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7236,6 +7242,7 @@ GameObject:
   - component: {fileID: 686811476}
   - component: {fileID: 686811475}
   - component: {fileID: 686811474}
+  - component: {fileID: 686811477}
   m_Layer: 5
   m_Name: ClosePanel
   m_TagString: Untagged
@@ -7356,6 +7363,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686811472}
   m_CullTransparentMesh: 1
+--- !u!114 &686811477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686811472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &688568864
 GameObject:
   m_ObjectHideFlags: 0
@@ -8244,7 +8265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &727030045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9702,6 +9724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &861809662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10019,6 +10042,7 @@ GameObject:
   - component: {fileID: 887234271}
   - component: {fileID: 887234270}
   - component: {fileID: 887234269}
+  - component: {fileID: 887234272}
   m_Layer: 5
   m_Name: MuteSfx
   m_TagString: Untagged
@@ -10139,6 +10163,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887234267}
   m_CullTransparentMesh: 1
+--- !u!114 &887234272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887234267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &887286217
 GameObject:
   m_ObjectHideFlags: 0
@@ -10508,7 +10546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &938991984
 GameObject:
   m_ObjectHideFlags: 0
@@ -11602,7 +11641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &989025394
 GameObject:
   m_ObjectHideFlags: 0
@@ -11797,6 +11837,7 @@ GameObject:
   - component: {fileID: 1000946328}
   - component: {fileID: 1000946327}
   - component: {fileID: 1000946326}
+  - component: {fileID: 1000946329}
   m_Layer: 5
   m_Name: MuteMusic
   m_TagString: Untagged
@@ -11917,6 +11958,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000946324}
   m_CullTransparentMesh: 1
+--- !u!114 &1000946329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000946324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1012252251
 GameObject:
   m_ObjectHideFlags: 0
@@ -12770,6 +12825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1105407901
 GameObject:
   m_ObjectHideFlags: 0
@@ -13591,7 +13647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1208636473
 GameObject:
   m_ObjectHideFlags: 0
@@ -14175,7 +14232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1259421282
 GameObject:
   m_ObjectHideFlags: 0
@@ -14379,6 +14437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1278446934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15284,7 +15343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1321197915
 GameObject:
   m_ObjectHideFlags: 0
@@ -15297,6 +15357,7 @@ GameObject:
   - component: {fileID: 1321197919}
   - component: {fileID: 1321197918}
   - component: {fileID: 1321197917}
+  - component: {fileID: 1321197920}
   m_Layer: 5
   m_Name: ToggleFullscreen
   m_TagString: Untagged
@@ -15417,6 +15478,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321197915}
   m_CullTransparentMesh: 1
+--- !u!114 &1321197920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321197915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1322295889
 GameObject:
   m_ObjectHideFlags: 0
@@ -16012,6 +16087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1369066476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16609,7 +16685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1411664766
 GameObject:
   m_ObjectHideFlags: 0
@@ -16794,6 +16871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1420375738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16884,7 +16962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 1
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1426796226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17645,7 +17724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1457488132
 GameObject:
   m_ObjectHideFlags: 0
@@ -20479,6 +20559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1769667962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20795,6 +20876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1818244567
 GameObject:
   m_ObjectHideFlags: 0
@@ -21286,6 +21368,7 @@ GameObject:
   - component: {fileID: 1835573214}
   - component: {fileID: 1835573213}
   - component: {fileID: 1835573212}
+  - component: {fileID: 1835573215}
   m_Layer: 5
   m_Name: ClosePanel
   m_TagString: Untagged
@@ -21418,6 +21501,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835573210}
   m_CullTransparentMesh: 1
+--- !u!114 &1835573215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835573210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1847596677
 GameObject:
   m_ObjectHideFlags: 0
@@ -22429,7 +22526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Abandon...
+  m_text: Quit game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -22877,6 +22974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1924310115
 GameObject:
   m_ObjectHideFlags: 0
@@ -23388,7 +23486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 1
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1960251341
 GameObject:
   m_ObjectHideFlags: 0
@@ -24956,7 +25055,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -365}
-  m_SizeDelta: {x: 420, y: 55}
+  m_SizeDelta: {x: 300, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056236628
 MonoBehaviour:
@@ -25064,7 +25163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &2062640696
 GameObject:
   m_ObjectHideFlags: 0
@@ -25437,7 +25537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Retreat!
+  m_text: Exit level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

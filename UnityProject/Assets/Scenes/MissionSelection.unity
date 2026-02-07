@@ -881,7 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
 --- !u!1 &500425842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
 --- !u!1 &927968125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1295,7 @@ GameObject:
   - component: {fileID: 927968129}
   - component: {fileID: 927968128}
   - component: {fileID: 927968127}
+  - component: {fileID: 927968130}
   m_Layer: 5
   m_Name: ReturnToMissionSelection
   m_TagString: Untagged
@@ -1416,6 +1417,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927968125}
   m_CullTransparentMesh: 1
+--- !u!114 &927968130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927968125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
 --- !u!1 &932305367
 GameObject:
   m_ObjectHideFlags: 0

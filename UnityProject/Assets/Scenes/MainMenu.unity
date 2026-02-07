@@ -433,7 +433,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -624,6 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &95347929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,7 +1735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 1
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &278462705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,7 +2235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go back
+  m_text: Stay in game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -2363,6 +2365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 0
 --- !u!114 &434096862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2766,6 +2769,7 @@ GameObject:
   - component: {fileID: 454173007}
   - component: {fileID: 454173006}
   - component: {fileID: 454173005}
+  - component: {fileID: 454173008}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -2898,6 +2902,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454173003}
   m_CullTransparentMesh: 1
+--- !u!114 &454173008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454173003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &471043080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +2968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 1
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &471043083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3159,7 +3178,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -3526,7 +3545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Leave adventure
+  m_text: Leave adventure?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -3656,6 +3675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: -1
+  isButtonCompletelyFronted: 0
 --- !u!114 &556368569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3815,6 +3835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &563430790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3875,18 +3896,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 563430789}
-        m_TargetAssemblyTypeName: MenuItemWiggle, Assembly-CSharp
-        m_MethodName: ForceStopHovering
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4461,6 +4470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &678392107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5407,6 +5417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: -1
+  isButtonCompletelyFronted: 0
 --- !u!1 &838652198
 GameObject:
   m_ObjectHideFlags: 0
@@ -5460,6 +5471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 0
 --- !u!114 &838652201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6045,7 +6057,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -6318,6 +6330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1042385698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6378,18 +6391,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1042385697}
-        m_TargetAssemblyTypeName: MenuItemWiggle, Assembly-CSharp
-        m_MethodName: ForceStopHovering
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6773,6 +6774,7 @@ GameObject:
   - component: {fileID: 1076662147}
   - component: {fileID: 1076662146}
   - component: {fileID: 1076662145}
+  - component: {fileID: 1076662148}
   m_Layer: 5
   m_Name: ToggleFullscreen
   m_TagString: Untagged
@@ -6893,6 +6895,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076662143}
   m_CullTransparentMesh: 1
+--- !u!114 &1076662148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076662143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1078256180
 GameObject:
   m_ObjectHideFlags: 0
@@ -7451,7 +7467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1194398008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7758,7 +7775,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -8752,7 +8769,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -9037,6 +9054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!114 &1586552276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9097,18 +9115,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1586552275}
-        m_TargetAssemblyTypeName: MenuItemWiggle, Assembly-CSharp
-        m_MethodName: ForceStopHovering
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9618,6 +9624,7 @@ GameObject:
   - component: {fileID: 1693478046}
   - component: {fileID: 1693478045}
   - component: {fileID: 1693478044}
+  - component: {fileID: 1693478047}
   m_Layer: 5
   m_Name: PrevButton
   m_TagString: Untagged
@@ -9750,6 +9757,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693478042}
   m_CullTransparentMesh: 1
+--- !u!114 &1693478047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693478042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1701243152
 GameObject:
   m_ObjectHideFlags: 0
@@ -9965,6 +9986,7 @@ GameObject:
   - component: {fileID: 1765974852}
   - component: {fileID: 1765974851}
   - component: {fileID: 1765974850}
+  - component: {fileID: 1765974853}
   m_Layer: 5
   m_Name: MuteMusic
   m_TagString: Untagged
@@ -10085,6 +10107,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765974848}
   m_CullTransparentMesh: 1
+--- !u!114 &1765974853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765974848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &1826459339
 GameObject:
   m_ObjectHideFlags: 0
@@ -10515,7 +10551,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Abandon...
+  m_text: Quit game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
   m_sharedMaterial: {fileID: -7048082385519532518, guid: c17e7836113b6604b8d1c476f6af07ce, type: 2}
@@ -10985,7 +11021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 1
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!114 &2065254550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11301,6 +11338,7 @@ GameObject:
   - component: {fileID: 2097106855}
   - component: {fileID: 2097106854}
   - component: {fileID: 2097106853}
+  - component: {fileID: 2097106856}
   m_Layer: 5
   m_Name: MuteSfx
   m_TagString: Untagged
@@ -11421,6 +11459,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097106851}
   m_CullTransparentMesh: 1
+--- !u!114 &2097106856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097106851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wiggleDirection: -1
+  isButtonCompletelyFronted: 1
 --- !u!1 &2100559900
 GameObject:
   m_ObjectHideFlags: 0
@@ -16580,7 +16632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6073362719822246730, guid: 958cb31f707e2c34daa84dfc7fc8f7e5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

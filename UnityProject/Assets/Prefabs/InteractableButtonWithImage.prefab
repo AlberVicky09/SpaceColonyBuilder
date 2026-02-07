@@ -225,4 +225,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f6258e55c405b41b3eeccdca345b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiggleDirection: 0
+  wiggleDirection: 1
