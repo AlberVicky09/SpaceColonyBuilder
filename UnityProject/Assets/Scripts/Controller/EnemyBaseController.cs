@@ -54,10 +54,7 @@ public class EnemyBaseController : MonoBehaviour {
         
         //Add initial gatherer
         GenerateProp(PropsEnum.EnemyGatherer);
-        
-        //TODO Remove
-        //GenerateProp(PropsEnum.EnemyFighter).GetComponent<FighterBehaviour>().StartChasingBase();
-                
+
         //Activate "update" function
         StartCoroutine(GeneratorCheck());
     }

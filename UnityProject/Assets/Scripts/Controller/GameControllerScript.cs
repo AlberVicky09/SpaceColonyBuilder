@@ -41,12 +41,14 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject enemyGathererPrefab;
 
     public Sprite oreSprite, gathererSprite, foodGeneratorSprite, storageSprite, fighterSprite;
+    public Sprite missingGathererSprite, missingFoodGeneratorSprite, missingStorageSprite, missingFighterSprite;
     public Sprite waterSprite, foodSprite, ironSprite, goldSprite, platinumSprite;
-    public Sprite missingWaterSprite, missingFoodSprite, missingIronSprite, missingGoldSprite, missingPlatinumSprite; //TODO Add missing resources sprite
+    public Sprite missingWaterSprite, missingFoodSprite, missingIronSprite, missingGoldSprite, missingPlatinumSprite;
 
     public GameObject mainBuilding, startingGatherer;
     public Dictionary<PropsEnum, List<GameObject>> propDictionary;
     public Dictionary<PropsEnum, Sprite> propSpriteDictionary;
+    public Dictionary<PropsEnum, Sprite> missingPropSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> resourceSpriteDictionary;
     public Dictionary<ResourceEnum, Sprite> missingResourceSpriteDictionary;
     public Dictionary<FighterStatesEnum, Sprite> fighterActionsDictionary;
@@ -60,8 +62,8 @@ public class GameControllerScript : MonoBehaviour {
         healBaseSprite,
         selectResourceSprite,
         returningToBaseSprite,
-        patrolBaseSprite, //TODO create enemy ones
-        enemyPatrolBaseSprite, 
+        patrolBaseSprite,
+        enemyPatrolBaseSprite,
         chasingEnemySprite,
         enemyChasingShipSprite,
         chasingBaseSprite,
@@ -151,6 +153,14 @@ public class GameControllerScript : MonoBehaviour {
             { PropsEnum.FoodGenerator, foodGeneratorSprite },
             { PropsEnum.Storage, storageSprite }
         };
+
+        missingPropSpriteDictionary = new Dictionary<PropsEnum, Sprite>() {
+            { PropsEnum.Gatherer, missingGathererSprite },
+            { PropsEnum.Fighter, missingFighterSprite },
+            { PropsEnum.FoodGenerator, missingFoodGeneratorSprite },
+            { PropsEnum.Storage, missingStorageSprite }
+        };
+            
         resourceSpriteDictionary = new Dictionary<ResourceEnum, Sprite>() {
             { ResourceEnum.Water, waterSprite },
             { ResourceEnum.Food, foodSprite },
@@ -186,7 +196,7 @@ public class GameControllerScript : MonoBehaviour {
         uiUpdateController.resourcesInitialPositions = new Dictionary<ResourceEnum, Vector3>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[currentMissionNumber][resource]);
+            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[resource]);
             uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].transform.position);
         }
         //Set resources and max on UI

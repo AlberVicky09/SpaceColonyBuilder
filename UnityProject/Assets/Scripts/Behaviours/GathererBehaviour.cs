@@ -97,8 +97,6 @@ public abstract class GathererBehaviour : ActionUIController_v2
             
             progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
-            //TODO Cheating
-            //gathererLoad = Constants.INITIAL_RESOURCES_LIMIT;
             loadDictionary[currentGatheredOre.resourceType] += gathererLoad;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();

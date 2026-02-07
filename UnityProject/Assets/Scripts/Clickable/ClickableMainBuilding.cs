@@ -72,18 +72,36 @@ public class ClickableMainBuilding : Clickable {
         for(int i = 0; i < BuildableProps.RetrieveBuildableProps().Count; i++) {
             GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             var currentProp = BuildableProps.RetrieveBuildableProps()[i];
-            //Setup button
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<Button>().onClick.AddListener(() => { GenerateProp(currentProp); });
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i].sprite = GameControllerScript.Instance.propSpriteDictionary[currentProp];
-            GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i]
-                .GetComponent<RectTransform>().localScale = Constants.INTERACTABLE_BUTTON_PROP_SCALE;
+
+
+            if (Utils.IsValidBuildingInMission(currentProp)) {
+                //Setup button
+                GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i]
+                    .GetComponent<Button>().onClick.AddListener(() => { GenerateProp(currentProp); });
+                GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i].sprite =
+                    GameControllerScript.Instance.propSpriteDictionary[currentProp];
+                GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i]
+                    .GetComponent<RectTransform>().localScale = Constants.INTERACTABLE_BUTTON_PROP_SCALE;
             
-            //Setup hover behaviour
-            var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
-            onHoverBehaviour.hoveringDisplayText = Constants.PROPS_SUMMARY_NAME[currentProp];
-            onHoverBehaviour.usesResourceTooltip = true;
-            onHoverBehaviour.propType = currentProp;
-            onHoverBehaviour.RefreshText();
+                //Setup hover behaviour
+                var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
+                onHoverBehaviour.hoveringDisplayText = Constants.PROPS_SUMMARY_NAME[currentProp];
+                onHoverBehaviour.usesResourceTooltip = true;
+                onHoverBehaviour.propType = currentProp;
+                onHoverBehaviour.RefreshText();
+            } else {
+                //Setup button
+                GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i].sprite =
+                    GameControllerScript.Instance.missingPropSpriteDictionary[currentProp];
+                GameControllerScript.Instance.interactableButtonManager.interactableButtonImageList[i]
+                    .GetComponent<RectTransform>().localScale = Constants.INTERACTABLE_BUTTON_PROP_SCALE;
+            
+                //Setup hover behaviour
+                var onHoverBehaviour = GameControllerScript.Instance.interactableButtonManager.interactableButtonList[i].GetComponent<OnHoverBehaviour>();
+                onHoverBehaviour.hoveringDisplayText = Constants.PROP_NOT_VALID_IN_MISSION;
+                onHoverBehaviour.usesResourceTooltip = false;
+                onHoverBehaviour.RefreshText();
+            }
         }
         
         //Force button width update

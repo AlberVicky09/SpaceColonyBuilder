@@ -120,7 +120,8 @@ public static class Constants {
             { PropsEnum.Gatherer, "Gathering ship" }, { PropsEnum.Fighter, "Fighting ship" },
             { PropsEnum.FoodGenerator, "Food generator" }, { PropsEnum.Storage, "Resource Storage" }
         };
-    
+
+    public const string PROP_NOT_VALID_IN_MISSION = "You cannot build this now!";
     public const float ORE_GENERATION_DISTANCE_RANGE = 30f;
     public const float VIEW_DISTANCE_RANGE = 32f;
     public const int INITIAL_ORE_NUMBER = 15;
@@ -156,7 +157,7 @@ public static class Constants {
     public static Vector3 RESET_CAMERA_POSITION = new (-9.3f, 7.25f, 0f);
     public static float BASE_RETREAT_OFFSET = 6.5f;
 
-    public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 5f;
+    public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 4.5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
 
     public static readonly Dictionary<SpeedLevels, float> SPEED_LEVEL_EQUIVALENCE =
@@ -166,32 +167,14 @@ public static class Constants {
             { SpeedLevels.FAST, 1.5f},
             { SpeedLevels.STOPPED, 0f},
         };
-
-    //TODO Give coherent values
-    public static readonly Dictionary<int, Dictionary<ResourceEnum, int>> INITIAL_RESOURCES_QUANTITY_MAP =
-        new Dictionary<int, Dictionary<ResourceEnum, int>> {
-            { 0, new Dictionary<ResourceEnum, int> {
-                    { ResourceEnum.Water, 10 },
-                    { ResourceEnum.Food, 10 },
-                    { ResourceEnum.Platinum, 10 },
-                    { ResourceEnum.Gold, 10 },
-                    { ResourceEnum.Iron, 10 },
-                }
-            }, { 1, new Dictionary<ResourceEnum, int> {
-                    { ResourceEnum.Water, 20 },
-                    { ResourceEnum.Food, 20 },
-                    { ResourceEnum.Platinum, 20 },
-                    { ResourceEnum.Gold, 20 },
-                    { ResourceEnum.Iron, 20 },
-                }
-            },{ 2, new Dictionary<ResourceEnum, int> {
+    
+    public static readonly Dictionary<ResourceEnum, int> INITIAL_RESOURCES_QUANTITY_MAP =
+        new Dictionary<ResourceEnum, int> {
                     { ResourceEnum.Water, 50 },
                     { ResourceEnum.Food, 50 },
                     { ResourceEnum.Platinum, 50 },
                     { ResourceEnum.Gold, 50 },
                     { ResourceEnum.Iron, 50 },
-                }
-            },
         };
 
     public static int INITIAL_RESOURCES_LIMIT = 100;
@@ -252,7 +235,7 @@ public static class Constants {
 /*7*/   "This is a food generator. With it, you can transform water into food (which cannot be obtained from any ore). It can be started and paused at will.",
         //MISSION 2
 /*8*/   "Pirates have been an increasing plague for the last years, and they are starting to attack our base, but you must protect us!",
-/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by prssing 'J'.\nIf you have not enough resources twice, your game will end and you will lose.",
+/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by prssing 'J'.\nIf you have not enough resources when the mantaining comes, your game will end and you will lose.",
 /*10*/  "This, are the fighters. This ships will patrol around the base and will defend it from the pirates, but beware, because they can be destroyed if they suffer too much",
 /*11*/  "Along with them, you can now create storages, which will increase the maximum of each resource that you can store. You will need some to be able to create fighters!",
         //MISSION 3
