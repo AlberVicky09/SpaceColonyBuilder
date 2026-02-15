@@ -94,7 +94,8 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 isGatheringStopping = false;
                 yield break;
             }
-            
+
+            isGatheringStopping = false;
             progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             loadDictionary[currentGatheredOre.resourceType] += gathererLoad;

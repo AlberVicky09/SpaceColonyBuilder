@@ -573,6 +573,7 @@ MonoBehaviour:
   currentGameObject: {fileID: 7093775066726076806}
   actionProgressImage: {fileID: 7113940939556063323}
   currentActionImage: {fileID: 5350412962370994229}
+  iconWorldOffset: 4
   isGeneratorPaused: 0
 --- !u!114 &4894918443242236690
 MonoBehaviour:
