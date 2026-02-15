@@ -198,7 +198,6 @@ public static class Utils {
     public static bool CheckEnoughResources(Dictionary<ResourceEnum, int> currentResources, Dictionary<ResourceEnum, int> propCosts) {
         foreach (var propCost in propCosts) {
             if (currentResources[propCost.Key] < propCost.Value) {
-                Debug.Log("Not enough of " + propCost.Key + ": " + currentResources[propCost.Key] + " < " + propCost.Value);
                 return false;
             }
         }

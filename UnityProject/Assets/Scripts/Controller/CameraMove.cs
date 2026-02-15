@@ -46,8 +46,6 @@ public class CameraMove : MonoBehaviour {
             return;
         }
         
-        Debug.Log("Distance to base: " + flatPos.magnitude + "; Distance to enemyBase: " + flatPosAroundEnemyBase.magnitude);
-        
         //Else, find if we need to clamp it to one or another of the circles
         if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 &&
             flatPosAroundEnemyBase.magnitude < flatPos.magnitude) {

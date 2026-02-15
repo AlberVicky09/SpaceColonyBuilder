@@ -8,12 +8,6 @@ public class KeyController : MonoBehaviour {
     private float verticalMove = 0f;
     
     void Update() {
-        //TODO Remove
-        if (Input.GetKeyDown(KeyCode.PageUp)) {
-            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Decrease);
-        }else if (Input.GetKeyDown(KeyCode.PageDown)) {
-            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Increase);
-        }
         
         if (!(GameControllerScript.Instance.isInMissions || GameControllerScript.Instance.isGameFinished)) {
             //Camera controlls
