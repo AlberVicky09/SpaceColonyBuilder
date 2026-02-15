@@ -123,7 +123,7 @@ public static class Constants {
 
     public const string PROP_NOT_VALID_IN_MISSION = "You cannot build this now!";
     public const float ORE_GENERATION_DISTANCE_RANGE = 30f;
-    public const float VIEW_DISTANCE_RANGE = 32f;
+    public const float VIEW_DISTANCE_RANGE = 38f;
     public const int INITIAL_ORE_NUMBER = 15;
     public const float ORE_FLOOR_OFFSET = 0.4f;
     public static Vector3 BULLET_OFFSET = new Vector3(0f, 0.25f, 0f);
@@ -185,7 +185,7 @@ public static class Constants {
     public static int DEFAULT_GATHERER_MAX_LOAD = 75;
     public static int UPGRADED_GATHERER_LOAD = 175;
 
-    public static Vector2 INITIAL_CAMERA_POSITION = new(-9.3f, 0f);
+    public static Vector2 INITIAL_CAMERA_POSITION = new(-9.3f, -10f);
     public static float RESOURCE_CHANGE_MOVEMENT_TIME = 2f;
     public static Vector3 RESOURCE_CHANGE_DISPLACE = new (0, 0.2f, 0);
     public static Color GREEN_COLOR = new Color(0.4947595f, 1, 0.3176471f);
@@ -207,7 +207,6 @@ public static class Constants {
     public const int numberOfWaypoints = 8;
     
     public static Vector3 ENEMY_CENTER = new (75f, 0, 0);
-    public static Vector3 ENEMY_CENTER_FOR_CAMERA = ENEMY_CENTER + new Vector3(-5f, 0, 10f);
 
     public static Vector3 INITIAL_SUMMARY_ITEM_POSITION = new(-45, -340, 1);
     public static float SUMMARY_OFFSET = -120f;
@@ -235,7 +234,7 @@ public static class Constants {
 /*7*/   "This is a food generator. With it, you can transform water into food (which cannot be obtained from any ore). It can be started and paused at will.",
         //MISSION 2
 /*8*/   "Pirates have been an increasing plague for the last years, and they are starting to attack our base, but you must protect us!",
-/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by prssing 'J'.\nIf you have not enough resources when the mantaining comes, your game will end and you will lose.",
+/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by pressing 'T'.\nIf you have not enough resources when the mantaining comes, your game will end and you will lose.",
 /*10*/  "This, are the fighters. This ships will patrol around the base and will defend it from the pirates, but beware, because they can be destroyed if they suffer too much",
 /*11*/  "Along with them, you can now create storages, which will increase the maximum of each resource that you can store. You will need some to be able to create fighters!",
         //MISSION 3

@@ -35,8 +35,9 @@ public class CameraMove : MonoBehaviour {
         //Clamp camera position inside circle (avoid going to far)
         var pos = cameraPivot.transform.position;
         // Ignore Y axis (clamp only in XZ plane)
-        var flatPos = new Vector2(pos.x - Constants.INITIAL_CAMERA_POSITION.x, pos.z - Constants.INITIAL_CAMERA_POSITION.y);
-        var flatPosAroundEnemyBase = new Vector2(pos.x - Constants.ENEMY_CENTER.x, pos.z - Constants.ENEMY_CENTER.y);
+        var flatPos = new Vector2(pos.x, pos.z);
+        var flatPosAroundEnemyBase = new Vector2(pos.x - Constants.ENEMY_CENTER.x,
+                                    pos.z - Constants.ENEMY_CENTER.y);
 
         // If inside of the main circle, or if exists the enemy circle and inside of it too, exit
         if (flatPos.magnitude <= Constants.VIEW_DISTANCE_RANGE ||
@@ -44,15 +45,17 @@ public class CameraMove : MonoBehaviour {
              && flatPosAroundEnemyBase.magnitude <= Constants.VIEW_DISTANCE_RANGE)) {
             return;
         }
-
+        
+        Debug.Log("Distance to base: " + flatPos.magnitude + "; Distance to enemyBase: " + flatPosAroundEnemyBase.magnitude);
+        
         //Else, find if we need to clamp it to one or another of the circles
         if (GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase].Count != 0 &&
             flatPosAroundEnemyBase.magnitude < flatPos.magnitude) {
-            var clamped = flatPosAroundEnemyBase.normalized * Constants.VIEW_DISTANCE_RANGE;
+            var clamped = flatPosAroundEnemyBase.normalized * (Constants.VIEW_DISTANCE_RANGE - 0.1f);
             pos.x = clamped.x + Constants.ENEMY_CENTER.x;
             pos.z = clamped.y + Constants.ENEMY_CENTER.y;
         } else {
-            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE + Constants.INITIAL_CAMERA_POSITION;
+            flatPos = flatPos.normalized * Constants.VIEW_DISTANCE_RANGE;
             pos.x = flatPos.x;
             pos.z = flatPos.y;
         }
@@ -132,19 +135,19 @@ public class CameraMove : MonoBehaviour {
     }
 
     public void ZoomCamera(bool zoomIn) {
-        cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
+        cameraGO.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.unscaledDeltaTime *
                                      Constants.CAMERA_ZOOM_SMOOTHER_VALUE;
         cameraGO.orthographicSize =
             Mathf.Clamp(cameraGO.orthographicSize, Constants.MIN_ZOOM_SIZE, Constants.MAX_ZOOM_SIZE);
 
-        miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.deltaTime *
+        miniMapCamera.orthographicSize += (zoomIn ? -1 : 1) * Constants.ZOOM_CHANGE * Time.unscaledDeltaTime *
                                           Constants.CAMERA_ZOOM_SMOOTHER_VALUE;
         miniMapCamera.orthographicSize = Mathf.Clamp(miniMapCamera.orthographicSize, Constants.MIN_MINIMAP_ZOOM_SIZE,
             Constants.MAX_MINIMAP_ZOOM_SIZE);
     }
 
     public IEnumerator StartTravellingToEnemyBase() {
-        yield return StartCoroutine(MakeCameraTravelling(Constants.ENEMY_CENTER_FOR_CAMERA, 2.5f, 1.5f));
+        yield return StartCoroutine(MakeCameraTravelling(Constants.ENEMY_CENTER, 2.5f, 1.5f));
         GameControllerScript.Instance.isInMissions = false;
         GameControllerScript.Instance.PlayNormalVelocity();
     }
