@@ -234,7 +234,7 @@ public static class Constants {
 /*7*/   "This is a food generator. With it, you can transform water into food (which cannot be obtained from any ore). It can be started and paused at will.",
         //MISSION 2
 /*8*/   "Pirates have been an increasing plague for the last years, and they are starting to attack our base, but you must protect us!",
-/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by pressing 'T'.\nIf you have not enough resources when the mantaining comes, your game will end and you will lose.",
+/*9*/   "Now, each 15 days, your existing ships will consume resources to maintain them. Check the current cost of your fleet by pressing 'T'.\nIf you have not enough resources when the maintaining comes, your game will end and you will lose.",
 /*10*/  "This, are the fighters. This ships will patrol around the base and will defend it from the pirates, but beware, because they can be destroyed if they suffer too much",
 /*11*/  "Along with them, you can now create storages, which will increase the maximum of each resource that you can store. You will need some to be able to create fighters!",
         //MISSION 3

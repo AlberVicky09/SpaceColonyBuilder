@@ -2108,19 +2108,40 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
   - sprites:
     - {fileID: 21300000, guid: 4b30d6bde78b48e4daed1dce9b20f7d1, type: 3}
-    - {fileID: 21300000, guid: 9e55a6dda5a0dfb448e4094650879ddd, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: d850fa2390166d24c892cf5161f1e6de, type: 3}
+    - {fileID: 21300000, guid: fbb7e7856dee586409fa287fd69e9863, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: b7497f4133f11724ba3027c40e8b8046, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: 7e7146f59b2d5f44e94b7b72329e6d65, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: d558c8792c24f81478ec43716ef0be9d, type: 3}
+    - {fileID: 21300000, guid: fce54a4c9245f344889bb07707a8a5cb, type: 3}
+    - {fileID: 21300000, guid: 0ab4b3114fad1bd48afa6edab8310000, type: 3}
+    - {fileID: 21300000, guid: 2de1fb2203ebcdf438861209db6497be, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: e9810107dc295ff40a4a5a4c30af4b2b, type: 3}
+    - {fileID: 21300000, guid: 0f12cdca1ef27b347833f3820f4af98e, type: 3}
+    - {fileID: 21300000, guid: 7b1ee1620c8bd124ca870548b715cbcc, type: 3}
   - sprites:
-    - {fileID: 21300000, guid: 792c081723024ca45aa38785a67f19db, type: 3}
+    - {fileID: 21300000, guid: 5d71591a31fffa14bbe96525029b5630, type: 3}
+    - {fileID: 21300000, guid: 65b57bdd7dc9b3b4bb5516c84e26e9b5, type: 3}
+    - {fileID: 21300000, guid: c99e110b35110de48ae00a67aac9440f, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 8b3c37efab37b07468f5d95133f9355a, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 28e6ec04a16a114419585598b4b835e9, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 2d5ecf8a07d88134dabd779824306edd, type: 3}
+    - {fileID: 21300000, guid: 38cc80fb8072a9443a404e9408fd03e4, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 4eae4e865d32385498c4a0834903d67f, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 257dd7374016f174b81c72b260f19c0b, type: 3}
+  - sprites:
+    - {fileID: 21300000, guid: 08cdce1970ed89240ab4d4d37dfc2543, type: 3}
+    - {fileID: 21300000, guid: 1ba163cfcd80bc74aa1c44bc07a78702, type: 3}
   leftTutorialImage: {fileID: 319965540}
   rightTutorialImage: {fileID: 227955772}
   leftTutorialText: {fileID: 938991986}

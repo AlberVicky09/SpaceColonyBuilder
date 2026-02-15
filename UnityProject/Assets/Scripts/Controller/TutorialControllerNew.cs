@@ -9,7 +9,7 @@ public class TutorialControllerNew : MonoBehaviour {
     public VideoPlayer leftVideoPlayer, rightVideoPlayer;
     public TMP_Text leftTutorialText, rightTutorialText;
     public GameObject prevTutorialButton, nextTutorialButton;
-    private int tutorialIndex;
+    private int tutorialIndex, tutorialIndexLeft, tutorialIndexRight;
 
     public void GoToNextTutorial() {
         tutorialIndex++;
@@ -40,14 +40,16 @@ public class TutorialControllerNew : MonoBehaviour {
     private void UpdateTutorial() {
         prevTutorialButton.SetActive(tutorialIndex != 0);
 
+        tutorialIndexLeft = tutorialIndex;
         leftVideoPlayer.clip = videoClips.Find(v =>
-            v.clipName == Constants.VIDEO_TUTORIAL_CLIP_NAME + tutorialIndex).clip;
-        leftTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndex];
+            v.clipName == Constants.VIDEO_TUTORIAL_CLIP_NAME + tutorialIndexLeft).clip;
+        leftTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndexLeft];
         tutorialIndex++;
-        
+
+        tutorialIndexRight = tutorialIndex;
         rightVideoPlayer.clip = videoClips.Find(v =>
-            v.clipName == Constants.VIDEO_TUTORIAL_CLIP_NAME + tutorialIndex).clip;
-        rightTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndex];
+            v.clipName == Constants.VIDEO_TUTORIAL_CLIP_NAME + tutorialIndexRight).clip;
+        rightTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndexRight];
 
         switch (GameControllerScript.Instance.currentMissionNumber) {
             case 0:

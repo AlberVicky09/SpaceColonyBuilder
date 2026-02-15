@@ -46,20 +46,22 @@ public class TutorialControllerImage : MonoBehaviour {
         
         prevTutorialButton.SetActive(tutorialIndex != 0);
         
-        if (tutorialImages[tutorialIndex].sprites.Count == 1) {
-            leftTutorialImage.sprite = tutorialImages[tutorialIndex].sprites[0];
-            leftTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndex];
+        int tutorialIndexLeft = tutorialIndex;
+        if (tutorialImages[tutorialIndexLeft].sprites.Count == 1) {
+            leftTutorialImage.sprite = tutorialImages[tutorialIndexLeft].sprites[0];
         } else {
-            leftImageGifCoroutine = StartCoroutine(DisplayGifTutorial(leftTutorialImage, tutorialImages[tutorialIndex].sprites));
+            leftImageGifCoroutine = StartCoroutine(DisplayGifTutorial(leftTutorialImage, tutorialImages[tutorialIndexLeft].sprites));
         }
+        leftTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndexLeft];
         tutorialIndex++;
 
-        if (tutorialImages[tutorialIndex].sprites.Count == 1) {
-            rightTutorialImage.sprite = tutorialImages[tutorialIndex].sprites[0];
-            rightTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndex];
+        int tutorialIndexRight = tutorialIndex;
+        if (tutorialImages[tutorialIndexRight].sprites.Count == 1) {
+            rightTutorialImage.sprite = tutorialImages[tutorialIndexRight].sprites[0];
         } else {
-            rightImageGifCoroutine = StartCoroutine(DisplayGifTutorial(rightTutorialImage, tutorialImages[tutorialIndex].sprites));
+            rightImageGifCoroutine = StartCoroutine(DisplayGifTutorial(rightTutorialImage, tutorialImages[tutorialIndexRight].sprites));
         }
+        rightTutorialText.text = Constants.TUTORIAL_TEXTS[tutorialIndexRight];
         tutorialIndex++;
         
         switch (GameControllerScript.Instance.currentMissionNumber) {
