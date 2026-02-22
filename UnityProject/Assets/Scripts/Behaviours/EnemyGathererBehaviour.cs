@@ -17,14 +17,18 @@ public class EnemyGathererBehaviour : GathererBehaviour {
 
     protected override void UpdateResource(ResourceEnum resource, int quantity) { EnemyBaseController.Instance.UpdateResource(resource, quantity, ResourceOperationEnum.Increase); }
 
-    protected override void CalculateOreForGatherer() {
-        EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
+    protected override OreFindingcases CalculateOreForGatherer() {
+        return EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
     }
     
     protected override GameObject GetNearestBase() {
         return GameControllerScript.Instance.propDictionary[PropsEnum.EnemyBase][0];
     }
 
+    public override bool CheckIfResourceIsAtMaximum() {
+        return EnemyBaseController.Instance.enemyResourcesDictionary[resourceGatheringType] == Constants.INITIAL_RESOURCES_LIMIT;
+    }
+    
     protected override void RemoveCompletedOre(ResourceEnum oreType, GameObject oreToRemove) {
         Utils.RemoveOre(oreType, oreToRemove, EnemyBaseController.Instance.gameObject.transform.position);
     }

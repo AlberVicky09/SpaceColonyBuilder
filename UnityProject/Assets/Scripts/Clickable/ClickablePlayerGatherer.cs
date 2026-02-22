@@ -41,10 +41,16 @@ public class ClickablePlayerGatherer : ClickableGatherer {
 
     private void SelectResource(ResourceEnum resource) {
         gathererBehaviour.resourceGatheringType = resource;
-        GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
-        GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
-        selectedClickable = null;
-        GameControllerScript.Instance.PlayNormalVelocity();
+        var calculation = GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
+        if (calculation == OreFindingcases.AvailableOre) {
+            GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
+            selectedClickable = null;
+            GameControllerScript.Instance.PlayNormalVelocity();
+        } else if (calculation == OreFindingcases.NoAvailableOres) {
+            GameControllerScript.Instance.ActivateAlertCanvas("There are not enough un-gathered " + resource + " ores");
+        } else if (calculation == OreFindingcases.ResourceAtMax) {
+            GameControllerScript.Instance.ActivateAlertCanvas(resource + " is at the limit");
+        }
     }
 
     private void Retreat() {

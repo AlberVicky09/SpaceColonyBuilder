@@ -82,7 +82,6 @@ public static class Constants {
             {
                 PropsEnum.Storage,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 0 } }
             }
         };
 
@@ -91,19 +90,19 @@ public static class Constants {
             {
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 100 }, { ResourceEnum.Platinum, 50 } }
+                    { { ResourceEnum.Iron, 80 }, { ResourceEnum.Platinum, 40 } }
             }, {
                 PropsEnum.FoodGenerator,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Water, 75 }, { ResourceEnum.Iron, 50 }, { ResourceEnum.Platinum, 50 } }
+                    { { ResourceEnum.Water, 70 }, { ResourceEnum.Iron, 40 }, { ResourceEnum.Platinum, 40 } }
             }, {
                 PropsEnum.Fighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Food, 175 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 175 } }
+                    { { ResourceEnum.Food, 160 }, { ResourceEnum.Gold, 60 }, { ResourceEnum.Platinum, 160 } }
             }, {
                 PropsEnum.Storage,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Water, 100 }, { ResourceEnum.Gold, 100 }, { ResourceEnum.Iron, 100 } }
+                    { { ResourceEnum.Water, 80 }, { ResourceEnum.Gold, 80 }, { ResourceEnum.Iron, 80 } }
             }, {
                 PropsEnum.EnemyGatherer,
                 new Dictionary<ResourceEnum, int>()

@@ -73,7 +73,7 @@ public class EnemyBaseController : MonoBehaviour {
         }
     }
     
-    public void CalculateOreForGatherer(GameObject oreGatherer) {
+    public OreFindingcases CalculateOreForGatherer(GameObject oreGatherer) {
         var gathererBehaviour = oreGatherer.GetComponent<EnemyGathererBehaviour>();
         
         //Remove from current gathering map if it was gathering
@@ -105,6 +105,7 @@ public class EnemyBaseController : MonoBehaviour {
         gathererBehaviour.objectiveItem = nearestOre;
         gathererBehaviour.DisplayAction(GameControllerScript.Instance.resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
         gathererBehaviour.UpdateDestination();
+        return OreFindingcases.AvailableOre;
     }
 
     public void UpdateResource(ResourceEnum resourceType, int quantity, ResourceOperationEnum operation) {

@@ -255,19 +255,35 @@ public class GameControllerScript : MonoBehaviour {
         PauseGame();
     }
 
-    public void CalculateOreForGatherer(GameObject oreGatherer) {
-        //Finds nearest ore of specified type
+    public OreFindingcases CalculateOreForGatherer(GameObject oreGatherer) {
+        
         var gathererBehaviour = oreGatherer.GetComponent<GathererBehaviour>();
+        
+        //Check if resources are at maximum
+        if (resourcesDictionary[gathererBehaviour.resourceGatheringType] == resourcesLimit) {
+            gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
+            return OreFindingcases.ResourceAtMax;
+        }
+        
+        //Finds nearest ore of specified type
         var nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
 
         if (nearestOre is not null) {
+            //Mark as ungathered old if there was one
+            if (gathererBehaviour.currentGatheredOre != null) {
+                Utils.MarkObjectiveAsUnGathered(gathererBehaviour.currentGatheredOre.gameObject, oreListDictionary[gathererBehaviour.resourceGatheringType]);
+                gathererBehaviour.currentGatheredOre = null;
+            }
+
             gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
             gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
-        } else {
-            gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
-            gathererBehaviour.ReturnToBase(true);
+            return OreFindingcases.AvailableOre;
         }
+        
+        gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
+        gathererBehaviour.ReturnToBase(true);
+        return OreFindingcases.NoAvailableOres;
     }
 
     public void ActivateAlertCanvas(string alertDisplayText) {

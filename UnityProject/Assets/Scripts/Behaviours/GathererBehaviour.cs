@@ -13,7 +13,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
     
     public GameObject objectiveItem;
     public ResourceEnum resourceGatheringType;
-    protected OreBehaviour currentGatheredOre;
+    public OreBehaviour currentGatheredOre;
     public int gathererLoad = 0;
     public Dictionary<ResourceEnum, int> loadDictionary;
     public int maxGathererLoad;
@@ -25,6 +25,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
             currentGatheredOre = other.GetComponent<OreBehaviour>();
             currentClickableOre = other.GetComponent<ClickableOre>();
+            isGatheringStopping = false;
             totalProgressTime = currentGatheredOre.GATHERING_TIME_REQUIRED;
             gatheringCoroutine = StartCoroutine(GatheringCoroutine());
         }
@@ -77,6 +78,11 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 if (isRetreating) {
                     DisplayAction(GameControllerScript.Instance.stopActionSprite);
                 } else {
+                    //Don´t calculate if resource its as maximum
+                    if (CheckIfResourceIsAtMaximum()) {
+                        DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
+                        yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                    }
                     CalculateOreForGatherer();
                 }
                 yield break;
@@ -110,6 +116,15 @@ public abstract class GathererBehaviour : ActionUIController_v2
                     GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
                 yield break;
             }
+
+            //If resources are at max, wait until they are not
+            if (CheckIfResourceIsAtMaximum()) {
+                agent.isStopped = true;
+                DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
+                yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                agent.isStopped = false;
+                DisplayProgress();
+            }
         }
 
         //Destroy empty ore
@@ -121,7 +136,8 @@ public abstract class GathererBehaviour : ActionUIController_v2
     }
     
     protected abstract void UpdateResource(ResourceEnum resource, int quantity);
-    protected abstract void CalculateOreForGatherer();
+    protected abstract OreFindingcases CalculateOreForGatherer();
     protected abstract GameObject GetNearestBase();
+    public abstract bool CheckIfResourceIsAtMaximum();
     protected abstract void RemoveCompletedOre(ResourceEnum oreType, GameObject oreToRemove);
 }
