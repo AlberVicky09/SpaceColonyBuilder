@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class UIUpdateController : MonoBehaviour {
 
@@ -189,10 +188,9 @@ public class UIUpdateController : MonoBehaviour {
         }
     }
 
-    public void UpdateRandomResources_TESTONLY(ResourceOperationEnum operationType) {
+    public void UpdateMAXResources_TESTONLY(ResourceOperationEnum operationType) {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
-            var resourceValue = Random.Range(5 / 5, 25 / 5 + 1) * 5;
-            UpdateResource(resource, resourceValue, operationType);
+            UpdateResource(resource, GameControllerScript.Instance.resourcesLimit, operationType);
         }
     }
 }

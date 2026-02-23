@@ -23,18 +23,18 @@ public class KeyController : MonoBehaviour {
                 
                 //Move with wasd
                 if (Input.GetKey(KeyCode.W)) {
-                    verticalMove = 0.3f;
+                    verticalMove = Constants.CAMERA_MOVE_VALUE;
                     //CameraMove.Instance.MoveCameraHorizontal(-0.3f);
                 } else if (Input.GetKey(KeyCode.S)) {
-                    verticalMove = -0.3f;
+                    verticalMove = -Constants.CAMERA_MOVE_VALUE;
                     //CameraMove.Instance.MoveCameraHorizontal(0.3f);
                 }
                 
                 if (Input.GetKey(KeyCode.A)) {
-                    horizontalMove = -0.3f;
+                    horizontalMove = -Constants.CAMERA_MOVE_VALUE;
                     //CameraMove.Instance.MoveCameraVertical(0.3f);
                 } else if (Input.GetKey(KeyCode.D)) {
-                    horizontalMove = 0.3f;
+                    horizontalMove = Constants.CAMERA_MOVE_VALUE;
                     //CameraMove.Instance.MoveCameraVertical(-0.3f);
                 }
 

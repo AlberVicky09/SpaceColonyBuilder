@@ -2,9 +2,9 @@
     "missionQuantity": 3,
     "missions": [{
             "missionType": 0,
-            "objectiveName": "Iron",
+            "objectiveName": "Food",
             "objectiveQuantity": 200,
-            "missionDescription": "Gather 200 iron"
+            "missionDescription": "Gather 200 food"
         }, {
             "missionType": 1,
             "objectiveName": "Storage",

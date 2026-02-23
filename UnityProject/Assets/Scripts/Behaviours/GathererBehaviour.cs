@@ -63,7 +63,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
         
         while (true) {
             // Check if the agent has reached its destination
-            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
+            if (Utils.HasAgentArrivedOrItsStuck(agent)) {
                 //Add resources if it had any
                 foreach (var resource in loadDictionary.Keys.ToList()) {
                     if (loadDictionary[resource] != 0) {
@@ -104,7 +104,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
             isGatheringStopping = false;
             progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
-            loadDictionary[currentGatheredOre.resourceType] += gathererLoad;
+            loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
             currentGatheredOre.gatheredTimes++;
             clickableGatherer.UpdateTexts();
             currentClickableOre.UpdateTexts();

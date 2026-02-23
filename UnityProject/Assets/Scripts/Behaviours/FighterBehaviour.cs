@@ -50,7 +50,10 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
         Gizmos.DrawWireSphere(transform.position, MAXIMUM_DETECTION_DISTANCE);
     }
 
-    private void Start() { DisplayAction(GameControllerScript.Instance.patrolBaseSprite); }
+    private void Start() {
+        iconWorldOffset = 3.5f;
+        DisplayAction(GameControllerScript.Instance.patrolBaseSprite);
+    }
 
     void Update() {
         if (isActivated) {
@@ -62,7 +65,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                     if (CheckForEnemiesInSight()) { return; }
                     
                     // Check if the agent has reached the current waypoint, and if so, move to the next one
-                    if (!agent.pathPending && agent.remainingDistance < 0.5f) {
+                    if (Utils.HasAgentArrivedOrItsStuck(agent)) {
                         Utils.MoveToNextWayPoint(
                             ref currentWaypointIndex,
                             waypoints,
@@ -76,7 +79,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                     if (CheckForEnemiesInSight()) { return; }
 
                     //If base is near enough, start attacking it
-                    if (!agent.pathPending && agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
+                    if (Utils.HasAgentArrivedOrItsStuck(agent)) {
                         UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
                         currentShootingCoroutine = StartCoroutine(StartFighting());

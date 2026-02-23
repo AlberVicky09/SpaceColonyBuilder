@@ -15,11 +15,11 @@ public class EditorScript : Editor {
         }
 
         if (GUILayout.Button("Increase random resources")) {
-            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Increase);
+            GameControllerScript.Instance.uiUpdateController.UpdateMAXResources_TESTONLY(ResourceOperationEnum.Increase);
         }
     
         if (GUILayout.Button("Decrease random resources")) {
-            GameControllerScript.Instance.uiUpdateController.UpdateRandomResources_TESTONLY(ResourceOperationEnum.Decrease);
+            GameControllerScript.Instance.uiUpdateController.UpdateMAXResources_TESTONLY(ResourceOperationEnum.Decrease);
         }
     }
 }

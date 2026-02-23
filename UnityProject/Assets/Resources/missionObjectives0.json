@@ -2,19 +2,19 @@
     "missionQuantity": 3,
     "missions": [{
             "missionType": 0,
-            "objectiveName": "Gold",
-            "objectiveQuantity": 50,
-            "missionDescription": "Gather 50 gold"
+            "objectiveName": "Food",
+            "objectiveQuantity": 100,
+            "missionDescription": "Gather 100 food"
         }, {
             "missionType": 1,
             "objectiveName": "Gatherer",
-            "objectiveQuantity": 5,
-            "missionDescription": "Have at least 5 active gatherers"
+            "objectiveQuantity": 4,
+            "missionDescription": "Have at least 4 active gatherers"
         }, {
             "missionType": 2,
             "objectiveName": "Before",
-            "objectiveQuantity": 24,
-            "missionDescription": "Complete all objectives prior to 2 years"
+            "objectiveQuantity": 12,
+            "missionDescription": "Complete all objectives prior to 1 year"
         }
     ]
 }

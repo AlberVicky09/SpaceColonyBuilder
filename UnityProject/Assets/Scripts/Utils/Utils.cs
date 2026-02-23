@@ -222,6 +222,23 @@ public static class Utils {
         }
         return true;
     }
+    
+    public static bool HasAgentArrivedOrItsStuck(NavMeshAgent agent) {
+        if (agent.pathPending) return false;
+
+        // Arrived normally
+        if (agent.remainingDistance <= agent.stoppingDistance + 0.5f) {
+            return true;
+        }
+
+        // Stuck: not moving but path is complete
+        if (agent.pathStatus == NavMeshPathStatus.PathComplete &&
+            agent.velocity.sqrMagnitude < 0.01f) {
+            return true;
+        }
+
+        return false;
+    }
 
     public static void SetAnchorPresets(RectTransform rt, AnchorPresets preset) {
         switch (preset) {

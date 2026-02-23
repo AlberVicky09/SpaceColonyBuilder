@@ -112,6 +112,7 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        currentMissionNumber = 0;
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //Initialize ui text resource counters
@@ -373,7 +374,7 @@ public class GameControllerScript : MonoBehaviour {
             }
             
             //Generate between 2-4 enemy ships
-            enemyGenerationController.GenerateNewEnemy(Random.Range(2, 5));
+            enemyGenerationController.GenerateNewEnemy();
             remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
         }
     }

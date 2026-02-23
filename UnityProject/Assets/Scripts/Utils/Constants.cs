@@ -67,17 +67,17 @@ public static class Constants {
             },{
                 PropsEnum.Gatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 5 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 5 } }
+                    { { ResourceEnum.Iron, 1 }, { ResourceEnum.Gold, 2 }, { ResourceEnum.Platinum, 1 } }
             },
             {
                 PropsEnum.FoodGenerator,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 10 } }
+                    { { ResourceEnum.Iron, 0 }, { ResourceEnum.Gold, 0 }, { ResourceEnum.Platinum, 2 } }
             },
             {
                 PropsEnum.Fighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 10 }, { ResourceEnum.Gold, 10 }, { ResourceEnum.Platinum, 0 } }
+                    { { ResourceEnum.Food, 2 }, { ResourceEnum.Gold, 2 }, { ResourceEnum.Platinum, 0 } }
             },
             {
                 PropsEnum.Storage,
@@ -121,9 +121,9 @@ public static class Constants {
         };
 
     public const string PROP_NOT_VALID_IN_MISSION = "You cannot build this now!";
-    public const float ORE_GENERATION_DISTANCE_RANGE = 30f;
+    public const float ORE_GENERATION_DISTANCE_RANGE = 40f;
     public const float VIEW_DISTANCE_RANGE = 38f;
-    public const int INITIAL_ORE_NUMBER = 15;
+    public const int INITIAL_ORE_NUMBER = 30;
     public const float ORE_FLOOR_OFFSET = 0.4f;
     public static Vector3 BULLET_OFFSET = new Vector3(0f, 0.25f, 0f);
 
@@ -139,6 +139,7 @@ public static class Constants {
     public const float CAMERA_OFFSET_Y = 7.25f;
 
     public const float ZOOM_CHANGE = 12;
+    public const float CAMERA_MOVE_VALUE = 0.45f;
     public const float CAMERA_MOVEMENT_SMOOTHER_VALUE = 0.25f;
     public const float CAMERA_ZOOM_SMOOTHER_VALUE = 1.3f;
     public const float MIN_ZOOM_SIZE = 7f;
@@ -180,8 +181,8 @@ public static class Constants {
     public static int ENEMY_INITIAL_RESOURCES_LIMIT = 250;
     public static int RESOURCES_LIMIT_INCREASE = 50;
     
-    public static int GATHERER_GATHERING_QUANTITY = 15;
-    public static int DEFAULT_GATHERER_MAX_LOAD = 75;
+    public static int GATHERER_GATHERING_QUANTITY = 10;
+    public static int DEFAULT_GATHERER_MAX_LOAD = 50;
     public static int UPGRADED_GATHERER_LOAD = 175;
 
     public static Vector2 INITIAL_CAMERA_POSITION = new(-9.3f, -10f);

@@ -16,9 +16,7 @@ public class EnemyGenerationController : MonoBehaviour {
             GameControllerScript.Instance.propDictionary[PropsEnum.EnemyFighter].Add(enemy);
             
             //Set enemy objective to base
-            var enemyBehaviour = enemy.GetComponent<EnemyFighterBehaviour>();
-            enemyBehaviour.agent.SetDestination(GameControllerScript.Instance.mainBuilding.transform.position);
-            enemyBehaviour.currentState = FighterStatesEnum.Chasing;
+            enemy.GetComponent<EnemyFighterBehaviour>().StartChasingBase();
         }
     }
 }
