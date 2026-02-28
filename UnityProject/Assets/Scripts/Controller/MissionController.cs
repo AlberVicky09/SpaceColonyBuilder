@@ -128,7 +128,7 @@ public class MissionController : MonoBehaviour {
         if (completedMissions == missionListDto.missionQuantity) {
             //Retrieve mission availability and update current mission to completed
             var missionAvailability = new MissionAvailabilityDTO();
-            for (int i = 0; i <= GameControllerScript.Instance.currentMissionNumber; i++) {
+            for (int i = 0; i <= GameControllerScript.Instance.currentMissionNumber + 1; i++) {
                 missionAvailability.boolArray[i] = true;
             }
             //Store mission availability
