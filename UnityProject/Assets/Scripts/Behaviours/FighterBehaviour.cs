@@ -28,6 +28,9 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
 
     public bool isActivated;
 
+    protected const float TIME_TO_START_CHECKING_CASE = 0.3f;
+    protected float timeSinceStart = 0f;
+        
     protected const float TIME_TO_CHECK_FOR_ENEMIES = 0.35f;
     protected float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
     protected const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 0.5f;
@@ -51,13 +54,13 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     }
 
     private void Start() {
+        timeSinceStart = 0f;
         iconWorldOffset = 3.5f;
         DisplayAction(GameControllerScript.Instance.patrolBaseSprite);
     }
 
     void Update() {
-        if (isActivated) {
-            
+        if (isActivated && timeSinceStart > TIME_TO_START_CHECKING_CASE) {
             switch (currentState) {
                 //When scouting, check for enemies and if not, go on with next waypoint
                 case FighterStatesEnum.Scouting:
@@ -70,6 +73,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                             ref currentWaypointIndex,
                             waypoints,
                             agent);
+                        timeSinceStart = 0f;
                     }
                     break;
                 
@@ -83,6 +87,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                         UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
                         currentShootingCoroutine = StartCoroutine(StartFighting());
+                        timeSinceStart = 0f;
                     }
                     break;
                 
@@ -109,6 +114,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                     //If enemy is near enough, start attacking it
                     if (agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
                         UpdateState(FighterStatesEnum.Attacking);
+                        timeSinceStart = 0f;
                         //Start fighting
                         currentShootingCoroutine = StartCoroutine(StartFighting());
                     }
@@ -117,6 +123,8 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                 //If its attacking, do nothing
                 case FighterStatesEnum.Attacking: break;
             }
+        } else {
+            timeSinceStart += Time.deltaTime;
         }
     }
     
@@ -134,6 +142,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                 currentObjectiveType = oppositeType;
                 
                 //Force timer to check for enemies just in case is near enough to shoot
+                timeSinceStart = 0f;
                 timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
                 UpdateFighterDestination(objectiveGO.transform.position);
 
@@ -195,6 +204,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     }
 
     protected virtual void UpdateState(FighterStatesEnum newState) {
+        timeSinceStart = 0f;
         currentState = newState;
         DisplayAction(GameControllerScript.Instance.fighterActionsDictionary[newState]);
         clickableFighter.UpdateTexts();
@@ -231,6 +241,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
 
     protected void RestartAgent() {
         //Ensure its not stopped, and force checking for enemies
+        timeSinceStart = 0f;
         agent.isStopped = false;
         timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
         objectiveGO = null;
