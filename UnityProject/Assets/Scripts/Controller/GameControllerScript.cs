@@ -112,7 +112,6 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        currentMissionNumber = 0;
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //Initialize ui text resource counters
@@ -265,17 +264,22 @@ public class GameControllerScript : MonoBehaviour {
             gathererBehaviour.DisplayAction(missingResourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
             return OreFindingcases.ResourceAtMax;
         }
+
+        GameObject nearestOre = null;
+        //Check if previous ore is still available
+        if (gathererBehaviour.previousGatheredOre != null) {
+            nearestOre = Utils.FindSpecificGameObjectInList(gathererBehaviour.previousGatheredOre,
+                oreListDictionary[gathererBehaviour.resourceGatheringType]);
+            Debug.Log("Ore still available");
+        }
         
-        //Finds nearest ore of specified type
-        var nearestOre = Utils.FindNearestGameObjectInList(oreGatherer, oreListDictionary[gathererBehaviour.resourceGatheringType]);
-
-        if (nearestOre is not null) {
-            //Mark as ungathered old if there was one
-            if (gathererBehaviour.currentGatheredOre != null) {
-                Utils.MarkObjectiveAsUnGathered(gathererBehaviour.currentGatheredOre.gameObject, oreListDictionary[gathererBehaviour.resourceGatheringType]);
-                gathererBehaviour.currentGatheredOre = null;
-            }
-
+        if(nearestOre == null) {
+            //Finds nearest ore of specified type
+            nearestOre = Utils.FindNearestGameObjectInList(oreGatherer,
+                oreListDictionary[gathererBehaviour.resourceGatheringType]);
+        }
+        
+        if (nearestOre != null) {
             gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
             gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
@@ -359,7 +363,8 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     private IEnumerator GenerateEnemyShipsCoroutine() {
-        var remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+        //var remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+        var remainingTime = 1f;
         while (true) {
             //Spawn enemies in remainingTime seconds
             while (remainingTime > 0) {

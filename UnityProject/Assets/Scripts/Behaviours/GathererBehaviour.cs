@@ -11,7 +11,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
     [SerializeField] protected ClickableGatherer clickableGatherer;
     [SerializeField] protected NavMeshAgent agent;
     
-    public GameObject objectiveItem;
+    public GameObject objectiveItem, previousGatheredOre;
     public ResourceEnum resourceGatheringType;
     public OreBehaviour currentGatheredOre;
     public int gathererLoad = 0;
@@ -19,7 +19,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
     public int maxGathererLoad;
 
     private Coroutine gatheringCoroutine;
-    private bool isGatheringStopping;
+    private bool isGatheringStopping, coroutineInterrupted;
     
     private void OnTriggerEnter(Collider other) {
         if(ReferenceEquals(other.gameObject, objectiveItem)) {
@@ -38,6 +38,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 StopCoroutine(GatheringCoroutine());
                 gatheringCoroutine = null;
             }
+            previousGatheredOre = other.gameObject;
             currentGatheredOre = null;
         }
     }
@@ -98,10 +99,11 @@ public abstract class GathererBehaviour : ActionUIController_v2
             //Ensure coroutine hasnt been stopped
             if (isGatheringStopping) {
                 isGatheringStopping = false;
+                coroutineInterrupted = true;
                 yield break;
             }
 
-            isGatheringStopping = false;
+            isGatheringStopping = coroutineInterrupted = false;
             progressTime = 0f;
             gathererLoad = Mathf.Clamp(gathererLoad + Constants.GATHERER_GATHERING_QUANTITY, 0, maxGathererLoad);
             loadDictionary[currentGatheredOre.resourceType] += Constants.GATHERER_GATHERING_QUANTITY;
@@ -127,12 +129,15 @@ public abstract class GathererBehaviour : ActionUIController_v2
             }
         }
 
-        //Destroy empty ore
-        RemoveCompletedOre(currentGatheredOre.resourceType, currentGatheredOre.gameObject);
-        currentGatheredOre = null;
+        if (!coroutineInterrupted) {
+            //Destroy empty ore
+            RemoveCompletedOre(currentGatheredOre.resourceType, currentGatheredOre.gameObject);
+            currentGatheredOre = null;
         
-        //Look for another ore of the same type
-        CalculateOreForGatherer();
+            //Look for another ore of the same type
+            CalculateOreForGatherer();
+            coroutineInterrupted = false;
+        }
     }
     
     protected abstract void UpdateResource(ResourceEnum resource, int quantity);

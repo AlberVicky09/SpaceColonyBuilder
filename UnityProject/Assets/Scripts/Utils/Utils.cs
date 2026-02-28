@@ -119,6 +119,16 @@ public static class Utils {
         return nearestObjective;
     }
 
+    public static GameObject FindSpecificGameObjectInList(GameObject objective, List<ResourceTuple> objectivesList) {
+        for (int i = 0; i < objectivesList.Count; i++) {
+            if (objective == objectivesList[i].gameObject) {
+                return objective;
+            }
+        }
+        return null;
+    }
+    
+    
     public static GameObject FindNearestGameObjectInList(GameObject agent, List<ResourceTuple> objectivesList) {
         //Set nearest ore for gatherer
         int nearestObjective = -1;
