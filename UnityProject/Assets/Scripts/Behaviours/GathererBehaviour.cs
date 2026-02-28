@@ -14,9 +14,12 @@ public abstract class GathererBehaviour : ActionUIController_v2
     public GameObject objectiveItem, previousGatheredOre;
     public ResourceEnum resourceGatheringType;
     public OreBehaviour currentGatheredOre;
+    
     public int gathererLoad = 0;
     public Dictionary<ResourceEnum, int> loadDictionary;
     public int maxGathererLoad;
+    
+    protected float timeSinceStart;
 
     private Coroutine gatheringCoroutine;
     private bool isGatheringStopping, coroutineInterrupted;
@@ -30,18 +33,6 @@ public abstract class GathererBehaviour : ActionUIController_v2
             gatheringCoroutine = StartCoroutine(GatheringCoroutine());
         }
     }
-    
-    private void OnTriggerExit(Collider other) {
-        if (currentGatheredOre != null && ReferenceEquals(other.gameObject, currentGatheredOre.gameObject)) {
-            if (null != gatheringCoroutine) {
-                isGatheringStopping = true;
-                StopCoroutine(GatheringCoroutine());
-                gatheringCoroutine = null;
-            }
-            previousGatheredOre = other.gameObject;
-            currentGatheredOre = null;
-        }
-    }
 
     public void UpdateDestination() {
         agent.SetDestination(objectiveItem.transform.position);
@@ -53,6 +44,14 @@ public abstract class GathererBehaviour : ActionUIController_v2
             StopCoroutine(GatheringCoroutine());
             gatheringCoroutine = null;
         }
+        
+        if (null !=currentGatheredOre) {
+            Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
+                GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
+            previousGatheredOre = currentGatheredOre.gameObject;
+            currentGatheredOre  = null;
+        }
+        timeSinceStart = 0f;
         StartCoroutine(CheckReturnToBaseCompleted(isRetreating));
     }
 
@@ -63,32 +62,42 @@ public abstract class GathererBehaviour : ActionUIController_v2
         DisplayAction(GameControllerScript.Instance.returningToBaseSprite);
         
         while (true) {
-            // Check if the agent has reached its destination
-            if (Utils.HasAgentArrivedOrItsStuck(agent)) {
-                //Add resources if it had any
-                foreach (var resource in loadDictionary.Keys.ToList()) {
-                    if (loadDictionary[resource] != 0) {
-                        UpdateResource(resource, loadDictionary[resource]);
-                        loadDictionary[resource] = 0;
+            while (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
+                // Check if the agent has reached its destination
+                if (Utils.HasAgentArrivedOrItsStuck(agent)) {
+                    //Add resources if it had any
+                    foreach (var resource in loadDictionary.Keys.ToList()) {
+                        if (loadDictionary[resource] != 0) {
+                            UpdateResource(resource, loadDictionary[resource]);
+                            loadDictionary[resource] = 0;
+                        }
                     }
-                }
-                gathererLoad = 0;
-                clickableGatherer.UpdateTexts();
-                try { currentClickableOre.UpdateTexts(); } catch (Exception) {}
 
-                if (isRetreating) {
-                    DisplayAction(GameControllerScript.Instance.stopActionSprite);
-                } else {
-                    //Don´t calculate if resource its as maximum
-                    if (CheckIfResourceIsAtMaximum()) {
-                        DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
-                        yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                    gathererLoad = 0;
+                    clickableGatherer.UpdateTexts();
+                    try {
+                        currentClickableOre.UpdateTexts();
+                    } catch (Exception) {}
+
+                    if (isRetreating) {
+                        DisplayAction(GameControllerScript.Instance.stopActionSprite);
+                    } else {
+                        //Don´t calculate if resource its as maximum
+                        if (CheckIfResourceIsAtMaximum()) {
+                            DisplayAction(
+                                GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
+                            yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                        }
+
+                        CalculateOreForGatherer();
                     }
-                    CalculateOreForGatherer();
+
+                    yield break;
                 }
-                yield break;
+
+                yield return new WaitForSeconds(0.25f);
             }
-            yield return new WaitForSeconds(0.25f);
+            timeSinceStart += Time.deltaTime;
         }
     }
     
@@ -113,9 +122,10 @@ public abstract class GathererBehaviour : ActionUIController_v2
 
             //If gatherer is full, exit coroutine
             if (gathererLoad >= maxGathererLoad) {
+                if (currentGatheredOre.gatheredTimes == currentGatheredOre.MAXGATHEREDTIMES) {
+                    DestroyFinishedOre();
+                }
                 ReturnToBase(false);
-                Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
-                    GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
                 yield break;
             }
 
@@ -130,16 +140,18 @@ public abstract class GathererBehaviour : ActionUIController_v2
         }
 
         if (!coroutineInterrupted) {
-            //Destroy empty ore
-            RemoveCompletedOre(currentGatheredOre.resourceType, currentGatheredOre.gameObject);
-            currentGatheredOre = null;
-        
+            DestroyFinishedOre();
             //Look for another ore of the same type
             CalculateOreForGatherer();
             coroutineInterrupted = false;
         }
     }
-    
+
+    private void DestroyFinishedOre() {
+        //Destroy empty ore
+        RemoveCompletedOre(currentGatheredOre.resourceType, currentGatheredOre.gameObject);
+        currentGatheredOre = null;
+    }
     protected abstract void UpdateResource(ResourceEnum resource, int quantity);
     protected abstract OreFindingcases CalculateOreForGatherer();
     protected abstract GameObject GetNearestBase();

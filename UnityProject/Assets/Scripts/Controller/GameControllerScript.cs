@@ -273,16 +273,25 @@ public class GameControllerScript : MonoBehaviour {
             Debug.Log("Ore still available");
         }
         
-        if(nearestOre == null) {
+        while(nearestOre == null) {
             //Finds nearest ore of specified type
             nearestOre = Utils.FindNearestGameObjectInList(oreGatherer,
                 oreListDictionary[gathererBehaviour.resourceGatheringType]);
+            //If null, generate more ores around base
+            if (nearestOre == null) {
+                Utils.GenerateRandomOres(mainBuilding.transform.position);
+            }
         }
         
         if (nearestOre != null) {
             gathererBehaviour.objectiveItem = nearestOre;
             gathererBehaviour.UpdateDestination();
             gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
+            //Mark previous as ungathered (if any)
+            if (gathererBehaviour.previousGatheredOre != null &&
+                !nearestOre.Equals(gathererBehaviour.previousGatheredOre)) {
+                
+            }
             return OreFindingcases.AvailableOre;
         }
         
@@ -363,9 +372,15 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     private IEnumerator GenerateEnemyShipsCoroutine() {
-        //var remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
-        var remainingTime = 1f;
+        enemyCountDownText.text = "No enemies in sight";
+        enemyCountDownBg.sprite = greenLabelSprite;
+        //We have to activate the countdown once there is a fighter
+        yield return new WaitUntil(() => propDictionary[PropsEnum.Fighter].Count > 0);
         while (true) {
+            //Generate between 2-4 enemy ships
+            enemyGenerationController.GenerateNewEnemy();
+            var remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+            enemyCountDownBg.sprite = redLabelSprite;
             //Spawn enemies in remainingTime seconds
             while (remainingTime > 0) {
                 remainingTime--;
@@ -378,9 +393,7 @@ public class GameControllerScript : MonoBehaviour {
                 enemyCountDownText.text = $"Enemy in {remainingMinutesString}:{remainingSecondsString}";
             }
             
-            //Generate between 2-4 enemy ships
-            enemyGenerationController.GenerateNewEnemy();
-            remainingTime = Random.Range(Constants.MIN_ENEMY_SPAWNING_TIME, Constants.MAX_ENEMY_SPAWNING_TIME);
+            
         }
     }
 

@@ -27,9 +27,8 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     public int currentWaypointIndex;
 
     public bool isActivated;
-
-    protected const float TIME_TO_START_CHECKING_CASE = 0.3f;
-    protected float timeSinceStart = 0f;
+    
+    protected float timeSinceStart;
         
     protected const float TIME_TO_CHECK_FOR_ENEMIES = 0.35f;
     protected float timeSinceLastCheckForEnemies = TIME_TO_CHECK_FOR_ENEMIES;
@@ -60,7 +59,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     }
 
     void Update() {
-        if (isActivated && timeSinceStart > TIME_TO_START_CHECKING_CASE) {
+        if (isActivated && timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
             switch (currentState) {
                 //When scouting, check for enemies and if not, go on with next waypoint
                 case FighterStatesEnum.Scouting:

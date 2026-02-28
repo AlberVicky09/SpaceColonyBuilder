@@ -121,7 +121,8 @@ public static class Utils {
 
     public static GameObject FindSpecificGameObjectInList(GameObject objective, List<ResourceTuple> objectivesList) {
         for (int i = 0; i < objectivesList.Count; i++) {
-            if (objective == objectivesList[i].gameObject) {
+            if (objective == objectivesList[i].gameObject && !objectivesList[i].isBeingGathered) {
+                objectivesList[i].isBeingGathered = true;
                 return objective;
             }
         }

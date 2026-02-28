@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlaceableStorage : Placeable {
     
     //Increase storage maximum size once its placed
@@ -5,6 +7,10 @@ public class PlaceableStorage : Placeable {
         GameControllerScript.Instance.resourcesLimit += Constants.RESOURCES_LIMIT_INCREASE;
         foreach (var maxResourceText in GameControllerScript.Instance.uiMaxResourcesList) {
             maxResourceText.text = GameControllerScript.Instance.resourcesLimit.ToString();
+        }
+
+        foreach (var resource in GameControllerScript.Instance.uiResourcesTextMap.Values) {
+            resource.color = Color.white;
         }
     }
 }

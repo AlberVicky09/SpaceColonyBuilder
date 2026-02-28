@@ -342,3 +342,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 0
+  isButtonCompletelyFronted: 1
