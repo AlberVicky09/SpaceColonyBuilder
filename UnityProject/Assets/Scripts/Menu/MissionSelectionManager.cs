@@ -21,6 +21,7 @@ public class MissionSelectionManager : MonoBehaviour {
     private int objectiveMission;
     private String[] titleTexts, descriptionTexts;
     private bool isAlradyInMission;
+    private float timeSinceStart;
 
     void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MissionSelectionBG);
@@ -67,14 +68,19 @@ public class MissionSelectionManager : MonoBehaviour {
     
     void Update() {
         if (!isAlradyInMission) {
-            // Check if the agent has reached its destination
-            if (Utils.HasAgentArrivedOrItsStuck(agent)) {
-                MoveToMission(objectiveMission);
+            if (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
+                // Check if the agent has reached its destination
+                if (Utils.HasAgentArrivedOrItsStuck(agent)) {
+                    MoveToMission(objectiveMission);
+                }
+            } else {
+                timeSinceStart += Time.deltaTime;
             }
         }
     }
 
     public void MoveToMission(int mission) {
+        timeSinceStart = 0f;
         objectiveMission = mission;
         if (objectiveMission > currentPosition) {
             agent.SetDestination(missionPositions[++currentPosition].transform.position);
