@@ -28,16 +28,17 @@ public class BulletBehaviour : MonoBehaviour {
             case PropsEnum.Fighter:
                 if (other.gameObject.name.StartsWith("EnemyFighter") || other.gameObject.name.StartsWith("EnemyBase")) {
                     other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(15);
+                    //Deactivate bullet
+                    gameObject.SetActive(false);
                 }
                 break;
             case PropsEnum.EnemyFighter:
                 if (other.gameObject.name.StartsWith("PlayerFighter") || other.gameObject.name.StartsWith("PlayerBase")) {
                     other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(10);
+                    //Deactivate bullet
+                    gameObject.SetActive(false);
                 }
                 break;
         }
-        
-        //Deactivate bullet
-        gameObject.SetActive(false);
     }
 }
