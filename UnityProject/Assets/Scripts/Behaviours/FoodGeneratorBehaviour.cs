@@ -16,7 +16,7 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
             //If is paused, dont generate
             while (isGeneratorPaused) { yield return new WaitUntil(() => isGeneratorPaused); }
             
-            if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15) {
+            if (ActivateConditions()) {
                 //Take water only once, even if we pause it
                 if (!hasWaterBeenAlreadyTaken) {
                     //Remove water
@@ -36,10 +36,13 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
                 //Ensure next time water is taken again
                 hasWaterBeenAlreadyTaken = false;
             } else {
-                DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]);
-                yield return new WaitUntil(() =>
-                    GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15
-                );
+                if (GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] < 15) {
+                    DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Water]);
+                } else {
+                    DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[ResourceEnum.Food]);
+                }
+                
+                yield return new WaitUntil(() => ActivateConditions());
             }
 
             //Check if has been paused, to stop it AFTER the loop is done
@@ -47,5 +50,11 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
                 DisplayAction(GameControllerScript.Instance.stopActionSprite);
             }
         }
+    }
+
+    //Only activate if enough water and 
+    private bool ActivateConditions() {
+        return GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Water] >= 15
+               && GameControllerScript.Instance.resourcesDictionary[ResourceEnum.Food] < GameControllerScript.Instance.resourcesLimit;
     }
 }

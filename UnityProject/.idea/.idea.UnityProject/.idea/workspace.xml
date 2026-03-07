@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Make gatherers be able to go back to prev ore">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/InteractableButton.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SummaryItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SummaryItem.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/GathererBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/GathererBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlaceableProp/PlaceableStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlaceableProp/PlaceableStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/MissionAvailabilityDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/MissionAvailabilityDTO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,43 +55,22 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad4852b4f5ee4ca4850dcbbbd79c23693600/dc/70b2c7ac/JsonUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fe7039efe678478d9c83e73bc6a6566d94b400/a2/9dc41431/Editor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/EditorScript.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Prefabs/InteractableButton.prefab" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Prefabs/SummaryItem.prefab" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/GathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/GathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/GathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFighter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFoodGenerator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Clickable/ClickableGatherer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Clickable/ClickablePlayerGatherer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/MissionController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Music/SpaceShipEngineHum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlaceableProp/CanvasCameraSetter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlaceableProp/Placeable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/PlaceableProp/PlaceableStorage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlaceableProp/PlaceableStorage.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/ScreenResizeUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/SpriteList.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Utils.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Utils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@3.0.24/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.8/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
@@ -169,15 +144,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="1732">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="1732" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -251,15 +224,8 @@
       <workItem from="1771150817821" duration="10621000" />
       <workItem from="1771170913061" duration="276000" />
       <workItem from="1771185573323" duration="12374000" />
-      <workItem from="1772271338236" duration="11776000" />
-    </task>
-    <task id="LOCAL-00044" summary="Update demo completed canvas">
-      <option name="closed" value="true" />
-      <created>1758236698255</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1758236698255</updated>
+      <workItem from="1772271338236" duration="12579000" />
+      <workItem from="1772885486139" duration="1257000" />
     </task>
     <task id="LOCAL-00045" summary="Adding audioSources to all clickables">
       <option name="closed" value="true" />
@@ -645,7 +611,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772274600493</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Fix (again) gatherers to retrieve prev ore">
+      <option name="closed" value="true" />
+      <created>1772313238973</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1772313238973</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -685,7 +659,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Screen scaling and resolution fix" />
     <MESSAGE value="Fix file reading in build" />
     <MESSAGE value="Update Constants.cs" />
     <MESSAGE value="Fix file reading in Build #2" />
@@ -710,7 +683,8 @@
     <MESSAGE value="Ensure fighter doesnt start shooting from scratch" />
     <MESSAGE value="Fix mission completion" />
     <MESSAGE value="Make gatherers be able to go back to prev ore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make gatherers be able to go back to prev ore" />
+    <MESSAGE value="Fix (again) gatherers to retrieve prev ore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix (again) gatherers to retrieve prev ore" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
@@ -735,10 +709,10 @@
           <line>259</line>
           <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\GameControllerScript.cs" containingFunctionPresentation="Method 'CalculateOreForGatherer'">
             <startOffsets>
-              <option value="11778" />
+              <option value="11800" />
             </startOffsets>
             <endOffsets>
-              <option value="11848" />
+              <option value="11870" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="28" />

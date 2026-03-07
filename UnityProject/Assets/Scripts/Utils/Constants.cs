@@ -170,13 +170,30 @@ public static class Constants {
             { SpeedLevels.STOPPED, 0f},
         };
     
-    public static readonly Dictionary<ResourceEnum, int> INITIAL_RESOURCES_QUANTITY_MAP =
-        new Dictionary<ResourceEnum, int> {
+    public static readonly Dictionary<int, Dictionary<ResourceEnum, int>> INITIAL_RESOURCES_QUANTITY_MAP =
+        new Dictionary<int, Dictionary<ResourceEnum, int>> {
+            { 0, new Dictionary<ResourceEnum, int> {
                     { ResourceEnum.Water, 50 },
-                    { ResourceEnum.Food, 50 },
+                    { ResourceEnum.Food, 0 },
                     { ResourceEnum.Platinum, 50 },
-                    { ResourceEnum.Gold, 50 },
+                    { ResourceEnum.Gold, 0 },
                     { ResourceEnum.Iron, 50 },
+                }
+            }, { 1, new Dictionary<ResourceEnum, int> {
+                    { ResourceEnum.Water, 50 },
+                    { ResourceEnum.Food, 0 },
+                    { ResourceEnum.Platinum, 50 },
+                    { ResourceEnum.Gold, 10 },
+                    { ResourceEnum.Iron, 50 },
+                }
+            },{ 2, new Dictionary<ResourceEnum, int> {
+                    { ResourceEnum.Water, 50 },
+                    { ResourceEnum.Food, 0 },
+                    { ResourceEnum.Platinum, 50 },
+                    { ResourceEnum.Gold, 0 },
+                    { ResourceEnum.Iron, 50 },
+                }
+            },
         };
 
     public static int INITIAL_RESOURCES_LIMIT = 100;

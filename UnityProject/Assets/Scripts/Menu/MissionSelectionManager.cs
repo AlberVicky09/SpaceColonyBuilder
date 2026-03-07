@@ -37,7 +37,7 @@ public class MissionSelectionManager : MonoBehaviour {
         try {
             missionAvailability = JsonUtility.FromJson<MissionAvailabilityDTO>(Utils.ReadFile("missionsAvailable"));
         } catch {
-            missionAvailability = new MissionAvailabilityDTO(new []{true, false, false});
+            missionAvailability = new MissionAvailabilityDTO(new []{true, false, false, false});
         }
         
         var missionTextFile = Resources.Load<TextAsset>("missionDescriptions");
@@ -52,7 +52,7 @@ public class MissionSelectionManager : MonoBehaviour {
         }
 
         //If latest is true, its because the demo has been completed
-        if (missionAvailability.boolArray[2]) {
+        if (missionAvailability.boolArray[3]) {
             demoCompletedCanvas.SetActive(true);
         }
 

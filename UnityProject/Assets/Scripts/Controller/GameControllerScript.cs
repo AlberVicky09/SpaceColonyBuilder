@@ -196,7 +196,7 @@ public class GameControllerScript : MonoBehaviour {
         uiUpdateController.resourcesInitialPositions = new Dictionary<ResourceEnum, Vector3>();
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             oreListDictionary.Add(resource, new List<ResourceTuple>());
-            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[resource]);
+            resourcesDictionary.Add(resource, Constants.INITIAL_RESOURCES_QUANTITY_MAP[currentMissionNumber][resource]);
             uiUpdateController.resourcesInitialPositions.Add(resource, uiResourcesChangeTextMap[resource].transform.position);
         }
         //Set resources and max on UI

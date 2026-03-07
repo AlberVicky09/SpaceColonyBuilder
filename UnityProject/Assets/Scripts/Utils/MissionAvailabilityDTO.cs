@@ -9,6 +9,6 @@ public class MissionAvailabilityDTO {
     }
 
     public MissionAvailabilityDTO() {
-        boolArray = new bool[3];
+        boolArray = new bool[4];
     }
 }
