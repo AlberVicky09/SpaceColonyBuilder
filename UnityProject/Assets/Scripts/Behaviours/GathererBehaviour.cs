@@ -62,7 +62,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
         DisplayAction(GameControllerScript.Instance.returningToBaseSprite);
         
         while (true) {
-            while (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
+            if (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
                 // Check if the agent has reached its destination
                 if (Utils.HasAgentArrivedOrItsStuck(agent)) {
                     //Add resources if it had any
@@ -73,6 +73,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
                         }
                     }
 
+                    timeSinceStart = 0f;
                     gathererLoad = 0;
                     clickableGatherer.UpdateTexts();
                     try {

@@ -59,72 +59,81 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     }
 
     void Update() {
-        if (isActivated && timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
-            switch (currentState) {
-                //When scouting, check for enemies and if not, go on with next waypoint
-                case FighterStatesEnum.Scouting:
-                    //Check for enemies nearby (if none, keep scouting)
-                    if (CheckForEnemiesInSight()) { return; }
-                    
-                    // Check if the agent has reached the current waypoint, and if so, move to the next one
-                    if (Utils.HasAgentArrivedOrItsStuck(agent)) {
-                        Utils.MoveToNextWayPoint(
-                            ref currentWaypointIndex,
-                            waypoints,
-                            agent);
-                        timeSinceStart = 0f;
-                    }
-                    break;
-                
-                //If chasing low priority (base), check for enemies just in case (its more priority)
-                case FighterStatesEnum.ChasingLowPriority:
-                    //If there are enemies on sight, change objective and go towards them
-                    if (CheckForEnemiesInSight()) { return; }
+        if (isActivated) {
+            if (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
+                switch (currentState) {
+                    //When scouting, check for enemies and if not, go on with next waypoint
+                    case FighterStatesEnum.Scouting:
+                        //Check for enemies nearby (if none, keep scouting)
+                        if (CheckForEnemiesInSight()) {
+                            return;
+                        }
 
-                    //If base is near enough, start attacking it
-                    if (Utils.HasAgentArrivedOrItsStuck(agent) ||
-                        agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
-                        UpdateState(FighterStatesEnum.AttackingLowPriority);
-                        //Start fighting
-                        currentShootingCoroutine = StartCoroutine(StartFighting());
-                        timeSinceStart = 0f;
-                    }
-                    break;
-                
-                //If fighting low priority (base), check for enemies just in case (its more priority)
-                case FighterStatesEnum.AttackingLowPriority:
-                    //If there are enemies on sight, change objective and go towards them
-                    CheckForEnemiesInSight();
-                    break;
-                
-                //When the fighter is chasing enemies, won´t stop until being close enough
-                case FighterStatesEnum.Chasing:
-                    //If other ship destroys current enemy
-                    if (!GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
-                        RestartAgent();
-                        return;
-                    }
+                        // Check if the agent has reached the current waypoint, and if so, move to the next one
+                        if (Utils.HasAgentArrivedOrItsStuck(agent)) {
+                            Utils.MoveToNextWayPoint(
+                                ref currentWaypointIndex,
+                                waypoints,
+                                agent);
+                            timeSinceStart = 0f;
+                        }
 
-                    //Update enemy position each X seconds (in case it has moved)
-                    timeSinceLastCheckForEnemyPosition += Time.deltaTime;
-                    if (timeSinceLastCheckForEnemyPosition >= TIME_TO_CHECK_FOR_ENEMY_POSITION) {
-                        UpdateFighterDestination(objectiveGO.transform.position);
-                    }
+                        break;
 
-                    //If enemy is near enough, start attacking it
-                    if (agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
-                        UpdateState(FighterStatesEnum.Attacking);
-                        timeSinceStart = 0f;
-                        //Start fighting
-                        currentShootingCoroutine = StartCoroutine(StartFighting());
-                    }
-                    break;
-                
-                //If its attacking, do nothing
-                case FighterStatesEnum.Attacking: break;
+                    //If chasing low priority (base), check for enemies just in case (its more priority)
+                    case FighterStatesEnum.ChasingLowPriority:
+                        //If there are enemies on sight, change objective and go towards them
+                        if (CheckForEnemiesInSight()) {
+                            return;
+                        }
+
+                        //If base is near enough, start attacking it
+                        if (Utils.HasAgentArrivedOrItsStuck(agent) &&
+                            Vector3.Distance(transform.position, oppositeBase.transform.position) <= MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
+                            UpdateState(FighterStatesEnum.AttackingLowPriority);
+                            //Start fighting
+                            currentShootingCoroutine = StartCoroutine(StartFighting());
+                            timeSinceStart = 0f;
+                        }
+
+                        break;
+
+                    //If fighting low priority (base), check for enemies just in case (its more priority)
+                    case FighterStatesEnum.AttackingLowPriority:
+                        //If there are enemies on sight, change objective and go towards them
+                        CheckForEnemiesInSight();
+                        break;
+
+                    //When the fighter is chasing enemies, won´t stop until being close enough
+                    case FighterStatesEnum.Chasing:
+                        //If other ship destroys current enemy
+                        if (!GameControllerScript.Instance.propDictionary[objectiveType].Contains(objectiveGO)) {
+                            RestartAgent();
+                            return;
+                        }
+
+                        //Update enemy position each X seconds (in case it has moved)
+                        timeSinceLastCheckForEnemyPosition += Time.deltaTime;
+                        if (timeSinceLastCheckForEnemyPosition >= TIME_TO_CHECK_FOR_ENEMY_POSITION) {
+                            UpdateFighterDestination(objectiveGO.transform.position);
+                        }
+
+                        //If enemy is near enough, start attacking it
+                        if (agent.remainingDistance < MAXIMUM_FIGHTER_ATTACKING_DISTANCE) {
+                            UpdateState(FighterStatesEnum.Attacking);
+                            timeSinceStart = 0f;
+                            //Start fighting
+                            currentShootingCoroutine = StartCoroutine(StartFighting());
+                        }
+
+                        break;
+
+                    //If its attacking, do nothing
+                    case FighterStatesEnum.Attacking: break;
+                }
+            } else {
+                timeSinceStart += Time.deltaTime;
             }
-        } else {
-            timeSinceStart += Time.deltaTime;
         }
     }
     

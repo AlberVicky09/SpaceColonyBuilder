@@ -160,7 +160,7 @@ public static class Constants {
     public static float MENU_ITEM_WIGGLE_DISPLACEMENT = 4.5f;
     public static float MENU_ITEM_WIGGLE_SPEED = 4f;
 
-    public const float TIME_TO_AVOID_AGENT_STUCK = 0.3f;
+    public const float TIME_TO_AVOID_AGENT_STUCK = 0.5f;
     
     public static readonly Dictionary<SpeedLevels, float> SPEED_LEVEL_EQUIVALENCE =
         new Dictionary<SpeedLevels, float> {
@@ -214,8 +214,8 @@ public static class Constants {
 
     public static float MAX_BULLET_TRAVEL_DISTANCE = 12f;
 
-    public static float MIN_ENEMY_SPAWNING_TIME = 30f;
-    public static float MAX_ENEMY_SPAWNING_TIME = 45f;
+    public static float MIN_ENEMY_SPAWNING_TIME = 60f;
+    public static float MAX_ENEMY_SPAWNING_TIME = 75f;
 
     public static int DEFAULT_MISSING_RESOURCE_VALUE = 0;
 
