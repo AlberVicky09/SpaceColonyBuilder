@@ -40,6 +40,11 @@ public class ClickablePlayerGatherer : ClickableGatherer {
     }
 
     private void SelectResource(ResourceEnum resource) {
+        //Check if resources are at maximum
+        if (GameControllerScript.Instance.resourcesDictionary[resource] == GameControllerScript.Instance.resourcesLimit) {
+            GameControllerScript.Instance.ActivateAlertCanvas(resource + " is at the limit");
+            return;
+        }
         gathererBehaviour.resourceGatheringType = resource;
         var calculation = GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         if (calculation == OreFindingcases.AvailableOre) {
@@ -48,8 +53,6 @@ public class ClickablePlayerGatherer : ClickableGatherer {
             GameControllerScript.Instance.PlayNormalVelocity();
         } else if (calculation == OreFindingcases.NoAvailableOres) {
             GameControllerScript.Instance.ActivateAlertCanvas("There are not enough un-gathered " + resource + " ores");
-        } else if (calculation == OreFindingcases.ResourceAtMax) {
-            GameControllerScript.Instance.ActivateAlertCanvas(resource + " is at the limit");
         }
     }
 
