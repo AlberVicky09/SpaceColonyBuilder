@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public static class Utils {
 
     public static void GenerateRandomOres(Vector2 centerOfOres) {
+        Debug.Log("Generating more ores");
         //Generate ores in random position inside initial circle
         for (int i = 0; i < Constants.INITIAL_ORE_NUMBER; i++) {
             var orePos = GenerateNewOrePositionInCircle(centerOfOres);

@@ -103,7 +103,6 @@ public class UIUpdateController : MonoBehaviour {
         //Display it and fade it out
         float currentTime = 0f;
         while (GameControllerScript.Instance.uiResourcesTextMap[resourceType].alpha < 1f) {
-            Debug.Log("Fading in");
             currentTime += Time.deltaTime;
             GameControllerScript.Instance.uiResourcesChangeTextMap[resourceType].alpha =
                 Mathf.Lerp(0, 1, currentTime / Constants.RESOURCE_CHANGE_MOVEMENT_TIME);

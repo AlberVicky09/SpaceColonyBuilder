@@ -11,11 +11,11 @@ public class EnemyGathererBehaviour : GathererBehaviour {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             loadDictionary.Add(resource, 0);
         }
-        
-        EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
     }
 
-    protected override void UpdateResource(ResourceEnum resource, int quantity) { EnemyBaseController.Instance.UpdateResource(resource, quantity, ResourceOperationEnum.Increase); }
+    protected override void UpdateResource(ResourceEnum resource, int quantity) {
+        EnemyBaseController.Instance.UpdateResource(resource, quantity, ResourceOperationEnum.Increase);
+    }
 
     protected override OreFindingcases CalculateOreForGatherer() {
         return EnemyBaseController.Instance.CalculateOreForGatherer(gameObject);
@@ -26,7 +26,8 @@ public class EnemyGathererBehaviour : GathererBehaviour {
     }
 
     public override bool CheckIfResourceIsAtMaximum() {
-        return EnemyBaseController.Instance.enemyResourcesDictionary[resourceGatheringType] == Constants.INITIAL_RESOURCES_LIMIT;
+        //We dont want enemy ship to stop, ever!
+        return false;
     }
     
     protected override void RemoveCompletedOre(ResourceEnum oreType, GameObject oreToRemove) {

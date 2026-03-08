@@ -13,8 +13,12 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
     
     public IEnumerator GenerateFood() {
         while (true) {
+            //Check if has been paused, to stop it AFTER the loop is done
+            if (isGeneratorPaused) {
+                DisplayAction(GameControllerScript.Instance.stopActionSprite);
+            }
             //If is paused, dont generate
-            while (isGeneratorPaused) { yield return new WaitUntil(() => isGeneratorPaused); }
+            yield return new WaitWhile(() => isGeneratorPaused);
             
             if (ActivateConditions()) {
                 //Take water only once, even if we pause it
@@ -43,11 +47,6 @@ public class FoodGeneratorBehaviour : ActionUIController_v2 {
                 }
                 
                 yield return new WaitUntil(() => ActivateConditions());
-            }
-
-            //Check if has been paused, to stop it AFTER the loop is done
-            if (isGeneratorPaused) {
-                DisplayAction(GameControllerScript.Instance.stopActionSprite);
             }
         }
     }

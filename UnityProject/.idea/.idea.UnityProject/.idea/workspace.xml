@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Improve food generator conditions">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Make bullets only collide against desired object">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MissionSelectionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyBase.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyBase.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MainBuilding.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MainBuilding.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FighterBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Behaviours/GathererBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Behaviours/GathererBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/UIUpdateController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/Utils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +43,11 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/2d/fda7e1cc/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/3b/34665ed9/Component.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/3e/7c57b6b9/ScriptableObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,16 +60,30 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/ec/23f067af/Screen.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/fd/9e1e2d02/RefreshRate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/5c/d612a9e9/Void.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/787acc3c9a4c471ba7d971300105af2446ac00/ca/2ee19e0b/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/787acc3c9a4c471ba7d971300105af2446ac00/d6/f7c7ad22/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8663735a20c74d52bbebc96c2dd5803fd400/51/c46ef36c/NavMeshAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad4852b4f5ee4ca4850dcbbbd79c23693600/dc/70b2c7ac/JsonUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fe7039efe678478d9c83e73bc6a6566d94b400/a2/9dc41431/Editor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/EditorScript.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Prefabs/EnemyBase.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Prefabs/MainBuilding.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scenes/MainMenu.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/BulletBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/EnemyGathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FighterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/FoodGeneratorBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Behaviours/GathererBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFighter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Clickable/ClickableFoodGenerator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/EnemyBaseController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/EnemyBaseController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" root0="FORCE_HIGHLIGHTING" />
@@ -66,9 +95,13 @@
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/MissionAvailabilityDTO.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/ScreenResizeUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/SpriteList.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/UIUpdateController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Utils/Utils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@3.0.24/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.8/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
@@ -88,22 +121,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/Build/SpaceColonyBuilder.exe" />
@@ -142,13 +175,15 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="9028">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="9028" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list />
+        <list>
+          <MonoRuntime />
+        </list>
       </option>
       <option name="selectedOptions">
         <list />
@@ -223,23 +258,7 @@
       <workItem from="1771170913061" duration="276000" />
       <workItem from="1771185573323" duration="12374000" />
       <workItem from="1772271338236" duration="12579000" />
-      <workItem from="1772885486139" duration="2228000" />
-    </task>
-    <task id="LOCAL-00046" summary="Fix fighters slowly moving when facing each other">
-      <option name="closed" value="true" />
-      <created>1758460374476</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1758460374476</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Fix clicking on same Clickable twice">
-      <option name="closed" value="true" />
-      <created>1758460397044</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1758460397044</updated>
+      <workItem from="1772885486139" duration="12975000" />
     </task>
     <task id="LOCAL-00048" summary="Add and setup all sound effects">
       <option name="closed" value="true" />
@@ -617,7 +636,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772894209449</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Fix mission selection ship movement">
+      <option name="closed" value="true" />
+      <created>1772894792921</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1772894792921</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Make bullets only collide against desired object">
+      <option name="closed" value="true" />
+      <created>1772897870411</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1772897870411</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -657,8 +692,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Update Constants.cs" />
-    <MESSAGE value="Fix file reading in Build #2" />
     <MESSAGE value="Ensure all scenes resize and use letterBox" />
     <MESSAGE value="Actions and tooltip positon fixed regardless of camera zoom" />
     <MESSAGE value="Fix tutorial and add controls page" />
@@ -682,7 +715,9 @@
     <MESSAGE value="Make gatherers be able to go back to prev ore" />
     <MESSAGE value="Fix (again) gatherers to retrieve prev ore" />
     <MESSAGE value="Improve food generator conditions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve food generator conditions" />
+    <MESSAGE value="Fix mission selection ship movement" />
+    <MESSAGE value="Make bullets only collide against desired object" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make bullets only collide against desired object" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
@@ -703,19 +738,75 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/GameControllerScript.cs</url>
-          <line>259</line>
-          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\GameControllerScript.cs" containingFunctionPresentation="Method 'CalculateOreForGatherer'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs</url>
+          <line>165</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\EnemyBaseController.cs" containingFunctionPresentation="Method 'GenerateProp'">
             <startOffsets>
-              <option value="11800" />
+              <option value="8139" />
             </startOffsets>
             <endOffsets>
-              <option value="11870" />
+              <option value="8154" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs</url>
+          <line>82</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\EnemyBaseController.cs" containingFunctionPresentation="Method 'CalculateOreForGatherer'">
+            <startOffsets>
+              <option value="3682" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3711" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs</url>
+          <line>63</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\EnemyBaseController.cs" containingFunctionPresentation="Method 'GeneratorCheck'">
+            <startOffsets>
+              <option value="2827" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2909" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs</url>
+          <line>66</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\EnemyBaseController.cs" containingFunctionPresentation="Method 'GeneratorCheck'">
+            <startOffsets>
+              <option value="3026" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3061" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Controller/EnemyBaseController.cs</url>
+          <line>88</line>
+          <properties documentPath="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Assets\Scripts\Controller\EnemyBaseController.cs" containingFunctionPresentation="Method 'CalculateOreForGatherer'">
+            <startOffsets>
+              <option value="3929" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4059" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

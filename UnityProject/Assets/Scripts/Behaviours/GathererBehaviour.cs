@@ -25,7 +25,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
     private bool isGatheringStopping, coroutineInterrupted;
     
     private void OnTriggerEnter(Collider other) {
-        if(ReferenceEquals(other.gameObject, objectiveItem)) {
+        if(ReferenceEquals(other.gameObject, objectiveItem) && currentGatheredOre == null) {
             currentGatheredOre = other.GetComponent<OreBehaviour>();
             currentClickableOre = other.GetComponent<ClickableOre>();
             isGatheringStopping = false;

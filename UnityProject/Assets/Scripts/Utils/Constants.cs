@@ -106,11 +106,11 @@ public static class Constants {
             }, {
                 PropsEnum.EnemyGatherer,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 50 }, { ResourceEnum.Gold, 50 }, { ResourceEnum.Platinum, 50 } }
+                    { { ResourceEnum.Iron, 70 }, { ResourceEnum.Gold, 40 }, { ResourceEnum.Platinum, 40 } }
             }, {
                 PropsEnum.EnemyFighter,
                 new Dictionary<ResourceEnum, int>()
-                    { { ResourceEnum.Iron, 125 }, { ResourceEnum.Water, 125 }, { ResourceEnum.Platinum, 125 } }
+                    { { ResourceEnum.Iron, 145 }, { ResourceEnum.Water, 145 }, { ResourceEnum.Platinum, 145 } }
             },
         };
 
@@ -142,9 +142,9 @@ public static class Constants {
     public const float CAMERA_MOVE_VALUE = 0.45f;
     public const float CAMERA_MOVEMENT_SMOOTHER_VALUE = 0.25f;
     public const float CAMERA_ZOOM_SMOOTHER_VALUE = 1.3f;
-    public const float MIN_ZOOM_SIZE = 7f;
+    public const float MIN_ZOOM_SIZE = 5.5f;
     public const float MAX_ZOOM_SIZE = 17f;
-    public const float MIN_MINIMAP_ZOOM_SIZE = 10f;
+    public const float MIN_MINIMAP_ZOOM_SIZE = 9f;
     public const float MAX_MINIMAP_ZOOM_SIZE = 20f;
 
     public const float MIN_X_WORLD_POSITION = -100f;
@@ -180,17 +180,17 @@ public static class Constants {
                     { ResourceEnum.Iron, 50 },
                 }
             }, { 1, new Dictionary<ResourceEnum, int> {
-                    { ResourceEnum.Water, 50 },
+                    { ResourceEnum.Water, 30 },
                     { ResourceEnum.Food, 0 },
                     { ResourceEnum.Platinum, 50 },
                     { ResourceEnum.Gold, 10 },
                     { ResourceEnum.Iron, 50 },
                 }
             },{ 2, new Dictionary<ResourceEnum, int> {
-                    { ResourceEnum.Water, 50 },
+                    { ResourceEnum.Water, 30 },
                     { ResourceEnum.Food, 0 },
                     { ResourceEnum.Platinum, 50 },
-                    { ResourceEnum.Gold, 0 },
+                    { ResourceEnum.Gold, 10 },
                     { ResourceEnum.Iron, 50 },
                 }
             },
@@ -214,8 +214,8 @@ public static class Constants {
 
     public static float MAX_BULLET_TRAVEL_DISTANCE = 12f;
 
-    public static float MIN_ENEMY_SPAWNING_TIME = 60f;
-    public static float MAX_ENEMY_SPAWNING_TIME = 120f;
+    public static float MIN_ENEMY_SPAWNING_TIME = 30f;
+    public static float MAX_ENEMY_SPAWNING_TIME = 45f;
 
     public static int DEFAULT_MISSING_RESOURCE_VALUE = 0;
 

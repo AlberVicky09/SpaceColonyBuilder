@@ -270,7 +270,6 @@ public class GameControllerScript : MonoBehaviour {
         if (gathererBehaviour.previousGatheredOre != null) {
             nearestOre = Utils.FindSpecificGameObjectInList(gathererBehaviour.previousGatheredOre,
                 oreListDictionary[gathererBehaviour.resourceGatheringType]);
-            Debug.Log("Ore still available");
         }
         
         while(nearestOre == null) {

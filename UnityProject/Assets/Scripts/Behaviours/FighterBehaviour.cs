@@ -35,9 +35,9 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     protected const float TIME_TO_CHECK_FOR_ENEMY_POSITION = 0.5f;
     protected float timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
 
-    protected const float MAXIMUM_DETECTION_DISTANCE = 13f;
+    protected const float MAXIMUM_DETECTION_DISTANCE = 20f;
     protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 6f;
-    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 7f;
+    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 7.5f;
     
     protected Coroutine currentShootingCoroutine;
     
@@ -82,7 +82,8 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                     if (CheckForEnemiesInSight()) { return; }
 
                     //If base is near enough, start attacking it
-                    if (Utils.HasAgentArrivedOrItsStuck(agent)) {
+                    if (Utils.HasAgentArrivedOrItsStuck(agent) ||
+                        agent.remainingDistance < MAXIMUM_BUILDING_ATTACKING_DISTANCE) {
                         UpdateState(FighterStatesEnum.AttackingLowPriority);
                         //Start fighting
                         currentShootingCoroutine = StartCoroutine(StartFighting());
