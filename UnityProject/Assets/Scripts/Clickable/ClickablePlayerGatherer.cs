@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickablePlayerGatherer : ClickableGatherer {
+
+    private string currentResourceType;
     
     protected override void StartButtons() {
         base.StartButtons();
@@ -45,11 +47,21 @@ public class ClickablePlayerGatherer : ClickableGatherer {
             GameControllerScript.Instance.ActivateAlertCanvas(resource + " is at the limit");
             return;
         }
+        
+        //If resource is what is currently being gathered, alert
+        if (resource.ToString() == currentResourceType) {
+            GameControllerScript.Instance.ActivateAlertCanvas(resource + " is already being gathered");
+            return;
+        }
+        
         gathererBehaviour.resourceGatheringType = resource;
         var calculation = GameControllerScript.Instance.CalculateOreForGatherer(gameObject);
         if (calculation == OreFindingcases.AvailableOre) {
             GameControllerScript.Instance.interactableButtonManager.gameObject.SetActive(false);
+            gathererBehaviour.TryStopRetreatingCoroutine();
+            gathererBehaviour.TryStopGatheringCoroutine();
             selectedClickable = null;
+            currentResourceType = resource.ToString();
             GameControllerScript.Instance.PlayNormalVelocity();
         } else if (calculation == OreFindingcases.NoAvailableOres) {
             GameControllerScript.Instance.ActivateAlertCanvas("There are not enough un-gathered " + resource + " ores");
@@ -58,6 +70,7 @@ public class ClickablePlayerGatherer : ClickableGatherer {
 
     private void Retreat() {
         selectedClickable = null;
+        currentResourceType = null;
         gathererBehaviour.ReturnToBase(true);
     }
 }

@@ -21,8 +21,8 @@ public abstract class GathererBehaviour : ActionUIController_v2
     
     protected float timeSinceStart;
 
-    private Coroutine gatheringCoroutine;
-    private bool isGatheringStopping, coroutineInterrupted;
+    private Coroutine gatheringCoroutine, retratingCoroutine;
+    public bool isGatheringStopping, coroutineInterrupted;
     
     private void OnTriggerEnter(Collider other) {
         if(ReferenceEquals(other.gameObject, objectiveItem) && currentGatheredOre == null) {
@@ -38,21 +38,34 @@ public abstract class GathererBehaviour : ActionUIController_v2
         agent.SetDestination(objectiveItem.transform.position);
     }
 
-    public void ReturnToBase(bool isRetreating) {
+    public void TryStopGatheringCoroutine() {
         if (null != gatheringCoroutine) {
             isGatheringStopping = true;
-            StopCoroutine(GatheringCoroutine());
+            StopCoroutine(gatheringCoroutine);
             gatheringCoroutine = null;
+            currentGatheredOre = null;
         }
-        
+    }
+    
+    public void TryStopRetreatingCoroutine() {
+        if (null != retratingCoroutine) {
+            StopCoroutine(retratingCoroutine);
+            retratingCoroutine = null;
+        }
+    }
+    
+    public void ReturnToBase(bool isRetreating) {
         if (null !=currentGatheredOre) {
             Utils.MarkObjectiveAsUnGathered(currentGatheredOre.gameObject,
                 GameControllerScript.Instance.oreListDictionary[resourceGatheringType]);
             previousGatheredOre = currentGatheredOre.gameObject;
             currentGatheredOre  = null;
         }
+        
+        TryStopGatheringCoroutine();
+        
         timeSinceStart = 0f;
-        StartCoroutine(CheckReturnToBaseCompleted(isRetreating));
+        retratingCoroutine = StartCoroutine(CheckReturnToBaseCompleted(isRetreating));
     }
 
     protected IEnumerator CheckReturnToBaseCompleted(bool isRetreating) {
@@ -60,6 +73,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
         var calculatePositionAroundBase = Utils.CalculateRandomPositionAroundBase(nearestBase);
         agent.SetDestination(calculatePositionAroundBase);
         DisplayAction(GameControllerScript.Instance.returningToBaseSprite);
+        timeSinceStart = 0f;
         
         while (true) {
             if (timeSinceStart > Constants.TIME_TO_AVOID_AGENT_STUCK) {
@@ -97,8 +111,9 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 }
 
                 yield return new WaitForSeconds(0.25f);
+            } else {
+                timeSinceStart += Time.deltaTime;
             }
-            timeSinceStart += Time.deltaTime;
         }
     }
     

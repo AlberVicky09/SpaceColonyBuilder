@@ -112,6 +112,7 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
+        currentMissionNumber = 0; //TODO
         isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
         
         //Initialize ui text resource counters
@@ -288,8 +289,9 @@ public class GameControllerScript : MonoBehaviour {
             gathererBehaviour.DisplayAction(resourceSpriteDictionary[gathererBehaviour.resourceGatheringType]);
             //Mark previous as ungathered (if any)
             if (gathererBehaviour.previousGatheredOre != null &&
-                !nearestOre.Equals(gathererBehaviour.previousGatheredOre)) {
-                
+                    !nearestOre.Equals(gathererBehaviour.previousGatheredOre)) {
+                Utils.MarkObjectiveAsUnGathered(gathererBehaviour.previousGatheredOre,
+                    oreListDictionary[gathererBehaviour.resourceGatheringType]);
             }
             return OreFindingcases.AvailableOre;
         }
