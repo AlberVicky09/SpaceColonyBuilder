@@ -9,11 +9,13 @@ public class MissionSelector : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        if (MissionSelectionManager.Instance.missionsAvailable[missionNumber]) {
-            MissionSelectionManager.Instance.MoveToMission(missionNumber);
-            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.EngineNoise);
-        } else {
-            AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickInvalid);
+        if (MissionSelectionManager.Instance.isAlradyInMission) {
+            if (MissionSelectionManager.Instance.missionsAvailable[missionNumber]) {
+                MissionSelectionManager.Instance.MoveToMission(missionNumber);
+                AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.EngineNoise);
+            } else {
+                AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickInvalid);
+            }
         }
     }
 

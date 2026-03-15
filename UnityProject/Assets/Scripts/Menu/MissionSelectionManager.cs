@@ -20,7 +20,7 @@ public class MissionSelectionManager : MonoBehaviour {
     private int currentPosition;
     private int objectiveMission;
     private String[] titleTexts, descriptionTexts;
-    private bool isAlradyInMission;
+    public bool isAlradyInMission;
     private float timeSinceStart;
 
     void Start() {
