@@ -26,6 +26,9 @@ public class UIUpdateController : MonoBehaviour {
     public void SetResourcesText() {
         foreach (ResourceEnum resource in Enum.GetValues(typeof(ResourceEnum))) {
             GameControllerScript.Instance.uiResourcesTextMap[resource].text = GameControllerScript.Instance.resourcesDictionary[resource].ToString();
+            if (GameControllerScript.Instance.resourcesDictionary[resource] == 0) {
+                GameControllerScript.Instance.uiResourcesTextMap[resource].color = Constants.MISSING_RESOURCE_COLOR;
+            }
         }
     }
 
@@ -65,7 +68,7 @@ public class UIUpdateController : MonoBehaviour {
                     if (missingResourcesFlags[resourceType]) {
                         GameControllerScript.Instance.missionController.DisplayEndGameCanvas(Constants.LOSE_GAME_TEXT);
                     //Else, alert the player
-                    } else {
+                    } else if (GameControllerScript.Instance.currentMissionNumber != 0) {
                         GameControllerScript.Instance.ActivateAlertCanvas("Missing " + resourceType + "\nObtain some or the base will be destroyed!");
                         missingResourcesFlags[resourceType] = true;
                     }
