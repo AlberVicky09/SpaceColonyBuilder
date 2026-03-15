@@ -59,6 +59,13 @@ public class ActionUIController_v2 : MonoBehaviour {
             }
         }
     }
+
+    public void UpdateActionIconWithoutDisplaying(Sprite displayImage) {
+        currentActionImage.sprite = displayImage;
+        if (currentActionAux != null) {
+            currentActionAuxImage.sprite = displayImage;
+        }
+    }
     
     public void DisplayAction(Sprite displayImage) {
         actionProgress.gameObject.SetActive(false);

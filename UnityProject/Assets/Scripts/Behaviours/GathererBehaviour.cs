@@ -36,6 +36,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
 
     public void UpdateDestination() {
         agent.SetDestination(objectiveItem.transform.position);
+        agent.isStopped = false;
     }
 
     public void TryStopGatheringCoroutine() {
@@ -150,6 +151,8 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 agent.isStopped = true;
                 DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
                 yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                //Reset icon
+                UpdateActionIconWithoutDisplaying(GameControllerScript.Instance.resourceSpriteDictionary[resourceGatheringType]);
                 agent.isStopped = false;
                 DisplayProgress();
             }
