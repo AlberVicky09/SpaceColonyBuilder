@@ -12,7 +12,6 @@ public class MainMenuFunctions : MonoBehaviour {
     public TMP_Dropdown resolutionDropdown;
     public GameObject resumeButton, deleteSaveCanvas, selectTutorialCanvas;
     public Sprite resumeButtonActive, resumeButtonInactive;
-    private bool isThereASaveGame;
     Resolution[] resolutions;
     private int currentResolutionIndex;
     
@@ -20,14 +19,12 @@ public class MainMenuFunctions : MonoBehaviour {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
         SetUpResolutions();
 
-        if (Utils.ReadFile("missionsAvailable").Equals(Constants.FILE_NOT_FOUND)) {
+        if (CompletedMissionsController.Instance.missionsRecovered) {
             try {
                 resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
                 resumeButton.GetComponent<Button>().interactable = false;
                 resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
             } catch {}
-        } else {
-            isThereASaveGame = true;
         }
 
         fullScreenBtn.sprite = Screen.fullScreenMode.Equals(FullScreenMode.ExclusiveFullScreen) ||
@@ -136,13 +133,15 @@ public class MainMenuFunctions : MonoBehaviour {
     public void ToggleFullscreen() {
         if (Screen.fullScreen) {
             // Go windowed
-            Screen.fullScreenMode = ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.Windowed;
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.Windowed;
             // Optionally restore a windowed resolution
             SetResolution(currentResolutionIndex);
             fullScreenBtn.sprite = deactivatedSprite;
         } else {
             // Go fullscreen window
-            Screen.fullScreenMode = ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.FullScreenWindow;
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.FullScreenWindow;
             SetResolution(resolutions.Length - 1);
             fullScreenBtn.sprite = activeSprite;
         }
@@ -150,7 +149,7 @@ public class MainMenuFunctions : MonoBehaviour {
 
     public void EnterStartNewGame() {
         //If there is already a save game, display ensure delete save
-        if (isThereASaveGame) {
+        if (CompletedMissionsController.Instance.missionsRecovered) {
             deleteSaveCanvas.SetActive(true);
         } else {
             selectTutorialCanvas.SetActive(true);

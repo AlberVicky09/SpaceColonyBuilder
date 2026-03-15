@@ -127,12 +127,11 @@ public class MissionController : MonoBehaviour {
         //If all missions have been completed
         if (completedMissions == missionListDto.missionQuantity) {
             //Retrieve mission availability and update current mission to completed
-            var missionAvailability = new MissionAvailabilityDTO();
             for (int i = 0; i <= GameControllerScript.Instance.currentMissionNumber + 1; i++) {
-                missionAvailability.boolArray[i] = true;
+                CompletedMissionsController.Instance.missionAvailability.boolArray[i] = true;
             }
             //Store mission availability
-            Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(missionAvailability));
+            Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(CompletedMissionsController.Instance.missionAvailability));
         }
 
         StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MissionSelection"));
