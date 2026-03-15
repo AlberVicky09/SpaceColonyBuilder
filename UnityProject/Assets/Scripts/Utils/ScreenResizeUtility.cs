@@ -1,20 +1,29 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScreenResizeUtility : MonoBehaviour {
     
     public static ScreenResizeUtility Instance { get; private set; }
     private static float targetAspectRatio = 16f / 9f;
+    public FullScreenMode currentFullScreenMode;
     
     private int lastWidth;
     private int lastHeight;
-    
+
     public void Awake() {
-        if(Instance == null) {
+        if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
+
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    void OnSceneChanged(Scene prevScene, Scene newScene) {
+        Screen.fullScreenMode = currentFullScreenMode;
+        OnWindowResize();
     }
     
     void Update() {
@@ -27,7 +36,11 @@ public class ScreenResizeUtility : MonoBehaviour {
     }
 
     void OnWindowResize() { ApplyLetterbox(); }
-    
+
+    public void UpdateResolution(int width, int height) {
+        Screen.SetResolution(width, height, currentFullScreenMode);
+        ApplyLetterbox();
+    }
     public static void ApplyLetterbox() {
         Camera cam = Camera.main;
         

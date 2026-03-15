@@ -15,7 +15,6 @@ public class MainMenuFunctions : MonoBehaviour {
     private bool isThereASaveGame;
     Resolution[] resolutions;
     private int currentResolutionIndex;
-    private FullScreenMode currentFullScreenMode;
     
     public void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
@@ -31,7 +30,9 @@ public class MainMenuFunctions : MonoBehaviour {
             isThereASaveGame = true;
         }
 
-        fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
+        fullScreenBtn.sprite = Screen.fullScreenMode.Equals(FullScreenMode.ExclusiveFullScreen) ||
+                               Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ?
+                                    activeSprite : deactivatedSprite;
         muteMusicBtn.sprite = AudioManager.Instance.musicSource.mute ? activeSprite : deactivatedSprite;
         muteSfxBtn.sprite = AudioManager.Instance.sfxSource.mute ? activeSprite : deactivatedSprite;
     }
@@ -73,10 +74,10 @@ public class MainMenuFunctions : MonoBehaviour {
     }
     
     public void SetResolution(int resolutionIndex) {
-        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, currentFullScreenMode);
         currentResolutionIndex = resolutionIndex;
         resolutionDropdown.RefreshShownValue();
         ScreenResizeUtility.ApplyLetterbox();
+        ScreenResizeUtility.Instance.UpdateResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height);
     }
 
     public void ToggleMusic() {
@@ -102,13 +103,13 @@ public class MainMenuFunctions : MonoBehaviour {
     public void ToggleFullscreen() {
         if (Screen.fullScreen) {
             // Go windowed
-            Screen.fullScreenMode = currentFullScreenMode = FullScreenMode.Windowed;
+            Screen.fullScreenMode = ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.Windowed;
             // Optionally restore a windowed resolution
             SetResolution(currentResolutionIndex);
             fullScreenBtn.sprite = deactivatedSprite;
         } else {
             // Go fullscreen window
-            Screen.fullScreenMode = currentFullScreenMode = FullScreenMode.FullScreenWindow;
+            Screen.fullScreenMode = ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.FullScreenWindow;
             SetResolution(resolutions.Length - 1);
             fullScreenBtn.sprite = activeSprite;
         }

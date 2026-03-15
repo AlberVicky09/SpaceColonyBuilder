@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix gatherer icons when changing mid actions">
+    <list default="true" id="17daf189-affc-4ff2-99c3-e88aaa2d2b75" name="Changes" comment="Fix default behaviour of mute/fullscreen buttons">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/MainMenuFunctions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/ScreenResizeUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/ScreenResizeUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +38,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/2d/fda7e1cc/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/3b/34665ed9/Component.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/3e/7c57b6b9/ScriptableObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/3e/e7d3676e/FullScreenMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/87/2da9620c/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/90/30c15a5f/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3b24cc7fa9794ed8ab04312c53e6dedd172c00/95/ab0d6070/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -61,6 +65,7 @@
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Controller/GameControllerScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/KeyController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controller/TutorialControllerNew.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Menu/MainMenuFunctions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Menu/MainMenuFunctions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/AlberVicky09/Documents/SpaceColonyBuilder/UnityProject/Assets/Scripts/Menu/MainMenuFunctions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Music/SpaceShipEngineHum.cs" root0="FORCE_HIGHLIGHTING" />
@@ -106,7 +111,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Build\SpaceColonyBuilder.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Build/SpaceColonyBuilder.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\AlberVicky09\Documents\SpaceColonyBuilder\UnityProject\Build" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -228,15 +233,7 @@
       <workItem from="1773004944628" duration="1945000" />
       <workItem from="1773008001833" duration="116000" />
       <workItem from="1773009895936" duration="877000" />
-      <workItem from="1773015710887" duration="5869000" />
-    </task>
-    <task id="LOCAL-00053" summary="Fix double clicking">
-      <option name="closed" value="true" />
-      <created>1759302611070</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1759302611070</updated>
+      <workItem from="1773015710887" duration="9456000" />
     </task>
     <task id="LOCAL-00054" summary="Fix gameObjectCentered functionality and camera travelling to enemy base">
       <option name="closed" value="true" />
@@ -622,7 +619,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773567964640</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Fix default behaviour of mute/fullscreen buttons">
+      <option name="closed" value="true" />
+      <created>1773568122244</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1773568122244</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -662,7 +667,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add new images and small fixes" />
     <MESSAGE value="Add final sprites" />
     <MESSAGE value="Add missing sprites and invalid building props" />
     <MESSAGE value="Add GIF as available tutorial" />
@@ -687,7 +691,8 @@
     <MESSAGE value="Ensure gatherer icon doesnt change if resources at max when selecting gathering type" />
     <MESSAGE value="Add current gathered resource icon" />
     <MESSAGE value="Fix gatherer icons when changing mid actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix gatherer icons when changing mid actions" />
+    <MESSAGE value="Fix default behaviour of mute/fullscreen buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix default behaviour of mute/fullscreen buttons" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
