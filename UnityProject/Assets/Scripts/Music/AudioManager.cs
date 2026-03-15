@@ -13,7 +13,10 @@ public class AudioManager : MonoBehaviour {
     public List<SfxSource> sfxSourceList;
     public Image fadeToBlackImage;
     private bool firstFrame = true;
-    private float auxMusicSourceVolume = 1f;
+    public float auxMusicSourceVolume = 1f;
+    public bool isMusicMuted = false;
+    public float auxSfxSourceVolume = 1f;
+    public bool isSfxMuted = false;
 
     private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
 
@@ -80,20 +83,30 @@ public class AudioManager : MonoBehaviour {
     }
 
     public bool ToggleMusic() {
-        musicSource.mute = !musicSource.mute;
-        if(!musicSource.mute) {
+        if(musicSource.volume == 0f) {
+            musicSource.volume = auxMusicSourceVolume;
+            isMusicMuted = false;
             TestSound(musicSource.volume);
+            return false;
         }
-        return musicSource.mute;
+
+        isMusicMuted = true;
+        musicSource.volume = 0f;
+        return true;
     }
 
     public bool ToggleSfx() {
-        sfxSource.mute = !sfxSource.mute;
-        if(!sfxSource.mute) {
+        if (sfxSource.volume == 0f) {
+            sfxSource.volume = auxSfxSourceVolume;
             TestSound(sfxSource.volume);
+            sfxSourceList.ForEach(UpdateSfxSources);
+            isSfxMuted = false;
+            return false;
         }
-        sfxSourceList.ForEach(UpdateSfxSources);
-        return sfxSource.mute;
+
+        isSfxMuted = true;
+        sfxSource.volume = 0f;
+        return true;
     }
 
     public void SetMusicVolume(float volume) {
@@ -105,6 +118,7 @@ public class AudioManager : MonoBehaviour {
     public void SetSfxVolume(float volume) {
         sfxSource.volume = volume;
         sfxSourceList.ForEach(UpdateSfxSources);
+        auxSfxSourceVolume = volume;
         TestSound(volume);
     }
 
@@ -117,7 +131,6 @@ public class AudioManager : MonoBehaviour {
     public void RemoveSfxSource(SfxSource observerSfxSource) { sfxSourceList.Remove(observerSfxSource); }
 
     private void UpdateSfxSources(SfxSource observerSfxSource) {
-        observerSfxSource.source.mute = sfxSource.mute;
         observerSfxSource.source.volume = sfxSource.volume;
     }
     

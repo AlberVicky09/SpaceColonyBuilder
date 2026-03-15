@@ -33,8 +33,21 @@ public class MainMenuFunctions : MonoBehaviour {
         fullScreenBtn.sprite = Screen.fullScreenMode.Equals(FullScreenMode.ExclusiveFullScreen) ||
                                Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow) ?
                                     activeSprite : deactivatedSprite;
-        muteMusicBtn.sprite = AudioManager.Instance.musicSource.mute ? activeSprite : deactivatedSprite;
-        muteSfxBtn.sprite = AudioManager.Instance.sfxSource.mute ? activeSprite : deactivatedSprite;
+        if (AudioManager.Instance.isMusicMuted) {
+            muteMusicBtn.sprite = activeSprite;
+            musicSlider.SetValueWithoutNotify(0f);
+        } else {
+            muteMusicBtn.sprite = deactivatedSprite;
+            musicSlider.SetValueWithoutNotify(AudioManager.Instance.auxMusicSourceVolume);
+        }
+
+        if (AudioManager.Instance.isSfxMuted) {
+            muteSfxBtn.sprite = activeSprite;
+            sfxSlider.SetValueWithoutNotify(0f);
+        } else {
+            muteSfxBtn.sprite = deactivatedSprite;
+            sfxSlider.SetValueWithoutNotify(AudioManager.Instance.auxSfxSourceVolume);
+        }
     }
 
     public void SetUpResolutions() {
@@ -81,23 +94,43 @@ public class MainMenuFunctions : MonoBehaviour {
     }
 
     public void ToggleMusic() {
-        muteMusicBtn.sprite = AudioManager.Instance.ToggleMusic() ? activeSprite : deactivatedSprite;
+        var isMute = AudioManager.Instance.ToggleMusic();
+        if (isMute) {
+            muteMusicBtn.sprite = activeSprite;
+            musicSlider.SetValueWithoutNotify(0f);
+        } else {
+            muteMusicBtn.sprite = deactivatedSprite;
+            musicSlider.SetValueWithoutNotify(AudioManager.Instance.auxMusicSourceVolume);
+        }
     }
 
     public void ToggleSfx() {
-        muteSfxBtn.sprite = AudioManager.Instance.ToggleSfx() ? activeSprite : deactivatedSprite;
+        var isMute = AudioManager.Instance.ToggleSfx();
+        if (isMute) {
+            muteSfxBtn.sprite = activeSprite;
+            sfxSlider.SetValueWithoutNotify(0f);
+        } else {
+            muteSfxBtn.sprite = deactivatedSprite;
+            sfxSlider.SetValueWithoutNotify(AudioManager.Instance.auxSfxSourceVolume);
+        }
     }
 
     public void SetMusicVolume() {
         AudioManager.Instance.SetMusicVolume(musicSlider.value);
-        AudioManager.Instance.musicSource.mute = false;
-        muteMusicBtn.sprite = deactivatedSprite;
+        if (musicSlider.value == 0f) {
+            muteMusicBtn.sprite = activeSprite;
+        } else {
+            muteMusicBtn.sprite = deactivatedSprite;
+        }
     }
 
     public void SetSfxVolume() {
         AudioManager.Instance.SetSfxVolume(sfxSlider.value);
-        AudioManager.Instance.auxSource.mute = false;
-        muteSfxBtn.sprite = deactivatedSprite;
+        if (sfxSlider.value == 0f) {
+            muteSfxBtn.sprite = activeSprite;
+        } else {
+            muteSfxBtn.sprite = deactivatedSprite;
+        }
     }
 
     public void ToggleFullscreen() {
