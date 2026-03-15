@@ -5269,13 +5269,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionProgress: {fileID: 3780442337714132162}
   currentAction: {fileID: 7400134594702500969}
-  currentActionAux: {fileID: 0}
+  currentActionAux: {fileID: 6898795792902093382}
   canvasRect: {fileID: 5278725371120652187}
   actionCanvas: {fileID: 4899027766656727432}
   currentGameObject: {fileID: 5955068170652941638}
   actionProgressImage: {fileID: 5060128864218940965}
   currentActionImage: {fileID: 752242548870597783}
-  currentActionAuxImage: {fileID: 0}
+  currentActionAuxImage: {fileID: 646821230652330600}
   iconWorldOffset: 2
   auxIconWorldOffset: 2
   clickableGatherer: {fileID: 6053759083312513723}
