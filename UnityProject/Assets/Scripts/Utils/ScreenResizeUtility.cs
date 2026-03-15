@@ -23,7 +23,7 @@ public class ScreenResizeUtility : MonoBehaviour {
 
     void OnSceneChanged(Scene prevScene, Scene newScene) {
         Screen.fullScreenMode = currentFullScreenMode;
-        OnWindowResize();
+        ApplyLetterbox();
     }
     
     void Update() {
@@ -31,12 +31,10 @@ public class ScreenResizeUtility : MonoBehaviour {
             lastWidth = Screen.width;
             lastHeight = Screen.height;
             
-            OnWindowResize();
+            ApplyLetterbox();
         }
     }
-
-    void OnWindowResize() { ApplyLetterbox(); }
-
+    
     public void UpdateResolution(int width, int height) {
         Screen.SetResolution(width, height, currentFullScreenMode);
         ApplyLetterbox();
