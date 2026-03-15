@@ -30,6 +30,10 @@ public class MainMenuFunctions : MonoBehaviour {
         } else {
             isThereASaveGame = true;
         }
+
+        fullScreenBtn.sprite = Screen.fullScreen ? activeSprite : deactivatedSprite;
+        muteMusicBtn.sprite = AudioManager.Instance.musicSource.mute ? activeSprite : deactivatedSprite;
+        muteSfxBtn.sprite = AudioManager.Instance.sfxSource.mute ? activeSprite : deactivatedSprite;
     }
 
     public void SetUpResolutions() {
