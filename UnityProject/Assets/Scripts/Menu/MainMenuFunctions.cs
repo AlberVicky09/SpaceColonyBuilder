@@ -19,12 +19,8 @@ public class MainMenuFunctions : MonoBehaviour {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
         SetUpResolutions();
 
-        if (CompletedMissionsController.Instance.missionsRecovered) {
-            try {
-                resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
-                resumeButton.GetComponent<Button>().interactable = false;
-                resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
-            } catch {}
+        if (!MissionInformationController.Instance.missionsRecovered) {
+            DisableResumeButton();
         }
 
         fullScreenBtn.sprite = Screen.fullScreenMode.Equals(FullScreenMode.ExclusiveFullScreen) ||
@@ -149,16 +145,17 @@ public class MainMenuFunctions : MonoBehaviour {
 
     public void EnterStartNewGame() {
         //If there is already a save game, display ensure delete save
-        if (CompletedMissionsController.Instance.missionsRecovered) {
+        if (MissionInformationController.Instance.missionsRecovered) {
             deleteSaveCanvas.SetActive(true);
         } else {
             selectTutorialCanvas.SetActive(true);
         }
     }
-    
-    public void StartNewGame(int activateTutorial) {
+
+    public void DeleteSavedGame() {
         Utils.DeleteSaveFile("missionsAvailable");
-        EnterMissionSelection(activateTutorial);
+        MissionInformationController.Instance.RestartSaveFile();
+        DisableResumeButton();
     }
     
     public void EnterMissionSelection(int activateTutorial) {
@@ -168,6 +165,14 @@ public class MainMenuFunctions : MonoBehaviour {
 
     public void ReturnToMainMenu() {
         StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainMenu"));
+    }
+
+    private void DisableResumeButton() {
+        try {
+            resumeButton.GetComponent<Image>().sprite = resumeButtonInactive;
+            resumeButton.GetComponent<Button>().interactable = false;
+            resumeButton.GetComponent<MenuItemWiggle>().enabled = false;
+        } catch {}
     }
     
     public void QuitGame() { Application.Quit(); }

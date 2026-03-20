@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class MissionSelectionManager : MonoBehaviour {
     
-    public static MissionSelectionManager Instance;
-    
     public NavMeshAgent agent;
     public GameObject[] missionPositions;
     public TMP_Text titleText, descriptionText;
@@ -23,15 +21,6 @@ public class MissionSelectionManager : MonoBehaviour {
     private String[] titleTexts, descriptionTexts;
     public bool isAlradyInMission;
     private float timeSinceStart;
-
-    public void Awake() {
-        if(Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
-        }
-    }
     
     void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MissionSelectionBG);
@@ -40,19 +29,17 @@ public class MissionSelectionManager : MonoBehaviour {
         descriptionTexts = new string[missionPositions.Length];
         missionsAvailable = new bool[missionPositions.Length];
         
-        var missionTextFile = Resources.Load<TextAsset>("missionDescriptions");
-        var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(missionTextFile.text);
         //var missionTexts = JsonUtility.FromJson<MissionDescriptionListDTO>(Utils.ReadFile("missionDescriptions"));
         //Retrieve all mission descriptions from file
         for (int i = 0; i < missionPositions.Length; i++) {
-            missionsAvailable[i] = CompletedMissionsController.Instance.missionAvailability.boolArray[i];
+            missionsAvailable[i] = MissionInformationController.Instance.missionAvailability.boolArray[i];
             missionPositions[i].GetComponent<Renderer>().material.color = missionsAvailable[i] ? missionAvailableColor : missionNotAvailableColor;
-            titleTexts[i] = missionTexts.missionDescriptions[i].missionTitle;
-            descriptionTexts[i] = missionTexts.missionDescriptions[i].missionDescription;
+            titleTexts[i] = MissionInformationController.Instance.missionDescriptionList.missionDescriptions[i].missionTitle;
+            descriptionTexts[i] = MissionInformationController.Instance.missionDescriptionList.missionDescriptions[i].missionDescription;
         }
 
         //If latest is true, its because the demo has been completed
-        if (CompletedMissionsController.Instance.missionAvailability.boolArray[3]) {
+        if (MissionInformationController.Instance.missionAvailability.boolArray[3]) {
             demoCompletedCanvas.SetActive(true);
         }
 
@@ -99,6 +86,7 @@ public class MissionSelectionManager : MonoBehaviour {
     
     public void PlayMission(int mission) {
         PlayerPrefs.SetInt("mission", mission);
+        MissionInformationController.Instance.UpdateSavedFile();
         StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MainScene"));
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MissionSelector : MonoBehaviour {
    
+    public MissionSelectionManager missionSelectionManager;
     public int missionNumber;
     
     private void OnMouseEnter() {
@@ -9,9 +10,9 @@ public class MissionSelector : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        if (MissionSelectionManager.Instance.isAlradyInMission) {
-            if (MissionSelectionManager.Instance.missionsAvailable[missionNumber]) {
-                MissionSelectionManager.Instance.MoveToMission(missionNumber);
+        if (missionSelectionManager.isAlradyInMission) {
+            if (missionSelectionManager.missionsAvailable[missionNumber]) {
+                missionSelectionManager.MoveToMission(missionNumber);
                 AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.EngineNoise);
             } else {
                 AudioManager.Instance.PlaySfx(SfxTrackNamesEnum.OnClickInvalid);
@@ -20,6 +21,6 @@ public class MissionSelector : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        MissionSelectionManager.Instance.DisplayCurrentMission(missionNumber);
+        missionSelectionManager.DisplayCurrentMission(missionNumber);
     }
 }

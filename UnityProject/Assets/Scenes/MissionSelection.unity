@@ -882,6 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &500425842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86f85c34a8157d4999dee5ee9a18f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionSelectionManager: {fileID: 7623019779571528221}
   missionNumber: 1
 --- !u!1 &520803365
 GameObject:
@@ -1283,6 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &927968125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiggleDirection: 1
+  isButtonCompletelyFronted: 1
 --- !u!1 &932305367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +1957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86f85c34a8157d4999dee5ee9a18f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionSelectionManager: {fileID: 7623019779571528221}
   missionNumber: 2
 --- !u!1 &1258349401
 GameObject:
@@ -2837,6 +2842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86f85c34a8157d4999dee5ee9a18f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionSelectionManager: {fileID: 7623019779571528221}
   missionNumber: 0
 --- !u!1 &168057598813602320
 GameObject:
@@ -7775,6 +7781,7 @@ MonoBehaviour:
   demoCompletedCanvas: {fileID: 2072942226}
   startMissionActivatedSprite: {fileID: 21300000, guid: 1b770cee9c216294fa2fcb8f2e6f527f, type: 3}
   startMissionDeactivatedSprite: {fileID: 21300000, guid: 46c1714d66d96104f8dbe9ef0da3bceb, type: 3}
+  isAlradyInMission: 0
 --- !u!199 &8889626650185447959
 ParticleSystemRenderer:
   serializedVersion: 6
