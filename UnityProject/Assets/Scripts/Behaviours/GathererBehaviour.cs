@@ -73,6 +73,7 @@ public abstract class GathererBehaviour : ActionUIController_v2
         var nearestBase = GetNearestBase();
         var calculatePositionAroundBase = Utils.CalculateRandomPositionAroundBase(nearestBase);
         agent.SetDestination(calculatePositionAroundBase);
+        agent.isStopped = false;
         DisplayAction(GameControllerScript.Instance.returningToBaseSprite);
         timeSinceStart = 0f;
         
