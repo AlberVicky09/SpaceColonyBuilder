@@ -147,6 +147,9 @@ public class AudioManager : MonoBehaviour {
         float currentTime = 0;
         float currentImgValue, currentAudioValue;
         auxMusicTransitionVolume = musicSource.volume;
+        fadeToBlackImage.gameObject.SetActive(true);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         
         //Activate black screen and set alpha depending on situation
         var originalBlack = fadeToBlackImage.color;
@@ -206,5 +209,8 @@ public class AudioManager : MonoBehaviour {
         musicSource.volume = auxMusicTransitionVolume;
         originalBlack.a = 0f;
         fadeToBlackImage.color = originalBlack;
+        fadeToBlackImage.gameObject.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
