@@ -40,12 +40,17 @@ public class MissionInformationController : MonoBehaviour {
         //Store mission availability
         Utils.WriteFile("missionsAvailable", JsonUtility.ToJson(missionAvailability));
     }
-    
+
     public void CompleteMission(int currentCompletedMission) {
         //Retrieve mission availability and update current mission to completed
         for (int i = 0; i <= currentCompletedMission + 1; i++) {
             missionAvailability.boolArray[i] = true;
         }
+
         UpdateSavedFile();
+    }
+
+    public int ShouldTutorialBeActivated(int currentMission) {
+        return missionAvailability.boolArray[currentMission + 1] ? 0 : 1;
     }
 }

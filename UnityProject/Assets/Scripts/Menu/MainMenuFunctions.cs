@@ -137,6 +137,10 @@ public class MainMenuFunctions : MonoBehaviour {
         MissionInformationController.Instance.RestartSaveFile();
         DisableResumeButton();
     }
+
+    public void EnterMissionSelection() {
+        StartCoroutine(AudioManager.Instance.UpdateScene(1.25f, "MissionSelection"));
+    }
     
     public void EnterMissionSelection(int activateTutorial) {
         PlayerPrefs.SetInt("tutorialActivated", activateTutorial);
