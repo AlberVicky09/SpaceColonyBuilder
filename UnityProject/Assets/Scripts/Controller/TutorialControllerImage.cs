@@ -33,8 +33,8 @@ public class TutorialControllerImage : MonoBehaviour {
         tutorialCanvas.SetActive(true);
         tutorialIndex = GameControllerScript.Instance.currentMissionNumber switch {
             0 => 0,
-            1 => Constants.TUTORIAL_MISSION_0_MAX,
-            2 => Constants.TUTORIAL_MISSION_1_MAX,
+            1 => Constants.TUTORIAL_MISSION_0_MAX + 1,
+            2 => Constants.TUTORIAL_MISSION_1_MAX + 1,
             _ => 0
         };
         UpdateTutorial();
