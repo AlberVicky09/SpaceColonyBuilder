@@ -25,6 +25,7 @@ public class ClickableMainBuilding : Clickable {
 
     private PropsEnum currentProp;
     private GameObject instantiatedProp;
+    private ActionUIController_v2 propCanvas;
     private Rigidbody propRigibody;
     private BoxCollider propCollider;
     public Renderer[] propRenderers;
@@ -169,6 +170,9 @@ public class ClickableMainBuilding : Clickable {
                     if (propRigibody != null) { propRigibody.detectCollisions = false; }
                     propCollider = instantiatedProp.GetComponent<BoxCollider>();
                     if (propCollider != null) { propCollider.isTrigger = true; }
+                    //Disable prop icons
+                    propCanvas = instantiatedProp.GetComponent<ActionUIController_v2>();
+                    if (propCanvas != null) { propCanvas.actionCanvas.gameObject.SetActive(false);}
                     
                     //Disable UI collisions
                     GameControllerScript.Instance.SwapUIInteraction();
@@ -263,6 +267,7 @@ public class ClickableMainBuilding : Clickable {
             SetObjectTransparency(true);
             if(propRigibody != null) { propRigibody.detectCollisions = true; }
             if(propCollider != null) { propCollider.isTrigger = false; }
+            if(propCanvas != null) { propCanvas.actionCanvas.gameObject.SetActive(true); }
             
             ResetPlacingVariables(true);
             GameControllerScript.Instance.PlayNormalVelocity();
@@ -287,6 +292,7 @@ public class ClickableMainBuilding : Clickable {
         propOriginalColor = null;
         propCollider = null;
         propRigibody = null;
+        propCanvas = null;
         GameControllerScript.Instance.SwapUIInteraction();
     }
 }
