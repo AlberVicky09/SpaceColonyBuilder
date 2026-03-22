@@ -15,7 +15,7 @@ public class MissionSelectionManager : MonoBehaviour {
     public GameObject demoCompletedCanvas;
     public Sprite startMissionActivatedSprite, startMissionDeactivatedSprite;
 
-    private Image startMissionBtnImage;
+    public Image startMissionBtnImage;
     private int currentPosition;
     private int objectiveMission;
     private String[] titleTexts, descriptionTexts;
@@ -42,9 +42,6 @@ public class MissionSelectionManager : MonoBehaviour {
         if (MissionInformationController.Instance.missionAvailability.boolArray[3]) {
             demoCompletedCanvas.SetActive(true);
         }
-
-        startMissionBtnImage = startMissionBtn.GetComponent<Image>();
-        startMissionBtnImage.sprite = startMissionDeactivatedSprite;
 
         currentPosition = -1;
         objectiveMission = 0;

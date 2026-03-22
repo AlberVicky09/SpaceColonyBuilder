@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,12 +11,11 @@ public class MainMenuFunctions : MonoBehaviour {
     public TMP_Dropdown resolutionDropdown;
     public GameObject resumeButton, deleteSaveCanvas, selectTutorialCanvas;
     public Sprite resumeButtonActive, resumeButtonInactive;
-    Resolution[] resolutions;
     private int currentResolutionIndex;
     
     public void Start() {
         AudioManager.Instance.SetMusic(MusicTrackNamesEnum.MenuBG);
-        SetUpResolutions();
+        SetUpResolutionDropdown();
 
         if (!MissionInformationController.Instance.missionsRecovered) {
             DisableResumeButton();
@@ -43,47 +41,29 @@ public class MainMenuFunctions : MonoBehaviour {
         }
     }
 
-    public void SetUpResolutions() {
-        resolutions = Screen.resolutions
-            .Where(r => Mathf.Abs((float)r.width / r.height - 16f / 9f) < 0.01f)
-            .GroupBy(r => (r.width, r.height))
-            .Select(g => g.First())
-            .ToArray();
-
+    public void SetUpResolutionDropdown() {
         var currentFoundSolution = -1;
         resolutionDropdown.ClearOptions();
 
         var options = new List<string>();
-        var found = false;
 
-        foreach (var resolution in resolutions) {
+        foreach (var resolution in ScreenResizeUtility.Instance.resolutions) {
             string option = resolution.width + " X " + resolution.height;
-            
             options.Add(option);
-                
-            if (resolution.width == Screen.width &&
-                    resolution.height == Screen.height) {
-                Debug.Log("Current resolution is " + option);
-                currentFoundSolution = options.Count - 1;
-                found = true;
+            if (resolution.Equals(ScreenResizeUtility.Instance.selectedResolution)) {
+                currentResolutionIndex = options.Count - 1;
             }
         }
 
         resolutionDropdown.AddOptions(options);
-        if (!found) {
-            resolutionDropdown.value = resolutionDropdown.options.Count - 1;
-            SetResolution(resolutionDropdown.value);
-        } else {
-            resolutionDropdown.value = currentFoundSolution;
-        }
+        resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
     
     public void SetResolution(int resolutionIndex) {
-        currentResolutionIndex = resolutionIndex;
         resolutionDropdown.RefreshShownValue();
         ScreenResizeUtility.ApplyLetterbox();
-        ScreenResizeUtility.Instance.UpdateResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height);
+        ScreenResizeUtility.Instance.UpdateResolution(resolutionIndex);
     }
 
     public void ToggleMusic() {
@@ -138,7 +118,7 @@ public class MainMenuFunctions : MonoBehaviour {
             // Go fullscreen window
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
             ScreenResizeUtility.Instance.currentFullScreenMode = FullScreenMode.FullScreenWindow;
-            SetResolution(resolutions.Length - 1);
+            SetResolution(ScreenResizeUtility.Instance.resolutions.Length - 1);
             fullScreenBtn.sprite = activeSprite;
         }
     }

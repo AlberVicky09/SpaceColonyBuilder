@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,8 @@ public class ScreenResizeUtility : MonoBehaviour {
     public static ScreenResizeUtility Instance { get; private set; }
     private static float targetAspectRatio = 16f / 9f;
     public FullScreenMode currentFullScreenMode;
+    public Resolution[] resolutions;
+    public Resolution selectedResolution;
     
     private int lastWidth;
     private int lastHeight;
@@ -19,11 +22,14 @@ public class ScreenResizeUtility : MonoBehaviour {
         }
 
         SceneManager.activeSceneChanged += OnSceneChanged;
+        SetUpResolutions();
     }
-
+    
     void OnSceneChanged(Scene prevScene, Scene newScene) {
-        Screen.fullScreenMode = currentFullScreenMode;
-        ApplyLetterbox();
+        if (Screen.fullScreenMode != FullScreenMode.FullScreenWindow ||
+            Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen) {
+            ApplyLetterbox();
+        }
     }
     
     void Update() {
@@ -34,11 +40,26 @@ public class ScreenResizeUtility : MonoBehaviour {
             ApplyLetterbox();
         }
     }
+
+    private void SetUpResolutions() {
+        resolutions = Screen.resolutions
+            .Where(r => Mathf.Abs((float)r.width / r.height - 16f / 9f) < 0.01f)
+            .GroupBy(r => (r.width, r.height))
+            .Select(g => g.First())
+            .ToArray();
+        foreach (var resolution in resolutions) {
+            if (resolution.width == Screen.width &&
+                resolution.height == Screen.height) {
+                selectedResolution = resolution;
+            }
+        }
+    }
     
-    public void UpdateResolution(int width, int height) {
-        Screen.SetResolution(width, height, currentFullScreenMode);
+    public void UpdateResolution(int resolutionIndex) {
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, currentFullScreenMode);
         ApplyLetterbox();
     }
+    
     public static void ApplyLetterbox() {
         Camera cam = Camera.main;
         
