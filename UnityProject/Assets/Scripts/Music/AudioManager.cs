@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour {
     public bool isMusicMuted = false;
     public float auxSfxSourceVolume = 1f;
     public bool isSfxMuted = false;
+    public float auxMusicTransitionVolume = 1f;
 
     private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
 
@@ -145,6 +146,7 @@ public class AudioManager : MonoBehaviour {
     public IEnumerator FadeOutScene(float duration) {
         float currentTime = 0;
         float currentImgValue, currentAudioValue;
+        auxMusicTransitionVolume = musicSource.volume;
         
         //Activate black screen and set alpha depending on situation
         var originalBlack = fadeToBlackImage.color;
@@ -158,7 +160,7 @@ public class AudioManager : MonoBehaviour {
                 //Get increased/decreased alpha and volume
                 currentTime += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
                 currentImgValue = Mathf.Lerp(0, 1, currentTime / duration);
-                currentAudioValue = Mathf.Lerp(auxMusicSourceVolume, 0, currentTime / duration);
+                currentAudioValue = Mathf.Lerp(auxMusicTransitionVolume, 0, currentTime / duration);
 
                 //Set updated alpha and volume
                 originalBlack.a = currentImgValue;
@@ -177,7 +179,7 @@ public class AudioManager : MonoBehaviour {
     public IEnumerator FadeInScene(float duration) {
         float currentTime = 0;
         float currentImgValue, currentAudioValue;
-        
+
         //Activate black screen and set alpha depending on situation
         var originalBlack = fadeToBlackImage.color;
         originalBlack.a = 1f;
@@ -190,7 +192,7 @@ public class AudioManager : MonoBehaviour {
                 //Get increased/decreased alpha and volume
                 currentTime += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
                 currentImgValue = Mathf.Lerp(1, 0, currentTime / duration);
-                currentAudioValue = Mathf.Lerp(0, auxMusicSourceVolume, currentTime / duration);
+                currentAudioValue = Mathf.Lerp(0, auxMusicTransitionVolume, currentTime / duration);
                 
                 //Set updated alpha and volume
                 originalBlack.a = currentImgValue;
@@ -201,7 +203,7 @@ public class AudioManager : MonoBehaviour {
             yield return null;
         }
         
-        musicSource.volume = auxMusicSourceVolume;
+        musicSource.volume = auxMusicTransitionVolume;
         originalBlack.a = 0f;
         fadeToBlackImage.color = originalBlack;
     }
