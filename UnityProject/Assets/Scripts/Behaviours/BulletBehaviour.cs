@@ -5,11 +5,12 @@ public class BulletBehaviour : MonoBehaviour {
     private float speed = 1.5f;
     private Vector3 direction;
     private PropsEnum shooter;
-    private GameObject shooterGO;
+    private GameObject shooterGO, objectiveGO;
 
-    public void SetShooter(PropsEnum shooter, GameObject shooterGO) {
+    public void SetShooter(PropsEnum shooter, GameObject shooterGO, GameObject objectiveGO) {
         this.shooter = shooter;
         this.shooterGO = shooterGO;
+        this.objectiveGO = objectiveGO;
     }
 
     private void Update() {
@@ -24,21 +25,11 @@ public class BulletBehaviour : MonoBehaviour {
         if (shooterGO.Equals(other.gameObject)) { return; }
         
         //If a fighter shoots and a enemy is hit (the rest of object cant get damage from allies)
-        switch (shooter) {
-            case PropsEnum.Fighter:
-                if (other.gameObject.name.StartsWith("EnemyFighter") || other.gameObject.name.StartsWith("EnemyBase")) {
-                    other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(15);
-                    //Deactivate bullet
-                    gameObject.SetActive(false);
-                }
-                break;
-            case PropsEnum.EnemyFighter:
-                if (other.gameObject.name.StartsWith("PlayerFighter") || other.gameObject.name.StartsWith("PlayerBase")) {
-                    other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(10);
-                    //Deactivate bullet
-                    gameObject.SetActive(false);
-                }
-                break;
+        if (other.gameObject.Equals(objectiveGO)) {
+            var damageQuantity = PropsEnum.Fighter.Equals(shooter) ? 15 : 10;
+            other.gameObject.GetComponent<PropStats>().ReduceHealthPoints(damageQuantity);
+            //Deactivate bullet
+            gameObject.SetActive(false);
         }
     }
 }

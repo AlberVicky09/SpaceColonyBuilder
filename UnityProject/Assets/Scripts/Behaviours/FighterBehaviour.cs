@@ -189,7 +189,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
             bullet.GetComponent<Rigidbody>().velocity =
                 (objectiveGO.transform.position - transform.position) * 0.5f;
             //Set bullet shooter
-            bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject);
+            bullet.GetComponent<BulletBehaviour>().SetShooter(propType, gameObject, objectiveGO);
             //Activate bullet sound
             bullet.GetComponent<SfxSource>().PlaySfx();
             
@@ -245,6 +245,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
     }
     
     protected void UpdateFighterDestination(Vector3 destination) {
+        agent.isStopped = false;
         agent.SetDestination(destination);
     }
 
