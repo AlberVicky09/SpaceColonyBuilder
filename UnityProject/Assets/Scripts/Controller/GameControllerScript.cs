@@ -112,8 +112,8 @@ public class GameControllerScript : MonoBehaviour {
         
         //Different behaviour depending on the level you are on
         currentMissionNumber = PlayerPrefs.GetInt("mission", 0);
-        currentMissionNumber = 0; //TODO
-        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", 0);
+        isTutorialActivated = PlayerPrefs.GetInt("tutorialActivated", MissionInformationController.Instance.ShouldTutorialBeActivated(currentMissionNumber));
+        isTutorialActivated = 1;
         
         //Initialize ui text resource counters
         uiResourcesTextMap = new Dictionary<ResourceEnum, TMP_Text> {
