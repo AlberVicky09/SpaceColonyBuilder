@@ -62,7 +62,8 @@ public abstract class GathererBehaviour : ActionUIController_v2
             previousGatheredOre = currentGatheredOre.gameObject;
             currentGatheredOre  = null;
         }
-        
+
+        TryStopRetreatingCoroutine();
         TryStopGatheringCoroutine();
         
         timeSinceStart = 0f;
@@ -152,6 +153,12 @@ public abstract class GathererBehaviour : ActionUIController_v2
                 agent.isStopped = true;
                 DisplayAction(GameControllerScript.Instance.missingResourceSpriteDictionary[resourceGatheringType]);
                 yield return new WaitUntil(() => !CheckIfResourceIsAtMaximum());
+                //Ensure coroutine hasnt been stopped
+                if (isGatheringStopping) {
+                    isGatheringStopping = false;
+                    coroutineInterrupted = true;
+                    yield break;
+                }
                 //Reset icon
                 UpdateActionIconWithoutDisplaying(GameControllerScript.Instance.resourceSpriteDictionary[resourceGatheringType]);
                 agent.isStopped = false;
