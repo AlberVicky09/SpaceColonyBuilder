@@ -37,7 +37,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
 
     protected const float MAXIMUM_DETECTION_DISTANCE = 20f;
     protected const float MAXIMUM_FIGHTER_ATTACKING_DISTANCE = 6f;
-    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 7.5f;
+    protected const float MAXIMUM_BUILDING_ATTACKING_DISTANCE = 8.5f;
     
     protected Coroutine currentShootingCoroutine;
     
@@ -82,6 +82,11 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
 
                     //If chasing low priority (base), check for enemies just in case (its more priority)
                     case FighterStatesEnum.ChasingLowPriority:
+                        if (currentActionImage.sprite !=
+                                GameControllerScript.Instance.fighterActionsDictionary[FighterStatesEnum.ChasingLowPriority]) {
+                            DisplayAction(GameControllerScript.Instance.fighterActionsDictionary[FighterStatesEnum.ChasingLowPriority]);
+                        }
+                        
                         //If there are enemies on sight, change objective and go towards them
                         if (CheckForEnemiesInSight()) {
                             return;
@@ -145,15 +150,7 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
             //If enemy is detected, start chasing it
             if (Utils.DetectObjective(GameControllerScript.Instance.propDictionary[oppositeType],
                     transform, MAXIMUM_DETECTION_DISTANCE, ref objectiveGO)) {
-                //Set state
-                prevState = currentState;
-                UpdateState(FighterStatesEnum.Chasing);
-                currentObjectiveType = oppositeType;
-                
-                //Force timer to check for enemies just in case is near enough to shoot
-                timeSinceStart = 0f;
-                timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
-                UpdateFighterDestination(objectiveGO.transform.position);
+                StartChasingEnemy();
 
                 //Stop current shooting coroutine if needed
                 try { StopCoroutine(currentShootingCoroutine); } catch {}
@@ -177,6 +174,11 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
         
         //Start shooting to objective until dead
         while (GameControllerScript.Instance.propDictionary[currentObjectiveType.Value].Contains(objectiveGO)) {
+            if (Vector3.Distance(transform.position, objectiveGO.transform.position) >
+                    MAXIMUM_FIGHTER_ATTACKING_DISTANCE + 1) {
+                StartChasingEnemy();
+            }
+
             //Variables to avoid waiting unnecesarily
             float timer = 0f;
             
@@ -199,6 +201,11 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
                     break;
                 }
 
+                if (Vector3.Distance(transform.position, objectiveGO.transform.position) >
+                    MAXIMUM_FIGHTER_ATTACKING_DISTANCE + 1) {
+                    StartChasingEnemy();
+                }
+                
                 timer += Time.deltaTime;
                 yield return null; // Wait for next frame
             }
@@ -233,6 +240,18 @@ public abstract class FighterBehaviour : ActionUIController_v2 {
         
         //Update state
         UpdateState(FighterStatesEnum.Scouting);
+    }
+
+    public void StartChasingEnemy() {
+        //Set state
+        prevState = currentState;
+        UpdateState(FighterStatesEnum.Chasing);
+        currentObjectiveType = oppositeType;
+                
+        //Force timer to check for enemies just in case is near enough to shoot
+        timeSinceStart = 0f;
+        timeSinceLastCheckForEnemyPosition = TIME_TO_CHECK_FOR_ENEMY_POSITION;
+        UpdateFighterDestination(objectiveGO.transform.position);
     }
     
     public void StartChasingBase() {

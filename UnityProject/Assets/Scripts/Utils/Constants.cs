@@ -222,7 +222,7 @@ public static class Constants {
     public static List<int> RESOLUTIONS_VALID_HEIGHTS = new List<int>() {540, 720, 900, 1080, 1440, 2160};
     public static List<int> RESOLUTIONS_VALID_WIDTHS = new List<int>() {960, 1280, 1600, 1920, 2560, 3840};
 
-    public const float WAYPOINTS_RADIUS = 18f;
+    public const float WAYPOINTS_RADIUS = 15f;
     public const int numberOfWaypoints = 8;
     
     public static Vector3 ENEMY_CENTER = new (75f, 0, 0);
