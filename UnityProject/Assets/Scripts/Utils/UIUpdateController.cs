@@ -68,7 +68,7 @@ public class UIUpdateController : MonoBehaviour {
                     if (missingResourcesFlags[resourceType]) {
                         GameControllerScript.Instance.missionController.DisplayEndGameCanvas(Constants.LOSE_GAME_TEXT);
                     //Else, alert the player
-                    } else if (GameControllerScript.Instance.currentMissionNumber != 0) {
+                    } else if (GameControllerScript.Instance.currentMissionNumber != 0 && resourceType != ResourceEnum.Water) {
                         GameControllerScript.Instance.ActivateAlertCanvas("Missing " + resourceType + "\nObtain some or the base will be destroyed!");
                         missingResourcesFlags[resourceType] = true;
                     }
